@@ -19,6 +19,13 @@ REQ-TARGET-03
 Existieren mehrere gültige Counterziele,
 wird der höchste gültige Countermultiplikator priorisiert.
 
+Beim Zielwechsel
+muss die Counterpriorisierung
+vollständig neu berechnet werden.
+
+Existiert kein gültiger Counter mehr,
+greift die normale Zielpriorisierung.
+
 
 REQ-TARGET-04
 
