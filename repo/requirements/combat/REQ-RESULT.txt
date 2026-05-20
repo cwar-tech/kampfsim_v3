@@ -1,2 +1,40 @@
-REQ-RESULT-01 Sieger sichtbar
-REQ-RESULT-02 Überlebende sichtbar
+========================
+REQ-RESULT.txt
+========================
+
+
+REQ-RESULT-01
+
+Der Kampfsimulator
+muss einen eindeutigen Kampfausgang erzeugen.
+
+
+REQ-RESULT-02
+
+Der Kampfausgang
+muss Gewinner und Verlierer eindeutig bestimmen.
+
+
+REQ-RESULT-03
+
+Der Kampfausgang
+muss finale Verluste beider Seiten anzeigen.
+
+
+REQ-RESULT-04
+
+Der Kampfausgang
+muss verbleibende einsatzfähige Einheiten anzeigen.
+
+
+REQ-RESULT-05
+
+Der Kampfausgang
+muss permanente Verluste
+und nicht einsatzfähige Einheiten anzeigen.
+
+
+REQ-RESULT-06
+
+Identische Kampfeingaben
+müssen identische Kampfergebnisse erzeugen.
