@@ -3,12 +3,12 @@ REQ-VALIDATION.txt
 ========================
 
 REQ-VALIDATION-01
-Alle numerischen Kampfattribute besitzen gültige Zahlenwerte.
+
+Alle Kampfeinheiten
+müssen vollständige gültige Combatattribute besitzen.
 
 
 REQ-VALIDATION-02
-Kampffähige Einheiten besitzen positiven Basisschaden.
 
-
-REQ-VALIDATION-03
-Negative Durchdringungswerte sind ungültig.
+Ungültige Combatattribute
+dürfen nicht in die Combatberechnung gelangen.
