@@ -1,2 +1,16 @@
-REQ-VOLUME-01 Volumen korrekt
-REQ-VOLUME-02 K/M/B Darstellung korrekt
+========================
+REQ-VOLUME.txt
+========================
+
+
+REQ-VOLUME-01
+
+Flotten
+müssen ein berechenbares Gesamtvolumen besitzen.
+
+
+REQ-VOLUME-02
+
+Das Volumen von Schiffen
+und Defeinheiten
+muss getrennt berechnet werden.
