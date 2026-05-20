@@ -1,2 +1,59 @@
-REQ-LOG-01 Runden sichtbar
-REQ-LOG-02 Schaden sichtbar
+========================
+REQ-LOG.txt
+========================
+
+
+REQ-LOG-01
+
+Der Kampfbericht
+muss verursachten Schaden
+pro Kampfrunde nachvollziehbar anzeigen.
+
+
+REQ-LOG-02
+
+Der Kampfbericht
+muss zerstörte Einheiten
+pro Einheitentyp nachvollziehbar anzeigen.
+
+Eigene und gegnerische Verluste
+müssen klar unterscheidbar sein.
+
+
+REQ-LOG-03
+
+Der Kampfbericht
+muss den Kampfausgang
+auf den ersten Blick erkennbar machen.
+
+
+REQ-LOG-04
+
+Der Kampfbericht
+muss verbleibende einsatzfähige Einheiten
+und Werkstatt-/Warpverluste getrennt anzeigen.
+
+
+REQ-LOG-05
+
+Der Kampfbericht
+muss deterministisch reproduzierbar sein.
+
+
+REQ-LOG-06
+
+Die Angriffspunkte eines Kampfes
+müssen als auswählbare Detailansicht verfügbar sein.
+
+
+REQ-LOG-07
+
+Eine permanente Einheitenlegende
+muss alle Einheiten
+inklusive Vor- und Nachteile anzeigen.
+
+
+REQ-LOG-08
+
+Der Kampfbericht
+muss Kampfrunden klar voneinander trennen.
