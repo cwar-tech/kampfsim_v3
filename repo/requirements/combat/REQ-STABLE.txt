@@ -1,1 +1,0 @@
-REQ-STABLE-01 Keine Stable Builds bei roten Tests
