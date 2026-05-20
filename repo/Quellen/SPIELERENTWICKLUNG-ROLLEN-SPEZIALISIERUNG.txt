@@ -1,0 +1,489 @@
+# SPIELERENTWICKLUNG / ROLLEN / SPEZIALISIERUNG / LANGZEITIDENTITÄT
+AKTUELLER STAND
+
+==================================================
+1. KERNIDENTITÄT
+STATUS: WEITGEHEND DEFINIERT
+==================================================
+
+SPIELERENTWICKLUNG SOLL:
+- langfristige Identität erzeugen
+- Veteranenkultur stärken
+- soziale Rollen ermöglichen
+- Spezialisierung fördern
+- Wissen wertvoll machen
+- Gemeinschaftsabängigkeit erzeugen
+- unterschiedliche Machtformen ermöglichen
+- operative Verwundbarkeit erhalten
+- individuelle Geschichten ermöglichen
+
+SPIELER SOLLEN NICHT:
+- nur größere Zahlen werden
+- austauschbar sein
+- alle dieselbe Rolle spielen
+- vollständig optimierbar sein
+
+WICHTIG:
+Macht ist situationsabhängig.
+Keine einzelne Machtquelle soll automatisch alles dominieren.
+
+BEISPIELE:
+- Kampfkraft ohne Versorgung = temporär
+- Sicht ohne Schlagkraft = begrenzt
+- Wirtschaft ohne Schutz = verwundbar
+- Organisation ohne Spezialisten = ineffizient
+- Mobilität ohne Versorgung = riskant
+
+ZIEL:
+gegenseitige Abhängigkeit zwischen Rollen.
+
+==================================================
+2. LANGFRISTIGER FORTSCHRITT
+STATUS: GRUNDSTRUKTUR DEFINIERT
+==================================================
+
+PERSISTENT:
+- Forschung
+- Gebäude
+- VIP
+- Infrastruktur
+- Spezialisierung
+- Veteranenstatus
+- Reputation
+- soziale Beziehungen
+
+NICHT PERSISTENT:
+- exakte Raumposition
+- territoriale Kontrolle
+- alte geopolitische Ordnung
+
+FORTSCHRITT SOLL:
+- langsam
+- langfristig
+- bedeutungsvoll
+sein.
+
+KEIN:
+- Seasonal-System
+- schneller Resetfortschritt
+- kurzfristiger Buildwechsel
+
+==================================================
+3. SPEZIALISIERUNG
+STATUS: TEILWEISE DEFINIERT
+==================================================
+
+VIP-SYSTEM:
+- alle 3 Stufen besondere Attributvergabe
+- Richtungsentscheidungen
+- langfristige Entwicklung
+
+MÖGLICHE SPEZIALISIERUNGEN:
+- Angriff
+- Verteidigung
+- Radar
+- Mobilität
+- Werkstatt
+- Wirtschaft
+- Transport
+- Aufklärung
+- territoriale Kontrolle
+- Reaktionsfähigkeit
+- Versorgung
+
+WICHTIG:
+Spezialisierungen sollen:
+- Stärken
+UND
+- Schwächen
+erzeugen.
+
+ZIEL:
+keine Universalbuilds.
+
+AKTUELLER STAND:
+- langfristige Exklusivität geplant
+- Energon extrem langfristig
+- VIP extrem teuer
+- nicht alles schnell maxbar
+
+OFFENE FRAGE:
+- Können absolute Langzeitspieler irgendwann trotzdem alles maxen?
+- Braucht es aktive Spezialisierungsslots oder Fokuslimits?
+
+==================================================
+4. ROLLENSTRUKTUR
+STATUS: GUTE RICHTUNG DEFINIERT
+==================================================
+
+NICHT JEDER SPIELER SOLL:
+- dieselbe Aufgabe erfüllen
+- dieselbe Rolle spielen
+
+MÖGLICHE ROLLEN:
+- Frontkämpfer
+- Verteidiger
+- Radarspieler
+- Mobilisierer
+- Logistiker
+- Wirtschaftsspieler
+- Werkstattspieler
+- Blitzkriegsspieler
+- territoriale Verteidiger
+- Aufklärer
+- Transportspieler
+- PvE-Spieler
+- Unterstützer
+
+SOZIALE ROLLEN:
+- Diplomaten
+- Organisatoren
+- Rekrutierer
+- Kriegsleiter
+- Wirtschaftskoordinatoren
+- Mobilisierungsleiter
+
+WICHTIG:
+Nicht jede Macht entsteht durch direkte Kampfkraft.
+
+==================================================
+5. SOZIALE BEDEUTUNG
+STATUS: STARK DEFINIERT
+==================================================
+
+NICHT JEDER SPIELER IST GLEICH WICHTIG.
+
+BEDEUTUNG ENTSTEHT DURCH:
+- Aktivität
+- Organisation
+- Kompetenz
+- Loyalität
+- Hilfsbereitschaft
+- strategische Relevanz
+- soziale Beziehungen
+- Zuverlässigkeit
+
+VERTEIDIGUNG:
+ist keine automatische Pflicht,
+sondern soziale Entscheidung.
+
+FRAGEN:
+- Lohnt sich die Verteidigung?
+- Ist der Spieler wichtig?
+- Ist der Spieler zuverlässig?
+- War er früher selbst hilfsbereit?
+- Ist die Position strategisch wichtig?
+
+KONSEQUENZ:
+Vertrauen wird reale soziale Währung.
+
+==================================================
+6. VETERANENSTATUS
+STATUS: GUT DEFINIERT
+==================================================
+
+VETERANENSTATUS ENTSTEHT NICHT NUR DURCH:
+- Zeit
+
+SONDERN DURCH:
+- Wissen
+- Erfahrung
+- Ruf
+- Kriegsleistungen
+- Organisation
+- bekannte Spezialisierungen
+- soziale Netzwerke
+- strategisches Verständnis
+
+WICHTIG:
+Veteranen sollen nicht automatisch unbesiegbar werden.
+
+OPERATIVE MACHT BLEIBT VERWUNDBAR.
+
+==================================================
+7. MENSCHLICHE FEHLER ALS SYSTEMKERN
+STATUS: STARK DEFINIERT
+==================================================
+
+WICHTIGER DESIGNPUNKT:
+Die Welt bleibt absichtlich:
+- fehleranfällig
+- menschlich
+- chaotisch
+
+BEISPIELE:
+- Schild vergessen
+- verspätete Mobilisierung
+- falsche Koordination
+- Fehlkommunikation
+- Schlaf
+- Panikreaktionen
+- Stressfehler
+
+ZIEL:
+keine vollständig optimierbare Welt.
+
+MENSCHLICHE INEFFIZIENZ:
+ist gewollter Stabilitätsfaktor.
+
+==================================================
+8. BLITZKRIEG / REAKTIONSKRIEG
+STATUS: TEILWEISE DEFINIERT
+==================================================
+
+BLITZKRIEG SOLL MÖGLICH SEIN.
+
+ABER:
+Flotten müssen einzeln geschickt werden.
+
+KONSEQUENZEN:
+- keine perfekte Gleichzeitsynchronisation
+- operative Staffelung
+- Reaktionsfenster bleiben bestehen
+
+BEISPIEL:
+7 Flotten
+≈ jeweils 2-4 Sekunden Versandzeit
+
+KONSEQUENZEN:
+- Verbündete können reagieren
+- zweite Verstärkungswellen möglich
+- menschliche Fehler bleiben relevant
+- Angriffe bleiben chaotisch
+
+WICHTIG:
+Perfekte mathematische Mobilisierung soll verhindert werden.
+
+OFFENE FRAGE:
+- Wie stark darf Blitzkrieg später wirklich werden?
+- Wie verhindert man Schlaf-/24h-Zwang?
+
+==================================================
+9. META / BALANCEPHILOSOPHIE
+STATUS: GRUNDHALTUNG DEFINIERT
+==================================================
+
+META IST NICHT AUTOMATISCH SCHLECHT.
+
+DOMINANTE STRATEGIEN:
+dürfen existieren.
+
+WICHTIG:
+Meta darf nicht dauerhaft statisch werden.
+
+BALANCEÄNDERUNGEN:
+- möglich
+- aber nicht zu häufig
+
+WICHTIG:
+Zu schnelle Balancepatches zerstören:
+- Veteranenwissen
+- langfristige Planung
+- Identitätsbindung
+
+BEI STARKEN BALANCEÄNDERUNGEN:
+- temporär kostenlose Umspezialisierung möglich
+
+ZIEL:
+lebende Welt statt sterile Balance.
+
+==================================================
+10. AKTIVITÄT / 24-7-PROBLEMATIK
+STATUS: TEILWEISE DEFINIERT
+==================================================
+
+AKTIVITÄT BLEIBT WICHTIG.
+
+ABER:
+Das Spiel soll eher Marathon als Sprint sein.
+
+ANNAHME:
+Extremspieler regulieren sich langfristig oft selbst durch:
+- reales Leben
+- Erschöpfung
+- Langzeitmotivation
+
+KRITISCHER PUNKT:
+Das Spiel darf nicht:
+- permanente Angst erzeugen
+- dauerhafte Schlafbestrafung erzeugen
+- totale 24/7-Pflicht erzeugen
+
+OFFEN:
+- Reicht die bestehende Verwundbarkeit aus?
+- Braucht es zusätzliche natürliche Belastungsgrenzen?
+
+==================================================
+11. WIRTSCHAFT & RESSOURCENSENKEN
+STATUS: GUTE GRUNDLAGE DEFINIERT
+==================================================
+
+RESSOURCEN FLIESSEN IN:
+- Forschung
+- Gebäude
+- Flottenbau
+- Reparaturen
+- Verteidigung
+- Transportkosten
+- Gildenspenden
+- Gildenforschung
+- Mobilität
+- Kriegskosten
+
+KOSTENSTRUKTUR:
+- Forschung exponentiell
+- Gebäude exponentiell
+- Flotten indirekt skalierend
+- Reparaturen skalieren mit Kriegsgröße
+
+PVE:
+- stärkere Gegner
+→ höhere Einnahmen
+→ höhere Reppkosten
+
+ZIEL:
+dauerhafte Wirtschaftsrelevanz.
+
+==================================================
+12. GILDENROLLEN
+STATUS: DEFINIERT
+==================================================
+
+GILDEN KÖNNEN:
+besondere Rollen vergeben.
+
+MÖGLICHE EFFEKTE:
+- tägliche Zusatz-Gildenwährung
+- organisatorische Anerkennung
+
+ZIEL:
+soziale Rollen sichtbarer machen.
+
+OFFEN:
+- Welche Rollen existieren genau?
+- Welche Rechte/Funktionen erhalten sie?
+
+==================================================
+13. NEUE SPIELER VS VETERANEN
+STATUS: TEILWEISE DEFINIERT
+==================================================
+
+VETERANEN:
+dürfen mächtig sein.
+
+ABER:
+Neue Spieler sollen trotzdem:
+- sinnvolle Rollen finden
+- relevant werden können
+- Gemeinschaftswert besitzen
+
+MÖGLICHE EINSTIEGSROLLEN:
+- Support
+- Radarhilfe
+- Logistik
+- Transport
+- PvE
+- lokale Verteidigung
+
+WICHTIG:
+Neue Spieler müssen nicht gleich stark,
+aber sinnvoll integrierbar sein.
+
+==================================================
+14. REGIONEN / GESELLSCHAFTSENTWICKLUNG
+STATUS: EMERGENT GEPLANT
+==================================================
+
+ANNAHME:
+Viele Strukturen entstehen von selbst durch:
+- Raum
+- Distanz
+- Nachbarschaft
+- Sicht
+- Fronten
+- Logistik
+- Politik
+
+MÖGLICHE FOLGEN:
+- regionale Identitäten
+- Machtzentren
+- Grenzräume
+- kulturelle Gruppen
+- Feindbilder
+- Handelsräume
+
+NICHT alles künstlich designen.
+
+==================================================
+15. AFK / RÜCKKEHRER
+STATUS: DEFINIERT
+==================================================
+
+AFK-SPIELER:
+blockieren langfristig keinen Raum.
+
+PLANETEN:
+werden nach ca. 60 Tagen oder nach Merge freigegeben.
+
+RÜCKKEHRER:
+- werden reintegriert
+- erhalten neue Platzierung
+- sollen keine aktiven Hubs zerstören
+- erhalten Teleport
+- erhalten temporären Schutzschild
+
+ZIEL:
+Persistenz ohne Weltblockierung.
+
+==================================================
+16. EXTERNE TOOLS / INFORMATIONSKRIEG
+STATUS: OFFEN
+==================================================
+
+KRITISCHER OFFENER PUNKT:
+Wie stark dürfen externe Systeme werden?
+
+BEISPIELE:
+- Discord-Bots
+- Tracker
+- Alarmtools
+- Datensammler
+- API-Auswertungen
+
+GEFAHR:
+Zu perfekte Information könnte zerstören:
+- Unsicherheit
+- Aufklärung
+- Überraschung
+- Sichtkrieg
+- Nebel des Krieges
+
+DIESER PUNKT MUSS SPÄTER GENAU ANALYSIERT WERDEN.
+
+==================================================
+17. KERNPHILOSOPHIE
+STATUS: STARK DEFINIERT
+==================================================
+
+Die Welt soll:
+- asymmetrisch
+- menschlich
+- riskant
+- chaotisch
+- sozial
+- politisch
+- langfristig
+sein.
+
+NICHT:
+- steril fair
+- perfekt optimiert
+- vollständig sicher
+- mathematisch sauber kontrollierbar
+
+VIELE "PROBLEME":
+dürfen absichtlich Teil der Welt sein.
+
+WICHTIGSTE FRAGE:
+Welche Instabilitäten zerstören die Welt
+und welche machen sie erst lebendig?

@@ -1,0 +1,3 @@
+AK-TARGET
+
+Placeholder für Targeting-Akzeptanzkriterien.

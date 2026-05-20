@@ -1,0 +1,320 @@
+##################################################
+# FLOTTENSYSTEM – TECHNISCHE KERNSTRUKTUR
+##################################################
+
+##################################################
+# ARCHITEKTURGRUNDSÄTZE
+##################################################
+
+1. Flotten sind ereignis- und zeitbasierte Zustandsobjekte.
+2. Flotten besitzen keine permanente Echtzeitsimulation.
+3. Zwischenpositionen werden nicht persistent gespeichert.
+4. Flugpositionen werden bei Bedarf mathematisch abgeleitet.
+5. Flotten bewegen sich ausschließlich im Direktflug.
+6. Es existieren keine Wegpunkte oder Flugpfadsysteme.
+7. Es existiert kein echtes aktives Interceptionsystem.
+8. Abfangen erfolgt ausschließlich über ETA-Timing.
+9. Flotten bleiben jederzeit eigenständige Objekte.
+10. Persistente Mikroschäden existieren nicht.
+
+##################################################
+# STATISCHE SCHIFFSDEFINITION
+##################################################
+
+Schifftyp
+
+- Schifftyp-ID
+  Eindeutige Referenz des Schiffs.
+
+- Name
+  Anzeigename des Schiffs.
+
+- Geschwindigkeit
+  Grundgeschwindigkeit des Schiffstyps.
+
+- Treibstoffverbrauch
+  Grundverbrauch pro Flugdistanz.
+
+- Frachtraum
+  Maximales Transportvolumen.
+
+- Schild
+  Erste Verteidigungsschicht.
+
+- Struktur
+  Tatsächliche Schiffshaltbarkeit / Hull.
+
+- Schaden
+  Angriffsstärke.
+
+- Rüstungsdurchdringung
+  Effektivität gegen Struktur/Rüstung.
+
+- Sichtwert
+  Sicht-/Aufklärungswert.
+
+- Forschungsvoraussetzung
+  Benötigte Forschung zum Freischalten.
+
+- Spezialfähigkeit
+  Optionale Spezialfunktion.
+
+##################################################
+# DYNAMISCHE FLOTTENINSTANZ
+##################################################
+
+Flotte
+
+- Flotten-ID
+  Eindeutige Flottenreferenz.
+
+- Besitzer-ID
+  Referenz auf Spieler.
+
+- Flottenzusammensetzung
+  Speicherung als:
+  Schifftyp + Anzahl.
+
+- Startkoordinaten
+  Flugstartpunkt.
+
+- Zielkoordinaten
+  Zielflugpunkt.
+
+- Startzeit
+  Zeitpunkt des Abflugs.
+
+- Ankunftszeit
+  Exakte ETA der Flotte.
+
+- Geschwindigkeitsstufe
+  Fluggeschwindigkeit in 10%-Schritten.
+
+- Missionsart
+  Aktiver Missionsmodus.
+
+- Sichtstatus
+  Aktuelle Sichtbarkeit.
+
+- Transportcontainer
+  Transportierte Ressourcen.
+
+- Gruppenangriff-ID
+  Optionale Referenz auf Gruppenangriff.
+
+##################################################
+# FLOTTENGESCHWINDIGKEIT
+##################################################
+
+Die langsamste Einheit bestimmt:
+
+- Fluggeschwindigkeit
+- ETA
+
+der gesamten Flotte.
+
+##################################################
+# TREIBSTOFFSYSTEM
+##################################################
+
+1. Reduzierte Fluggeschwindigkeit reduziert:
+   den gesamten Treibstoffverbrauch der Flotte.
+
+2. Flotten können in:
+   10%-Schritten
+   gesendet werden.
+
+Beispiele:
+
+- 10%
+- 20%
+- 30%
+...
+- 100%
+
+3. Langsame Flotten:
+   - sparen Treibstoff
+   - benötigen mehr Reisezeit
+   - erhöhen Reaktionsrisiken
+   - erhöhen ETA-Abfangrisiken
+
+##################################################
+# FLOTTENSTATUS
+##################################################
+
+Mögliche Statuswerte:
+
+- stationiert
+- unterwegs
+- angekommen
+- zurückkehrend
+- abgebrochen
+- wartend auf Gruppenangriff
+
+##################################################
+# MISSIONSARTEN
+##################################################
+
+- Angriff
+- Gruppenangriff
+- Transport
+- Stationierung/Unterstützung
+- Aufklärung
+
+##################################################
+# GRUPPENANGRIFFE
+##################################################
+
+Gruppenangriffe bestehen aus:
+
+- mehreren unabhängigen Flotten
+- mit identischer Zielzeit
+
+Wichtige Regeln:
+
+1. Jede Flotte bleibt:
+   - eigenständiges Objekt
+   - eigener Besitzer
+   - eigener Rückflug
+   - eigene Verluste
+   - eigene Reparaturen
+
+2. Alle Flotten eines Gruppenangriffs
+   müssen dieselbe exakte ETA besitzen.
+
+3. Es existieren:
+   - keine Zeitfenster
+   - keine automatische Synchronisierung
+   - keine Toleranzbereiche
+
+4. Treibstoffkosten werden:
+   pro Flotte individuell
+   anhand der gewählten Geschwindigkeit berechnet.
+
+##################################################
+# TRANSPORTSYSTEM
+##################################################
+
+Transportcontainer
+
+- Ressourcen
+- seltene Ressourcen
+- Spezialressourcen
+- Volumen
+
+Regeln:
+
+1. Ressourcen werden beim Abflug ausgewählt.
+2. Transportvolumen ist durch Lagerkapazität begrenzt.
+3. Treibstoff wird separat berechnet und abgezogen.
+4. Transporte verwenden Direktflug.
+
+##################################################
+# SICHTDARSTELLUNG
+##################################################
+
+1. Angeflogene Spieler erhalten:
+   - einen Linienindikator
+   - vom Ursprungsobjekt zum Zielobjekt.
+
+2. Nicht betroffene Spieler sehen:
+   - ein Richtungssymbol
+   - am Zielobjekt.
+
+3. Flotten zeigen:
+   - Schiffstypen
+   - Formationsdarstellung
+   - Besitzer beim Anklicken.
+
+##################################################
+# FLOTTENDARSTELLUNG
+##################################################
+
+1. Standarddarstellung:
+   - 9er-Block.
+
+2. Große Schiffe:
+   - 3er-Block.
+
+3. Mittlere Schiffe:
+   - 2er-Darstellung.
+
+4. Gemischte Darstellungen sind möglich.
+
+5. Langsame Schiffe befinden sich vorne.
+6. Schnelle Schiffe befinden sich hinten.
+
+##################################################
+# REPARATURSYSTEM
+##################################################
+
+1. Persistente HP-Zustände existieren nicht.
+
+2. Nach Kampf gilt:
+   - zerstört
+   oder
+   - vollständig funktionsfähig.
+
+3. Reparierbare Schiffe kommen:
+   - in die Werkstatt.
+
+4. Werkstattvolumen definiert:
+   maximal reparierbare Schiffskapazität.
+
+5. Übersteigende Verluste gelten als:
+   endgültig zerstört.
+
+6. Spieler wählen selbst:
+   - welche Schiffe
+   - und wie viele
+   repariert werden.
+
+7. Reparaturen entstehen:
+   - im PvE
+   - bei Defhilfe
+   - bei offensiven PvP-Angriffen.
+
+##################################################
+# WICHTIGE TECHNISCHE REGELN
+##################################################
+
+Nicht persistent speichern:
+
+- Zwischenpositionen
+- finale Geschwindigkeiten
+- finale Sichtwerte
+- finale Treibstoffkosten
+- permanente Schiffshp
+- permanente Schadenszustände
+
+Diese Werte werden abgeleitet aus:
+
+- Schifftyp
+- Flottenzusammensetzung
+- Distanz
+- Geschwindigkeitsstufe
+- Forschung
+- Passiven
+- Events
+- Spezialeffekten
+
+##################################################
+# KERNIDENTITÄT DES FLOTTENSYSTEMS
+##################################################
+
+Flotten dienen:
+
+- Mobilisierung
+- Krieg
+- Logistik
+- Versorgung
+- Sicht
+- Machtprojektion
+- Raumkontrolle
+
+Nicht:
+
+- permanenter Physiksimulation
+- Echtzeitmikromanagement
+- komplexem Pathfinding
+- persistenter Schadenssimulation

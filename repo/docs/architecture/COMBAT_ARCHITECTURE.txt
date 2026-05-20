@@ -1,0 +1,23 @@
+COMBAT ARCHITECTURE
+
+Combat
+├── Targeting
+├── Damage
+├── Overflow
+├── Loss Resolution
+├── Round Processing
+
+Targeting
+= Zielwahl
+
+Damage
+= Schadensberechnung
+
+Overflow
+= Restschadenweitergabe
+
+Loss Resolution
+= Verlustberechnung
+
+Round Processing
+= Simultanverarbeitung

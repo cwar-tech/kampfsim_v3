@@ -1,0 +1,2 @@
+REQ-RESULT-01 Sieger sichtbar
+REQ-RESULT-02 Überlebende sichtbar

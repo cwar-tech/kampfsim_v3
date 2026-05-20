@@ -1,0 +1,354 @@
+==================================================
+PVE – AKTUELLER SYSTEMSTAND
+==================================================
+
+KERNIDENTITÄT
+
+PvE ist:
+- keine getrennte Spielwelt
+- kein Dungeon-System
+- kein Themepark-Content
+
+PvE ist:
+- Teil des Universums
+- Teil der Wirtschaft
+- Teil der Raumkontrolle
+- Teil der Gildenorganisation
+- Teil der Kriegslogistik
+
+PvE erzeugt:
+- Ressourcen
+- Booster
+- Ingamewährung
+- Energon
+- Gildenpunkte
+- Spezialressourcen
+- Aktivität
+- Konflikte
+
+
+==================================================
+NORMALE PIRATEN
+==================================================
+
+Normale Piraten:
+- erscheinen im Universum
+- bewegen sich nicht
+- besitzen keine Werkstatt
+- besitzen keinen Warp
+- nutzen dieselbe Kampfmatrix wie Spieler
+
+Piratenlevel:
+1–30
+
+Die Piraten:
+- verwenden dieselben Schiffstypen wie Spieler
+- besitzen feste Flottenkonstellationen
+- besitzen variable Schiffszusammensetzungen
+- besitzen variable Kampfkraft
+
+
+==================================================
+SPAWNLOGIK
+==================================================
+
+Normale Piraten:
+Spawnradius:
+10 Lichtjahre
+
+Elitepiraten:
+Spawnradius:
+100 Lichtjahre
+
+Spawns orientieren sich primär an:
+- Hauptgebäudelevel
+- Aktivität
+- lokalen Spielern
+- Hives
+- regionalem Bedarf
+
+Grundprinzip:
+Aktive Regionen erzeugen dominantere Spawns.
+
+Inaktive Regionen:
+werden langsam von aktiven Regionen überlagert.
+
+Dadurch:
+- entstehen aktive Wirtschaftszonen
+- entstehen Gildenräume
+- entstehen natürliche Cluster
+- werden tote Räume reduziert
+
+
+==================================================
+HIVE-SPAWNLOGIK
+==================================================
+
+Elitepiraten orientieren sich am Bedarf der Hives.
+
+Beispiel:
+- große aktive Gilde → bevorzugt hohe Elitelevel
+- kleine neue Gilde → bevorzugt niedrigere Elitelevel
+
+Spawngewichtung:
+- 70% Hivebedarf
+- 30% globale Weltbedürfnisse
+
+Dadurch:
+- bleibt lokale Progression möglich
+- bleibt Konkurrenz erhalten
+- bleibt die Welt dynamisch
+
+
+==================================================
+PIRATENVARIATION
+==================================================
+
+Piraten besitzen:
+- variable Kampfkraft
+- variable Schiffszusammensetzungen
+
+Kampfkraft:
+±25%
+
+Schiffszusammensetzung:
+±20%
+
+Dadurch:
+- bleibt PvE interpretierbar
+- entstehen Risikoentscheidungen
+- wird stumpfe Optimierung reduziert
+- bleibt Spionage relevant
+
+
+==================================================
+PIRATENSPIONAGE
+==================================================
+
+Piraten können spioniert werden.
+
+Spionage zeigt:
+- Schiffstypen
+- Mengen
+- Kampfkraft
+- Komposition
+
+Dadurch:
+- wird Information zur Ressource
+- entstehen Scoutrollen
+- entstehen Risikoentscheidungen
+
+
+==================================================
+ELITEPIRATEN (EP)
+==================================================
+
+Elitepiraten:
+- benötigen Gruppenangriffe
+- können nicht solo angegriffen werden
+- erzwingen Gildenkoordination
+
+Exploitverhinderung:
+- Teilnehmer werden beim Start fixiert
+- Abspringen macht den Angriff ungültig
+
+Elitepiraten besitzen:
+5 Stufen
+
+Levelaufstieg:
+- ungefähr alle 2 erfolgreichen Abschüsse
+
+Wenn Aktivität stoppt:
+- sinkt EP-Level alle 5 Minuten um 1
+
+Von Level 5 auf Level 1:
+ca. 20 Minuten
+
+Dadurch:
+- bleibt Aktivität notwendig
+- entstehen Farmreviere
+- entstehen Konkurrenzräume
+
+
+==================================================
+ELITEPIRATEN-RESPAWN
+==================================================
+
+Respawnzeit:
+1–45 Sekunden
+
+Wenn alle EPs in einem Bereich verschwinden:
+- spawnen neue EPs im gesamten Bereich
+
+Dadurch:
+- können Spawnzyklen beeinflusst werden
+- können Gegnerregionen gestört werden
+- entsteht wirtschaftlicher Druck
+
+
+==================================================
+EP-BELOHNUNGEN
+==================================================
+
+EPs droppen:
+- Energon
+- Gildenpunkte
+- Booster
+- Ingamewährung
+- Spezialressourcen
+- Items
+
+Booster:
+- allgemein
+- spezialisiert
+
+Ingamewährung:
+- selten bei normalen PvE
+- garantiert bei Elitepiraten
+
+
+==================================================
+GILDENPUNKTE
+==================================================
+
+Elitepiraten geben:
+Gildenpunkte
+
+Menge:
+entspricht ungefähr dem EP-Level
+
+Verwendung:
+- Gildenrang
+- Gildenshop
+- Teleporter
+- zukünftige Systeme
+
+
+==================================================
+PVE-REPARATUR
+==================================================
+
+Bei normalem PvE:
+50% beschädigter Schiffe
+werden automatisch repariert.
+
+Ziel:
+- PvE aktiv halten
+- PvP als Hauptverlustrisiko behalten
+
+
+==================================================
+PERSISTENTE EP-KÄMPFE
+==================================================
+
+Elitepiraten heilen sich nicht.
+
+Wenn ein Angriff scheitert:
+- bleiben Schäden bestehen
+
+Dadurch:
+- können EPs gestohlen werden
+- können große Spieler vorbereiten
+- können kleine Spieler finishen
+- entsteht soziale Zusammenarbeit
+
+
+==================================================
+PVE-ROLLEN DER SCHIFFE
+==================================================
+
+Unterschiedliche Schiffe:
+- farmen unterschiedliche Inhalte effizient
+
+Dadurch:
+- entstehen PvE-Metas
+- entstehen Spezialisierungen
+- bleibt Flottenvielfalt relevant
+
+
+==================================================
+PVE-LATEGAME
+==================================================
+
+Im Lategame:
+werden Spieler stark genug,
+um fast alles mit leichten Jägern zu farmen.
+
+Das Ziel verschiebt sich zu:
+- Geschwindigkeit
+- Werkstattfüllung
+- Ressourcengenerierung
+- Boosterfarming
+- PvP-Vorbereitung
+
+
+==================================================
+SICHTSYSTEM
+==================================================
+
+Ein spezielles Gebäude:
+deckt Elitepiraten für 30 Minuten auf.
+
+Radius:
+skalierbar durch:
+- Gebäude
+- Forschung
+
+Dadurch:
+- entstehen Radarhives
+- entstehen Scoutrollen
+- entsteht Informationskrieg
+
+
+==================================================
+ANTI-CHEAT
+==================================================
+
+Automatisierung:
+wird aktiv überwacht.
+
+Geplante Maßnahmen:
+- Datenanalyse
+- Mustererkennung
+- Warnungen
+- Banns
+- Löschung
+
+Cheating:
+wird ernst genommen.
+
+
+==================================================
+NO-STAMINA-PHILOSOPHIE
+==================================================
+
+Es existiert:
+- kein Stamina
+- kein Energiesystem
+- keine künstliche Spielzeitbegrenzung
+
+Natürliche Limits:
+- Flugzeit
+- Werkstatt
+- Sprit
+- Organisation
+- Raum
+- Konkurrenz
+- Aktivität
+
+
+==================================================
+OFFENE PUNKTE
+==================================================
+
+- finale Spawnmathematik
+- genaue EP-Schiffskonstellationen
+- Spezial-EP-Typen
+- Sichtbarkeit aktiver EP-Angriffe
+- PvP um PvE-Räume
+- Spawnwahrscheinlichkeiten
+- konkrete Belohnungskurven
+- Anti-Bot-Systeme
+- finale Wirtschaftsbalancierung
+- PvE-Kalkulator
+- PvE-Meta-Stabilität

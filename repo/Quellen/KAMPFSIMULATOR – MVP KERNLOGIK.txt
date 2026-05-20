@@ -1,0 +1,399 @@
+==================================================
+KAMPFSIMULATOR – MVP KERNLOGIK
+==================================================
+
+
+==================================================
+1. KAMPFPHILOSOPHIE
+==================================================
+
+- Kämpfe laufen als ultraschnelle interne Simulation.
+- Keine sichtbaren Kampfrunden.
+- Kämpfe sollen in maximal 2–4 Sekunden berechnet werden.
+- Der Raumzustand ist persistent.
+- Zeitlich versetzte Angriffe greifen auf den aktualisierten Zustand zu.
+
+
+Beispiel:
+
+04:05:004 Angriff 1
+04:05:006 Angriff 2
+
+Angriff 2 kämpft gegen den Zustand nach Angriff 1.
+
+
+==================================================
+2. KAMPFENDE
+==================================================
+
+Ein Kampf endet wenn:
+- eine Seite keine Einheiten mehr besitzt.
+
+
+==================================================
+3. FOKUSLOGIK
+==================================================
+
+Priorisierung:
+
+1. Ziel mit größtem Vorteil.
+2. Falls kein Vorteil existiert:
+   Ziel mit höchsten Max-HP.
+
+
+Dadurch entstehen:
+- Frontlinien
+- Fokusfeuer
+- Eskorten
+- Schutzflotten
+- Tankrollen
+
+
+==================================================
+4. SCHADENSFORMEL
+==================================================
+
+Finaler Schaden:
+
+Basis-Schaden
+× Typbonus
+× Durchdringung
+× Rüstungsreduktion
+
+
+==================================================
+5. RÜSTUNG
+==================================================
+
+Rüstung reduziert eingehenden Schaden prozentual.
+
+
+Beispiel:
+
+1000 Schaden
+bei 10% Rüstung
+
+=
+900 effektiver Schaden
+
+
+==================================================
+6. DURCHDRINGUNG
+==================================================
+
+Durchdringung erhöht ausgehenden Schaden prozentual.
+
+
+Beispiel:
+
+1000 Schaden
+mit 10% Durchdringung
+
+=
+1100 Schaden
+
+
+==================================================
+7. TYPBONI
+==================================================
+
+Typboni liegen typischerweise bei:
+
+150% – 600%
+
+in 50er-Schritten.
+
+
+Beispiele:
+- 250%
+- 350%
+- 450%
+- 600%
+
+
+==================================================
+8. SCHADENSÜBERTRAGUNG
+==================================================
+
+Wenn ein Zieltyp zerstört wird:
+
+- 5% des verbleibenden Schadens werden verworfen.
+- 95% werden übertragen.
+
+
+Dadurch:
+- keine unendlichen Kettenvernichtungen
+- Tanking bleibt relevant
+- Fokus bleibt stark
+
+
+==================================================
+9. SCHADENSSTREUUNG
+==================================================
+
+Schaden wird:
+- fokussiert
+- aber teilweise gestreut.
+
+Die genaue mathematische Formel ist noch offen.
+
+Der Richtwert liegt aktuell bei:
+
+30–60% Streuung.
+
+
+Die Streuung wirkt:
+- auf alle Ziele
+- auf alle Zieltypen.
+
+
+Ziel:
+- Werkstattdruck
+- beschädigte Fronten
+- keine reine Burst-Meta
+
+
+==================================================
+10. HP-SYSTEM
+==================================================
+
+Es existieren:
+- keine persistenten Einzel-HP-Werte.
+
+Nach dem Kampf:
+- alle überlebenden Schiffe wieder auf Max-HP.
+
+
+Schiffszustände:
+
+- kampffähig
+- Werkstatt
+- permanent zerstört
+
+
+==================================================
+11. WERKSTATT
+==================================================
+
+Werkstattvolumen basiert auf:
+- maximaler Flottengröße
+- Gebäude
+- Forschung
+- VIP
+- Energon
+- Gildentechnologien
+
+
+Mindestregel:
+
+Werkstatt muss immer mindestens:
+1.5x maximale Flottengröße besitzen.
+
+
+Normalziel:
+1–2 Stunden aktives Farming bevor Werkstatt kritisch wird.
+
+
+==================================================
+12. WERKSTATTÜBERLAUF
+==================================================
+
+Werkstatt wird bis Maximum gefüllt.
+
+Alles darüber:
+permanenter Verlust.
+
+
+Beispiel:
+
+Werkstatt frei:
+2000
+
+Abyssus:
+2400
+
+=
+Abyssus permanent zerstört.
+
+
+==================================================
+13. REPARATURSYSTEM
+==================================================
+
+- nur eine Reparaturlinie
+- alle gewählten Schiffstypen werden gleichzeitig fertig
+- einzelne Typen können:
+  - priorisiert
+  - deaktiviert
+  - ausgeschlossen werden
+
+
+Reparaturzeit:
+
+70% der Produktionszeit.
+
+
+Produktionszeitreduktion beeinflusst Reparatur NICHT.
+
+
+Reparatur kann:
+- durch Reparaturboni
+- Booster
+- Gildenhilfe
+
+optimiert werden.
+
+
+==================================================
+14. GILDENHILFE
+==================================================
+
+- jede Hilfe reduziert Reparaturzeit um 1%
+- jedes Level der Gildenhalle erlaubt:
+  1 weiteres unterstützendes Mitglied
+
+
+==================================================
+15. PvP / PvE
+==================================================
+
+PvP und PvE verwenden:
+- dieselbe Kampfmathematik
+- dieselben Counter
+- dieselbe Fokuslogik
+
+
+Unterschied:
+
+PvE besitzt:
+- keinen Warp
+
+
+Nur:
+- Werkstattvolumen
+
+
+==================================================
+16. PvE-VERLUSTE
+==================================================
+
+Beschädigte Schiffe:
+→ Werkstatt
+
+Werkstatt voll:
+→ permanente Verluste
+
+
+==================================================
+17. FLUGSYSTEM
+==================================================
+
+Flotten besitzen Aktionen:
+
+- Angriff
+- Unterstützung
+- Handel
+- Transport
+- PvE
+- Elitepiraten
+- Verteidigung
+- Rückflug
+
+
+Hinflug:
+- kann abgebrochen werden.
+
+
+==================================================
+18. BOMBERROLLE
+==================================================
+
+Bomber sind:
+- Defbrecher
+- Belagerungsschiffe
+- ineffizient gegen normale Flotten
+
+
+==================================================
+19. DEFEINHEITEN
+==================================================
+
+Defeinheiten:
+- stationäre Verteidigung
+- hohe Kampfdichte
+- starke stationäre Effizienz
+
+
+Bomber besitzen starke Bonuswirkung gegen Def.
+
+
+==================================================
+20. SCHIFFE UND ROLLEN
+==================================================
+
+Leichter Jäger
+→ Abfangjäger / schnelle Reaktion
+
+Mittlerer Jäger
+→ Allroundkampfschiff
+
+Schwerer Jäger
+→ Frontkampfschiff
+
+Sternenkreuzer
+→ Linienkampfschiff
+
+Fregatte
+→ Unterstützungs-Großkampfschiff
+
+Ionenträger
+→ schwere Spezialkampfeinheit
+
+Zerstörer
+→ Durchbruchsschiff
+
+Bomber
+→ Defbrecher
+
+Transporter
+→ Logistik
+
+Abyssus
+→ Superschiff / mobile Belagerungsplattform
+
+
+==================================================
+21. OFFENE PUNKTE
+==================================================
+
+Noch offen für spätere Tests:
+
+- exakte Streuungsformel
+- exakte Schiffsvernichtungsformel
+- Plünderungsformeln
+- Energon-Mathematik
+- Schildsystem
+- Feintuning der Balance
+
+
+==================================================
+22. KERNIDENTITÄT DES SYSTEMS
+==================================================
+
+Das Kampfsystem basiert auf:
+
+- Persistenz
+- Timing
+- Fokus
+- Werkstattdruck
+- Kriegsökonomie
+- Mobilität
+- koordinierte Angriffswellen
+- langfristige Verwundbarkeit
+- operative Kriegsführung
+
+Nicht auf:
+- RNG
+- kritischen Treffern
+- Burst-Onehits
+- isolierten Kampfinstanzen

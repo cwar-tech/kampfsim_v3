@@ -1,0 +1,62 @@
+========================
+REQ-TARGET.txt
+========================
+
+REQ-TARGET-01
+
+Nur feindliche Einheitentypen dürfen anvisiert werden.
+
+
+REQ-TARGET-02
+
+Existiert kein gültiger Counter,
+wird der feindliche Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert.
+
+
+REQ-TARGET-03
+
+Existieren mehrere gültige Counterziele,
+wird der höchste gültige Countermultiplikator priorisiert.
+
+
+REQ-TARGET-04
+
+Besitzen mehrere gültige Ziele denselben Countermultiplikator,
+wird der Zieltyp mit dem geringsten Gesamtvolumen priorisiert.
+
+
+REQ-TARGET-05
+
+Beim Zielwechsel
+muss die Zielpriorisierung vollständig neu berechnet werden.
+
+
+REQ-TARGET-06
+
+Overflow-Schaden darf innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
+
+
+REQ-TARGET-07
+
+Gleiche Kampfsituationen
+müssen immer dieselbe Zielauswahl erzeugen.
+
+
+REQ-TARGET-08
+
+Existiert kein feindlicher Zieltyp mehr,
+endet die Zielsuche.
+
+
+REQ-TARGET-09
+
+Ein Zielwechsel erfolgt erst,
+wenn der aktuelle Zieltyp vollständig zerstört wurde.
+
+
+REQ-TARGET-10
+
+Existieren verteidigende Defeinheiten,
+werden diese vor Schiffen priorisiert.

@@ -1,0 +1,16 @@
+PROJECT MAP
+
+docs/
+= Vision, Prozess, Architektur, Domain
+
+requirements/
+= Fachliche Regeln
+
+acceptance/
+= Prüfkriterien/Akzeptanzkriterien
+
+tests/rules/
+= Fachliche Regeltests
+
+tests/regression/
+= Regressions- und Gameplaytests

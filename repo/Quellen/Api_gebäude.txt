@@ -1,0 +1,151 @@
+# GEBÄUDESTRUKTUR – TECHNISCHE KERNARCHITEKTUR
+
+##################################################
+# ARCHITEKTURGRUNDSÄTZE
+##################################################
+
+1. Gebäude sind accountgebunden.
+2. Gebäude bleiben bei Teleport/Merge erhalten.
+3. Jeder Gebäudetyp existiert pro Spieler genau einmal.
+4. Gebäude besitzen keine freie Platzierung.
+5. Gebäude besitzen keine Zerstörungszustände.
+6. Gebäude besitzen keine permanente Echtzeitsimulation.
+7. Gebäude bestehen aus:
+   - statischer Gebäudedefinition
+   - dynamischer Spielerinstanz
+8. Ableitbare Werte werden nicht persistent gespeichert.
+9. Passiven und Formeln werden zentral definiert.
+10. Aktive Fähigkeiten sind optionale Modulerweiterungen.
+
+##################################################
+# STATISCHE GEBÄUDEDEFINITION
+##################################################
+
+Gebäudetyp
+
+- Gebäudetyp-ID
+  Eindeutige Referenz des Gebäudetyps.
+
+- Gebäudename
+  Anzeigename des Gebäudes.
+
+- Gebäudebeschreibung
+  Beschreibung/Funktion des Gebäudes.
+
+- Maxlevel
+  Maximale Ausbaustufe.
+
+- Kostenformel
+  Zentrale Berechnungslogik der Ausbaukosten.
+
+- Bauzeitformel
+  Zentrale Berechnungslogik der Ausbauzeit.
+
+- Bonusdefinition
+  Zentrale Definition aller Passiven/Boni.
+
+- Fähigkeitsdefinition
+  Optionale aktive Fähigkeit.
+
+##################################################
+# DYNAMISCHE SPIELERINSTANZ
+##################################################
+
+Spielergebäude
+
+- Gebäude-ID
+  Eindeutige Instanz-ID.
+
+- Gebäudetyp-ID
+  Referenz auf Gebäudedefinition.
+
+- Besitzer-ID
+  Referenz auf Spieler.
+
+- aktuelles Level
+  Aktueller Ausbauzustand.
+
+- Bauendezeit
+  Endzeit laufender Ausbauprozesse.
+
+- letzter Fähigkeitseinsatz
+  Zeitpunkt der letzten Aktivierung einer Gebäudefähigkeit.
+
+##################################################
+# PRODUKTIONSSTRUKTUR
+##################################################
+
+Produktionskategorien:
+
+- Gebäudebau
+- Forschung
+- Schiffproduktion
+- Verteidigungsproduktion
+
+Jede Kategorie besitzt:
+
+- Produktionsslot 1
+  Standardslot.
+
+- Produktionsslot 2
+  Permanenter Zusatzslot durch VIP-Freischaltung.
+
+##################################################
+# AKTIVE FÄHIGKEITEN
+##################################################
+
+Gebäude können optional aktive Fähigkeiten besitzen.
+
+Beispiel:
+Radarzentrum.
+
+Fähigkeitsstruktur:
+
+- Fähigkeitsname
+- Cooldown
+- Effektdefinition
+- Aktivierungsdauer
+- Reichweite
+- Zieltyp
+
+##################################################
+# WICHTIGE TECHNISCHE REGELN
+##################################################
+
+Nicht persistent speichern:
+
+- finale Bonuswerte
+- finale Bauzeiten
+- finale Produktionswerte
+- finale Reichweiten
+- finale Passivwerte
+
+Diese Werte werden abgeleitet aus:
+
+- Gebäudetyp
+- aktuellem Level
+- Formeln
+- Passivdefinitionen
+- Eventmodifikatoren
+- VIP
+- Booster
+- Forschung
+
+##################################################
+# KERNIDENTITÄT DES SYSTEMS
+##################################################
+
+Das Gebäudesystem dient:
+
+- langfristiger Progression
+- Infrastrukturentwicklung
+- Produktionssteuerung
+- Sicht-/Mobilitätsunterstützung
+- strategischer Spezialisierung
+
+Nicht:
+
+- freier Platzierung
+- Mikromanagement
+- permanenter Echtzeitsimulation
+- komplexer Gebäudeverwaltung

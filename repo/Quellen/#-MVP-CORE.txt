@@ -1,0 +1,29 @@
+# MVP-CORE
+
+1. Persistente Serverwelt
+
+2. Spielerbasen / Planeten
+
+3. Ressourcenwirtschaft
+
+4. Langfristige Bauzeiten
+
+5. Forschungsfortschritt
+
+6. Flottenbau
+
+7. Einfaches PvP-System
+
+8. Schild-/Verwundbarkeitssystem
+
+9. Gilden
+
+10. Chats & Pushnotifications
+
+11. Raum-/Nachbarschaftssystem
+
+12. Rankings & Events
+
+13. Aktive Ressourcengewinnung
+
+14. Grundlegende Verteidigungsmechaniken

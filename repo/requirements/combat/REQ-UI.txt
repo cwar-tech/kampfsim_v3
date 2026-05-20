@@ -1,0 +1,2 @@
+REQ-UI-01 Responsive UI
+REQ-UI-02 Keine abgeschnittenen Karten

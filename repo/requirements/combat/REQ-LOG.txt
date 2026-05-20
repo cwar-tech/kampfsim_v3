@@ -1,0 +1,2 @@
+REQ-LOG-01 Runden sichtbar
+REQ-LOG-02 Schaden sichtbar

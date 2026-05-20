@@ -1,0 +1,8 @@
+COMBAT DESIGN GOALS
+
+- Fokusfeuer soll gefährlich sein
+- Kleine Spezialschiffe sollen riskant sein
+- Defeinheiten sollen Schutzwirkung besitzen
+- Counter sollen strategisch relevant sein
+- Overflow soll Dominanz sichtbar machen
+- Kämpfe sollen reproduzierbar sein

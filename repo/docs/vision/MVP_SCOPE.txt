@@ -1,0 +1,17 @@
+MVP SCOPE
+
+IN:
+- Combat Simulator
+- Damage Pipeline
+- Targeting
+- Overflow
+- Def Priorisierung
+- Counterlogik
+- Reproduzierbare Kämpfe
+
+OUT:
+- Multiplayer Targeting
+- Allianzlogik
+- Wirtschaft
+- Persistenz
+- UI Finalisierung

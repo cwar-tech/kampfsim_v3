@@ -1,0 +1,13 @@
+ENGINEERING PROCESS
+
+1. Jede REQ besitzt mindestens ein AK.
+2. Jedes AK muss prüfbar sein.
+3. Jeder Test muss auf AK oder REQ zurückführbar sein.
+4. Keine impliziten Gameplayregeln.
+5. Neue Erkenntnisse:
+   - bestehende REQ erweitern
+   ODER
+   - neue REQ erstellen.
+6. Keine Vermischung mehrerer Fachdomänen.
+7. Änderungen zuerst konsolidieren.
+8. MVP-Scope aktiv begrenzen.

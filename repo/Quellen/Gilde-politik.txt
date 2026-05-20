@@ -1,0 +1,566 @@
+# GILDEN / SOZIALSTRUKTUREN / POLITIK – AKTUELLER STAND
+
+## KERNIDENTITÄT
+
+Das Gilden- und Politiksystem soll keine künstlich gescriptete
+Sozialsimulation sein.
+
+Das Spiel erzeugt:
+- Raum
+- Verwundbarkeit
+- Sichtabhängigkeit
+- Mobilisierung
+- Logistik
+- territoriale Bedeutung
+- Persistenz
+- langfristige Erinnerung
+
+Die eigentliche Gesellschaft entsteht daraus:
+durch die Spieler selbst.
+
+Das Ziel ist nicht:
+„soziale Features“.
+
+Sondern:
+eine glaubwürdige persistente galaktische Gesellschaft.
+
+--------------------------------------------------
+1. GRUNDPRINZIP DER GILDEN
+--------------------------------------------------
+
+Gilden sind keine optionalen Komfortsysteme.
+
+Sie sind:
+- Schutznetzwerke
+- Informationsnetzwerke
+- Mobilisierungsstrukturen
+- soziale Identitäten
+- organisatorische Machtstrukturen
+
+Gemeinschaft entsteht:
+nicht durch Zwang,
+sondern weil Isolation gefährlich und ineffizient wird.
+
+Die stärkste Macht entsteht langfristig nicht nur durch:
+- Geld
+- Kampfkraft
+- Zahlen
+
+sondern durch:
+- Organisation
+- Loyalität
+- Aktivität
+- Mobilisierung
+- Sichtnetzwerke
+- Vertrauen
+- langfristige Gemeinschaft
+
+--------------------------------------------------
+2. GILDENGRÜNDUNG & REKRUTIERUNG
+--------------------------------------------------
+
+Rekrutierung wird vollständig spielergetrieben organisiert.
+
+Mögliche Wege:
+- globale Chats
+- regionale Chats
+- direkte Ansprache im Universum
+- sichtbare gildenlose Spieler
+- externe Plattformen
+  - Discord
+  - Socials
+  - Communities
+
+Es gibt:
+kein automatisiertes Matchmaking-System.
+
+Dadurch entstehen:
+- bekannte Recruiter
+- soziale Netzwerke
+- Rufsysteme
+- aktive Gemeinschaften
+
+Neue Spieler sollen:
+selbst Gemeinschaften finden,
+die zu ihrem Spielstil passen.
+
+--------------------------------------------------
+3. GILDENSTRUKTUR
+--------------------------------------------------
+
+Fixe Systemrollen:
+
+- Admin
+- Vizeadmin
+
+Vizeadmin ist verpflichtend.
+
+Wenn:
+- Admin
+UND
+- Vizeadmin
+
+länger als 7 Tage offline sind,
+
+werden automatisch:
+neue Admins/Vizeadmins bestimmt.
+
+Neue Führung:
+- längste aktive Mitgliedschaft
+- nicht länger als 7 Tage AFK
+
+ZIEL:
+- Gilden sterben nicht durch einzelne Personen
+- Gemeinschaft überlebt Gründer
+- Führung bleibt aktivitätsgebunden
+
+--------------------------------------------------
+4. SPIELERDEFINIERTE ROLLEN
+--------------------------------------------------
+
+Alle weiteren Rollen:
+werden vollständig von Spielern definiert.
+
+Spieler bestimmen selbst:
+- Rollennamen
+- Aufgaben
+- Rechte
+- Verantwortlichkeiten
+- interne Bedeutung
+
+Beispiele:
+- Kriegsmeister
+- Sammlerkönig
+- Schildwächter
+- Logistikoffizier
+- Grenzkommandant
+- Piratenjäger
+
+Die Rollen entstehen:
+sozial,
+nicht durch starres Gamedesign.
+
+Dadurch entstehen:
+unterschiedliche Gildenkulturen.
+
+--------------------------------------------------
+5. ROLLENBONI & GILDENWÄHRUNG
+--------------------------------------------------
+
+Bestimmte Rollen erhalten:
+fixe tägliche Gildenwährungsboni.
+
+Beispiele:
+- Admin → 400
+- Vize → 300
+- weitere Rollen abhängig von:
+  - PvE-Beitrag
+  - Elitepiratenaktivität
+  - Gildenbeteiligung
+
+Die Boni sollen:
+- soziale Leistung belohnen
+- organisatorische Rollen wertvoll machen
+- Nicht-PvP-Spieler relevant machen
+
+Die Boni dürfen:
+keine extremen Machtgefälle erzeugen.
+
+--------------------------------------------------
+6. GILDENWÄHRUNG
+--------------------------------------------------
+
+Gildenwährung entsteht durch:
+- tägliche Logins
+- Ressourcenspenden
+- Elitepiraten
+- Gruppenaktivitäten
+- PvE-Koordination
+
+Gildentechnologien können:
+Spendenlimits oder Effizienz erhöhen.
+
+Die Gildenwährung dient:
+als Gemeinschaftsressource.
+
+Sie kann genutzt werden für:
+- Utility
+- Infrastruktur
+- Schilde
+- Spezialitems
+- Mobilitätsvorteile
+- organisatorische Vorteile
+
+Die stärksten Vorteile sollen:
+nicht rein monetär sein.
+
+--------------------------------------------------
+7. GILDENSHOP
+--------------------------------------------------
+
+Gilden können:
+Items/Freischaltungen kaufen,
+welche Mitglieder anschließend nutzen oder beziehen können.
+
+Dadurch entstehen:
+- Gemeinschaftsentscheidungen
+- Priorisierung
+- interne Politik
+- soziale Organisation
+
+Mögliche Inhalte:
+- Schilde
+- Utility
+- Infrastruktur
+- Spezialmobilität
+- kosmetische Inhalte
+
+--------------------------------------------------
+8. SCHILDSYSTEM
+--------------------------------------------------
+
+Sehr wichtiges Prinzip:
+
+Spieler sollen:
+dauerhafte Schutzmöglichkeiten haben,
+ohne Echtgeldzwang.
+
+Möglichkeit:
+- 1-Tages-Schilde
+- 3-Tages-Schilde
+
+kaufbar über:
+- Gildenwährung
+- Aktivität
+- Gemeinschaftsbeteiligung
+
+ZIEL:
+- Casualschutz
+- Langzeitmotivation
+- kein Dauerschild-Paywall-Zwang
+
+ABER:
+Schilde dürfen Krieg nicht bedeutungslos machen.
+
+Aktive Expansion,
+Frontspiel
+und territoriale Kontrolle
+bleiben risikobehaftet.
+
+--------------------------------------------------
+9. GILDENLEVEL
+--------------------------------------------------
+
+Gilden besitzen:
+eigene Fortschrittsstufen.
+
+Bestimmte Inhalte/Freischaltungen:
+benötigen:
+- Gildenlevel
+- Aktivität
+- langfristige Entwicklung
+
+Dadurch entwickelt sich:
+die Gilde selbst
+als persistente Entität.
+
+--------------------------------------------------
+10. RESSOURCENSPENDEN
+--------------------------------------------------
+
+Es gibt:
+keine zentralen Shared-Banks.
+
+Ressourcenspenden fließen direkt in:
+- Forschungen
+- Fortschritt
+- Gildenentwicklung
+
+Die Ressourcen gelten danach:
+als verbraucht.
+
+ZIEL:
+- weniger Verwaltungsstress
+- weniger Missbrauch
+- weniger Bürokratie
+- weniger Inaktivitätsprobleme
+
+--------------------------------------------------
+11. VERTRAUEN & INFORMATION
+--------------------------------------------------
+
+Vertrauen ist:
+eine zentrale Machtressource.
+
+Das Spiel schützt Spieler nicht vollständig vor:
+- Verrat
+- Insiderinformationen
+- Spionage
+- Manipulation
+
+Insiderdiebstahl oder Informationsleaks:
+können nicht komplett verhindert werden.
+
+Dadurch entstehen:
+- Vertrauenskulturen
+- Paranoia
+- Sicherheitsdenken
+- soziale Loyalität
+- bekannte Verräter
+- historische Erinnerung
+
+Informationskontrolle bleibt:
+spielergetrieben.
+
+Wer Informationen sammelt,
+entscheidet selbst:
+mit wem diese geteilt werden.
+
+--------------------------------------------------
+12. INNERE SICHERHEITSSTRUKTUREN
+--------------------------------------------------
+
+Keine offiziellen Spielsysteme.
+
+Sondern:
+soziale Reaktionen der Gemeinschaft.
+
+Zum Beispiel:
+- neue Mitglieder erhalten nicht sofort sensible Infos
+- strategische Planung bleibt bei Veteranen
+- Diplomatie läuft über Vertrauenspersonen
+- Spieler werden getestet oder beobachtet
+
+Diese Strukturen entstehen:
+natürlich durch die Weltlogik.
+
+--------------------------------------------------
+13. GILDENWECHSEL
+--------------------------------------------------
+
+Spieler können:
+Gilden jederzeit verlassen.
+
+ABER:
+- 24 Stunden Wartezeit
+- 50% Verlust der Gildenwährung
+
+ZIELE:
+- Gildenhopping reduzieren
+- politische Stabilität fördern
+- Loyalität wertvoll machen
+- opportunistische Wechsel erschweren
+
+Gleichzeitig bleibt:
+- Verrat möglich
+- Abspaltung möglich
+- politische Neuordnung möglich
+
+--------------------------------------------------
+14. LOYALITÄT
+--------------------------------------------------
+
+Langjährige Loyalität entsteht primär:
+sozial.
+
+Nicht durch harte Systeme.
+
+Wichtige Faktoren:
+- gemeinsame Geschichte
+- Freundschaften
+- gemeinsame Kriege
+- Vertrauen
+- Veteranenkultur
+- gemeinsamer Aufbau
+
+Der „Gildenbrand“ entsteht:
+durch:
+- PvE
+- Aktivität
+- Gemeinschaft
+- langfristige Zugehörigkeit
+
+--------------------------------------------------
+15. DIPLOMATIE
+--------------------------------------------------
+
+Diplomatie wird:
+vollständig spielergetrieben.
+
+Das Spiel schreibt nicht vor:
+- Bündnisse
+- Kriege
+- Politik
+- Handelsabkommen
+
+Spieler organisieren:
+- Allianzen
+- Nichtangriffspakte
+- Feindschaften
+- Machtblöcke
+- geopolitische Netzwerke
+
+Kommunikation erfolgt:
+- ingame
+- extern
+- sozial
+
+--------------------------------------------------
+16. FEINDMARKIERUNGEN
+--------------------------------------------------
+
+Optional möglich:
+Gilden offiziell als Feinde markieren.
+
+Mögliche Auswirkungen:
+- visuelle Erkennbarkeit
+- Frontidentität
+- politische Sichtbarkeit
+- langfristige Rivalität
+
+ZIEL:
+soziale Klarheit,
+nicht harte Mechanik.
+
+--------------------------------------------------
+17. SOZIALE KLASSEN
+--------------------------------------------------
+
+Das Spiel definiert:
+keine festen gesellschaftlichen Klassen.
+
+Spieler finden:
+selbst:
+- passende Rollen
+- passende Gemeinschaften
+- passende Spielstile
+
+Dadurch entstehen:
+organisch:
+- Kriegsgilden
+- Wirtschaftsgilden
+- Casualgemeinschaften
+- Eliteallianzen
+- PvE-Gruppen
+- politische Netzwerke
+
+--------------------------------------------------
+18. GILDENIDENTITÄT
+--------------------------------------------------
+
+Gildenidentität soll:
+nicht künstlich erzeugt werden.
+
+Sie entsteht durch:
+- gemeinsame Geschichte
+- Kriege
+- Loyalität
+- Rivalitäten
+- langfristige Existenz
+- soziale Erinnerung
+
+Das Spiel schafft:
+nur die Rahmenbedingungen.
+
+--------------------------------------------------
+19. SOZIALE SICHTBARKEIT
+--------------------------------------------------
+
+Spieler und Gilden können:
+sichtbare Identitätsmerkmale erhalten.
+
+Mögliche Inhalte:
+- Titel
+- Eventsymbole
+- Schiffs-Skins
+- Planetenskins
+- historische Abzeichen
+- kosmetische Veteranensymbole
+
+ZIEL:
+- Wiedererkennbarkeit
+- Prestige
+- Veteranenkultur
+- soziale Erinnerung
+
+--------------------------------------------------
+20. POLITISCHE DYNAMIK
+--------------------------------------------------
+
+Politik wird:
+nicht zentral gesteuert.
+
+Keine:
+- festen Fraktionen
+- gescripteten Konflikte
+- künstlichen Ideologien
+
+Politik entsteht durch:
+- Raum
+- Nachbarschaft
+- Ressourcen
+- Rivalität
+- Sicht
+- Mobilisierung
+- Geschichte
+- Machtinteressen
+
+--------------------------------------------------
+21. PROPAGANDA & KOMMUNIKATION
+--------------------------------------------------
+
+Kommunikation erfolgt:
+über:
+- Chats
+- externe Plattformen
+- soziale Netzwerke
+- direkte Diplomatie
+
+Narrative,
+Ruf
+und Propaganda
+entstehen vollständig:
+durch Spieler.
+
+--------------------------------------------------
+22. WELTENTWICKLUNG
+--------------------------------------------------
+
+Am Anfang existiert:
+nur wenig komplexe Politik.
+
+Die Welt entwickelt sich:
+mit der Zeit.
+
+Dadurch entstehen:
+- frühe Pionierphasen
+- erste Machtkämpfe
+- historische Entwicklungen
+- Veteranenkultur
+- geopolitische Verdichtung
+
+--------------------------------------------------
+23. KERNPHILOSOPHIE
+--------------------------------------------------
+
+Das Spiel simuliert keine Gesellschaft direkt.
+
+Es erschafft:
+eine glaubwürdige Weltlogik.
+
+Die eigentliche Gesellschaft entsteht daraus:
+durch:
+- Menschen
+- Beziehungen
+- Konflikte
+- Loyalität
+- Verrat
+- Erinnerung
+- Organisation
+- gemeinsame Geschichte
+
+Das Ziel ist:
+keine anonyme Matchmaking-Welt.
+
+Sondern:
+eine langfristige persistente galaktische Gesellschaft.

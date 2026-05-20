@@ -1,0 +1,12 @@
+OFFENE STRUKTURTHEMEN
+
+1. Acceptance Criteria vollständig einführen
+2. Traceability zwischen REQ → AK → TEST aufbauen
+3. UNIT-Dateien durch RULE-Dateien ersetzen
+4. Combat-MVP sauber definieren
+5. Domain Model zentral dokumentieren
+6. Architekturgrenzen definieren
+7. Projektweite Benennungsregeln festlegen
+8. Bestehende REQs konsolidieren
+9. Quellenwissen ins Repo übertragen
+10. Gameplayziele zentral dokumentieren

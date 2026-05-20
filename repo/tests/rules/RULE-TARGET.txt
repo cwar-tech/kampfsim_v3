@@ -1,0 +1,3 @@
+RULE-TARGET
+
+Placeholder für fachliche Targeting-Regeltests.

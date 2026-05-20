@@ -1,0 +1,19 @@
+DOMAIN MODEL
+
+Schiff
+= mobile Kampfeinheit
+
+Defeinheit
+= stationäre Verteidigungseinheit
+
+Flotte
+= Sammlung von Einheitentypen
+
+Zieltyp
+= aktuell priorisierte Einheitengruppe
+
+Overflow
+= verbleibender Schaden nach Zielzerstörung
+
+Combat Round
+= simultane Schadensphase

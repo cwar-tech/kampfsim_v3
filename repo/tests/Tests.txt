@@ -1,0 +1,710 @@
+========================
+Tests.txt
+========================
+
+UNIT-TARGET-01
+
+Nur feindliche Einheitentypen dürfen anvisiert werden.
+
+
+UNIT-TARGET-02
+
+Existiert kein gültiger Counter,
+wird der Zieltyp mit dem geringsten Gesamtvolumen priorisiert.
+
+
+UNIT-TARGET-03
+
+Existieren mehrere gültige Counterziele,
+wird der höchste Countermultiplikator priorisiert.
+
+
+UNIT-TARGET-04
+
+Besitzen mehrere gültige Ziele denselben Countermultiplikator,
+wird der Zieltyp mit dem geringsten Gesamtvolumen priorisiert.
+
+
+UNIT-TARGET-05
+
+Beim Zielwechsel
+wird die Zielpriorisierung vollständig neu berechnet.
+
+
+UNIT-TARGET-06
+
+Overflow-Schaden kann innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
+
+
+UNIT-TARGET-07
+
+Gleiche Kampfsituationen
+erzeugen dieselbe Zielauswahl.
+
+
+UNIT-TARGET-08
+
+Existieren keine feindlichen Zieltypen mehr,
+endet die Zielsuche.
+
+
+UNIT-TARGET-09
+
+Ein Zielwechsel erfolgt erst,
+wenn der aktuelle Zieltyp vollständig zerstört wurde.
+
+
+UNIT-TARGET-10
+
+Defeinheiten werden vor Schiffen priorisiert.
+
+
+UNIT-TARGET-11
+
+Normale Schiffe werden erst priorisiert,
+wenn keine Defeinheiten mehr existieren.
+
+UNIT-DMG-NEG-01
+Negative Overflowwerte werden auf 0 begrenzt.
+
+
+UNIT-DMG-NEG-02
+Normale Schadensberechnung darf keinen negativen Endschaden erzeugen.
+
+
+UNIT-DMG-NEG-03
+Negative finale Schadenswerte außerhalb der Overflowregel erzeugen Fehlerzustand.
+
+
+UNIT-DMG-ARMOR-01
+Rüstung reduziert Schaden multiplikativ.
+
+
+UNIT-DMG-ARMOR-02
+15 Rüstung entspricht 0.85 Schadensmultiplikator.
+
+
+UNIT-DMG-ARMOR-03
+0 Rüstung erzeugt keinen Schadensverlust.
+
+
+UNIT-DMG-ARMOR-04
+Rüstungsmultiplikator wird nach Durchdringung angewendet.
+
+
+UNIT-DMG-PEN-01
+0 Durchdringung erzeugt keinen Schadensbonus.
+
+
+UNIT-DMG-PEN-02
+20 Durchdringung entspricht 1.20 Schadensmultiplikator.
+
+
+UNIT-DMG-PEN-03
+Negative Durchdringungswerte sind ungültig.
+
+
+UNIT-DMG-PEN-04
+Durchdringungsmultiplikator wird vor Rüstung angewendet.
+
+
+UNIT-DMG-COUNTER-01
+Counterboni werden multiplikativ angewendet.
+
+
+UNIT-DMG-COUNTER-02
+Existieren mehrere gültige Counterziele,
+wird der höchste Countermultiplikator verwendet.
+
+
+UNIT-DMG-COUNTER-03
+Nicht gecounterte Ziele erhalten keinen Counterbonus.
+
+
+UNIT-DMG-COUNTER-04
+Counterbonus wird nach Zielwechsel neu geprüft.
+
+
+UNIT-DMG-SIM-01
+Beide Seiten verursachen Schaden innerhalb derselben Runde.
+
+
+UNIT-DMG-SIM-02
+Zerstörte Einheiten verursachen in derselben Runde weiterhin Schaden.
+
+
+UNIT-DMG-SIM-03
+Verluste werden erst nach Abschluss aller Schadensberechnungen angewendet.
+
+
+UNIT-DMG-SIM-04
+Innerhalb derselben Runde zerstörte Einheiten verursachen weiterhin Schaden.
+
+
+UNIT-DMG-ROUND-01
+Finaler Gesamtschaden wird mathematisch gerundet.
+
+
+UNIT-DMG-ROUND-02
+Einzelschäden werden vor Aggregation nicht gerundet.
+
+
+UNIT-DMG-ROUND-03
+Mehrere kleine Schadenswerte aggregieren korrekt.
+
+
+UNIT-DMG-ROUND-04
+Overflow-Schaden wird zwischen Zielwechseln nicht gerundet.
+
+
+UNIT-DMG-LOSS-01
+Negative Verluste erzeugen Fehlerzustand.
+
+
+UNIT-DMG-LOSS-02
+0 Verluste gelten als gültiger Zustand.
+
+
+UNIT-DMG-LOSS-03
+Verlustberechnung erzeugt keine negativen Einheitenwerte.
+
+
+UNIT-DMG-CHAIN-01
+Overflow kann innerhalb derselben Runde mehrere Zieltypen treffen.
+
+
+UNIT-DMG-CHAIN-02
+5%-Abschwächung wird bei jedem Zielwechsel korrekt angewendet.
+
+
+UNIT-DMG-CHAIN-03
+Counterboni werden bei jedem Zielwechsel neu berechnet.
+
+
+UNIT-DMG-CHAIN-04
+Overflow verwendet bei jedem Zielwechsel neue Zielmultiplikatoren.
+
+
+UNIT-DMG-CHAIN-05
+Overflow bleibt intern präzise
+und wird nicht zwischen Zielwechseln gerundet.
+
+REG-DMG-NEG-01
+
+Testerwartung:
+Overflow-Negativwerte werden auf 0 begrenzt.
+
+Ist:
+Negative Overflow-Schäden möglich.
+
+Selbstheilung:
+Overflow-Endschaden auf Minimum 0 begrenzen.
+
+
+REG-DMG-NEG-02
+
+Testerwartung:
+Normale Schadensberechnung erzeugt keine negativen Endwerte.
+
+Ist:
+Negativer Endschaden außerhalb der Overflowregel möglich.
+
+Selbstheilung:
+Ungültige Schadenspipeline erkennen und Fehlerzustand auslösen.
+
+
+REG-DMG-ARMOR-01
+
+Testerwartung:
+15 Rüstung reduziert Schaden auf 85%.
+
+Ist:
+Rüstung wird additiv oder falsch berechnet.
+
+Selbstheilung:
+Rüstung als Multiplikator anwenden.
+
+
+REG-DMG-ARMOR-02
+
+Testerwartung:
+Rüstung wird nach Durchdringung angewendet.
+
+Ist:
+Falsche Multiplikatorreihenfolge.
+
+Selbstheilung:
+Combatpipeline korrigieren.
+
+
+REG-DMG-PEN-01
+
+Testerwartung:
+20 Durchdringung erzeugt 1.20 Schadensmultiplikator.
+
+Ist:
+Durchdringung verändert Schaden nicht korrekt.
+
+Selbstheilung:
+Eigenständigen Durchdringungsmultiplikator anwenden.
+
+
+REG-DMG-PEN-02
+
+Testerwartung:
+Negative Durchdringungswerte sind ungültig.
+
+Ist:
+Negative Durchdringung reduziert Schaden.
+
+Selbstheilung:
+Negative Durchdringungswerte blockieren.
+
+
+REG-DMG-COUNTER-01
+
+Testerwartung:
+Das höchste gültige Counterziel wird bevorzugt.
+
+Ist:
+Niedrigerer Countermultiplikator gewählt.
+
+Selbstheilung:
+Größten gültigen Countermultiplikator priorisieren.
+
+
+REG-DMG-COUNTER-02
+
+Testerwartung:
+Counterboni wirken multiplikativ.
+
+Ist:
+Counterboni werden additiv angewendet.
+
+Selbstheilung:
+Counterberechnung auf Multiplikatorlogik umstellen.
+
+
+REG-DMG-COUNTER-03
+
+Testerwartung:
+Counterbonus wird nach Zielwechsel neu geprüft.
+
+Ist:
+Alter Counterbonus bleibt aktiv.
+
+Selbstheilung:
+Counterprüfung bei jedem Zielwechsel erneut durchführen.
+
+
+REG-DMG-SIM-01
+
+Testerwartung:
+Beide Seiten können sich in derselben Runde zerstören.
+
+Ist:
+Nur zuerst schießende Seite verursacht Schaden.
+
+Selbstheilung:
+Alle Angriffe simultan berechnen.
+
+
+REG-DMG-SIM-02
+
+Testerwartung:
+Einheiten schießen trotz eigener Zerstörung innerhalb derselben Runde.
+
+Ist:
+Einheiten verlieren Angriff sofort nach Zerstörung.
+
+Selbstheilung:
+Verluste erst nach Abschluss aller Schadensberechnungen anwenden.
+
+
+REG-DMG-SIM-03
+
+Testerwartung:
+Zerstörte Einheiten verursachen innerhalb derselben Runde weiterhin Schaden.
+
+Ist:
+Einheiten verlieren Angriff unmittelbar nach Zerstörung.
+
+Selbstheilung:
+Schadensberechnung vor Verlustanwendung abschließen.
+
+
+REG-DMG-ROUND-01
+
+Testerwartung:
+Mehrere kleine Schadenswerte erzeugen aggregierten Gesamtschaden.
+
+Ist:
+Einzelschäden werden vorher auf 0 gerundet.
+
+Selbstheilung:
+Rundung erst nach Gesamtaggregation durchführen.
+
+
+REG-DMG-ROUND-02
+
+Testerwartung:
+Finaler Gesamtschaden wird mathematisch gerundet.
+
+Ist:
+Abrundung oder Aufrundung erzeugt falsche Werte.
+
+Selbstheilung:
+Standardmäßige mathematische Rundung verwenden.
+
+
+REG-DMG-ROUND-03
+
+Testerwartung:
+Overflow-Schaden bleibt intern präzise bis zur finalen Aggregation.
+
+Ist:
+Zwischenrundungen verändern Overflowwerte.
+
+Selbstheilung:
+Rundung erst nach vollständiger Schadensverarbeitung durchführen.
+
+
+REG-DMG-LOSS-01
+
+Testerwartung:
+Verluste werden niemals negativ.
+
+Ist:
+Negative Verlustwerte entstehen.
+
+Selbstheilung:
+Ungültige Verlustberechnung blockieren.
+
+
+REG-DMG-LOSS-02
+
+Testerwartung:
+Einheitenanzahl bleibt größer oder gleich 0.
+
+Ist:
+Negative Restanzahlen möglich.
+
+Selbstheilung:
+Verlustvalidierung vor Finalisierung durchführen.
+
+
+REG-DMG-CHAIN-01
+
+Testerwartung:
+Overflow-Schaden kann mehrere Zieltypen innerhalb derselben Runde treffen.
+
+Ist:
+Overflow endet nach erstem Zielwechsel.
+
+Selbstheilung:
+Overflowverkettung innerhalb derselben Runde erlauben.
+
+
+REG-DMG-CHAIN-02
+
+Testerwartung:
+5%-Abschwächung wird bei jedem Zielwechsel erneut angewendet.
+
+Ist:
+Overflow bleibt unverändert.
+
+Selbstheilung:
+Overflowabschwächung pro Zielwechsel anwenden.
+
+
+REG-DMG-CHAIN-03
+
+Testerwartung:
+Neue Zieltypen erhalten eigene Counter-,
+Rüstungs- und Durchdringungswerte.
+
+Ist:
+Alte Zielmultiplikatoren bleiben erhalten.
+
+Selbstheilung:
+Combatpipeline bei jedem Zielwechsel neu initialisieren.
+
+
+REG-DMG-CHAIN-04
+
+Testerwartung:
+Overflow bleibt intern präzise bis zur finalen Schadensaggregation.
+
+Ist:
+Zwischenrundungen verändern Overflowschaden.
+
+Selbstheilung:
+Rundung erst nach vollständiger Schadensverarbeitung durchführen.
+
+REG-DMG-LOSS-03
+
+Testerwartung:
+Finale Einheitenverluste entsprechen dem berechneten Gesamtschaden.
+
+Ist:
+Schaden korrekt,
+aber falsche Anzahl zerstörter Einheiten.
+
+Selbstheilung:
+Verlustberechnung an finalen aggregierten Schaden koppeln.
+
+
+REG-DMG-COUNTER-04
+
+Testerwartung:
+Nicht gecounterte Ziele erhalten keinen Counterbonus.
+
+Ist:
+Counterbonus wird auf ungültige Zieltypen angewendet.
+
+Selbstheilung:
+Counterbonus nur für gültige Zieltypen aktivieren.
+
+
+REG-DMG-SIM-04
+
+Testerwartung:
+Verluste werden erst nach Abschluss aller Schadensberechnungen angewendet.
+
+Ist:
+Einheiten sterben vor eigener Schadensberechnung.
+
+Selbstheilung:
+Verlustanwendung nach vollständiger Simultanberechnung durchführen.
+
+
+REG-DMG-ROUND-04
+
+Testerwartung:
+Mehrere kleine Schadenswerte bleiben vor finaler Aggregation präzise erhalten.
+
+Ist:
+Zwischenaggregation reduziert kleinen Schaden auf 0.
+
+Selbstheilung:
+Zwischenrundungen vollständig entfernen.
+
+
+REG-DMG-CHAIN-05
+
+Testerwartung:
+Beim Zielwechsel werden neue Zielmultiplikatoren vollständig neu berechnet.
+
+Ist:
+Vorherige Zielwerte beeinflussen neues Ziel weiterhin.
+
+Selbstheilung:
+Combatpipeline pro Zielwechsel vollständig neu initialisieren.
+
+
+REG-DMG-CHAIN-06
+
+Testerwartung:
+Overflow-Abschwächung reduziert den verbleibenden Restschaden bei jedem Zielwechsel.
+
+Ist:
+5%-Abschwächung wird nur einmal oder inkonsistent angewendet.
+
+Selbstheilung:
+Overflow-Abschwächung bei jedem Zielwechsel erneut anwenden.
+
+
+REG-DMG-CHAIN-07
+
+Testerwartung:
+Overflow kann mehrere Zieltypen derselben Flotte korrekt nacheinander treffen.
+
+Ist:
+Overflow stoppt trotz verbleibendem Restschaden.
+
+Selbstheilung:
+Overflowverkettung bis vollständiger Schadensverbrauch fortsetzen.
+
+
+REG-DMG-DET-01
+
+Testerwartung:
+Identische Kampfeingaben erzeugen identische Kampfergebnisse.
+
+Ist:
+Kampfergebnisse unterscheiden sich trotz identischer Eingaben.
+
+Selbstheilung:
+Nicht deterministische Combatberechnungen entfernen.
+
+
+REG-DMG-DET-02
+
+Testerwartung:
+Identische Zielsituationen erzeugen identische Zielpriorisierung.
+
+Ist:
+Zielwahl verändert sich ohne Regeländerung.
+
+Selbstheilung:
+Deterministische Zielpriorisierung erzwingen.
+
+
+REG-DMG-DEF-01
+
+Testerwartung:
+Defeinheiten verwenden dieselbe Schadensberechnung wie Schiffe.
+
+Ist:
+Abweichende Multiplikatoren oder Rundungslogik bei Defeinheiten.
+
+Selbstheilung:
+Gemeinsame Combatpipeline für Schiffe und Defeinheiten verwenden.
+
+
+REG-DMG-DEF-02
+
+Testerwartung:
+Defeinheiten verursachen simultanen Schaden wie normale Schiffe.
+
+Ist:
+Defeinheiten verwenden separate Schadensreihenfolge.
+
+Selbstheilung:
+Defeinheiten vollständig in Simultanberechnung integrieren.
+REG-TARGET-01
+
+Testerwartung:
+Nur feindliche Einheitentypen werden angegriffen.
+
+Ist:
+Eigene oder neutrale Einheitentypen werden anvisiert.
+
+Selbstheilung:
+Zielvalidierung auf feindliche Einheitentypen begrenzen.
+
+
+REG-TARGET-02
+
+Testerwartung:
+Existiert kein gültiger Counter,
+wird das geringste Gesamtvolumen priorisiert.
+
+Ist:
+Zufällige oder inkonsistente Zielwahl ohne Counter.
+
+Selbstheilung:
+Gesamtvolumen als Standardpriorisierung verwenden.
+
+
+REG-TARGET-03
+
+Testerwartung:
+Der höchste gültige Countermultiplikator wird priorisiert.
+
+Ist:
+Niedrigerer oder ungültiger Counter wird gewählt.
+
+Selbstheilung:
+Höchsten gültigen Countermultiplikator priorisieren.
+
+
+REG-TARGET-04
+
+Testerwartung:
+Bei gleichem Counterwert
+wird das geringste Gesamtvolumen priorisiert.
+
+Ist:
+Falsche oder zufällige Zielwahl bei gleichem Counter.
+
+Selbstheilung:
+Gesamtvolumen als Gleichstandsregel verwenden.
+
+
+REG-TARGET-05
+
+Testerwartung:
+Beim Zielwechsel wird die Zielpriorisierung vollständig neu berechnet.
+
+Ist:
+Vorherige Zielwerte beeinflussen das neue Ziel weiterhin.
+
+Selbstheilung:
+Targetinglogik bei jedem Zielwechsel neu initialisieren.
+
+
+REG-TARGET-06
+
+Testerwartung:
+Overflow-Schaden kann innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
+
+Ist:
+Overflow stoppt trotz verbleibendem Restschaden.
+
+Selbstheilung:
+Overflowverkettung bis vollständigem Schadensverbrauch fortsetzen.
+
+
+REG-TARGET-07
+
+Testerwartung:
+Gleiche Kampfsituationen erzeugen dieselbe Zielauswahl.
+
+Ist:
+Unterschiedliche Zielwahl trotz identischer Kampfsituation.
+
+Selbstheilung:
+Feste Zielpriorisierung ohne Zufall verwenden.
+
+
+REG-TARGET-08
+
+Testerwartung:
+Existieren keine feindlichen Zieltypen mehr,
+endet die Zielsuche.
+
+Ist:
+Targeting oder Overflow läuft ohne gültige Ziele weiter.
+
+Selbstheilung:
+Zielsuche bei fehlenden Gegnern sofort beenden.
+
+
+REG-TARGET-09
+
+Testerwartung:
+Ein Zielwechsel erfolgt erst nach vollständiger Zerstörung des aktuellen Zieltyps.
+
+Ist:
+Teilweise zerstörte Zieltypen verlieren vorzeitig Fokus.
+
+Selbstheilung:
+Aktuelles Ziel bis vollständiger Vernichtung beibehalten.
+
+
+REG-TARGET-10
+
+Testerwartung:
+Defeinheiten werden vor Schiffen priorisiert.
+
+Ist:
+Schiffe werden trotz vorhandener Defeinheiten angegriffen.
+
+Selbstheilung:
+Defeinheiten in der Zielpriorisierung vor Schiffen behandeln.
+
+
+REG-TARGET-11
+
+Testerwartung:
+Normale Schiffe werden erst priorisiert,
+wenn keine Defeinheiten mehr existieren.
+
+Ist:
+Keine gültige Zielpriorisierung nach Defverlust.
+
+Selbstheilung:
+Zielpriorisierung nach Defzerstörung vollständig neu berechnen.

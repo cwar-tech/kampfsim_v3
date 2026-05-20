@@ -1,0 +1,2 @@
+REQ-ARCH-01 Single Source of Truth
+REQ-ARCH-02 Keine Hardcodes

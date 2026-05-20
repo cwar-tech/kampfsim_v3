@@ -1,0 +1,39 @@
+# PERSISTENTE SERVERWELT
+
+## Was ist überhaupt ein Server?
+- isolierte Welt?
+- shard?
+- cluster?
+- galaxie?
+- kanal?
+
+## Wie groß ist eine Welt?
+- maximale Spielerzahl?
+- Raumgröße?
+- Dichte?
+
+## Wie entstehen neue Server?
+- automatisch?
+- manuell?
+- populationsbasiert?
+
+## Wie altern Server?
+- dauerhaft?
+- stagnierend?
+- expandierend?
+
+## Wie verhindert man tote Welten?
+
+## Wie verhindert man politische Erstarrung?
+
+## Wie wichtig sind Serveridentitäten?
+
+## Wie viel Interaktion existiert zwischen Servern?
+
+## Wie wichtig ist „Servergeschichte“?
+
+## Was passiert mit inaktiven Spielern?
+
+## Wie wirken sich neue Spieler auf alte Welten aus?
+
+## Wie viel Persistenz ist gesund?

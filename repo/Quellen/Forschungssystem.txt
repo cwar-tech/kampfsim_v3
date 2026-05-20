@@ -1,0 +1,347 @@
+##################################################
+# FORSCHUNGSSYSTEM – TECHNISCHE KERNARCHITEKTUR
+##################################################
+
+STATUS:
+Grundarchitektur weitgehend definiert.
+Offen sind hauptsächlich:
+- konkrete Techlisten
+- genaue Baumgrößen
+- UI-Struktur
+- Blaupausensystem
+- spätere Erweiterungsstrategie
+
+##################################################
+# KERNIDENTITÄT
+##################################################
+
+Das Forschungssystem dient:
+
+- langfristiger Spielerentwicklung
+- Veteranenidentität
+- Rollenbildung
+- strategischer Spezialisierung
+- dauerhafter Progression
+- persistenter Weltentwicklung
+
+Nicht:
+
+- saisonalen Resets
+- kurzfristigem Grind
+- Spezialeventinflation
+- Prestigechaos
+
+##################################################
+# PERSISTENZREGELN
+##################################################
+
+Persistiert dauerhaft:
+
+- Forschung
+- Identität
+- Veteranenstatus
+
+Regeln:
+
+1. Forschung ist accountgebunden.
+2. Forschung bleibt bei Merges erhalten.
+3. Forschung kann niemals reduziert werden.
+4. Forschung besitzt keine Resetmechanik.
+5. Forschung besitzt keine Saisonmechanik.
+
+##################################################
+# FORSCHUNGSSTRUKTUR
+##################################################
+
+Es existieren:
+
+- 3 Forschungsbäume
+
+Forschungsbäume:
+
+1. Wirtschaft
+2. Militär
+3. Wissenschaft
+
+Eigenschaften:
+
+- zentralisierte Baumstruktur
+- lineare Entwicklung möglich
+- Cross-Tree-Abhängigkeiten möglich
+- harte Voraussetzungen möglich
+
+##################################################
+# FORSCHUNGSPROGRESSION
+##################################################
+
+Grundprinzip:
+
+Energon
+=
+dauerhafte Erhöhung von Grundwerten
+
+Forschung
+=
+prozentuale Multiplikatoren
+
+Dadurch entstehen:
+
+- getrennte Progressionsachsen
+- saubere mathematische Rollen
+- kontrollierbare Skalierung
+
+##################################################
+# FORSCHUNGSLEVEL
+##################################################
+
+Standardforschungen:
+
+- Maxlevel 30
+
+Beispiel:
+
+Laser 1:
+- Level 1-30
+- +1% pro Level
+
+Laser 2:
+- Level 1-30
+- +2% pro Level
+
+Laser 3:
+- Level 1-30
+- +3% pro Level
+
+Dadurch entsteht:
+
+- horizontale Progression
+  durch neue Technologien
+
+und:
+
+- vertikale Progression
+  innerhalb einzelner Technologien
+
+##################################################
+# FORSCHUNGSBONI
+##################################################
+
+Forschungen erzeugen ausschließlich:
+
+- Prozentboni
+
+Keine:
+
+- Spezialmechaniken
+- Eventfähigkeiten
+- Eliteforschung
+- Prestigeforschung
+
+##################################################
+# MATHEMATISCHE REGELN
+##################################################
+
+Finalwertberechnung:
+
+Basiswert × Gesamtmultiplikator
+
+Gesamtmultiplikator:
+
+- alle Boni werden addiert
+- keine Multiplikator-Kaskaden
+
+Beispiel:
+
+Basiswert:
+100
+
+Boni:
++20% Forschung
++15% Gebäude
++10% VIP
+
+Gesamtbonus:
+45%
+
+Finalwert:
+145
+
+Wichtige Konsequenzen:
+
+- lineare Skalierung
+- kontrollierbare Balance
+- geringerer Powercreep
+- hohe Wartbarkeit
+- einfache Serverberechnung
+
+##################################################
+# FORSCHUNGSVORAUSSETZUNGEN
+##################################################
+
+Mögliche Voraussetzungen:
+
+- andere Forschungen
+- Cross-Tree-Forschungen
+- Forschungszentrum-Level
+
+Regel:
+
+Forschung kann niemals höher sein
+als das aktuelle Level
+des Forschungszentrums.
+
+##################################################
+# FORSCHUNGSKOSTEN
+##################################################
+
+Forschungskosten:
+
+- exponentielle Skalierung
+
+Frühe Level:
+- günstig
+
+Späte Level:
+- stark ansteigend
+
+##################################################
+# FORSCHUNGSZEITEN
+##################################################
+
+Forschungszeiten:
+
+- exponentielle Skalierung
+
+Frühe Level:
+- kurz
+
+Späte Level:
+- stark ansteigend
+
+##################################################
+# FORSCHUNGSPRODUKTION
+##################################################
+
+Forschungskanäle:
+
+- Forschungskanal 1
+- Forschungskanal 2 (VIP)
+
+VIP-Regeln:
+
+- zusätzlicher permanenter Forschungsslot
+- keine exklusiven Forschungsarten
+
+##################################################
+# GILDENEINFLUSS
+##################################################
+
+Gildenboni auf Forschung:
+
+- 1% pro Gildenstufe
+- maximal 5%
+
+Ziel:
+
+- spürbar
+- aber nicht dominierend
+
+##################################################
+# STATISCHE FORSCHUNGSDEFINITION
+##################################################
+
+Forschungstyp
+
+- Forschungs-ID
+- Name
+- Beschreibung
+- Forschungsbaum
+- Maxlevel
+- Bonus pro Level
+- Voraussetzungen
+- Kostenformel
+- Zeitformel
+- Bonusdefinition
+
+##################################################
+# DYNAMISCHER SPIELERZUSTAND
+##################################################
+
+Spielerforschung
+
+- Forschungs-ID
+- Besitzer-ID
+- aktuelles Level
+- Forschungsendezeit
+
+##################################################
+# BLAUPAUSEN
+##################################################
+
+STATUS:
+OFFEN / NICHT FINAL DEFINIERT
+
+Aktuelle Richtung:
+
+Blaupausen dienen vermutlich:
+- Freischaltung neuer Schiffe
+- Freischaltung neuer Verteidigungseinheiten
+
+Noch offen:
+
+- genaue Funktionsweise
+- Handelbarkeit
+- Forschungsintegration
+- Skalierung
+- Progressionsrolle
+
+##################################################
+# OFFENE PUNKTE
+##################################################
+
+1. Konkrete Techlisten
+STATUS:
+OFFEN
+
+2. Anzahl Forschungen pro Baum
+STATUS:
+OFFEN
+
+3. Exakte Baumstruktur
+STATUS:
+OFFEN
+
+4. UI-/Darstellungslogik
+STATUS:
+OFFEN
+
+5. Exakte Cross-Tree-Regeln
+STATUS:
+OFFEN
+
+6. Blaupausensystem
+STATUS:
+OFFEN
+
+7. Langfristige Erweiterungsstrategie
+STATUS:
+OFFEN
+
+##################################################
+# KERNIDENTITÄT DES SYSTEMS
+##################################################
+
+Das Forschungssystem erzeugt:
+
+- langfristige Veteranenentwicklung
+- persistente Spieleridentität
+- kontrollierte Machtsteigerung
+- strategische Spezialisierung
+- dauerhafte Progression
+
+Nicht:
+
+- exponentielle Eskalation
+- Resetzyklen
+- Saisoninflation
+- Prestigechaos

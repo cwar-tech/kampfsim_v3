@@ -1,0 +1,3 @@
+AK-DAMAGE
+
+Placeholder für Damage-Akzeptanzkriterien.

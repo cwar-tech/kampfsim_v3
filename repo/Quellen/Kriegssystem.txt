@@ -1,0 +1,565 @@
+PVP / FLOTTEN / KRIEGSSYSTEM – AKTUELLER STAND
+
+1. FLOTTENSTRUKTUR
+
+- 9 Kriegsschiffe
+- 2 Transporterschiffe
+- Alle Schiffe außer dem kleinen Jäger werden über Forschung freigeschaltet.
+- Schiffe besitzen klare Rollen sowie starke Hardcounter.
+- Boni/Malus:
+  - 200%
+  - 300%
+  - 400%
+  - 500%
+- Kein universelles Allroundschiff.
+- 3 Schiffe sind stärker als die restlichen, aber nicht linear überlegen.
+- Bomber:
+  - spezialisiert gegen Planetendef
+  - schwach gegen schnelle Anti-Schiff-Flotten
+
+VOLUMENSYSTEM:
+- Flotten werden über Volumen gesteuert.
+- Kein harter Einheitencap.
+- Beispiel:
+  - 1 Titan ≈ 1000 leichte Jäger (Volumenbasis)
+- Kleine Schiffe bleiben relevant.
+- Geschwindigkeit wird strategischer Faktor.
+- Kosten ≠ Effizienz.
+
+SCHNELLE SCHIFFE:
+- Zwei unterschiedliche schnelle Schiffstypen.
+- Ziel:
+  - keine reine Leichte-Jäger-Meta
+  - dynamische Langstreckenangriffe
+  - verschiedene Raidkompositionen
+
+2. KAMPFSYSTEM / KAMPFABLAUF
+
+- Echtzeitkampf.
+- Kein Ticksystem.
+- Flotte kommt an:
+  - Kampf startet sofort
+  - Schaden wird direkt berechnet
+
+KAMPFREIHENFOLGE:
+1. Unterstützerflotten
+2. Planetendef
+3. Kriegsflotten
+4. Transporter
+
+VERTEIDIGER:
+- Verteidiger greift zuerst an.
+- Heimvorteil ist gewollt.
+
+KAMPFDAUER:
+- Kämpfe enden direkt.
+- Keine langen Echtzeitraumkämpfe.
+
+ZIELSYSTEM:
+- Zielprioritäten statt chaotischem Fokusfeuer.
+- Beispiele:
+  - Anti-Jäger → kleine Schiffe
+  - Bomber → Def
+  - Raider → Support
+  - Titans → Großziele
+
+FREUNDLICHER SCHADEN:
+- Optional in offenen Raumkämpfen.
+- Nicht bei Planetenkämpfen.
+- Planetenkampf bleibt zielgebunden.
+
+3. RÜCKZUG & VERFOLGUNG
+
+- Rückzug über X-Button.
+- Kampf endet vollständig.
+- Danach beginnt Rückflug.
+
+RÜCKFLUG:
+- sichtbar
+- aber exakte Ankunftszeit unbekannt
+
+Dadurch:
+- Abpassen möglich
+- Jagd möglich
+- Unsicherheit bleibt bestehen
+
+KEINE:
+- Echtzeitdogfights im All
+- chaotischen Abfangkämpfe
+
+4. BELAGERUNGEN
+
+- Für Early-/Midgame aktuell nicht relevant.
+- Wird später mit Territorialsystemen wichtig.
+
+Aktuell ausreichend:
+- Planetenangriffe
+- Werkstattdruck
+- Rückflugrisiken
+- Unterstützerflotten
+- sichtbare Mobilisierung
+
+5. ANTI-ZERG-MECHANIKEN
+
+Vorhandene natürliche Anti-Zerg-Systeme:
+- Werkstattlimits
+- Warpmanagement
+- Volumensystem
+- Hardcounter
+- Sichtbarkeit großer Mobilisierungen
+- Reisezeiten
+- Gruppenangriffe
+- Ressourcenverschleiß
+
+PVP-TIMER:
+- Nach aktivem PvP:
+  - 10 Minuten kein Schild möglich
+
+Danach:
+- Schild aktivierbar
+
+Ziel:
+- kein Hit-and-Hide
+- keine instant Immunität
+
+6. SICHT / RADAR / AUFKLÄRUNG
+
+FLOTTEN:
+- als sichtbare Pfeile auf der Weltkarte sichtbar
+
+Dadurch:
+- Mobilisierung sichtbar
+- Kriege sichtbar
+- Schlachten zufällig auffindbar
+
+ZOOMSYSTEM:
+- Herauszoomen zeigt aktive PvP-Zonen deutlicher
+- rote Hervorhebung im eigenen relevanten Macht-/PvP-Bereich
+
+TECHABHÄNGIGE SICHT:
+- Reichweite skalierbar über Techs
+- Frühwarnung wird strategisch
+
+FRÜHWARNSPIELER:
+- wichtige Rolle
+- große Flotten können Stunden unterwegs sein
+- Sicht erzeugt Reaktionszeit
+
+SICHT:
+- zeigt keine perfekten Informationen
+- nur Aktivität / Bedrohung / Bewegungen
+
+7. SPIONAGE
+
+- Kein Spionageschiff nötig.
+- Spionage kostet:
+  - Sprit
+  - Flottenslot
+
+SPIONAGE:
+- per Klick auf Planeten
+- Startlimit:
+  - 10 gleichzeitig
+- später:
+  - bis ca. 30 durch Forschung
+
+Mögliche Informationen:
+- Ressourcen
+- Flotten
+- Def
+- Technologien
+- Flugbewegungen
+
+VIP:
+- kann Bonusinformationen liefern
+
+SPIONAGE:
+- entfernt kein Schild
+- ist sehr schnell
+- wird durch Techs schneller
+
+8. LOGISTIK / TRANSPORT
+
+TRANSPORTER:
+- kleine
+- mittlere
+- große Transporter
+
+TRANSPORTE:
+- relevant für Krieg und Wirtschaft
+
+Möglicher späterer Punkt:
+- Ressourcenhandel gegen Echtgeldwährung
+
+9. ABFANGEN / JAGD
+
+Kein permanentes Flottenabfangen im offenen Raum.
+
+Konflikte entstehen stattdessen durch:
+- PvP-Rückflüge
+- Mininggebiete
+- sichtbare PvE-Ziele
+- Konkurrenz um Farming
+
+Rückflüge:
+- bleiben verwundbar
+
+10. TERRITORIALSYSTEME
+
+Noch nicht relevant.
+
+Frühe Welt:
+- Hive-Strukturen
+- lokale Gildencluster
+- gemeinsames Siedeln
+
+Komplexe Territorialpolitik:
+- später
+
+11. GILDENKRIEG / ALLIANZEN
+
+GILDENGRÖSSE:
+- Start:
+  - 30 Spieler
+- Ausbau:
+  - bis 52 Spieler
+
+Keine offiziellen Superallianzen.
+
+Politik:
+- vollständig spielergesteuert
+
+Dadurch:
+- echte Diplomatie
+- Verrat
+- Rivalitäten
+- Machtblöcke
+
+GRUPPENANGRIFFE:
+- mehrere Spieler schicken je eine Flotte
+- wird als gemeinsame Flotte behandelt
+
+Limits:
+- über Gildentechnologien
+- Early:
+  - ca. 5 Spieler
+- später:
+  - ca. 9 Spieler
+
+12. KRIEGSERKLÄRUNG / DIPLOMATIE
+
+- Keine Pflicht-Kriegserklärung.
+- Angriffe jederzeit möglich.
+
+Dadurch:
+- Fehler können globale Kriege auslösen
+- Gildenkürzel werden wichtig
+- Ruf wird wichtig
+- Politik bleibt menschlich
+
+13. OFFLINE-SCHUTZ / FAIRNESS
+
+SCHILDE:
+- 30min
+- 1h
+- 8h
+- 1d
+- 3d
+- 7d
+- 28d
+
+SCHILD:
+- kompletter Friedensmodus
+
+Unter Schild:
+- keine offensiven Aktionen
+
+MERGE:
+- 7 Tage Schutz
+
+PVE-SPIELER:
+- bewusst unterstützt
+
+ZUFALLSTELEPORT:
+- Cooldown:
+  - 7 Tage
+- zufällige Platzierung
+- dient:
+  - Neustart
+  - Flucht
+  - sozialer Reorganisation
+
+14. KAMPFBERICHTE
+
+Je nach Spionagetechs sichtbar:
+- Technologien
+- VIP-Boni
+- Booster
+- Werkstattstatus
+- Permanentverluste
+- Flottenvolumen
+
+Kampfberichte:
+- wichtig für Metaanalyse
+
+15. VISUELLE KRIEGSDARSTELLUNG
+
+- sichtbare Flotten
+- sichtbare Angriffe
+- rote Alarmzustände
+
+Wird:
+- Freund angegriffen
+- eigene Def angegriffen
+
+→ rotes Blinken
+
+PLANETENNOVA:
+- bei kompletter Zerstörung/Nullung
+- sichtbarer großer Effekt
+
+16. WIRTSCHAFTSKRIEG
+
+Keine versteckten Sabotagesysteme.
+
+Wirtschaftskrieg entsteht durch:
+- Werkstattdruck
+- Rückflugjagd
+- Miningkonflikte
+- Ressourcenverschleiß
+- Transportlogistik
+
+Alles:
+- sichtbar
+- nachvollziehbar
+- offen
+
+17. PIRATERIE / GUERILLA
+
+Keine künstlichen Piratenmechaniken.
+
+GUERILLA:
+- minimiert eigene Verwundbarkeit
+- Flotten:
+  - in Warp/Werkstatt
+  - oder bei Freunden geparkt
+
+PVE-ZIELE:
+- sichtbar
+- Konkurrenz entsteht organisch
+
+Jeder Pirate/Farmingpunkt:
+- zeigt Pfeile an
+- zeigt Flottenbewegungen
+
+Dadurch:
+- Konkurrenz
+- Streit
+- opportunistische Kämpfe
+
+18. FRONTSYSTEME / NACHBARSCHAFT
+
+Noch keine echten Frontsysteme.
+
+Frühe Welt:
+- Hive-Strukturen
+- lokale Cluster
+- gemeinsame Verteidigung
+
+Spätere Territorialpolitik:
+- später ausarbeiten
+
+19. ENDGAME-KRIEGSSCHLEIFEN
+
+Endgame basiert auf:
+- Rivalitäten
+- Geschichte
+- Dominanz
+- Politik
+- Raumkontrolle
+
+Nicht:
+- nur größere Zahlen
+
+MERGES:
+- wichtig gegen politische Erstarrung
+
+Werkstatt-/Verschleißsystem:
+- verhindert endlose Dominanz
+
+20. MERGE-KRIEGE
+
+MERGES:
+- keine Resets
+- geopolitische Neuordnung
+
+Bleibt:
+- Fortschritt
+- Identität
+- Gilden
+- Geschichte
+
+Geht verloren:
+- exakte Raumordnung
+- alte Territorien
+
+MERGES:
+- erzeugen neue Machtverhältnisse
+- neue Nachbarschaften
+- neue Konflikte
+
+21. NEUE-SPIELER-SCHUTZ
+
+Neue Spieler geschützt durch:
+- Raumgröße
+- Hive-Strukturen
+- Gildenschutz
+- Schilde
+- Werkstattsystem
+
+Ziel:
+- Angst
+- aber keine Hoffnungslosigkeit
+
+22. SERVERPERFORMANCE
+
+KAMPFSYSTEM:
+- mathematisch
+- deterministisch
+- keine Projektilsimulation
+- keine Echtzeitdogfights
+
+Dadurch:
+- technisch deutlich skalierbarer
+
+Performancekritischer eher:
+- Weltkarte
+- Sichtnetzwerke
+- Datenbank
+- Pushsysteme
+
+23. VETERANEN / PRESTIGE / HISTORIE
+
+Veteranenbelohnungen:
+- primär kosmetisch
+
+Mögliche Inhalte:
+- Skins
+- Titel
+- historische Einträge
+
+Keine extremen Veteranenstats.
+
+Veteranen:
+- unterscheiden sich durch Wissen
+- nicht nur Zahlen
+
+24. MULTIACCOUNT / BOTS
+
+Nicht erlaubt.
+
+Wichtige Schutzmechanismen:
+- soziale Organisation wichtiger als Automatisierung
+- sichtbare Aktivität
+- Raumgröße
+- Warp-/Werkstattsysteme
+
+Keine aggressive Überautomatisierung gewünscht.
+
+25. UI / FLOTTENSTEUERUNG
+
+UI:
+- bleibt einfach
+- keine unnötige Komplexität
+
+26. NUKES / SUPERWAFFEN
+
+Keine klassische Vernichtungswaffe.
+
+Primärer Zweck:
+- unerwünschte Besucher vertreiben
+- Neuplatzierung erzwingen
+
+Superwaffen:
+- selten
+- sichtbar
+- politisch relevant
+
+27. CAPTURING / BESETZEN
+
+Noch nicht relevant.
+
+Aktuell:
+- Angriffe
+- Vertreibung
+- Ressourcenraub
+
+Spätere Territorialkontrolle:
+- später ausarbeiten
+
+28. KRIEGSZIELE / EVENTS
+
+Kriegsziele:
+- spielergesteuert
+
+Events:
+- dürfen spezielle Ziele definieren
+
+Beispiele:
+- Supernova/Nullung:
+  - 3 Punkte
+- normaler Angriff:
+  - 2 Punkte
+- Defkill:
+  - 1 Punkt
+
+Events:
+- ergänzen
+- ersetzen nicht die Weltlogik
+
+29. RESSOURCENKNAPPHEIT
+
+Ressourcenknappheit:
+- bewusst gewollt
+- soll Farming relevant halten
+
+Krieg:
+- erzeugt dauerhaften Verbrauch
+
+Wichtige Faktoren:
+- Werkstattdruck
+- Permanentverluste
+- Transportkosten
+- PvE-Farming
+
+30. WIE KRIEGE ENDEN
+
+Keine künstlichen Siegbedingungen.
+
+Kriege enden durch:
+- Erschöpfung
+- Werkstattüberlastung
+- Ressourcenmangel
+- Motivation
+- Zeitaufwand
+
+Kriege:
+- eskalieren
+- beruhigen sich
+- flammen wieder auf
+
+Natürliche Kriegszyklen statt Timerenden.
+
+OFFENER SPÄTERER KERNPUNKT
+
+- mathematische Kampfberechnung
+
+Noch offen:
+- Schadensformeln
+- Aggregation
+- Zielverteilung
+- RNG
+- Overkill
+- simultan/sequenziell
+- mathematische Skalierung
+- exakte Verlustberechnung

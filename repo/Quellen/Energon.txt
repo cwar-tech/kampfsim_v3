@@ -1,0 +1,212 @@
+==================================================
+ENERGON – AKTUELLER SYSTEMSTAND
+==================================================
+
+KERNIDENTITÄT
+
+Energon ist:
+- keine normale Forschung
+- kein klassischer Multiplikator
+- kein einfacher Buff
+
+Energon ist:
+- langfristige Spezialisierung
+- planetare Effizienzaktivierung
+- strategische Priorisierung
+- Endgame-System
+
+
+==================================================
+GRUNDPRINZIP
+==================================================
+
+Energon wirkt:
+ADDITIV auf Basiswerte.
+
+Nicht:
+multiplikativ.
+
+Beispiel:
+
+(Basiswert + Energon)
+× Forschung
+× Booster
+× VIP
+× Gilde
+× weitere Multiplikatoren
+
+Nicht:
+Basiswert × Multiplikator + Energon
+
+
+==================================================
+KONSEQUENZEN
+==================================================
+
+Dadurch:
+- skaliert Energon mit allen Systemen
+- bleibt Energon langfristig relevant
+- entstehen unterschiedliche Breakpoints
+- entstehen echte Builds
+- entstehen unterschiedliche Metaentscheidungen
+
+Energon:
+verändert Fundamentwerte.
+
+
+==================================================
+ENERGON-QUELLEN
+==================================================
+
+Hauptquelle:
+Elitepiraten
+
+Weitere Quellen:
+noch offen
+
+
+==================================================
+ENERGON-EFFIZIENZSYSTEM
+==================================================
+
+Gebäude können durch Energon:
+aktiviert/verstärkt werden.
+
+Dadurch entstehen:
+- unterschiedliche Spezialisierungen
+- unterschiedliche Planetentypen
+- unterschiedliche Gildenrollen
+
+
+==================================================
+AKTUELLE EFFIZIENZGEBÄUDE
+==================================================
+
+- Warpkomplex
+- Radar
+- Raumhafen
+- Cyberkraftwerk
+- Schildgenerator
+- Polymerdepot
+- Polymerfarm
+- Metalldepot
+- Erzmine
+- Kontrollzentrum
+- Wissenschaftstrakt
+- Bunker
+- Militärrat
+- Ansible-Ring
+- Antimateriedepot
+- Antimateriegenerator
+
+
+==================================================
+BEISPIELE DER EFFEKTE
+==================================================
+
+Warpkomplex:
+Reparaturgeschwindigkeit
+
+Radar:
+Informations-/Sichtstärke
+
+Raumhafen:
+Flottenproduktion
+
+Cyberkraftwerk:
+Defproduktion
+
+Wissenschaftstrakt:
+Schiffsschaden
+
+Militärrat:
+Gruppenangriffsschaden
+
+Bunker:
+Hangarkapazität
+
+Antimateriegenerator:
+Flottengeschwindigkeit
+
+Antimateriedepot:
+Kraftstoffverbrauch
+
+Kontrollzentrum:
+maximale Flottengröße
+
+Erzmine:
+Schiffsrüstung
+
+Metalldepot:
+Defrüstungen
+
+Polymerfarm:
+Ressförderung
+
+Polymerdepot:
+Ladekapazität
+
+
+==================================================
+SYSTEMIDENTITÄT
+==================================================
+
+Energon erzeugt:
+- unterschiedliche Spezialisierungen
+- unterschiedliche Wirtschaftsrollen
+- unterschiedliche Kriegsdoktrinen
+- unterschiedliche Hiveidentitäten
+- unterschiedliche Planetenschwerpunkte
+
+Nicht:
+nur höhere Zahlen.
+
+
+==================================================
+BALANCING-PHILOSOPHIE
+==================================================
+
+Energon soll:
+- stark wirken
+- aber Entscheidungen erzwingen
+
+Nicht:
+alles gleichzeitig maximieren.
+
+Dadurch:
+- bleiben Builds relevant
+- bleiben Unterschiede relevant
+- bleiben Metas dynamisch
+
+
+==================================================
+LANGZEITROLLE
+==================================================
+
+Energon ist:
+eine der wichtigsten Endgame-Ressourcen.
+
+Es konkurriert langfristig mit:
+- Forschung
+- VIP
+- Booster
+- Infrastruktur
+
+
+==================================================
+OFFENE PUNKTE
+==================================================
+
+- genaue Aktivierungskosten
+- Wechselmechaniken
+- maximale aktive Effekte
+- Seltenheit
+- Account- oder planetenweit
+- Umskillmechaniken
+- Energon-Limits
+- Energon-Caps
+- mögliche Diminishing Returns
+- weitere Energonquellen
+- Energon-Handel
+- finale mathematische Skalierung
+- Interaktion mit Kriegssimulator
