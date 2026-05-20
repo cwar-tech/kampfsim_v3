@@ -1,2 +1,53 @@
-REQ-UI-01 Responsive UI
-REQ-UI-02 Keine abgeschnittenen Karten
+REQ-UI-01
+
+Der Kampfsimulator
+muss als Singlepage aufgebaut sein.
+
+
+REQ-UI-02
+
+Die Einheitenlegende
+muss permanent sichtbar bleiben.
+
+
+REQ-UI-03
+
+Die Einheitenlegende
+muss Vor- und Nachteile aller Einheiten anzeigen.
+
+
+REQ-UI-04
+
+Kampfrunden
+müssen visuell klar getrennt dargestellt werden.
+
+
+REQ-UI-05
+
+Eigene und gegnerische Verluste
+müssen visuell klar unterscheidbar sein.
+
+
+REQ-UI-06
+
+Der Kampfausgang
+muss auf den ersten Blick erkennbar sein.
+
+
+REQ-UI-07
+
+Angriffspunkte eines Kampfes
+müssen als auswählbare Detailansicht verfügbar sein.
+
+
+REQ-UI-08
+
+Wichtige Kampfinformationen
+müssen ohne zusätzliche Navigation sichtbar bleiben.
+
+
+REQ-UI-09
+
+Der Kampfsimulator
+muss schnelle Vergleichbarkeit
+mehrerer Kampfergebnisse unterstützen.
