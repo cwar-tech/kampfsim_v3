@@ -1,2 +1,45 @@
-REQ-ARCH-01 Single Source of Truth
-REQ-ARCH-02 Keine Hardcodes
+========================
+REQ-ARCH.txt
+========================
+
+
+REQ-ARCH-01
+
+Der Kampfsimulator
+muss modular erweiterbar aufgebaut sein.
+
+
+REQ-ARCH-02
+
+Combatberechnung,
+Targeting,
+Ergebnisberechnung
+und Kampfbericht
+müssen fachlich getrennt bleiben.
+
+
+REQ-ARCH-03
+
+Combatregeln
+dürfen keine impliziten Sonderfälle besitzen.
+
+
+REQ-ARCH-04
+
+Combatmechaniken
+dürfen nicht hardcoded
+an einzelne Einheitentypen gebunden sein.
+
+
+REQ-ARCH-05
+
+Combatattribute
+und Combatmechaniken
+müssen wiederverwendbar aufgebaut sein.
+
+
+REQ-ARCH-06
+
+Neue Combatmechaniken
+dürfen bestehende Kernmechaniken
+nicht unkontrolliert verändern.
