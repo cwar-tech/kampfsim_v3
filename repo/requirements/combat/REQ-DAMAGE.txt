@@ -2,26 +2,35 @@
 REQ-DAMAGE.txt
 ========================
 
-REQ-DMG-02
+REQ-DMG-01
+
 Negative finale Schadenswerte sind ungültig.
 
-Ausnahme:
-Negative Werte durch die Overflow-Abschwächung
+
+SFR-DMG-01
+
+Overflow-Endwerte unter 0
 werden auf 0 begrenzt.
 
+Beeinflusste Dokumente:
+- REQ-DAMAGE.txt
 
-REQ-DMG-03
+
+REQ-DMG-02
+
 Rüstung reduziert finalen Schaden multiplikativ.
 
 
-REQ-DMG-04
+REQ-DMG-03
+
 Durchdringung verwendet eigenen Schadensmultiplikator.
 
 0 entspricht keinem Bonus.
 Werte größer 0 erhöhen den eingehenden Schaden.
 
 
-REQ-DMG-05
+REQ-DMG-04
+
 Counterboni werden multiplikativ angewendet.
 
 Ein Schiff kann mehrere Counterbeziehungen besitzen.
@@ -30,31 +39,29 @@ Existieren mehrere gültige Counterziele,
 wird der höchste gültige Countermultiplikator verwendet.
 
 
-REQ-DMG-07
+REQ-DMG-05
+
 Alle gültigen Angriffe einer Kampfrunde
 werden gleichzeitig berechnet.
 
 Verluste werden erst nach Abschluss aller Schadensberechnungen angewendet.
 
 
-REQ-DMG-09
-Einheiten,
-die innerhalb einer Kampfrunde zerstört werden,
-verursachen in derselben Runde weiterhin ihren berechneten Schaden.
+REQ-DMG-06
 
-
-REQ-DMG-10
 Alle Schadenswerte werden intern präzise berechnet.
 
 Erst der finale aggregierte Gesamtschaden
 wird mathematisch auf ganze Zahlen gerundet.
 
 
-REQ-DMG-12
+REQ-DMG-07
+
 Defeinheiten verwenden dieselbe Schadensberechnungslogik wie Schiffe.
 
 
-REQ-DMG-13
+REQ-DMG-08
+
 Beim Zielwechsel dürfen alte Counterboni
 nicht auf neue Zieltypen übertragen werden.
 
@@ -65,17 +72,24 @@ Neue Ziele berechnen:
 vollständig neu.
 
 
-REQ-DMG-14
-Negative Verluste sind ungültig
-und erzeugen einen Fehlerzustand.
+REQ-DMG-09
+
+Berechnete Einheitenverluste
+dürfen die vorhandene Einheitenanzahl
+nicht überschreiten.
+
+Ungültige Verlustwerte
+erzeugen einen Fehlerzustand.
 
 
-REQ-DMG-15
+REQ-DMG-10
+
 Identische Kampfeingaben
 müssen identische Kampfergebnisse erzeugen.
 
 
-REQ-DMG-16
+REQ-DMG-11
+
 Restschaden verliert beim Zielwechsel 5%.
 
 Neue Ziele erhalten:
@@ -88,6 +102,7 @@ Die Overflow-Abschwächung gilt:
 - pro zuerst zerstörtem Schiffstyp.
 
 
-REQ-DMG-17
+REQ-DMG-12
+
 Overflow-Schaden darf innerhalb derselben Kampfrunde
 mehrere Zieltypen nacheinander angreifen.
