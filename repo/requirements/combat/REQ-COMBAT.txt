@@ -1,2 +1,0 @@
-REQ-COMBAT-01 Gleichzeitiges Schießen
-REQ-COMBAT-02 Countermultiplikatoren
