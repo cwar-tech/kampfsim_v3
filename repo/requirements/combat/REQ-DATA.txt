@@ -1,2 +1,4 @@
-REQ-DATA-01 Alle 12 Schiffe vorhanden
-REQ-DATA-02 Alle 6 Defeinheiten vorhanden
+REQ-DATA-01
+
+Alle für den Kampfsimulator relevanten Einheiten
+müssen im Kampfsimulator verfügbar sein.
