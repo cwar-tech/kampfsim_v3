@@ -101,6 +101,21 @@ Die Overflow-Abschwächung gilt:
 - pro Spieler
 - pro zuerst zerstörtem Schiffstyp.
 
+SFR-DMG-02
+
+Vernichten mehrere Angreifer
+
+innerhalb derselben Kampfrunde
+
+dasselbe Ziel,
+
+dürfen alle verbleibenden Overflow-Schäden
+
+auf dasselbe neue gültige Ziel übergehen.
+
+Schäden mehrerer Angreifer
+
+müssen dort gemeinsam aggregiert werden.
 
 REQ-DMG-12
 
