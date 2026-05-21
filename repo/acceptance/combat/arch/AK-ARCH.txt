@@ -1,0 +1,139 @@
+========================
+AK-ARCH.txt
+========================
+
+
+REQ-ARCH-01
+
+Der Kampfsimulator
+muss modular erweiterbar aufgebaut sein.
+
+
+AK-ARCH-01-01
+
+Neue Combatmechaniken
+müssen ohne vollständigen Neuaufbau
+des Kampfsimulators ergänzbar sein.
+
+
+AK-ARCH-01-02
+
+Neue Einheitentypen
+müssen ohne vollständige Änderung
+bestehender Combatlogik integrierbar sein.
+
+
+
+REQ-ARCH-02
+
+Combatberechnung,
+Targeting,
+Ergebnisberechnung
+und Kampfbericht
+müssen fachlich getrennt bleiben.
+
+
+AK-ARCH-02-01
+
+Änderungen an der Combatberechnung
+dürfen die Zielpriorisierung
+nicht direkt verändern.
+
+
+AK-ARCH-02-02
+
+Änderungen am Kampfbericht
+dürfen die Combatberechnung
+nicht verändern.
+
+
+AK-ARCH-02-03
+
+Combatberechnung,
+Targeting,
+Ergebnisberechnung
+und Kampfbericht
+müssen getrennt wartbar bleiben.
+
+
+
+REQ-ARCH-03
+
+Combatregeln
+dürfen keine impliziten Sonderfälle besitzen.
+
+
+AK-ARCH-03-01
+
+Combatsonderfälle
+müssen explizit definiert werden.
+
+
+AK-ARCH-03-02
+
+Nicht definierte Sonderfälle
+dürfen keine Combatlogik verändern.
+
+
+
+REQ-ARCH-04
+
+Combatmechaniken
+dürfen nicht hardcoded
+an einzelne Einheitentypen gebunden sein.
+
+
+AK-ARCH-04-01
+
+Combatmechaniken
+müssen unabhängig
+von einzelnen Einheitentypen funktionieren.
+
+
+AK-ARCH-04-02
+
+Neue Einheitentypen
+dürfen keine neue hardcoded Combatlogik erzwingen.
+
+
+
+REQ-ARCH-05
+
+Combatattribute
+und Combatmechaniken
+müssen wiederverwendbar aufgebaut sein.
+
+
+AK-ARCH-05-01
+
+Combatattribute
+müssen von mehreren Einheitentypen
+verwendbar sein.
+
+
+AK-ARCH-05-02
+
+Combatmechaniken
+müssen mehrfach verwendbar bleiben.
+
+
+
+REQ-ARCH-06
+
+Neue Combatmechaniken
+dürfen bestehende Kernmechaniken
+nicht unkontrolliert verändern.
+
+
+AK-ARCH-06-01
+
+Neue Combatmechaniken
+dürfen bestehende Combatregeln
+nicht implizit überschreiben.
+
+
+AK-ARCH-06-02
+
+Bestehende Kernmechaniken
+müssen nach Erweiterungen
+weiterhin korrekt funktionieren.
