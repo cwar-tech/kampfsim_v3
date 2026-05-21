@@ -1,3 +1,194 @@
-AK-TARGET
+========================
+AK-TARGET.txt
+========================
 
-Placeholder für Targeting-Akzeptanzkriterien.
+
+REQ-TARGET-01
+
+Nur feindliche Einheitentypen dürfen anvisiert werden.
+
+
+AK-TARGET-01-01
+
+Eigene Einheitentypen
+dürfen nicht als Ziel auswählbar sein.
+
+
+
+REQ-TARGET-02
+
+Existiert kein gültiger Counter,
+wird der feindliche Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert.
+
+
+AK-TARGET-02-01
+
+Existiert kein gültiger Counter,
+muss der Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert werden.
+
+
+AK-TARGET-02-02
+
+Die Volumenpriorisierung
+muss nur angewendet werden,
+wenn kein gültiger Counter existiert.
+
+
+
+REQ-TARGET-03
+
+Existieren mehrere gültige Counterziele,
+wird der höchste gültige Countermultiplikator priorisiert.
+
+Beim Zielwechsel
+muss die Counterpriorisierung
+vollständig neu berechnet werden.
+
+Existiert kein gültiger Counter mehr,
+greift die normale Zielpriorisierung.
+
+
+AK-TARGET-03-01
+
+Existieren mehrere gültige Counterziele,
+muss der höchste gültige Countermultiplikator priorisiert werden.
+
+
+AK-TARGET-03-02
+
+Beim Zielwechsel
+muss die Counterpriorisierung
+vollständig neu berechnet werden.
+
+
+AK-TARGET-03-03
+
+Existiert kein gültiger Counter mehr,
+muss die normale Zielpriorisierung verwendet werden.
+
+
+
+REQ-TARGET-04
+
+Besitzen mehrere gültige Ziele denselben Countermultiplikator,
+wird der Zieltyp mit dem geringsten Gesamtvolumen priorisiert.
+
+
+AK-TARGET-04-01
+
+Besitzen mehrere Ziele
+denselben gültigen Countermultiplikator,
+muss das geringste Gesamtvolumen priorisiert werden.
+
+
+
+REQ-TARGET-05
+
+Beim Zielwechsel
+muss die Zielpriorisierung vollständig neu berechnet werden.
+
+
+AK-TARGET-05-01
+
+Beim Zielwechsel
+muss die Zielpriorisierung
+vollständig neu berechnet werden.
+
+
+
+REQ-TARGET-06
+
+Overflow-Schaden darf innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
+
+
+AK-TARGET-06-01
+
+Overflow-Schaden
+muss innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen dürfen.
+
+
+AK-TARGET-06-02
+
+Overflow-Schaden
+darf nur gültige Zieltypen angreifen.
+
+
+
+REQ-TARGET-07
+
+Gleiche Kampfsituationen
+müssen immer dieselbe Zielauswahl erzeugen.
+
+
+AK-TARGET-07-01
+
+Gleiche Kampfsituationen
+müssen dieselbe Zielauswahl erzeugen.
+
+
+AK-TARGET-07-02
+
+Die Reihenfolge technischer Berechnungsschritte
+darf die Zielauswahl nicht verändern.
+
+
+
+REQ-TARGET-08
+
+Existiert kein feindlicher Zieltyp mehr,
+endet die Zielsuche.
+
+
+AK-TARGET-08-01
+
+Existiert kein feindlicher Zieltyp mehr,
+muss die Zielsuche beendet werden.
+
+
+
+REQ-TARGET-09
+
+Ein Zielwechsel erfolgt erst,
+wenn der aktuelle Zieltyp vollständig zerstört wurde.
+
+
+AK-TARGET-09-01
+
+Ein Zielwechsel
+darf erst nach vollständiger Zerstörung
+des aktuellen Zieltyps erfolgen.
+
+
+AK-TARGET-09-02
+
+Teilweise beschädigte Zieltypen
+dürfen nicht vorzeitig verlassen werden.
+
+
+
+REQ-TARGET-10
+
+Existieren verteidigende Defeinheiten,
+werden diese vor Schiffen priorisiert.
+
+
+AK-TARGET-10-01
+
+Existierende verteidigende Defeinheiten
+müssen vor Schiffen priorisiert werden.
+
+
+AK-TARGET-10-02
+
+Nicht vorhandene Defeinheiten
+dürfen keine Zielpriorisierung beeinflussen.
+
+
+AK-TARGET-10-03
+
+Nach vollständiger Zerstörung aller Defeinheiten
+muss die normale Schiffszielpriorisierung verwendet werden.
