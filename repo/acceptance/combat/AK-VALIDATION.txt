@@ -1,0 +1,53 @@
+========================
+AK-VALIDATION.txt
+========================
+
+
+REQ-VALIDATION-01
+
+Alle Kampfeinheiten
+müssen vollständige gültige Combatattribute besitzen.
+
+
+AK-VALIDATION-01-01
+
+Kampfeinheiten
+dürfen keine fehlenden Pflichtattribute besitzen.
+
+
+AK-VALIDATION-01-02
+
+Alle benötigten Combatattribute
+müssen vor Kampfbeginn vorhanden sein.
+
+
+AK-VALIDATION-01-03
+
+Defeinheiten
+und Schiffe
+müssen vollständige gültige Combatattribute besitzen.
+
+
+
+REQ-VALIDATION-02
+
+Ungültige Combatattribute
+dürfen nicht in die Combatberechnung gelangen.
+
+
+AK-VALIDATION-02-01
+
+Ungültige Combatattribute
+dürfen keine Schadensberechnung auslösen.
+
+
+AK-VALIDATION-02-02
+
+Ungültige Combatattribute
+dürfen keine Zielberechnung beeinflussen.
+
+
+AK-VALIDATION-02-03
+
+Ungültige Combatattribute
+müssen einen Fehlerzustand erzeugen.
