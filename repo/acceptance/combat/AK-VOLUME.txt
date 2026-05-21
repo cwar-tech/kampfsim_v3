@@ -1,0 +1,43 @@
+========================
+AK-VOLUME.txt
+========================
+
+
+REQ-VOLUME-01
+
+Flotten
+müssen ein berechenbares Gesamtvolumen besitzen.
+
+
+AK-VOLUME-01-01
+
+Das Gesamtvolumen einer Flotte
+muss berechnet werden können.
+
+
+AK-VOLUME-01-02
+
+Identische Flottenzusammensetzungen
+müssen identische Gesamtvolumen erzeugen.
+
+
+
+REQ-VOLUME-02
+
+Das Volumen von Schiffen
+und Defeinheiten
+muss getrennt berechnet werden.
+
+
+AK-VOLUME-02-01
+
+Schiffsvolumen
+dürfen nicht mit Defvolumen
+gemeinsam berechnet werden.
+
+
+AK-VOLUME-02-02
+
+Defvolumen
+muss unabhängig vom Schiffsvolumen
+berechnet werden.
