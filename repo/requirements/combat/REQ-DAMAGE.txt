@@ -95,13 +95,6 @@ müssen identische Kampfergebnisse erzeugen.
 
 REQ-DMG-11
 
-Restschaden verliert beim Zielwechsel 5%.
-
-Neue Ziele erhalten:
-- neue Counterboni
-- neue Durchdringung
-- neue Rüstung.
-
 Die Overflow-Abschwächung gilt:
 - pro Spieler
 - pro zuerst zerstörtem Schiffstyp.
