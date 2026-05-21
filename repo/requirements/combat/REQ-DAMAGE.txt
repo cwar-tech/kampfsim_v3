@@ -54,10 +54,12 @@ Alle Schadenswerte werden intern präzise berechnet.
 Erst der finale aggregierte Gesamtschaden
 wird mathematisch auf ganze Zahlen gerundet.
 
-
 REQ-DMG-07
 
 Defeinheiten verwenden dieselbe Schadensberechnungslogik wie Schiffe.
+
+Modifierquellen
+dürfen nur gültige Einheitengruppen beeinflussen.
 
 
 REQ-DMG-08
