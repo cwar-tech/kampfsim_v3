@@ -1,0 +1,149 @@
+========================
+AK-LOG.txt
+========================
+
+
+REQ-LOG-01
+
+Der Kampfbericht
+muss verursachten Schaden
+pro Kampfrunde nachvollziehbar anzeigen.
+
+
+AK-LOG-01-01
+
+Der verursachte Schaden
+muss pro Kampfrunde sichtbar sein.
+
+
+AK-LOG-01-02
+
+Eigener und gegnerischer Schaden
+müssen unterscheidbar dargestellt werden.
+
+
+
+REQ-LOG-02
+
+Der Kampfbericht
+muss zerstörte Einheiten
+pro Einheitentyp nachvollziehbar anzeigen.
+
+Eigene und gegnerische Verluste
+müssen klar unterscheidbar sein.
+
+
+AK-LOG-02-01
+
+Zerstörte Einheiten
+müssen pro Einheitentyp
+für beide Kampfseiten
+klar unterscheidbar dargestellt werden.
+
+
+
+REQ-LOG-03
+
+Der Kampfbericht
+muss den Kampfausgang
+auf den ersten Blick erkennbar machen.
+
+
+AK-LOG-03-01
+
+Sieg und Niederlage
+müssen sofort erkennbar dargestellt werden.
+
+
+AK-LOG-03-02
+
+Totalverluste
+und vollständige Zerstörung
+müssen auf den ersten Blick
+klar sichtbar dargestellt werden.
+
+
+
+REQ-LOG-04
+
+Der Kampfbericht
+muss verbleibende einsatzfähige Einheiten
+und Werkstatt-/Warpverluste getrennt anzeigen.
+
+
+AK-LOG-04-01
+
+Verbleibende einsatzfähige Einheiten
+müssen sichtbar dargestellt werden.
+
+
+AK-LOG-04-02
+
+Werkstatt- und Warpverluste
+müssen gleichartig
+als nicht einsatzfähige Einheiten dargestellt werden.
+
+
+
+REQ-LOG-05
+
+Der Kampfbericht
+muss deterministisch reproduzierbar sein.
+
+
+AK-LOG-05-01
+
+Identische Kampfeingaben
+müssen identische Kampfberichte erzeugen.
+
+
+
+REQ-LOG-06
+
+Die Angriffspunkte eines Kampfes
+müssen als auswählbare Detailansicht verfügbar sein.
+
+
+AK-LOG-06-01
+
+Angriffspunkte
+müssen auswählbar dargestellt werden.
+
+
+AK-LOG-06-02
+
+Die Detailansicht
+muss kampfbezogene Informationen anzeigen.
+
+
+
+REQ-LOG-07
+
+Eine permanente Einheitenlegende
+muss alle Einheiten
+inklusive Vor- und Nachteile anzeigen.
+
+
+AK-LOG-07-01
+
+Die Einheitenlegende
+muss permanent sichtbar bleiben.
+
+
+AK-LOG-07-02
+
+Vor- und Nachteile aller Einheiten
+müssen sichtbar dargestellt werden.
+
+
+
+REQ-LOG-08
+
+Der Kampfbericht
+muss Kampfrunden klar voneinander trennen.
+
+
+AK-LOG-08-01
+
+Kampfrunden
+müssen visuell klar getrennt dargestellt werden.
