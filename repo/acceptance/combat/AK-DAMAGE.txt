@@ -1,3 +1,371 @@
-AK-DAMAGE
+========================
+AK-DMG.txt
+========================
 
-Placeholder für Damage-Akzeptanzkriterien.
+
+REQ-DMG-01
+
+AK-DMG-01-01
+
+Finaler Schaden kleiner 0
+darf nicht erzeugt werden.
+
+
+AK-DMG-01-02
+
+Overflow-Endwerte kleiner 0
+müssen auf 0 begrenzt werden.
+
+
+AK-DMG-01-03
+
+Ein finaler Schadenswert von 0
+muss gültig verarbeitet werden.
+
+
+
+REQ-DMG-02
+
+AK-DMG-02-01
+
+Rüstung
+muss den finalen Schaden
+multiplikativ reduzieren.
+
+
+AK-DMG-02-02
+
+Mehrere identische Kampfrunden
+müssen bei gleicher Rüstung
+denselben finalen Schaden erzeugen.
+
+
+AK-DMG-02-03
+
+Rüstung
+darf keinen negativen finalen Schaden erzeugen.
+
+
+
+REQ-DMG-03
+
+AK-DMG-03-01
+
+Durchdringung
+muss einen eigenen Schadensmultiplikator verwenden.
+
+
+AK-DMG-03-02
+
+Ein Durchdringungswert von 0
+darf keinen Schadensbonus erzeugen.
+
+
+AK-DMG-03-03
+
+Durchdringungswerte größer 0
+müssen den eingehenden Schaden erhöhen.
+
+
+AK-DMG-03-04
+
+Gleiche Durchdringungswerte
+müssen bei identischen Kampfsituationen
+denselben Schadensbonus erzeugen.
+
+
+
+REQ-DMG-04
+
+AK-DMG-04-01
+
+Counterboni
+müssen multiplikativ angewendet werden.
+
+
+AK-DMG-04-02
+
+Ein Schiff
+darf mehrere Counterbeziehungen besitzen.
+
+
+AK-DMG-04-03
+
+Existieren mehrere gültige Counterziele,
+muss der höchste gültige Countermultiplikator verwendet werden.
+
+
+AK-DMG-04-04
+
+Ungültige Counterziele
+dürfen keinen Counterbonus erzeugen.
+
+
+AK-DMG-04-05
+
+Wird ein gültiges Counterziel zerstört,
+muss der nächsthöchste gültige Countermultiplikator verwendet werden.
+
+
+AK-DMG-04-06
+
+Existiert kein weiteres gültiges Counterziel,
+darf kein Counterbonus mehr angewendet werden.
+
+
+
+REQ-DMG-05
+
+AK-DMG-05-01
+
+Alle gültigen Angriffe einer Kampfrunde
+müssen vor der Verlustanwendung berechnet werden.
+
+
+AK-DMG-05-02
+
+Innerhalb derselben Kampfrunde zerstörte Einheiten
+müssen weiterhin ihren berechneten Schaden verursachen.
+
+
+AK-DMG-05-03
+
+Die Reihenfolge einzelner Schadensberechnungen
+darf das Kampfergebnis nicht verändern.
+
+
+
+REQ-DMG-06
+
+AK-DMG-06-01
+
+Zwischenwerte der Schadensberechnung
+dürfen nicht vorzeitig gerundet werden.
+
+
+AK-DMG-06-02
+
+Erst der finale aggregierte Gesamtschaden
+darf mathematisch gerundet werden.
+
+
+AK-DMG-06-03
+
+Mehrere Schadenswerte
+müssen korrekt aggregiert werden.
+
+
+AK-DMG-06-04
+
+Die Rundung des finalen Gesamtschadens
+muss deterministisch erfolgen.
+
+
+
+REQ-DMG-07
+
+AK-DMG-07-01
+
+Defeinheiten
+müssen dieselben Schadensberechnungsregeln
+wie Schiffe verwenden.
+
+
+AK-DMG-07-02
+
+Counterboni,
+Durchdringung
+und Rüstung
+müssen auch für Defeinheiten korrekt berechnet werden.
+
+
+AK-DMG-07-03
+
+Defeinheiten
+müssen innerhalb derselben Kampfrunde
+gleichzeitig mit Schiffen Schaden verursachen können.
+
+
+AK-DMG-07-04
+
+Defeinheiten
+dürfen keine eigene abweichende Schadenspipeline verwenden.
+
+
+AK-DMG-07-05
+
+Schiffstechnologien
+dürfen keine Defeinheiten verstärken.
+
+
+AK-DMG-07-06
+
+Deftechnologien
+dürfen keine Schiffe verstärken.
+
+
+
+REQ-DMG-08
+
+AK-DMG-08-01
+
+Beim Zielwechsel
+dürfen alte Counterboni
+nicht auf neue Zieltypen übertragen werden.
+
+
+AK-DMG-08-02
+
+Beim Zielwechsel
+muss der Counterbonus
+für das neue Ziel vollständig neu berechnet werden.
+
+
+AK-DMG-08-03
+
+Beim Zielwechsel
+muss die Durchdringung
+für das neue Ziel vollständig neu berechnet werden.
+
+
+AK-DMG-08-04
+
+Beim Zielwechsel
+muss die Rüstung
+für das neue Ziel vollständig neu berechnet werden.
+
+
+AK-DMG-08-05
+
+Beim Wechsel auf einen neuen Zieltyp
+muss Overflow-Schaden
+um 5% reduziert werden.
+
+
+AK-DMG-08-06
+
+Die Overflow-Reduktion
+muss bei jedem weiteren Zieltypwechsel
+erneut angewendet werden.
+
+
+AK-DMG-08-07
+
+Die Overflow-Reduktion
+darf nur beim Wechsel
+auf einen neuen Zieltyp angewendet werden.
+
+
+
+REQ-DMG-09
+
+AK-DMG-09-01
+
+Berechnete Verluste
+dürfen nicht größer sein
+als die vorhandene Einheitenanzahl.
+
+
+AK-DMG-09-02
+
+Ungültige Verlustwerte
+müssen einen Fehlerzustand erzeugen.
+
+
+AK-DMG-09-03
+
+Eine vollständige Zerstörung aller vorhandenen Einheiten
+muss gültig verarbeitet werden.
+
+
+AK-DMG-09-04
+
+Einheitenverluste von 0
+müssen gültig verarbeitet werden.
+
+
+
+REQ-DMG-10
+
+AK-DMG-10-01
+
+Identische Kampfeingaben
+müssen identische Verluste erzeugen.
+
+
+AK-DMG-10-02
+
+Identische Kampfeingaben
+müssen identische Zielwechsel erzeugen.
+
+
+AK-DMG-10-03
+
+Identische Kampfeingaben
+müssen identische Schadenswerte erzeugen.
+
+
+AK-DMG-10-04
+
+Die Reihenfolge technischer Berechnungsschritte
+darf identische Kampfergebnisse
+nicht verändern.
+
+
+
+REQ-DMG-11
+
+AK-DMG-11-01
+
+Die Overflow-Abschwächung
+muss pro Spieler separat berechnet werden.
+
+
+AK-DMG-11-02
+
+Die Overflow-Abschwächung
+muss sich auf den zuerst zerstörten Schiffstyp beziehen.
+
+
+AK-DMG-11-03
+
+Mehrere zerstörte Schiffstypen
+dürfen die Overflow-Abschwächung
+nicht rückwirkend verändern.
+
+
+
+REQ-DMG-12
+
+AK-DMG-12-01
+
+Overflow-Schaden
+muss nach der Zerstörung eines Zieltyps
+weitere gültige Zieltypen angreifen dürfen.
+
+
+AK-DMG-12-02
+
+Overflow-Schaden
+darf innerhalb derselben Kampfrunde
+mehrere Zielwechsel durchführen.
+
+
+AK-DMG-12-03
+
+Beim Zielwechsel
+müssen neue Zielmodifier
+vollständig neu berechnet werden.
+
+
+AK-DMG-12-04
+
+Existiert kein weiterer gültiger Zieltyp,
+muss der verbleibende Overflow-Schaden enden.
+
+
+AK-DMG-12-05
+
+Mehrere Angreifer
+dürfen innerhalb derselben Kampfrunde
+denselben neuen Zieltyp angreifen.
