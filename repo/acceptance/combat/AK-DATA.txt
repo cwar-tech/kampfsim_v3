@@ -1,0 +1,23 @@
+========================
+AK-DATA.txt
+========================
+
+
+REQ-DATA-01
+
+Alle für den Kampfsimulator relevanten Einheiten
+müssen im Kampfsimulator verfügbar sein.
+
+
+AK-DATA-01-01
+
+Alle vorgesehenen Kampfeinheiten
+müssen im Kampfsimulator verfügbar sein.
+
+
+AK-DATA-01-02
+
+Defeinheiten,
+Schiffe
+und Transporter
+müssen im Kampfsimulator verfügbar sein.
