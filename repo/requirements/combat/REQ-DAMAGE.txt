@@ -1,27 +1,26 @@
-========================
-REQ-DAMAGE.txt
-========================
+==================================================
+REQ-DMG.txt
+==================================================
 
+==================================================
 REQ-DMG-01
+==================================================
 
 Negative finale Schadenswerte sind ungültig.
 
 
-SFR-DMG-01
 
-Overflow-Endwerte unter 0
-werden auf 0 begrenzt.
-
-Beeinflusste Dokumente:
-- REQ-DAMAGE.txt
-
-
+==================================================
 REQ-DMG-02
+==================================================
 
 Rüstung reduziert finalen Schaden multiplikativ.
 
 
+
+==================================================
 REQ-DMG-03
+==================================================
 
 Durchdringung verwendet eigenen Schadensmultiplikator.
 
@@ -29,7 +28,10 @@ Durchdringung verwendet eigenen Schadensmultiplikator.
 Werte größer 0 erhöhen den eingehenden Schaden.
 
 
+
+==================================================
 REQ-DMG-04
+==================================================
 
 Counterboni werden multiplikativ angewendet.
 
@@ -39,7 +41,10 @@ Existieren mehrere gültige Counterziele,
 wird der höchste gültige Countermultiplikator verwendet.
 
 
+
+==================================================
 REQ-DMG-05
+==================================================
 
 Alle gültigen Angriffe einer Kampfrunde
 werden gleichzeitig berechnet.
@@ -47,75 +52,137 @@ werden gleichzeitig berechnet.
 Verluste werden erst nach Abschluss aller Schadensberechnungen angewendet.
 
 
+
+==================================================
 REQ-DMG-06
+==================================================
 
 Alle Schadenswerte werden intern präzise berechnet.
 
 Erst der finale aggregierte Gesamtschaden
 wird mathematisch auf ganze Zahlen gerundet.
 
+
+
+==================================================
 REQ-DMG-07
+==================================================
 
-Defeinheiten verwenden dieselbe Schadensberechnungslogik wie Schiffe.
+Overflow-Schaden
+kann innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
 
-Modifierquellen
-dürfen nur gültige Einheitengruppen beeinflussen.
 
 
+==================================================
 REQ-DMG-08
+==================================================
 
-Beim Zielwechsel dürfen alte Counterboni
-nicht auf neue Zieltypen übertragen werden.
+Bei jedem Zielwechsel
+müssen Zielmultiplikatoren
+vollständig neu berechnet werden.
 
-Neue Ziele berechnen:
-- Counter
-- Durchdringung
-- Rüstung
-vollständig neu.
+Vorherige Zielmultiplikatoren
+dürfen keinen Einfluss
+auf neue Zieltypen besitzen.
 
-Beim Wechsel auf einen neuen Zieltyp
-muss Overflow-Schaden
-um 5% reduziert werden.
 
+
+==================================================
 REQ-DMG-09
+==================================================
 
-Berechnete Einheitenverluste
-dürfen die vorhandene Einheitenanzahl
-nicht überschreiten.
-
-Ungültige Verlustwerte
-erzeugen einen Fehlerzustand.
-
-
-REQ-DMG-10
-
-Identische Kampfeingaben
+Gleiche Kampfsituationen
 müssen identische Kampfergebnisse erzeugen.
 
 
+
+==================================================
+REQ-DMG-10
+==================================================
+
+Defeinheiten
+verwenden dieselbe Schadensberechnung
+wie Schiffe.
+
+
+
+==================================================
 REQ-DMG-11
+==================================================
 
-Die Overflow-Abschwächung gilt:
-- pro Spieler
-- pro zuerst zerstörtem Schiffstyp.
+Finale Verluste
+müssen deterministisch
+aus dem finalen Gesamtschaden berechnet werden.
 
-SFR-DMG-02
 
-Vernichten mehrere Angreifer
 
-innerhalb derselben Kampfrunde
+==================================================
+REQ-DMG-12
+==================================================
 
-dasselbe Ziel,
+Gleiche Kampfsituationen
+müssen identische Zielpriorisierung erzeugen.
 
-dürfen alle verbleibenden Overflow-Schäden
 
-auf dasselbe neue gültige Ziel übergehen.
 
-Schäden mehrerer Angreifer
+==================================================
+REQ-DMG-13
+==================================================
 
-müssen dort gemeinsam aggregiert werden.
+Pro Spielerflotte
+darf maximal einmal
+ein 5%-Overflowverlust ausgelöst werden.
+
+Der 5%-Overflowverlust
+wird ausgelöst:
+- beim ersten Schifftypwechsel
+ODER
+- beim Übergang auf eine neue Spielerflotte.
+
+Innerhalb derselben Spielerflotte
+darf danach kein weiterer
+5%-Overflowverlust ausgelöst werden.
+
+
+
+
+
+==================================================
+HINWEISE / SPÄTERE REVIEWPUNKTE
+==================================================
+
+1.
+
+REQ-DMG-04
+enthält aktuell noch:
+- mehrere Counterbeziehungen
+- höchster Countermultiplikator
+
+Diese Inhalte gehören später
+wahrscheinlich eher zu:
+- DATA
+- TARGET
+
+
+2.
 
 REQ-DMG-12
+liegt fachlich zwischen:
+- TARGET
+- DAMAGE
 
-Overflow-Schaden darf innerhalb derselben Kampfrunde
-mehrere Zieltypen nacheinander angreifen.
+Aktuelle Entscheidung:
+- TARGET = Zielwahl
+- DAMAGE = deterministische Schadenspriorisierung
+
+
+3.
+
+REQ-DMG-13
+sollte später nochmals
+gegen echte Kampfszenarien geprüft werden:
+- Multi-Flottenfälle
+- Edgecases
+- Balancing
+- mögliche Exploits
