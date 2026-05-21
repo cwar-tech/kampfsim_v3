@@ -1,0 +1,98 @@
+========================
+AK-RESULT.txt
+========================
+
+
+REQ-RESULT-01
+
+Der Kampfsimulator
+muss einen eindeutigen Kampfausgang erzeugen.
+
+
+AK-RESULT-01-01
+
+Jeder Kampf
+muss genau einen eindeutigen Kampfausgang besitzen.
+
+
+
+REQ-RESULT-02
+
+Der Kampfausgang
+muss Gewinner und Verlierer eindeutig bestimmen.
+
+
+AK-RESULT-02-01
+
+Gewinner und Verlierer
+müssen eindeutig bestimmt werden.
+
+
+AK-RESULT-02-02
+
+Unklare oder widersprüchliche Kampfausgänge
+dürfen nicht entstehen.
+
+
+
+REQ-RESULT-03
+
+Der Kampfausgang
+muss finale Verluste beider Seiten anzeigen.
+
+
+AK-RESULT-03-01
+
+Finale Verluste
+müssen für beide Kampfseiten sichtbar dargestellt werden.
+
+
+AK-RESULT-03-02
+
+Verluste
+müssen pro Einheitentyp nachvollziehbar sein.
+
+
+
+REQ-RESULT-04
+
+Der Kampfausgang
+muss verbleibende einsatzfähige Einheiten anzeigen.
+
+
+AK-RESULT-04-01
+
+Verbleibende einsatzfähige Einheiten
+müssen sichtbar dargestellt werden.
+
+
+AK-RESULT-04-02
+
+Nicht mehr einsatzfähige Einheiten
+dürfen nicht als einsatzfähig dargestellt werden.
+
+
+
+REQ-RESULT-05
+
+Der Kampfausgang
+muss permanente Verluste
+und nicht einsatzfähige Einheiten anzeigen.
+
+
+AK-RESULT-05-01
+
+Permanente Verluste
+müssen sichtbar dargestellt werden.
+
+
+AK-RESULT-05-02
+
+Nicht einsatzfähige Einheiten
+müssen sichtbar dargestellt werden.
+
+
+AK-RESULT-05-03
+
+Werkstatt- und Warpverluste
+dürfen nicht als permanente Verluste dargestellt werden.
