@@ -1,23 +1,90 @@
-========================
+==================================================
 AK-DATA.txt
-========================
+==================================================
 
-
-REQ-DATA-01
-
-Alle für den Kampfsimulator relevanten Einheiten
-müssen im Kampfsimulator verfügbar sein.
-
-
+==================================================
 AK-DATA-01-01
+==================================================
 
-Alle vorgesehenen Kampfeinheiten
-müssen im Kampfsimulator verfügbar sein.
+Einheiten
+müssen eindeutige Basisattribute besitzen.
 
 
-AK-DATA-01-02
 
-Defeinheiten,
+==================================================
+AK-DATA-02-01
+==================================================
+
+Einheiten
+müssen mehrere gültige Counterbeziehungen
+gleichzeitig besitzen können.
+
+
+
+==================================================
+AK-DATA-03-01
+==================================================
+
 Schiffe
-und Transporter
-müssen im Kampfsimulator verfügbar sein.
+müssen eigene Verstärkungsquellen
+unabhängig von Defeinheiten verwenden können.
+
+
+
+==================================================
+AK-DATA-03-02
+==================================================
+
+Defeinheiten
+müssen eigene Verstärkungsquellen
+unabhängig von Schiffen verwenden können.
+
+
+
+==================================================
+AK-DATA-04-01
+==================================================
+
+Einheiten
+müssen eindeutige Zieltypen besitzen können.
+
+
+
+==================================================
+AK-DATA-05-01
+==================================================
+
+Combatrelevante Multiplikatoren
+müssen getrennt gespeichert werden können.
+
+
+
+==================================================
+HINWEISE AUS DAMAGE-REVIEW
+==================================================
+
+1.
+
+AK-DMG-10-02
+führte zur klareren Trennung von:
+- Schiffstechs
+- Deftechs
+
+
+2.
+
+Mehrere Counterbeziehungen
+wurden aus DAMAGE herausgelöst
+und DATA zugeordnet.
+
+
+3.
+
+Multiplikatorquellen
+sollten später getrennt modelliert werden:
+- Tech
+- Energon
+- VIP
+- Counter
+- Durchdringung
+- Rüstung
