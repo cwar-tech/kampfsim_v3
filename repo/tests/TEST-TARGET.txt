@@ -1,0 +1,149 @@
+==================================================
+TEST-TARGET.txt
+==================================================
+
+==================================================
+UNIT-TARGET-01
+==================================================
+
+Nur feindliche Einheitentypen
+dürfen anvisiert werden.
+
+
+
+==================================================
+UNIT-TARGET-02
+==================================================
+
+Existiert kein gültiger Counter,
+wird der Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert.
+
+
+
+==================================================
+UNIT-TARGET-03
+==================================================
+
+Existieren mehrere gültige Counterziele,
+wird der höchste Countermultiplikator priorisiert.
+
+
+
+==================================================
+UNIT-TARGET-04
+==================================================
+
+Besitzen mehrere gültige Ziele
+denselben Countermultiplikator,
+wird der Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert.
+
+
+
+==================================================
+UNIT-TARGET-05
+==================================================
+
+Beim Zielwechsel
+wird die Zielpriorisierung
+vollständig neu berechnet.
+
+
+
+==================================================
+UNIT-TARGET-06
+==================================================
+
+Overflow-Schaden
+kann innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen.
+
+
+
+==================================================
+UNIT-TARGET-07
+==================================================
+
+Gleiche Kampfsituationen
+erzeugen dieselbe Zielauswahl.
+
+
+
+==================================================
+UNIT-TARGET-08
+==================================================
+
+Existieren keine feindlichen Zieltypen mehr,
+endet die Zielsuche.
+
+
+
+==================================================
+UNIT-TARGET-09
+==================================================
+
+Ein Zielwechsel erfolgt erst,
+wenn der aktuelle Zieltyp
+vollständig zerstört wurde.
+
+
+
+==================================================
+UNIT-TARGET-10
+==================================================
+
+Defeinheiten
+werden vor Schiffen priorisiert.
+
+
+
+==================================================
+UNIT-TARGET-11
+==================================================
+
+Normale Schiffe
+werden erst priorisiert,
+wenn keine Defeinheiten mehr existieren.
+
+
+
+
+
+==================================================
+HINWEISE AUS DAMAGE-REVIEW
+==================================================
+
+1.
+
+UNIT-TARGET-03
+überschneidet sich fachlich
+mit Teilen von:
+- REQ-DMG-04
+- AK-DMG-04-05
+
+Spätere Verantwortlichkeit klären.
+
+
+2.
+
+Zielwechsel
+existiert aktuell:
+- in TARGET
+- in DAMAGE
+
+Aktuelle Entscheidung:
+- TARGET = Zielwahl
+- DAMAGE = Schadensverarbeitung
+
+
+3.
+
+Deterministische Zielwahl
+existiert aktuell:
+- in TARGET
+- in DAMAGE
+
+Aktuelle Entscheidung:
+- TARGET = Zielauswahl
+- DAMAGE = deterministische Schadensverarbeitung
