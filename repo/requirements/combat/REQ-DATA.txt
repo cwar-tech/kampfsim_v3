@@ -1,4 +1,88 @@
-REQ-DATA-01
+==================================================
+REQ-DATA.txt
+==================================================
 
-Alle für den Kampfsimulator relevanten Einheiten
-müssen im Kampfsimulator verfügbar sein.
+==================================================
+REQ-DATA-01
+==================================================
+
+Einheiten
+müssen eindeutige Basisattribute besitzen.
+
+
+
+==================================================
+REQ-DATA-02
+==================================================
+
+Einheiten
+müssen mehrere Counterbeziehungen
+besitzen können.
+
+
+
+==================================================
+REQ-DATA-03
+==================================================
+
+Schiffe und Defeinheiten
+müssen getrennte Verstärkungsquellen
+verwenden können.
+
+
+
+==================================================
+REQ-DATA-04
+==================================================
+
+Einheiten
+müssen eindeutige Zieltypen besitzen können.
+
+
+
+==================================================
+REQ-DATA-05
+==================================================
+
+Combatrelevante Multiplikatoren
+müssen getrennt speicherbar sein.
+
+
+
+==================================================
+HINWEISE AUS DAMAGE-REVIEW
+==================================================
+
+1.
+
+REQ-DMG-04
+enthält aktuell noch:
+
+- mehrere Counterbeziehungen
+
+Dieser Inhalt gehört langfristig
+wahrscheinlich nach DATA.
+
+
+2.
+
+REQ-DMG-10
+präzisiert nun klar:
+
+- Schiffstechs verstärken Schiffe
+- Deftechs verstärken Defeinheiten
+
+Dadurch wurde DATA indirekt beeinflusst.
+
+
+3.
+
+Multiplikatorquellen
+sollten später klar getrennt werden:
+
+- Tech
+- Energon
+- VIP
+- Counter
+- Durchdringung
+- Rüstung
