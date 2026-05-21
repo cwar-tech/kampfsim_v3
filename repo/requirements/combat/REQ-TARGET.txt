@@ -1,69 +1,146 @@
-========================
+==================================================
 REQ-TARGET.txt
-========================
+==================================================
 
+==================================================
 REQ-TARGET-01
+==================================================
 
-Nur feindliche Einheitentypen dürfen anvisiert werden.
+Nur feindliche Einheitentypen
+dürfen angegriffen werden.
 
 
+
+==================================================
 REQ-TARGET-02
+==================================================
 
 Existiert kein gültiger Counter,
-wird der feindliche Zieltyp
+wird der Zieltyp
 mit dem geringsten Gesamtvolumen priorisiert.
 
 
+
+==================================================
 REQ-TARGET-03
+==================================================
 
 Existieren mehrere gültige Counterziele,
 wird der höchste gültige Countermultiplikator priorisiert.
 
+
+
+==================================================
+REQ-TARGET-04
+==================================================
+
+Besitzen mehrere gültige Ziele
+denselben Countermultiplikator,
+wird der Zieltyp
+mit dem geringsten Gesamtvolumen priorisiert.
+
+
+
+==================================================
+REQ-TARGET-05
+==================================================
+
 Beim Zielwechsel
-muss die Counterpriorisierung
+muss die Zielpriorisierung
 vollständig neu berechnet werden.
 
-Existiert kein gültiger Counter mehr,
-greift die normale Zielpriorisierung.
 
 
-REQ-TARGET-04
-
-Besitzen mehrere gültige Ziele denselben Countermultiplikator,
-wird der Zieltyp mit dem geringsten Gesamtvolumen priorisiert.
-
-
-REQ-TARGET-05
-
-Beim Zielwechsel
-muss die Zielpriorisierung vollständig neu berechnet werden.
-
-
+==================================================
 REQ-TARGET-06
+==================================================
 
-Overflow-Schaden darf innerhalb derselben Kampfrunde
+Overflow-Schaden
+kann innerhalb derselben Kampfrunde
 weitere Zieltypen angreifen.
 
 
+
+==================================================
 REQ-TARGET-07
+==================================================
 
 Gleiche Kampfsituationen
-müssen immer dieselbe Zielauswahl erzeugen.
+müssen identische Zielauswahl erzeugen.
 
 
+
+==================================================
 REQ-TARGET-08
+==================================================
 
-Existiert kein feindlicher Zieltyp mehr,
+Existieren keine feindlichen Zieltypen mehr,
 endet die Zielsuche.
 
 
+
+==================================================
 REQ-TARGET-09
+==================================================
 
 Ein Zielwechsel erfolgt erst,
-wenn der aktuelle Zieltyp vollständig zerstört wurde.
+wenn der aktuelle Zieltyp
+vollständig zerstört wurde.
 
 
+
+==================================================
 REQ-TARGET-10
+==================================================
 
-Existieren verteidigende Defeinheiten,
-werden diese vor Schiffen priorisiert.
+Defeinheiten
+werden vor Schiffen priorisiert.
+
+
+
+==================================================
+REQ-TARGET-11
+==================================================
+
+Normale Schiffe
+werden erst priorisiert,
+wenn keine Defeinheiten mehr existieren.
+
+
+
+
+
+==================================================
+HINWEISE AUS DAMAGE-REVIEW
+==================================================
+
+1.
+
+REQ-DMG-04
+enthält aktuell noch:
+
+- mehrere Counterbeziehungen
+- höchster gültiger Countermultiplikator
+
+Diese Inhalte gehören langfristig
+wahrscheinlich eher zu TARGET
+oder DATA.
+
+
+2.
+
+REQ-DMG-12
+bleibt aktuell in DAMAGE,
+da unterschieden wird zwischen:
+
+- TARGET = Zielwahl
+- DAMAGE = deterministische Schadenspriorisierung
+
+
+3.
+
+REQ-TARGET-03
+überschneidet sich fachlich
+mit Teilen von REQ-DMG-04.
+
+Spätere Konsolidierung empfohlen.
