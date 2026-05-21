@@ -73,6 +73,9 @@ Neue Ziele berechnen:
 - Rüstung
 vollständig neu.
 
+Beim Wechsel auf einen neuen Zieltyp
+muss Overflow-Schaden
+um 5% reduziert werden.
 
 REQ-DMG-09
 
