@@ -1,0 +1,106 @@
+========================
+AK-UI.txt
+========================
+
+
+REQ-UI-01
+
+Der Kampfsimulator
+muss als Singlepage aufgebaut sein.
+
+
+AK-UI-01-01
+
+Der Kampfsimulator
+muss ohne Seitenwechsel nutzbar sein.
+
+
+AK-UI-01-02
+
+Kampfrelevante Informationen
+müssen innerhalb derselben Ansicht erreichbar bleiben.
+
+
+
+REQ-UI-02
+
+Die Einheitenlegende
+muss permanent sichtbar bleiben.
+
+
+AK-UI-02-01
+
+Die Einheitenlegende
+muss ein- und ausklappbar sein.
+
+
+AK-UI-02-02
+
+Beim Öffnen der Einheitenlegende
+müssen alle Einheiten
+übersichtlich und in fester Reihenfolge dargestellt werden.
+
+
+AK-UI-02-03
+
+Beim erneuten Auswählen
+muss die Einheitenlegende wieder einklappbar sein.
+
+
+
+REQ-UI-03
+
+Die Einheitenlegende
+muss Vor- und Nachteile aller Einheiten anzeigen.
+
+
+AK-UI-03-01
+
+Vor- und Nachteile aller Einheiten
+müssen sichtbar dargestellt werden.
+
+
+
+REQ-UI-05
+
+Eigene und gegnerische Verluste
+müssen visuell klar unterscheidbar sein.
+
+
+AK-UI-05-01
+
+Eigene und gegnerische Verluste
+müssen klar getrennt dargestellt werden.
+
+
+
+REQ-UI-07
+
+Angriffspunkte eines Kampfes
+müssen als auswählbare Detailansicht verfügbar sein.
+
+
+AK-UI-07-01
+
+Angriffspunkte
+müssen auswählbar dargestellt werden.
+
+
+AK-UI-07-02
+
+Die Detailansicht
+muss kampfbezogene Informationen anzeigen.
+
+
+
+REQ-UI-09
+
+Der Kampfsimulator
+muss schnelle Vergleichbarkeit
+mehrerer Kampfergebnisse unterstützen.
+
+
+AK-UI-09-01
+
+Mehrere Kampfergebnisse
+müssen schnell vergleichbar dargestellt werden.
