@@ -1,0 +1,140 @@
+==================================================
+TEST-DATA.txt
+==================================================
+
+==================================================
+REQ-DATA-01
+==================================================
+
+Einheiten
+müssen alle relevanten Attribute
+für den Kampfsimulator besitzen können.
+
+
+
+--------------------------------------------------
+AK-DATA-01-01
+--------------------------------------------------
+
+Einheiten
+müssen eindeutige Basisattribute
+besitzen können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-01
+
+Einheiten
+dürfen keinen doppelten Basisattributtyp besitzen.
+
+
+
+--------------------------------------------------
+AK-DATA-01-02
+--------------------------------------------------
+
+Einheiten
+müssen mehrere gültige Counterbeziehungen
+gleichzeitig besitzen können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-02
+
+Eine Einheit
+kann mehrere gültige Counterbeziehungen
+gleichzeitig besitzen.
+
+
+
+--------------------------------------------------
+AK-DATA-01-03
+--------------------------------------------------
+
+Einheiten
+müssen eindeutige Zieltypen
+besitzen können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-03
+
+Einheiten
+dürfen keinen doppelten Zieltyp besitzen.
+
+
+
+--------------------------------------------------
+AK-DATA-01-04
+--------------------------------------------------
+
+Combatrelevante Multiplikatoren
+müssen getrennt speicherbar sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-04
+
+Combatmultiplikatoren
+werden getrennt gespeichert.
+
+
+
+--------------------------------------------------
+AK-DATA-01-05
+--------------------------------------------------
+
+Einheiten
+müssen Verwundbarkeiten
+gegen andere Einheitentypen
+speichern können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-05
+
+Einheiten
+können anzeigen,
+welche Einheitentypen
+stark gegen sie sind.
+
+
+
+--------------------------------------------------
+AK-DATA-01-06
+--------------------------------------------------
+
+Schiffe und Defeinheiten
+müssen getrennte Techverstärkungen
+verwenden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-06
+
+Schiffe
+dürfen nicht
+von Deftechs verstärkt werden.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-DATA-01-07
+
+Defeinheiten
+dürfen nicht
+von Schiffstechs verstärkt werden.
