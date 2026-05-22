@@ -1,3 +1,0 @@
-RULE-DAMAGE
-
-Placeholder für fachliche Damage-Regeltests.
