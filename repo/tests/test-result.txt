@@ -1,0 +1,219 @@
+==================================================
+TEST-RESULT.txt
+==================================================
+
+==================================================
+REQ-RESULT-01
+==================================================
+
+Der Kampfausgang
+muss finale Verluste
+beider Seiten enthalten.
+
+
+
+--------------------------------------------------
+AK-RESULT-01-01
+--------------------------------------------------
+
+Finale Verluste des Angreifers
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-01-01
+
+Das Kampfergebnis
+enthält finale Verluste
+des Angreifers.
+
+
+
+--------------------------------------------------
+AK-RESULT-01-02
+--------------------------------------------------
+
+Finale Verluste des Verteidigers
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-01-02
+
+Das Kampfergebnis
+enthält finale Verluste
+des Verteidigers.
+
+
+
+
+
+==================================================
+REQ-RESULT-02
+==================================================
+
+Der Kampfausgang
+muss verbleibende Einheiten
+beider Seiten enthalten.
+
+
+
+--------------------------------------------------
+AK-RESULT-02-01
+--------------------------------------------------
+
+Verbleibende Einheiten des Angreifers
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-02-01
+
+Das Kampfergebnis
+enthält verbleibende Einheiten
+des Angreifers.
+
+
+
+--------------------------------------------------
+AK-RESULT-02-02
+--------------------------------------------------
+
+Verbleibende Einheiten des Verteidigers
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-02-02
+
+Das Kampfergebnis
+enthält verbleibende Einheiten
+des Verteidigers.
+
+
+
+
+
+==================================================
+REQ-RESULT-03
+==================================================
+
+Der Kampfausgang
+muss technisch reproduzierbar sein
+und alle relevanten finalen Kampfwerte enthalten.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-01
+--------------------------------------------------
+
+Identische Kampfeingaben
+müssen identische Kampfergebnisse erzeugen.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-01
+
+Identische Kampfeingaben
+erzeugen identische Kampfergebnisse.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-02
+--------------------------------------------------
+
+Finale Schadenswerte
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-02
+
+Das Kampfergebnis
+enthält finale Schadenswerte.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-03
+--------------------------------------------------
+
+Finale Verlustwerte
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-03
+
+Das Kampfergebnis
+enthält finale Verlustwerte.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-04
+--------------------------------------------------
+
+Die Anzahl der Kampfrunden
+muss im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-04
+
+Das Kampfergebnis
+enthält die Anzahl der Kampfrunden.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-05
+--------------------------------------------------
+
+Der Sieger des Kampfes
+muss im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-05
+
+Das Kampfergebnis
+enthält den Sieger des Kampfes.
+
+
+
+--------------------------------------------------
+AK-RESULT-03-06
+--------------------------------------------------
+
+Finale verbleibende Einheiten
+müssen im Kampfergebnis enthalten sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-RESULT-03-06
+
+Das Kampfergebnis
+enthält finale verbleibende Einheiten.
