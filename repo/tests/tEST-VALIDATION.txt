@@ -1,0 +1,355 @@
+==================================================
+TEST-VALIDATION.txt
+==================================================
+
+==================================================
+REQ-VALIDATION-01
+==================================================
+
+Ungültige Kampfdaten
+dürfen nicht verarbeitet werden.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-01-01
+--------------------------------------------------
+
+Negative Einheitenwerte
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-01-01
+
+Negative Schiffanzahlen
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-01-02
+
+Negative Defeinheitenanzahlen
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-01-02
+--------------------------------------------------
+
+Negative Schadenswerte
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-01-03
+
+Negative Schadenswerte
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-01-03
+--------------------------------------------------
+
+Ungültige Zieltypen
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-01-04
+
+Ungültige Zieltypen
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-01-04
+--------------------------------------------------
+
+Ungültige Counterbeziehungen
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-01-05
+
+Ungültige Counterbeziehungen
+erzeugen Fehlerzustand.
+
+
+
+
+
+==================================================
+REQ-VALIDATION-02
+==================================================
+
+Fehlende Pflichtdaten
+dürfen nicht verarbeitet werden.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-02-01
+--------------------------------------------------
+
+Einheiten ohne Pflichtattribute
+dürfen nicht verarbeitet werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-01
+
+Einheiten ohne Trefferpunkte
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-02
+
+Einheiten ohne Schaden
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-03
+
+Einheiten ohne Rüstung
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-04
+
+Einheiten ohne Durchdringung
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-05
+
+Einheiten ohne Zieltyp
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-06
+
+Einheiten ohne Counterbeziehungen
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-07
+
+Einheiten ohne Verwundbarkeiten
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-08
+
+Einheiten ohne Volumen
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-02-02
+--------------------------------------------------
+
+Fehlende Kampfparteien
+dürfen nicht verarbeitet werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-09
+
+Fehlender Angreifer
+erzeugt Fehlerzustand.
+
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-02-10
+
+Fehlender Verteidiger
+erzeugt Fehlerzustand.
+
+
+
+
+
+==================================================
+REQ-VALIDATION-03
+==================================================
+
+Combatrelevante Werte
+müssen innerhalb gültiger Wertebereiche liegen.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-03-01
+--------------------------------------------------
+
+Rüstungswerte kleiner 0
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-03-01
+
+Negative Rüstungswerte
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-03-02
+--------------------------------------------------
+
+Durchdringungswerte kleiner 0
+dürfen nicht akzeptiert werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-03-02
+
+Negative Durchdringungswerte
+erzeugen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-03-03
+--------------------------------------------------
+
+Ein Rüstungswert von 0
+muss gültig sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-03-03
+
+Ein Rüstungswert von 0
+erzeugt keinen Fehlerzustand.
+
+
+
+--------------------------------------------------
+AK-VALIDATION-03-04
+--------------------------------------------------
+
+Ein Durchdringungswert von 0
+muss gültig sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VALIDATION-03-04
+
+Ein Durchdringungswert von 0
+erzeugt keinen Fehlerzustand.
+
+
+
+
+
+==================================================
+ANMERKUNG ZU VALIDATION / DAMAGE
+==================================================
+
+Gefahr möglicher Dubletten zwischen:
+
+- TEST-VALIDATION.txt
+und
+- TEST-DMG.txt
+
+
+Betroffene Bereiche:
+
+- negative Rüstungswerte
+- negative Durchdringungswerte
+- 0-Rüstungswerte
+- 0-Durchdringungswerte
+
+
+Grund:
+
+Diese Regeln können sowohl interpretiert werden als:
+
+1.
+technische Eingabevalidierung
+
+ODER
+
+2.
+fachliche Combatregeln
+
+
+Aktuelle Entscheidung:
+
+Die Regeln bleiben bewusst in:
+- VALIDATION
+UND
+- DAMAGE
+
+da beide Ebenen unterschiedliche Perspektiven besitzen:
+
+VALIDATION
+=
+Eingabekorrektheit
+
+DAMAGE
+=
+fachliche Combatlogik
