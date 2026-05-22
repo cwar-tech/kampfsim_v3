@@ -1,110 +1,119 @@
 ==================================================
-TEST-TARGET.txt
+COMBATPIPELINE-ARCHITEKTUR.txt
 ==================================================
 
 ==================================================
-UNIT-TARGET-01
+ARCH-COMBAT-01
 ==================================================
 
-Nur feindliche Einheitentypen
-dürfen anvisiert werden.
-
-
-
-==================================================
-UNIT-TARGET-02
-==================================================
-
-Existiert kein gültiger Counter,
-wird der Zieltyp
-mit dem geringsten Gesamtvolumen priorisiert.
+Die Combatpipeline
+muss simultane Schadensberechnung unterstützen.
 
 
 
 ==================================================
-UNIT-TARGET-03
+ARCH-COMBAT-02
 ==================================================
 
-Existieren mehrere gültige Counterziele,
-wird der höchste Countermultiplikator priorisiert.
-
-
-
-==================================================
-UNIT-TARGET-04
-==================================================
-
-Besitzen mehrere gültige Ziele
-denselben Countermultiplikator,
-wird der Zieltyp
-mit dem geringsten Gesamtvolumen priorisiert.
+Die Combatpipeline
+muss reihenfolgeunabhängige Schadensverarbeitung unterstützen.
 
 
 
 ==================================================
-UNIT-TARGET-05
+ARCH-COMBAT-03
 ==================================================
 
-Beim Zielwechsel
-wird die Zielpriorisierung
-vollständig neu berechnet.
-
-
-
-==================================================
-UNIT-TARGET-06
-==================================================
-
-Overflow-Schaden
-kann innerhalb derselben Kampfrunde
-weitere Zieltypen angreifen.
+Die Combatpipeline
+muss Zielwechsel
+innerhalb derselben Kampfrunde unterstützen.
 
 
 
 ==================================================
-UNIT-TARGET-07
+ARCH-COMBAT-04
 ==================================================
 
-Gleiche Kampfsituationen
-erzeugen dieselbe Zielauswahl.
-
-
-
-==================================================
-UNIT-TARGET-08
-==================================================
-
-Existieren keine feindlichen Zieltypen mehr,
-endet die Zielsuche.
+Die Combatpipeline
+muss Overflow-Schaden
+über mehrere Zieltypen verarbeiten können.
 
 
 
 ==================================================
-UNIT-TARGET-09
+ARCH-COMBAT-05
 ==================================================
 
-Ein Zielwechsel erfolgt erst,
-wenn der aktuelle Zieltyp
-vollständig zerstört wurde.
-
-
-
-==================================================
-UNIT-TARGET-10
-==================================================
-
-Defeinheiten
-werden vor Schiffen priorisiert.
+Die Combatpipeline
+muss Zielmultiplikatoren
+pro Zielwechsel vollständig neu berechnen können.
 
 
 
 ==================================================
-UNIT-TARGET-11
+ARCH-COMBAT-06
 ==================================================
 
-Normale Schiffe
-werden erst priorisiert,
-wenn keine Defeinheiten mehr existieren.
+Die Combatpipeline
+muss deterministische Kampfergebnisse erzeugen.
+
+
+
+==================================================
+ARCH-COMBAT-07
+==================================================
+
+Die Combatpipeline
+muss getrennte Verstärkungsquellen unterstützen:
+- Schiffstechs
+- Deftechs
+- Energon
+- VIP
+- Counter
+- Durchdringung
+- Rüstung
+
+
+
+==================================================
+ARCH-COMBAT-08
+==================================================
+
+Die Combatpipeline
+muss Zwischenwerte
+präzise ohne Vorabrundung verarbeiten.
+
+
+
+==================================================
+ARCH-COMBAT-09
+==================================================
+
+Die Combatpipeline
+muss Overflowverlust
+pro Spielerflotte verfolgen können.
+
+
+
+==================================================
+ARCH-COMBAT-10
+==================================================
+
+Combatberechnungen
+müssen unabhängig
+von der visuellen Kampfdauer
+schnell abgeschlossen werden können.
+
+
+
+==================================================
+ARCH-COMBAT-11
+==================================================
+
+Die visuelle Kampfdauer
+darf unabhängig
+von der tatsächlichen Berechnungsdauer
+dargestellt werden.
 
 
 
@@ -116,34 +125,27 @@ HINWEISE AUS DAMAGE-REVIEW
 
 1.
 
-UNIT-TARGET-03
-überschneidet sich fachlich
-mit Teilen von:
-- REQ-DMG-04
-- AK-DMG-04-05
-
-Spätere Verantwortlichkeit klären.
+Die Combatpipeline
+wurde durch DAMAGE stark präzisiert:
+- simultane Verarbeitung
+- Overflowverkettung
+- Zielwechsel
+- Multiplikatoraggregation
+- Determinismus
 
 
 2.
 
-Zielwechsel
-existiert aktuell:
-- in TARGET
-- in DAMAGE
+Die Trennung zwischen:
+- TARGET
+- DAMAGE
+- DATA
 
-Aktuelle Entscheidung:
-- TARGET = Zielwahl
-- DAMAGE = Schadensverarbeitung
+wurde durch DAMAGE erstmals klarer definiert.
 
 
 3.
 
-Deterministische Zielwahl
-existiert aktuell:
-- in TARGET
-- in DAMAGE
-
-Aktuelle Entscheidung:
-- TARGET = Zielauswahl
-- DAMAGE = deterministische Schadensverarbeitung
+Die 5%-Overflowmechanik
+wurde als eigenständige Spezialregel erkannt
+und aus der normalen Zielwechselmechanik getrennt.
