@@ -1,0 +1,310 @@
+==================================================
+TEST-UI.txt
+==================================================
+
+==================================================
+REQ-UI-01
+==================================================
+
+Das Kampflog
+muss relevante Kampfdaten
+aus RESULT darstellen können.
+
+
+
+--------------------------------------------------
+AK-UI-01-01
+--------------------------------------------------
+
+Die ersten 5
+und die letzten 2 Kampfrunden
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-01
+
+Die ersten 5
+und die letzten 2 Kampfrunden
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-02
+--------------------------------------------------
+
+Schifftypen
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-02
+
+Schifftypen
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-03
+--------------------------------------------------
+
+Schiffanzahlen
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-03
+
+Schiffanzahlen
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-04
+--------------------------------------------------
+
+Finale Verluste
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-04
+
+Finale Verluste
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-05
+--------------------------------------------------
+
+Verbleibende Einheiten
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-05
+
+Verbleibende Einheiten
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-06
+--------------------------------------------------
+
+Verursachter Schaden
+muss dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-06
+
+Verursachter Schaden
+wird dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-07
+--------------------------------------------------
+
+Angegriffene Zieltypen
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-07
+
+Angegriffene Zieltypen
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-08
+--------------------------------------------------
+
+Beschädigte Einheiten
+müssen visuell dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-08
+
+Beschädigte Einheiten
+werden visuell dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-09
+--------------------------------------------------
+
+Zerstörte Einheiten
+müssen visuell dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-09
+
+Zerstörte Einheiten
+werden visuell dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-10
+--------------------------------------------------
+
+Einheiten
+müssen bei voller Werkstattkapazität
+vom beschädigten Zustand
+in den zerstörten Zustand wechseln können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-10
+
+Einheiten wechseln bei voller Werkstattkapazität
+vom beschädigten Zustand
+in den zerstörten Zustand.
+
+
+
+--------------------------------------------------
+AK-UI-01-11
+--------------------------------------------------
+
+Beute
+muss dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-11
+
+Beute
+wird dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-12
+--------------------------------------------------
+
+Kampfdaten des Angreifers
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-12
+
+Kampfdaten des Angreifers
+werden dargestellt.
+
+
+
+--------------------------------------------------
+AK-UI-01-13
+--------------------------------------------------
+
+Kampfdaten des Verteidigers
+müssen dargestellt werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-01-13
+
+Kampfdaten des Verteidigers
+werden dargestellt.
+
+
+
+
+
+==================================================
+REQ-UI-02
+==================================================
+
+Das Kampflog
+muss kompakt lesbar bleiben.
+
+
+
+--------------------------------------------------
+AK-UI-02-01
+--------------------------------------------------
+
+Die ersten 5
+und die letzten 2 Kampfrunden
+müssen dargestellt werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-02-01
+
+Die ersten 5
+und die letzten 2 Kampfrunden
+werden dargestellt.
+
+
+
+
+
+==================================================
+REQ-UI-03
+==================================================
+
+Das Kampflog
+muss technisch reproduzierbar bleiben.
+
+
+
+--------------------------------------------------
+AK-UI-03-01
+--------------------------------------------------
+
+Identische Kampfeingaben
+müssen identische Darstellungen erzeugen.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-UI-03-01
+
+Identische Kampfeingaben
+erzeugen identische Darstellungen.
