@@ -144,7 +144,11 @@ LOG und UI
 dürfen keine eigene Combatberechnung
 durchführen.
 
+ARCH-COMBAT-15
 
+Werkstatt-
+und Warpzustände
+dürfen nur für Schiffe existieren.
 ==================================================
 HINWEISE AUS DAMAGE-REVIEW
 ==================================================
