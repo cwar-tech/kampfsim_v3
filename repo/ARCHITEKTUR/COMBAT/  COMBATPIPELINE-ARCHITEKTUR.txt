@@ -116,7 +116,33 @@ von der tatsächlichen Berechnungsdauer
 dargestellt werden.
 
 
+==================================================
+ARCH-COMBAT-12
+==================================================
 
+RESULT
+muss die vollständige technische Wahrheit
+des Kampfes enthalten.
+
+
+
+==================================================
+ARCH-COMBAT-13
+==================================================
+
+LOG und UI
+müssen ihre dargestellten Kampfdaten
+aus RESULT beziehen.
+
+
+
+==================================================
+ARCH-COMBAT-14
+==================================================
+
+LOG und UI
+dürfen keine eigene Combatberechnung
+durchführen.
 
 
 ==================================================
