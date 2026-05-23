@@ -1,0 +1,220 @@
+==================================================
+TEST-ARCH.txt
+==================================================
+
+==================================================
+REQ-ARCH-01
+==================================================
+
+Die Combatpipeline
+muss simultane Schadensberechnung unterstützen.
+
+
+
+--------------------------------------------------
+AK-ARCH-01-01
+--------------------------------------------------
+
+Beide Kampfparteien
+müssen innerhalb derselben Kampfrunde
+Schaden verursachen können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-01-01
+
+Beide Kampfparteien
+verursachen innerhalb derselben Kampfrunde
+Schaden.
+
+
+
+
+
+==================================================
+REQ-ARCH-02
+==================================================
+
+Die Combatpipeline
+muss reihenfolgeunabhängige Schadensverarbeitung unterstützen.
+
+
+
+--------------------------------------------------
+AK-ARCH-02-01
+--------------------------------------------------
+
+Die Reihenfolge einzelner Schadensberechnungen
+darf das Kampfergebnis nicht verändern.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-02-01
+
+Unterschiedliche Berechnungsreihenfolgen
+erzeugen identische Kampfergebnisse.
+
+
+
+
+
+==================================================
+REQ-ARCH-03
+==================================================
+
+Die Combatpipeline
+muss Zielwechsel
+innerhalb derselben Kampfrunde unterstützen.
+
+
+
+--------------------------------------------------
+AK-ARCH-03-01
+--------------------------------------------------
+
+Overflow-Schaden
+muss innerhalb derselben Kampfrunde
+weitere Zieltypen angreifen können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-03-01
+
+Overflow-Schaden
+greift innerhalb derselben Kampfrunde
+weitere Zieltypen an.
+
+
+
+
+
+==================================================
+REQ-ARCH-04
+==================================================
+
+Die Combatpipeline
+muss deterministische Kampfergebnisse erzeugen.
+
+
+
+--------------------------------------------------
+AK-ARCH-04-01
+--------------------------------------------------
+
+Identische Kampfeingaben
+müssen identische Kampfergebnisse erzeugen.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-04-01
+
+Identische Kampfeingaben
+erzeugen identische Kampfergebnisse.
+
+
+
+
+
+==================================================
+REQ-ARCH-05
+==================================================
+
+Die Combatpipeline
+muss Zwischenwerte
+präzise ohne Vorabrundung verarbeiten.
+
+
+
+--------------------------------------------------
+AK-ARCH-05-01
+--------------------------------------------------
+
+Zwischenwerte
+dürfen erst nach vollständiger Schadensaggregation
+gerundet werden.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-05-01
+
+Zwischenwerte
+werden erst nach vollständiger Schadensaggregation
+gerundet.
+
+
+
+
+
+==================================================
+REQ-ARCH-06
+==================================================
+
+Combatberechnungen
+müssen unabhängig
+von der visuellen Kampfdauer
+schnell abgeschlossen werden können.
+
+
+
+--------------------------------------------------
+AK-ARCH-06-01
+--------------------------------------------------
+
+Eine Combatberechnung
+muss innerhalb von 0.5 Sekunden
+abgeschlossen werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-06-01
+
+Combatberechnungen
+werden innerhalb von 0.5 Sekunden
+abgeschlossen.
+
+
+
+
+
+==================================================
+REQ-ARCH-07
+==================================================
+
+Die visuelle Kampfdauer
+darf unabhängig
+von der tatsächlichen Berechnungsdauer
+dargestellt werden.
+
+
+
+--------------------------------------------------
+AK-ARCH-07-01
+--------------------------------------------------
+
+Die visuelle Kampfdauer
+muss unabhängig
+von der tatsächlichen Berechnungsdauer
+steuerbar sein.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-ARCH-07-01
+
+Die visuelle Kampfdauer
+kann unabhängig
+von der tatsächlichen Berechnungsdauer
+gesteuert werden.
