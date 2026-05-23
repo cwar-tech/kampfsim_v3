@@ -6,11 +6,118 @@ COMBAT-ATTRIBUTE.txt
 GRUNDATTRIBUTE
 ==================================================
 
-- Trefferpunkte
-- Schaden
-- Rüstung
-- Durchdringung
-- Volumen
+--------------------------------------------------
+Trefferpunkte
+--------------------------------------------------
+
+Definition:
+Maximale Schadensmenge,
+die eine Einheit
+vor Zerstörung aufnehmen kann.
+
+Verwendung:
+- Schadensberechnung
+- Verlustberechnung
+- Overflowberechnung
+- Result
+- UI
+- Log
+
+Beispiel:
+500 Trefferpunkte
+
+
+
+--------------------------------------------------
+Schaden
+--------------------------------------------------
+
+Definition:
+Basisschaden,
+den eine Einheit
+pro Kampfrunde verursacht.
+
+Verwendung:
+- Damagepipeline
+- Counterberechnung
+- Overflow
+- Result
+- Log
+
+Beispiel:
+120 Schaden
+
+
+
+--------------------------------------------------
+Rüstung
+--------------------------------------------------
+
+Definition:
+Multiplikativer Schadensreduktionswert
+einer Einheit.
+
+Verwendung:
+- Damagepipeline
+- Schadensreduktion
+
+Formel:
+0.85
+=
+15% Schadensreduktion
+
+Beispiel:
+15 Rüstung
+=
+0.85 Schadensmultiplikator
+
+
+
+--------------------------------------------------
+Durchdringung
+--------------------------------------------------
+
+Definition:
+Multiplikativer Schadensverstärkungswert
+gegen gepanzerte Ziele.
+
+Verwendung:
+- Damagepipeline
+- Schadensverstärkung
+
+Formel:
+1.20
+=
+20% Schadensverstärkung
+
+Beispiel:
+20 Durchdringung
+=
+1.20 Schadensmultiplikator
+
+
+
+--------------------------------------------------
+Volumen
+--------------------------------------------------
+
+Definition:
+Raumwert einer Einheit
+zur Berechnung
+des Gesamtvolumens aktiver Kampfparteien.
+
+Verwendung:
+- Targetpriorisierung
+- Flottenvolumen
+- UI
+- Result
+
+Beispiel:
+Abfangjäger
+=
+5 Volumen
+
+
 
 
 
@@ -18,9 +125,72 @@ GRUNDATTRIBUTE
 TARGETATTRIBUTE
 ==================================================
 
-- Zieltyp
-- Counterbeziehungen
-- Verwundbarkeiten
+--------------------------------------------------
+Zieltyp
+--------------------------------------------------
+
+Definition:
+Combatkategorie,
+gegen die Einheiten
+priorisiert werden können.
+
+Verwendung:
+- Targetsystem
+- Zielpriorisierung
+- Counterlogik
+- Log
+- UI
+
+Beispiel:
+- Leichtes Schiff
+- Schweres Schiff
+- Defeinheit
+
+
+
+--------------------------------------------------
+Counterbeziehungen
+--------------------------------------------------
+
+Definition:
+Definiert,
+gegen welche Zieltypen
+eine Einheit
+verstärkten Schaden verursacht.
+
+Verwendung:
+- Countermultiplikator
+- Zielpriorisierung
+- Damagepipeline
+- UI
+
+Beispiel:
+Bomber
+→ stark gegen schwere Schiffe
+
+
+
+--------------------------------------------------
+Verwundbarkeiten
+--------------------------------------------------
+
+Definition:
+Definiert,
+welche Einheitentypen
+verstärkten Schaden
+gegen diese Einheit verursachen.
+
+Verwendung:
+- UI
+- Kampfanalyse
+- Balancing
+- Targetanalyse
+
+Beispiel:
+Schweres Schiff
+→ verwundbar gegen Bomber
+
+
 
 
 
@@ -28,9 +198,72 @@ TARGETATTRIBUTE
 COMBATSTATUS
 ==================================================
 
-- aktiv
-- beschädigt
-- zerstört
+--------------------------------------------------
+aktiv
+--------------------------------------------------
+
+Definition:
+Eine Einheit,
+die aktuell
+am Kampf teilnimmt.
+
+Verwendung:
+- Damagepipeline
+- Zielsystem
+- Flottenvolumen
+- Result
+- Log
+- UI
+
+Beispiel:
+Aktive Schiffe
+verursachen Schaden
+und können angegriffen werden.
+
+
+
+--------------------------------------------------
+beschädigt
+--------------------------------------------------
+
+Definition:
+Ein Schiff,
+das den Kampf überlebt hat,
+aber nicht mehr
+zur aktiven Flotte zählt.
+
+Verwendung:
+- Result
+- UI
+- Werkstatt
+- Warp
+
+Beispiel:
+Beschädigte Schiffe
+werden gelb dargestellt.
+
+
+
+--------------------------------------------------
+zerstört
+--------------------------------------------------
+
+Definition:
+Eine Einheit,
+die vollständig vernichtet wurde
+und nicht mehr existiert.
+
+Verwendung:
+- Verlustberechnung
+- Result
+- UI
+- Log
+
+Beispiel:
+Zerstörte Einheiten
+werden rot dargestellt.
+
+
 
 
 
@@ -38,8 +271,49 @@ COMBATSTATUS
 COMBATROLLEN
 ==================================================
 
-- Angreifer
-- Verteidiger
+--------------------------------------------------
+Angreifer
+--------------------------------------------------
+
+Definition:
+Die aktive Kampfpartei,
+die einen Kampf initiiert.
+
+Verwendung:
+- Combatstart
+- Result
+- Log
+- UI
+- Kampfzuordnung
+
+Beispiel:
+Eine angreifende Flotte
+greift eine gegnerische Flotte
+oder Defeinheiten an.
+
+
+
+--------------------------------------------------
+Verteidiger
+--------------------------------------------------
+
+Definition:
+Die angegriffene Kampfpartei,
+die auf einen Angriff reagiert.
+
+Verwendung:
+- Combatstart
+- Result
+- Log
+- UI
+- Kampfzuordnung
+
+Beispiel:
+Eine verteidigende Flotte
+verteidigt einen Planeten
+oder eine Position.
+
+
 
 
 
@@ -47,8 +321,62 @@ COMBATROLLEN
 EINHEITENTYPEN
 ==================================================
 
-- Schiff
-- Defeinheit
+--------------------------------------------------
+Schiff
+--------------------------------------------------
+
+Definition:
+Mobile Kampfeinheit,
+die aktiv an Flottenkämpfen teilnimmt.
+
+Verwendung:
+- Damagepipeline
+- Flottenvolumen
+- Warp
+- Werkstatt
+- Result
+- Log
+- UI
+
+Besonderheiten:
+- kann beschädigt werden
+- kann zerstört werden
+- kann in Warp/Werkstatt wechseln
+
+Beispiel:
+- Abfangjäger
+- Kreuzer
+- Bomber
+
+
+
+--------------------------------------------------
+Defeinheit
+--------------------------------------------------
+
+Definition:
+Stationäre Kampfeinheit
+zur Verteidigung
+einer Position oder eines Planeten.
+
+Verwendung:
+- Damagepipeline
+- Defvolumen
+- Result
+- Log
+- UI
+
+Besonderheiten:
+- kein Warpstatus
+- kein Werkstattstatus
+- bleibt stationär
+
+Beispiel:
+- Laserturm
+- Raketenabwehr
+- Schildgenerator
+
+
 
 
 
@@ -56,13 +384,166 @@ EINHEITENTYPEN
 MULTIPLIKATOREN
 ==================================================
 
-- Schiffstechmultiplikator
-- Deftechmultiplikator
-- Countermultiplikator
-- Rüstungsmultiplikator
-- Durchdringungsmultiplikator
-- VIP-Multiplikator
-- Energonmultiplikator
+--------------------------------------------------
+Schiffstechmultiplikator
+--------------------------------------------------
+
+Definition:
+Technologiebasierter Verstärkungsmultiplikator
+für Schiffe.
+
+Verwendung:
+- Damagepipeline
+- Schadensverstärkung
+- Schiffsbalancing
+
+Besonderheiten:
+- wirkt nur auf Schiffe
+- getrennt von Deftechs
+
+Beispiel:
++20% Schiffsschaden
+=
+1.20 Multiplikator
+
+
+
+--------------------------------------------------
+Deftechmultiplikator
+--------------------------------------------------
+
+Definition:
+Technologiebasierter Verstärkungsmultiplikator
+für Defeinheiten.
+
+Verwendung:
+- Damagepipeline
+- Schadensverstärkung
+- Defbalancing
+
+Besonderheiten:
+- wirkt nur auf Defeinheiten
+- getrennt von Schiffstechs
+
+Beispiel:
++15% Defschaden
+=
+1.15 Multiplikator
+
+
+
+--------------------------------------------------
+Countermultiplikator
+--------------------------------------------------
+
+Definition:
+Schadensverstärkender Multiplikator
+gegen gültige Counterziele.
+
+Verwendung:
+- Damagepipeline
+- Targetsystem
+- Combatbalancing
+
+Besonderheiten:
+- wird pro Zielwechsel neu berechnet
+- verwendet den höchsten gültigen Counter
+
+Beispiel:
+Bomber
+gegen schweres Schiff
+=
+1.50 Multiplikator
+
+
+
+--------------------------------------------------
+Rüstungsmultiplikator
+--------------------------------------------------
+
+Definition:
+Multiplikativer Schadensreduktionswert
+eines Ziels.
+
+Verwendung:
+- Damagepipeline
+- Schadensreduktion
+
+Besonderheiten:
+- wird nach Durchdringung angewendet
+
+Beispiel:
+15 Rüstung
+=
+0.85 Multiplikator
+
+
+
+--------------------------------------------------
+Durchdringungsmultiplikator
+--------------------------------------------------
+
+Definition:
+Multiplikativer Schadensverstärkungswert
+gegen gepanzerte Ziele.
+
+Verwendung:
+- Damagepipeline
+- Schadensverstärkung
+
+Besonderheiten:
+- wird vor Rüstung angewendet
+
+Beispiel:
+20 Durchdringung
+=
+1.20 Multiplikator
+
+
+
+--------------------------------------------------
+VIP-Multiplikator
+--------------------------------------------------
+
+Definition:
+Globaler Verstärkungsmultiplikator
+durch VIP-Boni.
+
+Verwendung:
+- Damagepipeline
+- globale Verstärkung
+
+Besonderheiten:
+- kann mehrere Combatwerte beeinflussen
+
+Beispiel:
+VIP-Schadensbonus
+=
+1.10 Multiplikator
+
+
+
+--------------------------------------------------
+Energonmultiplikator
+--------------------------------------------------
+
+Definition:
+Globaler Verstärkungsmultiplikator
+durch Energonverstärkung.
+
+Verwendung:
+- Damagepipeline
+- globale Verstärkung
+
+Besonderheiten:
+- kann mehrere Combatwerte beeinflussen
+
+Beispiel:
+Energonbonus
+=
+1.25 Multiplikator
+
+
 
 
 
@@ -70,15 +551,226 @@ MULTIPLIKATOREN
 COMBATERGEBNISSE
 ==================================================
 
-- finaler Schaden
-- finale Verluste
-- finale beschädigte Einheiten
-- verbleibende Einheiten
-- Kampfrundenanzahl
-- Siegerstatus
-- Verliererstatus
-- Beute
-- Trümmer
+--------------------------------------------------
+finaler Schaden
+--------------------------------------------------
+
+Definition:
+Gesamter finaler Schaden,
+der nach vollständiger Schadensberechnung
+verursacht wurde.
+
+Verwendung:
+- Result
+- Log
+- UI
+- Kampfanalyse
+
+Besonderheiten:
+- beinhaltet alle Multiplikatoren
+- beinhaltet Counter
+- beinhaltet Overflow
+
+Beispiel:
+125000 finaler Schaden
+
+
+
+--------------------------------------------------
+finale Verluste
+--------------------------------------------------
+
+Definition:
+Gesamtanzahl vollständig zerstörter Einheiten
+nach Abschluss des Kampfes.
+
+Verwendung:
+- Result
+- UI
+- Log
+- Verlustanalyse
+
+Besonderheiten:
+- zerstörte Einheiten
+zählen nicht mehr
+zur aktiven Kampfpartei
+
+Beispiel:
+120 zerstörte Abfangjäger
+
+
+
+--------------------------------------------------
+finale beschädigte Einheiten
+--------------------------------------------------
+
+Definition:
+Anzahl beschädigter Schiffe,
+die den Kampf überlebt haben,
+aber nicht mehr
+zur aktiven Flotte zählen.
+
+Verwendung:
+- Result
+- UI
+- Werkstatt
+- Warp
+
+Besonderheiten:
+- nur für Schiffe
+- nicht für Defeinheiten
+
+Beispiel:
+35 beschädigte Kreuzer
+
+
+
+--------------------------------------------------
+verbleibende Einheiten
+--------------------------------------------------
+
+Definition:
+Einheiten,
+die nach Abschluss des Kampfes
+weiterhin aktiv verfügbar sind.
+
+Verwendung:
+- Result
+- UI
+- Log
+- Flottenstatus
+
+Besonderheiten:
+- beschädigte Einheiten
+zählen nicht dazu
+
+Beispiel:
+250 verbleibende Abfangjäger
+
+
+
+--------------------------------------------------
+Kampfrundenanzahl
+--------------------------------------------------
+
+Definition:
+Gesamtanzahl berechneter Kampfrunden
+eines Kampfes.
+
+Verwendung:
+- Result
+- Log
+- UI
+- Kampfanalyse
+
+Besonderheiten:
+- technisch auf 250 Runden begrenzt
+
+Beispiel:
+12 Kampfrunden
+
+
+
+--------------------------------------------------
+Siegerstatus
+--------------------------------------------------
+
+Definition:
+Kennzeichnet die Kampfpartei,
+die den Kampf gewonnen hat.
+
+Verwendung:
+- Result
+- UI
+- Log
+
+Beispiel:
+Angreifer gewinnt
+
+
+
+--------------------------------------------------
+Verliererstatus
+--------------------------------------------------
+
+Definition:
+Kennzeichnet die Kampfpartei,
+die den Kampf verloren hat.
+
+Verwendung:
+- Result
+- UI
+- Log
+
+Beispiel:
+Verteidiger verliert
+
+
+
+--------------------------------------------------
+Unentschiedenstatus
+--------------------------------------------------
+
+Definition:
+Kennzeichnet einen Kampf,
+bei dem keine Kampfpartei
+den Sieg erreicht hat.
+
+Verwendung:
+- Result
+- UI
+- Log
+
+Besonderheiten:
+- möglich bei Kampfrundenlimit
+- möglich bei vollständiger gegenseitiger Zerstörung
+
+Beispiel:
+Kampf endet unentschieden
+
+
+
+--------------------------------------------------
+Beute
+--------------------------------------------------
+
+Definition:
+Ressourcen,
+die nach einem erfolgreichen Kampf
+erbeutet werden.
+
+Verwendung:
+- Result
+- UI
+- Wirtschaftssystem
+
+Beispiel:
+- Metall
+- Kristall
+- Gas
+
+
+
+--------------------------------------------------
+Trümmer
+--------------------------------------------------
+
+Definition:
+Ressourcen,
+die aus zerstörten Einheiten entstehen
+und direkt ins Inventar übertragen werden.
+
+Verwendung:
+- Result
+- Wirtschaftssystem
+
+Besonderheiten:
+- kein persistentes Trümmerfeld
+
+Beispiel:
+5000 Metalltrümmer
+
+
 
 
 
@@ -86,11 +778,103 @@ COMBATERGEBNISSE
 LOGATTRIBUTE
 ==================================================
 
-- dargestellte Kampfrunde
-- angegriffener Zieltyp
-- dargestellter Schaden
-- dargestellte Verluste
-- dargestellte verbleibende Einheiten
+--------------------------------------------------
+dargestellte Kampfrunde
+--------------------------------------------------
+
+Definition:
+Eine im Kampflog sichtbare Kampfrunde.
+
+Verwendung:
+- Log
+- UI
+- Kampfanalyse
+
+Besonderheiten:
+- Spieler sieht nur:
+  - erste 5 Kampfrunden
+  - letzte 2 Kampfrunden
+
+Beispiel:
+Kampfrunde 3
+
+
+
+--------------------------------------------------
+angegriffener Zieltyp
+--------------------------------------------------
+
+Definition:
+Der Zieltyp,
+der innerhalb einer dargestellten Kampfrunde
+angegriffen wurde.
+
+Verwendung:
+- Log
+- UI
+- Kampfanalyse
+
+Beispiel:
+Bomber greifen schwere Schiffe an
+
+
+
+--------------------------------------------------
+dargestellter Schaden
+--------------------------------------------------
+
+Definition:
+Der in einer dargestellten Kampfrunde
+sichtbare verursachte Schaden.
+
+Verwendung:
+- Log
+- UI
+- Kampfanalyse
+
+Besonderheiten:
+- basiert auf RESULT-Daten
+
+Beispiel:
+12500 Schaden
+
+
+
+--------------------------------------------------
+dargestellte Verluste
+--------------------------------------------------
+
+Definition:
+Die in einer dargestellten Kampfrunde
+sichtbaren zerstörten Einheiten.
+
+Verwendung:
+- Log
+- UI
+- Kampfanalyse
+
+Beispiel:
+15 zerstörte Kreuzer
+
+
+
+--------------------------------------------------
+dargestellte verbleibende Einheiten
+--------------------------------------------------
+
+Definition:
+Die nach einer dargestellten Kampfrunde
+noch aktiven Einheiten.
+
+Verwendung:
+- Log
+- UI
+- Kampfanalyse
+
+Beispiel:
+120 verbleibende Abfangjäger
+
+
 
 
 
@@ -98,16 +882,195 @@ LOGATTRIBUTE
 UIATTRIBUTE
 ==================================================
 
-- Schifftypanzeige
-- Schiffanzahlanzeige
-- Defanzeige
-- Schadensanzeige
-- Verlustanzeige
-- Beschädigtanzeige
-- Beuteanzeige
-- Siegeranzeige
-- Verliereranzeige
-- Techanzeige
+--------------------------------------------------
+Schifftypanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+des Schiffstyps einer Einheit.
+
+Verwendung:
+- UI
+- Log
+- Kampfanalyse
+
+Beispiel:
+- Abfangjäger
+- Kreuzer
+- Bomber
+
+
+
+--------------------------------------------------
+Schiffanzahlanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+der Anzahl vorhandener Schiffe.
+
+Verwendung:
+- UI
+- Log
+- Flottenübersicht
+
+Beispiel:
+250 Abfangjäger
+
+
+
+--------------------------------------------------
+Defanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+vorhandener Defeinheiten.
+
+Verwendung:
+- UI
+- Log
+- Verteidigungsübersicht
+
+Beispiel:
+35 Lasertürme
+
+
+
+--------------------------------------------------
+Schadensanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+des verursachten Schadens.
+
+Verwendung:
+- UI
+- Log
+- Kampfanalyse
+
+Beispiel:
+12500 Schaden
+
+
+
+--------------------------------------------------
+Verlustanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+vollständig zerstörter Einheiten.
+
+Verwendung:
+- UI
+- Log
+- Kampfanalyse
+
+Beispiel:
+20 zerstörte Kreuzer
+
+
+
+--------------------------------------------------
+Beschädigtanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+beschädigter Schiffe,
+die nicht mehr
+zur aktiven Flotte zählen.
+
+Verwendung:
+- UI
+- Log
+- Werkstatt
+- Warp
+
+Besonderheiten:
+- nur für Schiffe
+- nicht für Defeinheiten
+
+Beispiel:
+15 beschädigte Bomber
+
+
+
+--------------------------------------------------
+Beuteanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+erbeuteter Ressourcen.
+
+Verwendung:
+- UI
+- Result
+- Wirtschaftssystem
+
+Beispiel:
+50000 Metall
+
+
+
+--------------------------------------------------
+Siegeranzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+der siegreichen Kampfpartei.
+
+Verwendung:
+- UI
+- Log
+- Result
+
+Beispiel:
+Angreifer gewinnt
+
+
+
+--------------------------------------------------
+Verliereranzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+der unterlegenen Kampfpartei.
+
+Verwendung:
+- UI
+- Log
+- Result
+
+Beispiel:
+Verteidiger verliert
+
+
+
+--------------------------------------------------
+Techanzeige
+--------------------------------------------------
+
+Definition:
+Visuelle Darstellung
+aktiver Technologien
+und Combatverstärkungen.
+
+Verwendung:
+- UI
+- Kampfanalyse
+- Balancing
+
+Beispiel:
++20% Schiffsschaden
+
+
 
 
 
@@ -120,6 +1083,8 @@ FLOTTENATTRIBUTE
 - aktive Schiffe
 - aktive Defeinheiten
 - Beute
+
+
 
 
 
