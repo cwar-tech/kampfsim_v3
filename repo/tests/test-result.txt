@@ -217,3 +217,27 @@ UNIT-RESULT-03-06
 
 Das Kampfergebnis
 enthält finale verbleibende Einheiten.
+
+--------------------------------------------------
+
+AK-RESULT-03-07
+
+--------------------------------------------------
+
+Defeinheiten
+
+dürfen keinen Werkstatt-
+
+oder Warpstatus besitzen.
+
+--------------------------------------------------
+
+[UNIT TEST]
+
+UNIT-RESULT-03-07
+
+Defeinheiten
+
+erhalten keinen Werkstatt-
+
+oder Warpstatus.
