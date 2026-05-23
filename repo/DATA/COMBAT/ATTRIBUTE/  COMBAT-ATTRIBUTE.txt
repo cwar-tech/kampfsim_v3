@@ -1,0 +1,133 @@
+==================================================
+COMBAT-ATTRIBUTE.txt
+==================================================
+
+==================================================
+GRUNDATTRIBUTE
+==================================================
+
+- Trefferpunkte
+- Schaden
+- Rüstung
+- Durchdringung
+- Volumen
+
+
+
+==================================================
+TARGETATTRIBUTE
+==================================================
+
+- Zieltyp
+- Counterbeziehungen
+- Verwundbarkeiten
+
+
+
+==================================================
+COMBATSTATUS
+==================================================
+
+- aktiv
+- beschädigt
+- zerstört
+
+
+
+==================================================
+COMBATROLLEN
+==================================================
+
+- Angreifer
+- Verteidiger
+
+
+
+==================================================
+EINHEITENTYPEN
+==================================================
+
+- Schiff
+- Defeinheit
+
+
+
+==================================================
+MULTIPLIKATOREN
+==================================================
+
+- Schiffstechmultiplikator
+- Deftechmultiplikator
+- Countermultiplikator
+- Rüstungsmultiplikator
+- Durchdringungsmultiplikator
+- VIP-Multiplikator
+- Energonmultiplikator
+
+
+
+==================================================
+COMBATERGEBNISSE
+==================================================
+
+- finaler Schaden
+- finale Verluste
+- finale beschädigte Einheiten
+- verbleibende Einheiten
+- Kampfrundenanzahl
+- Siegerstatus
+- Verliererstatus
+- Beute
+- Trümmer
+
+
+
+==================================================
+LOGATTRIBUTE
+==================================================
+
+- dargestellte Kampfrunde
+- angegriffener Zieltyp
+- dargestellter Schaden
+- dargestellte Verluste
+- dargestellte verbleibende Einheiten
+
+
+
+==================================================
+UIATTRIBUTE
+==================================================
+
+- Schifftypanzeige
+- Schiffanzahlanzeige
+- Defanzeige
+- Schadensanzeige
+- Verlustanzeige
+- Beschädigtanzeige
+- Beuteanzeige
+- Siegeranzeige
+- Verliereranzeige
+- Techanzeige
+
+
+
+==================================================
+FLOTTENATTRIBUTE
+==================================================
+
+- Flottenvolumen
+- Flottenrolle
+- aktive Schiffe
+- aktive Defeinheiten
+- Beute
+
+
+
+==================================================
+SYSTEMATTRIBUTE
+==================================================
+
+- Kampf-ID
+- Kampfstatus
+- Combatseed
+- Zeitstempel
