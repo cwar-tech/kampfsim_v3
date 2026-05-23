@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Leichter Jäger",
+    "type": "ship",
+    "hp": 430,
+    "damage": 85,
+    "armor": 3,
+    "penetration": 0,
+    "volume": 20
+  },
+  {
+    "name": "Mittlerer Jäger",
+    "type": "ship",
+    "hp": 760,
+    "damage": 155,
+    "armor": 5,
+    "penetration": 0,
+    "volume": 35
+  },
+  {
+    "name": "Schwerer Jäger",
+    "type": "ship",
+    "hp": 1068,
+    "damage": 224,
+    "armor": 8,
+    "penetration": 0,
+    "volume": 50
+  },
+  {
+    "name": "Sternenkreuzer",
+    "type": "ship",
+    "hp": 3200,
+    "damage": 650,
+    "armor": 10,
+    "penetration": 3,
+    "volume": 160
+  },
+  {
+    "name": "Fregatte",
+    "type": "ship",
+    "hp": 4550,
+    "damage": 910,
+    "armor": 0,
+    "penetration": 10,
+    "volume": 220
+  },
+  {
+    "name": "Ionenträger",
+    "type": "ship",
+    "hp": 6600,
+    "damage": 1320,
+    "armor": 0,
+    "penetration": 11,
+    "volume": 320
+  },
+  {
+    "name": "Zerstörer",
+    "type": "ship",
+    "hp": 9100,
+    "damage": 1820,
+    "armor": 8,
+    "penetration": 8,
+    "volume": 430
+  },
+  {
+    "name": "Bomber",
+    "type": "ship",
+    "hp": 7200,
+    "damage": 1080,
+    "armor": 0,
+    "penetration": 12,
+    "volume": 380
+  },
+  {
+    "name": "Leichter Transporter",
+    "type": "ship",
+    "hp": 1800,
+    "damage": 20,
+    "armor": 4,
+    "penetration": 0,
+    "volume": 60
+  },
+  {
+    "name": "Mittlerer Transporter",
+    "type": "ship",
+    "hp": 6200,
+    "damage": 55,
+    "armor": 7,
+    "penetration": 0,
+    "volume": 240
+  },
+  {
+    "name": "Schwerer Transporter",
+    "type": "ship",
+    "hp": 18500,
+    "damage": 120,
+    "armor": 10,
+    "penetration": 0,
+    "volume": 720
+  },
+  {
+    "name": "Abyssus",
+    "type": "ship",
+    "hp": 64000,
+    "damage": 12800,
+    "armor": 12,
+    "penetration": 12,
+    "volume": 2400
+  },
+  {
+    "name": "Raketenwerfer",
+    "type": "defense",
+    "hp": 850,
+    "damage": 120,
+    "armor": 5,
+    "penetration": 0,
+    "volume": 25
+  },
+  {
+    "name": "Laserkanone",
+    "type": "defense",
+    "hp": 2200,
+    "damage": 420,
+    "armor": 7,
+    "penetration": 0,
+    "volume": 60
+  },
+  {
+    "name": "Ionenkanone",
+    "type": "defense",
+    "hp": 6200,
+    "damage": 1180,
+    "armor": 0,
+    "penetration": 10,
+    "volume": 180
+  },
+  {
+    "name": "Gauskanone",
+    "type": "defense",
+    "hp": 14800,
+    "damage": 3150,
+    "armor": 0,
+    "penetration": 12,
+    "volume": 420
+  },
+  {
+    "name": "Plasmakanone",
+    "type": "defense",
+    "hp": 36500,
+    "damage": 8200,
+    "armor": 12,
+    "penetration": 0,
+    "volume": 980
+  },
+  {
+    "name": "Quasarprojektor",
+    "type": "defense",
+    "hp": 98000,
+    "damage": 22500,
+    "armor": 13,
+    "penetration": 13,
+    "volume": 2600
+  }
+]

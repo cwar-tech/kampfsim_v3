@@ -1,0 +1,6 @@
+{
+  "workshopSavePercentPvE": 33,
+  "maxRounds": 8,
+  "volumeDisplay": "K/M/B",
+  "singleSourceOfTruth": "ships.json"
+}
