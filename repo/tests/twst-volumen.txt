@@ -1,0 +1,182 @@
+==================================================
+TEST-VOLUME.txt
+==================================================
+
+==================================================
+REQ-VOLUME-01
+==================================================
+
+Das Volumen aktiver Kampfparteien
+muss korrekt berechnet werden.
+
+
+
+--------------------------------------------------
+AK-VOLUME-01-01
+--------------------------------------------------
+
+Das Gesamtvolumen einer Schiffsflotte
+muss aus allen aktiven Schiffen
+aufsummiert werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-01-01
+
+Das Gesamtvolumen einer Schiffsflotte
+wird aus allen aktiven Schiffen
+korrekt aufsummiert.
+
+
+
+--------------------------------------------------
+AK-VOLUME-01-02
+--------------------------------------------------
+
+Das Gesamtvolumen von Defeinheiten
+muss separat berechnet werden können.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-01-02
+
+Das Gesamtvolumen von Defeinheiten
+wird separat berechnet.
+
+
+
+
+
+==================================================
+REQ-VOLUME-02
+==================================================
+
+Volumenänderungen
+müssen das finale Volumen
+aktiver Kampfparteien verändern.
+
+
+
+--------------------------------------------------
+AK-VOLUME-02-01
+--------------------------------------------------
+
+Die Änderung eines Einzelvolumens
+muss das Gesamtvolumen
+der aktiven Kampfpartei verändern.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-02-01
+
+Die Änderung eines Einzelvolumens
+verändert das Gesamtvolumen
+der aktiven Kampfpartei.
+
+
+
+
+
+==================================================
+REQ-VOLUME-03
+==================================================
+
+Verluste
+müssen das finale Volumen
+aktiver Kampfparteien verändern.
+
+
+
+--------------------------------------------------
+AK-VOLUME-03-01
+--------------------------------------------------
+
+Zerstörte Einheiten
+dürfen nicht mehr
+zum finalen Volumen
+aktiver Kampfparteien zählen.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-03-01
+
+Zerstörte Einheiten
+werden nicht mehr
+im finalen Volumen
+aktiver Kampfparteien berücksichtigt.
+
+
+
+
+
+==================================================
+REQ-VOLUME-04
+==================================================
+
+Beschädigte Schiffe
+dürfen nicht mehr
+zum aktiven Flottenvolumen zählen.
+
+
+
+--------------------------------------------------
+AK-VOLUME-04-01
+--------------------------------------------------
+
+Schiffe im Werkstatt-
+oder Warpstatus
+dürfen nicht mehr
+zum aktiven Flottenvolumen zählen.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-04-01
+
+Schiffe im Werkstatt-
+oder Warpstatus
+werden nicht mehr
+im aktiven Flottenvolumen berücksichtigt.
+
+
+
+
+
+==================================================
+REQ-VOLUME-05
+==================================================
+
+Defeinheiten
+dürfen keinen Werkstatt-
+oder Warpstatus besitzen.
+
+
+
+--------------------------------------------------
+AK-VOLUME-05-01
+--------------------------------------------------
+
+Defeinheiten
+dürfen nicht
+in Werkstatt-
+oder Warpzustände wechseln.
+
+
+--------------------------------------------------
+[UNIT TEST]
+
+UNIT-VOLUME-05-01
+
+Defeinheiten
+wechseln nicht
+in Werkstatt-
+oder Warpzustände.
