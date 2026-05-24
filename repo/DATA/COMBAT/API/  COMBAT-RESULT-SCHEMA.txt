@@ -1,0 +1,254 @@
+==================================================
+COMBAT RESULT SCHEMA V2
+==================================================
+
+Zweck:
+Zentrale technische Wahrheit
+für Combatresultate.
+
+Dieses Schema definiert:
+- Runtimeoutput
+- API-Struktur
+- UI-Daten
+- Logdaten
+- Replaybasis
+- Testbasis
+
+Alle Systeme verwenden dieselbe Resultstruktur.
+
+{
+  "combatId": "combat_001",
+
+  "timestamp": "2026-05-23T22:00:00Z",
+
+  "combatState": "finished",
+
+  "roundsPlayed": 4,
+
+  "maxRoundsReached": false,
+
+  "winner": "attacker",
+
+  "loser": "defender",
+
+  "draw": false,
+
+  "parties": [
+    {
+      "role": "attacker",
+
+      "status": "winner",
+
+      "totalStartUnits": 120,
+
+      "totalRemainingUnits": 82,
+
+      "totalDestroyedUnits": 28,
+
+      "totalDamagedUnits": 10,
+
+      "totalStartVolume": 5800,
+
+      "totalRemainingVolume": 4100,
+
+      "totalDealtDamage": 285000,
+
+      "totalReceivedDamage": 140000,
+
+      "unitResults": [
+        {
+          "unitType": "Leichter Jäger",
+
+          "category": "ship",
+
+          "startUnits": 100,
+
+          "remainingUnits": 72,
+
+          "destroyedUnits": 20,
+
+          "damagedUnits": 8,
+
+          "activeUnits": 72,
+
+          "workshopUnits": 4,
+
+          "warpUnits": 4,
+
+          "startHp": 43000,
+
+          "remainingHp": 30960,
+
+          "dealtDamage": 8500,
+
+          "receivedDamage": 12040,
+
+          "startVolume": 2000,
+
+          "remainingVolume": 1440,
+
+          "state": "active"
+        },
+
+        {
+          "unitType": "Bomber",
+
+          "category": "ship",
+
+          "startUnits": 20,
+
+          "remainingUnits": 10,
+
+          "destroyedUnits": 8,
+
+          "damagedUnits": 2,
+
+          "activeUnits": 10,
+
+          "workshopUnits": 1,
+
+          "warpUnits": 1,
+
+          "startHp": 144000,
+
+          "remainingHp": 72000,
+
+          "dealtDamage": 21600,
+
+          "receivedDamage": 72000,
+
+          "startVolume": 7600,
+
+          "remainingVolume": 3800,
+
+          "state": "active"
+        }
+      ]
+    },
+
+    {
+      "role": "defender",
+
+      "status": "loser",
+
+      "totalStartUnits": 50,
+
+      "totalRemainingUnits": 0,
+
+      "totalDestroyedUnits": 45,
+
+      "totalDamagedUnits": 5,
+
+      "totalStartVolume": 1250,
+
+      "totalRemainingVolume": 0,
+
+      "totalDealtDamage": 6000,
+
+      "totalReceivedDamage": 285000,
+
+      "unitResults": [
+        {
+          "unitType": "Raketenwerfer",
+
+          "category": "defense",
+
+          "startUnits": 50,
+
+          "remainingUnits": 0,
+
+          "destroyedUnits": 45,
+
+          "damagedUnits": 5,
+
+          "activeUnits": 0,
+
+          "workshopUnits": 0,
+
+          "warpUnits": 0,
+
+          "startHp": 42500,
+
+          "remainingHp": 0,
+
+          "dealtDamage": 6000,
+
+          "receivedDamage": 42500,
+
+          "startVolume": 1250,
+
+          "remainingVolume": 0,
+
+          "state": "destroyed"
+        }
+      ]
+    }
+  ],
+
+  "loot": {
+    "metal": 50000,
+    "crystal": 20000,
+    "gas": 10000
+  },
+
+  "debris": {
+    "metal": 12000,
+    "crystal": 8000
+  },
+
+  "roundLog": [
+    {
+      "round": 1,
+
+      "events": [
+        {
+          "eventId": "r1_e1",
+
+          "attackerRole": "attacker",
+
+          "attackerUnitType": "Bomber",
+
+          "defenderRole": "defender",
+
+          "defenderUnitType": "Raketenwerfer",
+
+          "damage": 21600,
+
+          "destroyedUnits": 12,
+
+          "remainingUnits": 38,
+
+          "counterMultiplier": 1.5,
+
+          "armorMultiplier": 1.0,
+
+          "penetrationMultiplier": 1.2
+        },
+
+        {
+          "eventId": "r1_e2",
+
+          "attackerRole": "defender",
+
+          "attackerUnitType": "Raketenwerfer",
+
+          "defenderRole": "attacker",
+
+          "defenderUnitType": "Leichter Jäger",
+
+          "damage": 6000,
+
+          "destroyedUnits": 10,
+
+          "remainingUnits": 90,
+
+          "counterMultiplier": 1.0,
+
+          "armorMultiplier": 0.97,
+
+          "penetrationMultiplier": 1.0
+        }
+      ]
+    }
+  ]
+}
