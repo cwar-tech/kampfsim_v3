@@ -1,0 +1,509 @@
+==================================================
+/DATA/COMBAT/API/
+COMBAT-RESULT-DEFINITIONS.txt
+==================================================
+
+
+==================================================
+ROOT ATTRIBUTES
+==================================================
+
+
+combatId
+
+Definition:
+Eindeutige ID eines Kampfes.
+
+Verwendung:
+- Replay
+- Persistenz
+- API
+- Debugging
+
+
+
+timestamp
+
+Definition:
+Zeitpunkt der Combatberechnung.
+
+
+
+combatState
+
+Definition:
+Globaler Runtimezustand des Kampfes.
+
+Werte:
+- running
+- finished
+- draw
+- aborted
+
+
+
+roundsPlayed
+
+Definition:
+Tatsächlich berechnete Kampfrunden.
+
+
+
+maxRoundsReached
+
+Definition:
+Kennzeichnet,
+ob das Kampfrundenlimit erreicht wurde.
+
+
+
+winner
+
+Definition:
+Siegreiche Kampfpartei.
+
+Werte:
+- attacker
+- defender
+- draw
+
+
+
+loser
+
+Definition:
+Unterlegene Kampfpartei.
+
+Werte:
+- attacker
+- defender
+- draw
+
+
+
+draw
+
+Definition:
+Kennzeichnet ein Unentschieden.
+
+Besonderheiten:
+- true bei:
+  - maximalen Kampfrunden
+  - gegenseitiger Vernichtung
+  - fehlender Siegerpartei
+
+
+
+
+
+==================================================
+PARTY ATTRIBUTES
+==================================================
+
+
+role
+
+Definition:
+Combatrolle der Partei.
+
+Werte:
+- attacker
+- defender
+
+
+
+status
+
+Definition:
+Finaler Combatstatus der Partei.
+
+Werte:
+- winner
+- loser
+- draw
+- destroyed
+
+
+
+totalStartUnits
+
+Definition:
+Gesamte Einheitenanzahl
+zu Kampfbeginn.
+
+
+
+totalRemainingUnits
+
+Definition:
+Nach Combat verbleibende aktive Einheiten.
+
+Beschädigte Einheiten
+zählen NICHT dazu.
+
+
+
+totalDestroyedUnits
+
+Definition:
+Vollständig zerstörte Einheiten
+der Partei.
+
+
+
+totalDamagedUnits
+
+Definition:
+Beschädigte Schiffe,
+die den Kampf überlebt haben,
+aber nicht mehr aktiv sind.
+
+
+
+totalStartVolume
+
+Definition:
+Gesamtvolumen
+zu Kampfbeginn.
+
+
+
+totalRemainingVolume
+
+Definition:
+Verbleibendes aktives Volumen
+nach Combat.
+
+
+
+totalDealtDamage
+
+Definition:
+Gesamter verursachter Schaden
+der Partei.
+
+
+
+totalReceivedDamage
+
+Definition:
+Gesamter erhaltener Schaden
+der Partei.
+
+
+
+
+
+==================================================
+UNIT RESULT ATTRIBUTES
+==================================================
+
+
+unitType
+
+Definition:
+Name des Einheitentyps.
+
+Beispiele:
+- Leichter Jäger
+- Bomber
+- Raketenwerfer
+
+
+
+category
+
+Definition:
+Combatkategorie der Einheit.
+
+Werte:
+- ship
+- defense
+
+
+
+startUnits
+
+Definition:
+Einheitenanzahl
+zu Kampfbeginn.
+
+
+
+remainingUnits
+
+Definition:
+Nach Combat verbleibende aktive Einheiten.
+
+Beschädigte Einheiten
+zählen NICHT dazu.
+
+
+
+destroyedUnits
+
+Definition:
+Vollständig zerstörte Einheiten.
+
+
+
+damagedUnits
+
+Definition:
+Beschädigte Einheiten,
+die den Kampf überlebt haben,
+aber nicht mehr aktiv sind.
+
+
+
+activeUnits
+
+Definition:
+Aktuell kampffähige Einheiten.
+
+Formel:
+activeUnits = remainingUnits
+
+
+
+workshopUnits
+
+Definition:
+Beschädigte Schiffe,
+die in Werkstattstatus wechseln.
+
+Besonderheiten:
+- nur für ships
+- niemals für defense
+
+
+
+warpUnits
+
+Definition:
+Beschädigte Schiffe,
+die in Warpstatus wechseln.
+
+Besonderheiten:
+- nur für ships
+- niemals für defense
+
+
+
+startHp
+
+Definition:
+Gesamt-HP
+zu Kampfbeginn.
+
+
+
+remainingHp
+
+Definition:
+Verbleibende HP
+nach Combat.
+
+
+
+dealtDamage
+
+Definition:
+Tatsächlich verursachter Schaden
+dieses Einheitentyps.
+
+
+
+receivedDamage
+
+Definition:
+Erhaltener Schaden
+dieses Einheitentyps.
+
+
+
+startVolume
+
+Definition:
+Gesamtvolumen
+zu Kampfbeginn.
+
+
+
+remainingVolume
+
+Definition:
+Verbleibendes aktives Volumen
+nach Combat.
+
+
+
+state
+
+Definition:
+Finaler Combatstatus
+des Einheitentyps.
+
+Werte:
+- active
+- damaged
+- destroyed
+
+
+
+
+
+==================================================
+LOOT ATTRIBUTES
+==================================================
+
+
+metal
+
+Definition:
+Erbeutetes Metall.
+
+
+
+crystal
+
+Definition:
+Erbeuteter Kristall.
+
+
+
+gas
+
+Definition:
+Erbeutetes Gas.
+
+
+
+
+
+==================================================
+DEBRIS ATTRIBUTES
+==================================================
+
+
+metal
+
+Definition:
+Metall aus zerstörten Einheiten.
+
+
+
+crystal
+
+Definition:
+Kristall aus zerstörten Einheiten.
+
+
+
+
+
+==================================================
+ROUND LOG ATTRIBUTES
+==================================================
+
+
+round
+
+Definition:
+Nummer der Kampfrunde.
+
+
+
+events
+
+Definition:
+Alle Combatereignisse
+einer Kampfrunde.
+
+
+
+eventId
+
+Definition:
+Eindeutige ID
+eines Combatereignisses.
+
+
+
+attackerRole
+
+Definition:
+Combatrolle
+des Angreifers.
+
+
+
+attackerUnitType
+
+Definition:
+Einheitentyp
+des Angreifers.
+
+
+
+defenderRole
+
+Definition:
+Combatrolle
+des Verteidigers.
+
+
+
+defenderUnitType
+
+Definition:
+Angegriffener Einheitentyp.
+
+
+
+damage
+
+Definition:
+Final verursachter Schaden
+dieses Events.
+
+
+
+destroyedUnits
+
+Definition:
+Durch dieses Event
+zerstörte Einheiten.
+
+
+
+remainingUnits
+
+Definition:
+Nach diesem Event
+verbleibende aktive Einheiten.
+
+
+
+counterMultiplier
+
+Definition:
+Verwendeter Countermultiplikator.
+
+Besonderheiten:
+- neutral = 1.0
+- niemals null
+
+
+
+armorMultiplier
+
+Definition:
+Verwendeter Rüstungsmultiplikator.
+
+
+
+penetrationMultiplier
+
+Definition:
+Verwendeter Durchdringungsmultiplikator.
