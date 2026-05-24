@@ -50,7 +50,7 @@ async function startCombat() {
 
   const inputResponse =
     await fetch(
-      "./DATA/COMBAT/API/TESTDATA/COMBAT-INPUT-001.json"
+      "./data/COMBAT-INPUT-001.json"
     );
 
   const combatInput =
