@@ -2,7 +2,14 @@
 // app/engine.js
 // ==================================================
 
-import shipsData from "./ships.json" assert { type: "json" };
+
+
+// ==================================================
+// IMPORTS
+// ==================================================
+
+import shipsData from "./ships.json"
+  assert { type: "json" };
 
 import combatInput from
   "./DATA/COMBAT/API/TESTDATA/COMBAT-INPUT-001.json"
@@ -11,19 +18,97 @@ import combatInput from
 import { resolveFleet }
   from "./combat/resolveFleet.js";
 
+import { calculateRound }
+  from "./combat/calculateRound.js";
+
+
+
+// ==================================================
+// COMBAT INITIALIZATION
+// ==================================================
+
+console.log("================================");
+console.log("COMBAT INITIALIZATION");
+console.log("================================");
+
+
+// ==================================================
+// LOAD INPUT DATA
+// ==================================================
+
+const attackerInput =
+  combatInput.attacker;
+
+const defenderInput =
+  combatInput.defender;
+
+console.log("Combat input loaded");
+
+
+
+// ==================================================
+// RESOLVE RUNTIME FLEETS
+// ==================================================
+
+console.log("================================");
+console.log("RESOLVE RUNTIME FLEETS");
+console.log("================================");
+
 
 const attackerFleet = resolveFleet(
-  combatInput.attacker,
+  attackerInput,
   shipsData
 );
 
 const defenderFleet = resolveFleet(
-  combatInput.defender,
+  defenderInput,
   shipsData
 );
 
-console.log("ATTACKER FLEET");
+console.log("Attacker fleet resolved");
 console.log(attackerFleet);
 
-console.log("DEFENDER FLEET");
+console.log("Defender fleet resolved");
 console.log(defenderFleet);
+
+
+
+// ==================================================
+// ROUND 1
+// ==================================================
+
+console.log("================================");
+console.log("ROUND 1");
+console.log("================================");
+
+
+// ==================================================
+// CALCULATE ROUND
+// ==================================================
+
+const roundResult = calculateRound(
+  attackerFleet,
+  defenderFleet
+);
+
+
+
+// ==================================================
+// ROUND RESULT
+// ==================================================
+
+console.log("================================");
+console.log("ROUND RESULT");
+console.log("================================");
+
+console.log(roundResult);
+
+
+
+// ==================================================
+// COMBAT END
+// ==================================================
+
+console.log("================================");
+console.log("COMBAT END");
+console.log("================================");
