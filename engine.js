@@ -1,5 +1,5 @@
 // ==================================================
-// app/engine.js
+// engine.js
 // ==================================================
 
 
@@ -8,10 +8,10 @@
 // ==================================================
 
 import { resolveFleet }
-  from "./combat/resolveFleet.js";
+  from "./app/combat/resolveFleet.js";
 
 import { calculateRound }
-  from "./combat/calculateRound.js";
+  from "./app/combat/calculateRound.js";
 
 
 
@@ -35,7 +35,7 @@ async function startCombat() {
   // ==================================================
 
   const shipsResponse =
-    await fetch("./ships.json");
+    await fetch("./app/ships.json");
 
   const shipsData =
     await shipsResponse.json();
@@ -50,7 +50,7 @@ async function startCombat() {
 
   const inputResponse =
     await fetch(
-      "../DATA/COMBAT/API/TESTDATA/COMBAT-INPUT-001.json"
+      "./DATA/COMBAT/API/TESTDATA/COMBAT-INPUT-001.json"
     );
 
   const combatInput =
