@@ -175,4 +175,13 @@ async function startCombat() {
 // RUN COMBAT ENGINE
 // ==================================================
 
+// ==================================================
+// ROUND RESULT OUTPUT
+// ==================================================
+
+console.log("================================");
+console.log("ROUND RESULT");
+console.log("================================");
+
+console.log(roundResult);
 startCombat();
