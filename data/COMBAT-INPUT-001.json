@@ -1,59 +1,42 @@
 {
   "testDataId": "combat_input_001",
-
   "description": "Standard Combat Testdatensatz für Runtime- und Berechnungstests",
-
   "combatId": "combat_001",
-
   "combatType": "PvP",
-
   "attacker": {
     "playerId": "player_attacker_001",
-
     "fleetId": "fleet_attacker_001",
-
     "role": "attacker",
-
     "units": [
       {
         "unitType": "Leichter Jäger",
         "amount": 100
       },
-
       {
         "unitType": "Bomber",
         "amount": 20
       }
     ]
   },
-
   "defender": {
     "playerId": "player_defender_001",
-
     "fleetId": "fleet_defender_001",
-
     "role": "defender",
-
     "units": [
       {
         "unitType": "Raketenwerfer",
         "amount": 50
       },
-
       {
-        "unitType": "Plasmageschütz",
+        "unitType": "PLASMAKANONE",
         "amount": 10
       }
     ]
   },
-
   "expectedValidation": {
     "valid": true,
-
     "requiredFieldsPresent": true,
-
     "shipTypesResolvable": true,
-
     "amountsPositive": true
   }
 }
