@@ -7,7 +7,7 @@ const testResults = [];
 
 
 // ==================================================
-// START TEST
+// RUN TEST
 // ==================================================
 
 export function runTest({
@@ -15,19 +15,26 @@ export function runTest({
   level,
   module,
   name,
+  context = {},
   test
 
 }) {
 
   console.log("================================");
-  console.log(`TEST LEVEL: ${level}`);
+  console.log("TEST START");
+  console.log("================================");
+
+  console.log(`LEVEL: ${level}`);
   console.log(`MODULE: ${module}`);
   console.log(`TEST: ${name}`);
+
   console.log("================================");
+
 
   try {
 
     test();
+
 
     console.log("STATUS: SUCCESS");
 
@@ -43,13 +50,60 @@ export function runTest({
 
   } catch (error) {
 
+    console.error("STATUS: FAILED");
+
+    console.error("\n");
+
+
+    // ==================================================
+    // ERROR MESSAGE
+    // ==================================================
+
     console.error(
-      "STATUS: FAILED"
+      "ERROR MESSAGE:"
     );
 
     console.error(
       error.message
     );
+
+    console.error("\n");
+
+
+    // ==================================================
+    // STACK TRACE
+    // ==================================================
+
+    console.error(
+      "STACK TRACE:"
+    );
+
+    console.error(
+      error.stack
+    );
+
+    console.error("\n");
+
+
+    // ==================================================
+    // CONTEXT
+    // ==================================================
+
+    console.error(
+      "TEST CONTEXT:"
+    );
+
+    console.error(
+
+      JSON.stringify(
+        context,
+        null,
+        2
+      )
+    );
+
+    console.error("\n");
+
 
     testResults.push({
 
@@ -61,9 +115,19 @@ export function runTest({
         "FAILED",
 
       error:
-        error.message
+        error.message,
+
+      stack:
+        error.stack,
+
+      context
     });
   }
+
+
+  console.log("================================");
+  console.log("TEST END");
+  console.log("================================");
 
   console.log("\n");
 }
@@ -74,13 +138,14 @@ export function runTest({
 // ASSERT EQUAL
 // ==================================================
 
-export function assertEqual(
+export function assertEqual({
 
   actual,
   expected,
+  field,
   message
 
-) {
+}) {
 
   if (
     actual !== expected
@@ -88,7 +153,10 @@ export function assertEqual(
 
     throw new Error(
 
-      `${message}
+`${message}
+
+FIELD:
+${field}
 
 EXPECTED:
 ${expected}
@@ -105,12 +173,13 @@ ${actual}`
 // ASSERT EXISTS
 // ==================================================
 
-export function assertExists(
+export function assertExists({
 
   value,
+  field,
   message
 
-) {
+}) {
 
   if (
 
@@ -120,7 +189,14 @@ export function assertExists(
   ) {
 
     throw new Error(
-      message
+
+`${message}
+
+FIELD:
+${field}
+
+ACTUAL:
+${value}`
     );
   }
 }
@@ -131,30 +207,101 @@ export function assertExists(
 // ASSERT TYPE
 // ==================================================
 
-export function assertType(
+export function assertType({
 
   value,
   expectedType,
+  field,
   message
 
-) {
+}) {
+
+  const actualType =
+    typeof value;
 
   if (
-
-    typeof value !==
+    actualType !==
     expectedType
-
   ) {
 
     throw new Error(
 
-      `${message}
+`${message}
+
+FIELD:
+${field}
 
 EXPECTED TYPE:
 ${expectedType}
 
 ACTUAL TYPE:
+${actualType}`
+    );
+  }
+}
+
+
+
+// ==================================================
+// ASSERT ARRAY
+// ==================================================
+
+export function assertArray({
+
+  value,
+  field,
+  message
+
+}) {
+
+  if (
+    !Array.isArray(value)
+  ) {
+
+    throw new Error(
+
+`${message}
+
+FIELD:
+${field}
+
+ACTUAL:
 ${typeof value}`
+    );
+  }
+}
+
+
+
+// ==================================================
+// ASSERT GREATER THAN
+// ==================================================
+
+export function assertGreaterThan({
+
+  actual,
+  minimum,
+  field,
+  message
+
+}) {
+
+  if (
+    actual <= minimum
+  ) {
+
+    throw new Error(
+
+`${message}
+
+FIELD:
+${field}
+
+EXPECTED >:
+${minimum}
+
+ACTUAL:
+${actual}`
     );
   }
 }
@@ -168,7 +315,7 @@ ${typeof value}`
 export function printSummary() {
 
   console.log("================================");
-  console.log("TEST SUMMARY");
+  console.log("GLOBAL TEST SUMMARY");
   console.log("================================");
 
   let successCount = 0;
@@ -212,12 +359,14 @@ export function printSummary() {
   console.log("\n");
 
   console.log(
-    `SUCCESS: ${successCount}`
+    `SUCCESSFUL TESTS: ${successCount}`
   );
 
   console.log(
-    `FAILED: ${failedCount}`
+    `FAILED TESTS: ${failedCount}`
   );
+
+  console.log("\n");
 
 
   // ==================================================
@@ -233,7 +382,7 @@ export function printSummary() {
     );
 
     throw new Error(
-      "Test run failed"
+      "Global test run failed"
     );
   }
 
