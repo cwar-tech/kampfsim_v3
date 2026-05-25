@@ -50,7 +50,7 @@ async function startCombat() {
 
   const inputResponse =
     await fetch(
-      "./data/COMBAT-INPUT-001.json"
+      "./data/combat-input-001.json"
     );
 
   const combatInput =
@@ -111,7 +111,9 @@ async function startCombat() {
   console.log("ATTACKER FLEET");
   console.log("================================");
 
-  console.log(attackerFleet);
+  console.log(
+    JSON.stringify(attackerFleet, null, 2)
+  );
 
 
 
@@ -123,7 +125,9 @@ async function startCombat() {
   console.log("DEFENDER FLEET");
   console.log("================================");
 
-  console.log(defenderFleet);
+  console.log(
+    JSON.stringify(defenderFleet, null, 2)
+  );
 
 
 
