@@ -16,6 +16,31 @@ import { calculateRound }
 
 
 // ==================================================
+// DEBUG OUTPUT
+// ==================================================
+
+function addDebugOutput(
+  title,
+  data
+) {
+
+  const debugContainer =
+    document.getElementById("debug");
+
+  debugContainer.innerHTML += `
+
+    <h2>${title}</h2>
+
+    <pre>
+${JSON.stringify(data, null, 2)}
+    </pre>
+
+  `;
+}
+
+
+
+// ==================================================
 // START COMBAT ENGINE
 // ==================================================
 
@@ -29,6 +54,13 @@ async function startCombat() {
   console.log("COMBAT INITIALIZATION");
   console.log("================================");
 
+  addDebugOutput(
+    "COMBAT INITIALIZATION",
+    {
+      status: "started"
+    }
+  );
+
 
   // ==================================================
   // LOAD SHIPS DATA
@@ -41,6 +73,11 @@ async function startCombat() {
     await shipsResponse.json();
 
   console.log("Ships data loaded");
+
+  addDebugOutput(
+    "SHIPS DATA",
+    shipsData
+  );
 
 
 
@@ -57,6 +94,11 @@ async function startCombat() {
     await inputResponse.json();
 
   console.log("Combat input loaded");
+
+  addDebugOutput(
+    "COMBAT INPUT",
+    combatInput
+  );
 
 
 
@@ -115,6 +157,11 @@ async function startCombat() {
     JSON.stringify(attackerFleet, null, 2)
   );
 
+  addDebugOutput(
+    "ATTACKER FLEET",
+    attackerFleet
+  );
+
 
 
   // ==================================================
@@ -127,6 +174,11 @@ async function startCombat() {
 
   console.log(
     JSON.stringify(defenderFleet, null, 2)
+  );
+
+  addDebugOutput(
+    "DEFENDER FLEET",
+    defenderFleet
   );
 
 
@@ -164,6 +216,11 @@ async function startCombat() {
     JSON.stringify(roundResult, null, 2)
   );
 
+  addDebugOutput(
+    "ROUND RESULT",
+    roundResult
+  );
+
 
 
   // ==================================================
@@ -173,6 +230,13 @@ async function startCombat() {
   console.log("================================");
   console.log("COMBAT END");
   console.log("================================");
+
+  addDebugOutput(
+    "COMBAT END",
+    {
+      status: "finished"
+    }
+  );
 }
 
 
