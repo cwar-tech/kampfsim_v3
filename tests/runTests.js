@@ -2,16 +2,20 @@
 // tests/runTests.js
 // ==================================================
 
-import "./combatResultSchema.test.js";
+import "./unit/calculateRound.unit.test.js";
 
-console.log(
-  "================================"
-);
+import "./integration/engine.integration.test.js";
 
-console.log(
-  "ALL TESTS PASSED"
-);
+import {
 
-console.log(
-  "================================"
-);
+  printSummary
+
+} from "./helpers/testRunner.js";
+
+
+
+// ==================================================
+// PRINT FINAL RESULT
+// ==================================================
+
+printSummary();
