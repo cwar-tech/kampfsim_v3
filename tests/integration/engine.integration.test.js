@@ -1,12 +1,15 @@
 // ==================================================
-// INTEGRATION TEST
-// ENGINE PIPELINE
+// ENGINE INTEGRATION TEST
 // ==================================================
 
 import {
 
   runTest,
-  assertExists
+
+  assertExists,
+  assertType,
+  assertArray,
+  assertGreaterThan
 
 } from "../helpers/testRunner.js";
 
@@ -27,7 +30,7 @@ import combatInput
 
 
 // ==================================================
-// TEST
+// RUN TEST
 // ==================================================
 
 runTest({
@@ -36,30 +39,55 @@ runTest({
     "INTEGRATION",
 
   module:
-    "engine",
+    "ENGINE",
 
   name:
-    "full combat pipeline",
+    "FULL COMBAT PIPELINE",
+
+
+  context: {
+
+    shipsData,
+
+    combatInput
+  },
+
 
   test: () => {
 
     // ==================================================
-    // INPUT
+    // INPUT VALIDATION
     // ==================================================
 
-    assertExists(
-      combatInput.attacker,
-      "Missing attacker"
-    );
+    assertExists({
 
-    assertExists(
-      combatInput.defender,
-      "Missing defender"
-    );
+      value:
+        combatInput.attacker,
+
+      field:
+        "combatInput.attacker",
+
+      message:
+        "Attacker input missing"
+    });
+
+
+    assertExists({
+
+      value:
+        combatInput.defender,
+
+      field:
+        "combatInput.defender",
+
+      message:
+        "Defender input missing"
+    });
+
 
 
     // ==================================================
-    // RESOLVE
+    // RESOLVE FLEETS
     // ==================================================
 
     const attackerFleet =
@@ -75,19 +103,40 @@ runTest({
       );
 
 
-    assertExists(
-      attackerFleet.totalHp,
-      "Attacker hp missing"
-    );
 
-    assertExists(
-      defenderFleet.totalHp,
-      "Defender hp missing"
-    );
+    // ==================================================
+    // RESOLVED FLEET VALIDATION
+    // ==================================================
+
+    assertExists({
+
+      value:
+        attackerFleet.totalHp,
+
+      field:
+        "attackerFleet.totalHp",
+
+      message:
+        "Attacker HP missing"
+    });
+
+
+    assertExists({
+
+      value:
+        defenderFleet.totalHp,
+
+      field:
+        "defenderFleet.totalHp",
+
+      message:
+        "Defender HP missing"
+    });
+
 
 
     // ==================================================
-    // ROUND
+    // CALCULATE ROUND
     // ==================================================
 
     const roundResult =
@@ -97,19 +146,85 @@ runTest({
       );
 
 
-    assertExists(
-      roundResult.winner,
-      "Winner missing"
-    );
 
-    assertExists(
-      roundResult.combatState,
-      "Combat state missing"
-    );
+    // ==================================================
+    // RESULT VALIDATION
+    // ==================================================
 
-    assertExists(
-      roundResult.roundEvents,
-      "Round events missing"
-    );
+    assertType({
+
+      value:
+        roundResult.winner,
+
+      expectedType:
+        "string",
+
+      field:
+        "roundResult.winner",
+
+      message:
+        "Winner invalid"
+    });
+
+
+    assertType({
+
+      value:
+        roundResult.combatState,
+
+      expectedType:
+        "string",
+
+      field:
+        "roundResult.combatState",
+
+      message:
+        "Combat state invalid"
+    });
+
+
+    assertArray({
+
+      value:
+        roundResult.roundEvents,
+
+      field:
+        "roundResult.roundEvents",
+
+      message:
+        "Round events invalid"
+    });
+
+
+    assertGreaterThan({
+
+      actual:
+        roundResult.attackerFleet.totalDamage,
+
+      minimum:
+        0,
+
+      field:
+        "attackerFleet.totalDamage",
+
+      message:
+        "Attacker damage invalid"
+    });
+
+
+    assertGreaterThan({
+
+      actual:
+        roundResult.defenderFleet.totalDamage,
+
+      minimum:
+        0,
+
+      field:
+        "defenderFleet.totalDamage",
+
+      message:
+        "Defender damage invalid"
+    });
   }
 });
