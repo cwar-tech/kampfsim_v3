@@ -6,6 +6,11 @@ export function calculateRound(
   attackerFleet,
   defenderFleet
 ) {
+
+  // ==================================================
+  // TOTAL DAMAGE
+  // ==================================================
+
   const attackerDamage =
     attackerFleet.totalDamage;
 
@@ -20,13 +25,15 @@ export function calculateRound(
   const defenderRemainingHp =
     Math.max(
       0,
-      defenderFleet.totalHp - attackerDamage
+      defenderFleet.totalHp -
+      attackerDamage
     );
 
   const attackerRemainingHp =
     Math.max(
       0,
-      attackerFleet.totalHp - defenderDamage
+      attackerFleet.totalHp -
+      defenderDamage
     );
 
 
@@ -38,16 +45,20 @@ export function calculateRound(
 
   const defenderDestroyedUnits =
     Math.floor(
-      (defenderFleet.totalHp -
-        defenderRemainingHp)
+      (
+        defenderFleet.totalHp -
+        defenderRemainingHp
+      )
       /
       defenderFleet.units[0].hpPerUnit
     );
 
   const attackerDestroyedUnits =
     Math.floor(
-      (attackerFleet.totalHp -
-        attackerRemainingHp)
+      (
+        attackerFleet.totalHp -
+        attackerRemainingHp
+      )
       /
       attackerFleet.units[0].hpPerUnit
     );
@@ -73,18 +84,91 @@ export function calculateRound(
 
 
   // ==================================================
+  // DESTROYED VOLUME
+  // ==================================================
+
+  const defenderDestroyedVolume =
+    defenderDestroyedUnits *
+    defenderFleet.units[0].volumePerUnit;
+
+  const attackerDestroyedVolume =
+    attackerDestroyedUnits *
+    attackerFleet.units[0].volumePerUnit;
+
+
+  // ==================================================
+  // WINNER
+  // ==================================================
+
+  let winner = "draw";
+
+  if (
+    attackerRemainingHp >
+    defenderRemainingHp
+  ) {
+
+    winner = "attacker";
+  }
+
+  if (
+    defenderRemainingHp >
+    attackerRemainingHp
+  ) {
+
+    winner = "defender";
+  }
+
+
+  // ==================================================
+  // COMBAT STATE
+  // ==================================================
+
+  let combatState = "ongoing";
+
+  if (
+    defenderRemainingUnits <= 0
+  ) {
+
+    combatState =
+      "attackerVictory";
+  }
+
+  if (
+    attackerRemainingUnits <= 0
+  ) {
+
+    combatState =
+      "defenderVictory";
+  }
+
+  if (
+    attackerRemainingUnits <= 0 &&
+    defenderRemainingUnits <= 0
+  ) {
+
+    combatState =
+      "mutualDestruction";
+  }
+
+
+  // ==================================================
   // ROUND EVENTS
   // ==================================================
 
   const roundEvents = [
+
     {
-      eventId: "round_1_attacker",
+      eventId:
+        "round_1_attacker",
 
-      attackerRole: "attacker",
+      attackerRole:
+        "attacker",
 
-      defenderRole: "defender",
+      defenderRole:
+        "defender",
 
-      damage: attackerDamage,
+      damage:
+        attackerDamage,
 
       destroyedUnits:
         defenderDestroyedUnits,
@@ -94,13 +178,17 @@ export function calculateRound(
     },
 
     {
-      eventId: "round_1_defender",
+      eventId:
+        "round_1_defender",
 
-      attackerRole: "defender",
+      attackerRole:
+        "defender",
 
-      defenderRole: "attacker",
+      defenderRole:
+        "attacker",
 
-      damage: defenderDamage,
+      damage:
+        defenderDamage,
 
       destroyedUnits:
         attackerDestroyedUnits,
@@ -112,10 +200,11 @@ export function calculateRound(
 
 
   // ==================================================
-  // UPDATED STATES
+  // UPDATED ATTACKER STATE
   // ==================================================
 
   const updatedAttackerFleet = {
+
     ...attackerFleet,
 
     remainingHp:
@@ -132,7 +221,12 @@ export function calculateRound(
   };
 
 
+  // ==================================================
+  // UPDATED DEFENDER STATE
+  // ==================================================
+
   const updatedDefenderFleet = {
+
     ...defenderFleet,
 
     remainingHp:
@@ -149,13 +243,24 @@ export function calculateRound(
   };
 
 
+  // ==================================================
+  // RETURN RESULT
+  // ==================================================
+
   return {
+
+    winner,
+    combatState,
+
     attackerFleet:
       updatedAttackerFleet,
 
     defenderFleet:
       updatedDefenderFleet,
 
-    roundEvents
+    roundEvents,
+
+    attackerDestroyedVolume,
+    defenderDestroyedVolume
   };
 }
