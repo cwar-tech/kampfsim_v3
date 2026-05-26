@@ -97,6 +97,25 @@ export function calculateRound(
 
 
   // ==================================================
+  // REMAINING VOLUME
+  // ==================================================
+
+  const defenderRemainingVolume =
+    Math.max(
+      0,
+      defenderFleet.totalVolume -
+      defenderDestroyedVolume
+    );
+
+  const attackerRemainingVolume =
+    Math.max(
+      0,
+      attackerFleet.totalVolume -
+      attackerDestroyedVolume
+    );
+
+
+  // ==================================================
   // WINNER
   // ==================================================
 
@@ -161,14 +180,26 @@ export function calculateRound(
       eventId:
         "round_1_attacker",
 
+      timestamp:
+        Date.now(),
+
+      round:
+        1,
+
       attackerRole:
         "attacker",
 
       defenderRole:
         "defender",
 
-      damage:
+      damageApplied:
         attackerDamage,
+
+      remainingHp:
+        defenderRemainingHp,
+
+      remainingVolume:
+        defenderRemainingVolume,
 
       destroyedUnits:
         defenderDestroyedUnits,
@@ -181,14 +212,26 @@ export function calculateRound(
       eventId:
         "round_1_defender",
 
+      timestamp:
+        Date.now(),
+
+      round:
+        1,
+
       attackerRole:
         "defender",
 
       defenderRole:
         "attacker",
 
-      damage:
+      damageApplied:
         defenderDamage,
+
+      remainingHp:
+        attackerRemainingHp,
+
+      remainingVolume:
+        attackerRemainingVolume,
 
       destroyedUnits:
         attackerDestroyedUnits,
@@ -213,8 +256,14 @@ export function calculateRound(
     remainingUnits:
       attackerRemainingUnits,
 
+    remainingVolume:
+      attackerRemainingVolume,
+
     destroyedUnits:
       attackerDestroyedUnits,
+
+    destroyedVolume:
+      attackerDestroyedVolume,
 
     receivedDamage:
       defenderDamage
@@ -235,8 +284,14 @@ export function calculateRound(
     remainingUnits:
       defenderRemainingUnits,
 
+    remainingVolume:
+      defenderRemainingVolume,
+
     destroyedUnits:
       defenderDestroyedUnits,
+
+    destroyedVolume:
+      defenderDestroyedVolume,
 
     receivedDamage:
       attackerDamage
