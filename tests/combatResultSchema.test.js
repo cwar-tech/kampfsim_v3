@@ -2,6 +2,8 @@
 // tests/combatResultSchema.test.js
 // ==================================================
 
+import fs from "fs";
+
 import { resolveFleet }
   from "../app/combat/resolveFleet.js";
 
@@ -11,14 +13,13 @@ import { calculateRound }
 import { validateCombatResult }
   from "../app/schema/validateCombatResult.js";
 
-import shipsData
-  from "../app/ships.json"
-  assert { type: "json" };
+const shipsData = JSON.parse(
+  fs.readFileSync("./app/ships.json")
+);
 
-import combatInput
-  from "../data/combat-input-001.json"
-  assert { type: "json" };
-
+const combatInput = JSON.parse(
+  fs.readFileSync("./data/combat-input-001.json")
+);
 
 
 // ==================================================
