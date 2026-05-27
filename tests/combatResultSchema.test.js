@@ -13,6 +13,11 @@ import { calculateRound }
 import { validateCombatResult }
   from "../app/schema/validateCombatResult.js";
 
+
+// ==================================================
+// TEST DATA
+// ==================================================
+
 const shipsData = JSON.parse(
   fs.readFileSync("./app/ships.json")
 );
@@ -23,49 +28,59 @@ const combatInput = JSON.parse(
 
 
 // ==================================================
-// CREATE RUNTIME
+// JEST SUITE
 // ==================================================
 
-const attackerFleet =
-  resolveFleet(
-    combatInput.attacker,
-    shipsData
-  );
+describe(
+  "CombatResultSchema",
+  () => {
 
-const defenderFleet =
-  resolveFleet(
-    combatInput.defender,
-    shipsData
-  );
+    test(
+      "validates combat result schema successfully",
+      () => {
 
+        // ==================================================
+        // CREATE RUNTIME
+        // ==================================================
 
+        const attackerFleet =
+          resolveFleet(
+            combatInput.attacker,
+            shipsData
+          );
 
-// ==================================================
-// CREATE RESULT
-// ==================================================
-
-const combatResult =
-  calculateRound(
-    attackerFleet,
-    defenderFleet
-  );
-
-
-
-// ==================================================
-// VALIDATE RESULT
-// ==================================================
-
-validateCombatResult(
-  combatResult
-);
+        const defenderFleet =
+          resolveFleet(
+            combatInput.defender,
+            shipsData
+          );
 
 
+        // ==================================================
+        // CREATE RESULT
+        // ==================================================
 
-// ==================================================
-// SUCCESS
-// ==================================================
+        const combatResult =
+          calculateRound(
+            attackerFleet,
+            defenderFleet
+          );
 
-console.log(
-  "CombatResult schema valid"
+
+        // ==================================================
+        // VALIDATE RESULT
+        // ==================================================
+
+        expect(() => {
+
+          validateCombatResult(
+            combatResult
+          );
+
+        }).not.toThrow();
+
+      }
+    );
+
+  }
 );

@@ -2,79 +2,164 @@
 // app/combat/resolveFleet.js
 // ==================================================
 
-export function resolveFleet(fleetInput, shipsData) {
-  const resolvedUnits = fleetInput.units.map(unit => {
-    const shipData = shipsData.find(
-      ship => ship.name === unit.unitType
-    );
+export function resolveFleet(
+  fleetInput,
+  shipsData
+) {
 
-    if (!shipData) {
+  // ==================================================
+  // VALIDATE INPUT
+  // ==================================================
+
+  if (
+    !fleetInput ||
+    !Array.isArray(fleetInput.units)
+  ) {
+
+    throw new Error(
+      "Invalid fleet input"
+    );
+  }
+
+
+  // ==================================================
+  // TOTAL VALUES
+  // ==================================================
+
+  let totalDamage = 0;
+  let totalHp = 0;
+  let totalUnits = 0;
+  let totalVolume = 0;
+
+  const units = [];
+
+
+  // ==================================================
+  // RESOLVE UNITS
+  // ==================================================
+
+  for (
+    const entry
+    of fleetInput.units
+  ) {
+
+    // ==================================================
+    // INPUT VALUES
+    // ==================================================
+
+    const unitType =
+      entry.unitType;
+
+    const amount =
+      entry.amount;
+
+
+    // ==================================================
+    // VALIDATE ENTRY
+    // ==================================================
+
+    if (!unitType) {
+
       throw new Error(
-        `Unknown unit type: ${unit.unitType}`
+        "unitType missing"
       );
     }
 
-    return {
-      unitType: shipData.name,
+    if (
+      amount === undefined
+    ) {
 
-      category: shipData.type,
+      throw new Error(
+        `amount missing for ${unitType}`
+      );
+    }
 
-      amount: unit.amount,
 
-      hpPerUnit: shipData.hp,
+    // ==================================================
+    // FIND SHIP DATA
+    // ==================================================
 
-      damagePerUnit: shipData.damage,
+    const ship =
+      shipsData.find(
 
-      armor: shipData.armor,
+        s =>
+          s.name === unitType
+      );
 
-      penetration: shipData.penetration,
 
-      volumePerUnit: shipData.volume,
+    // ==================================================
+    // SHIP VALIDATION
+    // ==================================================
 
-      totalHp:
-        shipData.hp * unit.amount,
+    if (!ship) {
 
-      totalDamage:
-        shipData.damage * unit.amount,
+      throw new Error(
 
-      totalVolume:
-        shipData.volume * unit.amount
-    };
-  });
+        `Ship not found: ${unitType}`
+      );
+    }
 
-  const totalUnits = resolvedUnits.reduce(
-    (sum, unit) => sum + unit.amount,
-    0
-  );
 
-  const totalHp = resolvedUnits.reduce(
-    (sum, unit) => sum + unit.totalHp,
-    0
-  );
+    // ==================================================
+    // UNIT ATTRIBUTES
+    // ==================================================
 
-  const totalDamage = resolvedUnits.reduce(
-    (sum, unit) => sum + unit.totalDamage,
-    0
-  );
+    const dmgPerUnit =
+      ship.damage;
 
-  const totalVolume = resolvedUnits.reduce(
-    (sum, unit) => sum + unit.totalVolume,
-    0
-  );
+    const hpPerUnit =
+      ship.hp;
+
+    const volumePerUnit =
+      ship.volume;
+
+
+    // ==================================================
+    // TOTAL CALCULATION
+    // ==================================================
+
+    totalDamage +=
+      dmgPerUnit * amount;
+
+    totalHp +=
+      hpPerUnit * amount;
+
+    totalUnits +=
+      amount;
+
+    totalVolume +=
+      volumePerUnit * amount;
+
+
+    // ==================================================
+    // STORE UNIT GROUP
+    // ==================================================
+
+    units.push({
+
+      unitType,
+
+      amount,
+
+      dmgPerUnit,
+      hpPerUnit,
+      volumePerUnit
+
+    });
+  }
+
+
+  // ==================================================
+  // RETURN RESOLVED FLEET
+  // ==================================================
 
   return {
-    fleetId: fleetInput.fleetId,
-
-    role: fleetInput.role,
-
-    units: resolvedUnits,
-
-    totalUnits,
-
-    totalHp,
 
     totalDamage,
+    totalHp,
+    totalUnits,
+    totalVolume,
 
-    totalVolume
+    units
   };
 }

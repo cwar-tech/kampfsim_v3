@@ -131,6 +131,32 @@ describe(
             assertExists({
 
               value:
+                attackerFleet.totalDamage,
+
+              field:
+                "attackerFleet.totalDamage",
+
+              message:
+                "Attacker damage missing"
+            });
+
+
+            assertExists({
+
+              value:
+                attackerFleet.units[0].dmgPerUnit,
+
+              field:
+                "attackerFleet.units[0].dmgPerUnit",
+
+              message:
+                "Attacker dmgPerUnit missing"
+            });
+
+
+            assertExists({
+
+              value:
                 defenderFleet.totalHp,
 
               field:
@@ -138,6 +164,32 @@ describe(
 
               message:
                 "Defender HP missing"
+            });
+
+
+            assertExists({
+
+              value:
+                defenderFleet.totalDamage,
+
+              field:
+                "defenderFleet.totalDamage",
+
+              message:
+                "Defender damage missing"
+            });
+
+
+            assertExists({
+
+              value:
+                defenderFleet.units[0].dmgPerUnit,
+
+              field:
+                "defenderFleet.units[0].dmgPerUnit",
+
+              message:
+                "Defender dmgPerUnit missing"
             });
 
 
