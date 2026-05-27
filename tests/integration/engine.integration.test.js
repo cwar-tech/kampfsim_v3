@@ -29,202 +29,214 @@ const combatInput = JSON.parse(
   fs.readFileSync("./data/combat-input-001.json")
 );
 
+
 // ==================================================
-// RUN TEST
+// JEST SUITE
 // ==================================================
 
-runTest({
+describe(
+  "EngineIntegration",
+  () => {
 
-  level:
-    "INTEGRATION",
+    test(
+      "runs full combat pipeline successfully",
+      () => {
 
-  module:
-    "ENGINE",
+        runTest({
 
-  name:
-    "FULL COMBAT PIPELINE",
+          level:
+            "INTEGRATION",
 
+          module:
+            "ENGINE",
 
-  context: {
+          name:
+            "FULL COMBAT PIPELINE",
 
-    shipsData,
 
-    combatInput
-  },
+          context: {
 
+            shipsData,
 
-  test: () => {
+            combatInput
+          },
 
-    // ==================================================
-    // INPUT VALIDATION
-    // ==================================================
 
-    assertExists({
+          test: () => {
 
-      value:
-        combatInput.attacker,
+            // ==================================================
+            // INPUT VALIDATION
+            // ==================================================
 
-      field:
-        "combatInput.attacker",
+            assertExists({
 
-      message:
-        "Attacker input missing"
-    });
+              value:
+                combatInput.attacker,
 
+              field:
+                "combatInput.attacker",
 
-    assertExists({
+              message:
+                "Attacker input missing"
+            });
 
-      value:
-        combatInput.defender,
 
-      field:
-        "combatInput.defender",
+            assertExists({
 
-      message:
-        "Defender input missing"
-    });
+              value:
+                combatInput.defender,
 
+              field:
+                "combatInput.defender",
 
+              message:
+                "Defender input missing"
+            });
 
-    // ==================================================
-    // RESOLVE FLEETS
-    // ==================================================
 
-    const attackerFleet =
-      resolveFleet(
-        combatInput.attacker,
-        shipsData
-      );
+            // ==================================================
+            // RESOLVE FLEETS
+            // ==================================================
 
-    const defenderFleet =
-      resolveFleet(
-        combatInput.defender,
-        shipsData
-      );
+            const attackerFleet =
+              resolveFleet(
+                combatInput.attacker,
+                shipsData
+              );
 
+            const defenderFleet =
+              resolveFleet(
+                combatInput.defender,
+                shipsData
+              );
 
 
-    // ==================================================
-    // RESOLVED FLEET VALIDATION
-    // ==================================================
+            // ==================================================
+            // RESOLVED FLEET VALIDATION
+            // ==================================================
 
-    assertExists({
+            assertExists({
 
-      value:
-        attackerFleet.totalHp,
+              value:
+                attackerFleet.totalHp,
 
-      field:
-        "attackerFleet.totalHp",
+              field:
+                "attackerFleet.totalHp",
 
-      message:
-        "Attacker HP missing"
-    });
+              message:
+                "Attacker HP missing"
+            });
 
 
-    assertExists({
+            assertExists({
 
-      value:
-        defenderFleet.totalHp,
+              value:
+                defenderFleet.totalHp,
 
-      field:
-        "defenderFleet.totalHp",
+              field:
+                "defenderFleet.totalHp",
 
-      message:
-        "Defender HP missing"
-    });
+              message:
+                "Defender HP missing"
+            });
 
 
+            // ==================================================
+            // CALCULATE ROUND
+            // ==================================================
 
-    // ==================================================
-    // CALCULATE ROUND
-    // ==================================================
+            const roundResult =
+              calculateRound(
+                attackerFleet,
+                defenderFleet
+              );
 
-    const roundResult =
-      calculateRound(
-        attackerFleet,
-        defenderFleet
-      );
 
+            // ==================================================
+            // RESULT VALIDATION
+            // ==================================================
 
+            assertType({
 
-    // ==================================================
-    // RESULT VALIDATION
-    // ==================================================
+              value:
+                roundResult.winner,
 
-    assertType({
+              expectedType:
+                "string",
 
-      value:
-        roundResult.winner,
+              field:
+                "roundResult.winner",
 
-      expectedType:
-        "string",
+              message:
+                "Winner invalid"
+            });
 
-      field:
-        "roundResult.winner",
 
-      message:
-        "Winner invalid"
-    });
+            assertType({
 
+              value:
+                roundResult.combatState,
 
-    assertType({
+              expectedType:
+                "string",
 
-      value:
-        roundResult.combatState,
+              field:
+                "roundResult.combatState",
 
-      expectedType:
-        "string",
+              message:
+                "Combat state invalid"
+            });
 
-      field:
-        "roundResult.combatState",
 
-      message:
-        "Combat state invalid"
-    });
+            assertArray({
 
+              value:
+                roundResult.roundEvents,
 
-    assertArray({
+              field:
+                "roundResult.roundEvents",
 
-      value:
-        roundResult.roundEvents,
+              message:
+                "Round events invalid"
+            });
 
-      field:
-        "roundResult.roundEvents",
 
-      message:
-        "Round events invalid"
-    });
+            assertGreaterThan({
 
+              actual:
+                roundResult.attackerFleet.totalDamage,
 
-    assertGreaterThan({
+              minimum:
+                0,
 
-      actual:
-        roundResult.attackerFleet.totalDamage,
+              field:
+                "attackerFleet.totalDamage",
 
-      minimum:
-        0,
+              message:
+                "Attacker damage invalid"
+            });
 
-      field:
-        "attackerFleet.totalDamage",
 
-      message:
-        "Attacker damage invalid"
-    });
+            assertGreaterThan({
 
+              actual:
+                roundResult.defenderFleet.totalDamage,
 
-    assertGreaterThan({
+              minimum:
+                0,
 
-      actual:
-        roundResult.defenderFleet.totalDamage,
+              field:
+                "defenderFleet.totalDamage",
 
-      minimum:
-        0,
+              message:
+                "Defender damage invalid"
+            });
 
-      field:
-        "defenderFleet.totalDamage",
+          }
+        });
 
-      message:
-        "Defender damage invalid"
-    });
+      }
+    );
+
   }
-});
+);

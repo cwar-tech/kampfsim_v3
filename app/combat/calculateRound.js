@@ -8,6 +8,22 @@ export function calculateRound(
 ) {
 
   // ==================================================
+  // VALIDATE FLEET STRUCTURE
+  // MVP RUNTIME CONTRACT
+  // ==================================================
+
+  validateFleet(
+    attackerFleet,
+    "attackerFleet"
+  );
+
+  validateFleet(
+    defenderFleet,
+    "defenderFleet"
+  );
+
+
+  // ==================================================
   // TOTAL DAMAGE
   // ==================================================
 
@@ -318,4 +334,110 @@ export function calculateRound(
     attackerDestroyedVolume,
     defenderDestroyedVolume
   };
+}
+
+
+// ==================================================
+// VALIDATE FLEET
+// MVP RUNTIME CONTRACT
+// ==================================================
+
+function validateFleet(
+  fleet,
+  fleetName
+) {
+
+  // ==================================================
+  // REQUIRED ROOT ATTRIBUTES
+  // ==================================================
+
+  const requiredFleetAttributes = [
+
+    "totalDamage",
+    "totalHp",
+    "totalUnits",
+    "totalVolume",
+    "units"
+
+  ];
+
+  for (
+    const attribute
+    of requiredFleetAttributes
+  ) {
+
+    if (
+      fleet[attribute] === undefined
+    ) {
+
+      throw new Error(
+
+        `${fleetName} missing attribute: ${attribute}`
+
+      );
+    }
+  }
+
+
+  // ==================================================
+  // UNITS ARRAY
+  // ==================================================
+
+  if (
+    !Array.isArray(fleet.units)
+  ) {
+
+    throw new Error(
+
+      `${fleetName}.units must be an array`
+
+    );
+  }
+
+  if (
+    fleet.units.length < 1
+  ) {
+
+    throw new Error(
+
+      `${fleetName}.units must contain at least one unit`
+
+    );
+  }
+
+
+  // ==================================================
+  // UNIT ATTRIBUTES
+  // ==================================================
+
+  for (
+    const unit
+    of fleet.units
+  ) {
+
+    const requiredUnitAttributes = [
+
+      "dmgPerUnit",
+      "hpPerUnit",
+      "volumePerUnit"
+
+    ];
+
+    for (
+      const attribute
+      of requiredUnitAttributes
+    ) {
+
+      if (
+        unit[attribute] === undefined
+      ) {
+
+        throw new Error(
+
+          `${fleetName}.units missing attribute: ${attribute}`
+
+        );
+      }
+    }
+  }
 }
