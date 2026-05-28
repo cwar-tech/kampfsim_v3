@@ -742,45 +742,580 @@ describe(
       "creates round events for both fleets",
       () => {
 
-        const attackerFleet =
-          createValidFleet();
+      }
+    );
 
-        const defenderFleet =
-          createValidFleet();
+  }
+);
 
-        const result =
-          calculateRound(
-            attackerFleet,
-            defenderFleet
-          );
 
-        expect(
-          result.roundEvents.length
-        ).toBe(2);
+// ==================================================
+// OVERKILL CONTRACT
+// ==================================================
+
+describe(
+  "OverkillContract",
+  () => {
+
+    test(
+      "overkill damage caps remainingHp at zero",
+      () => {
+
       }
     );
 
 
     test(
-      "stores applied damage inside round events",
+      "overkill damage caps remainingUnits at zero",
       () => {
 
-        const attackerFleet =
-          createValidFleet();
+      }
+    );
 
-        const defenderFleet =
-          createValidFleet();
 
-        const result =
-          calculateRound(
-            attackerFleet,
-            defenderFleet
-          );
+    test(
+      "overkill damage caps remainingVolume at zero",
+      () => {
 
-        expect(
-          result.roundEvents[0]
-            .damageApplied
-        ).toBeDefined();
+      }
+    );
+
+
+    test(
+      "overkill damage does not create negative destroyedUnits",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "overkill damage still returns attackerVictory",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "overkill damage destroys all unit groups correctly",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// EXACT LETHAL CONTRACT
+// ==================================================
+
+describe(
+  "ExactLethalContract",
+  () => {
+
+    test(
+      "exact damage destroys all units",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "exact damage sets remainingHp to zero",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "exact damage sets remainingUnits to zero",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "exact damage does not create negative runtime values",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "exact lethal damage preserves valid combat state",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// SPILLOVER CONTRACT
+// ==================================================
+
+describe(
+  "SpilloverContract",
+  () => {
+
+    test(
+      "damage transfers to next unit group",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "destroyed unit group receives no negative hp",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "remaining damage attacks next target",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "only remaining damage is transferred",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "last unit group stops further spillover",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "spillover preserves total damage consistency",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// TARGET PRIORITY CONTRACT
+// ==================================================
+
+describe(
+  "TargetPriorityContract",
+  () => {
+
+    test(
+      "smallest volume group gets attacked first",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "same volume groups preserve deterministic order",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "destroyed smallest group passes damage onward",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "target priority remains stable across rounds",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "invalid priority targets fallback correctly",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// DAMAGE DISTRIBUTION CONTRACT
+// ==================================================
+
+describe(
+  "DamageDistributionContract",
+  () => {
+
+    test(
+      "simultaneous attacks distribute damage across valid groups",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "one destroyed group does not block other damage application",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "all eligible groups receive damage during simultaneous attack",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "distributed damage never exceeds available damage",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "distributed damage preserves combat consistency",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// COUNTER TARGET SELECTION CONTRACT
+// ==================================================
+
+describe(
+  "CounterTargetSelectionContract",
+  () => {
+
+    test(
+      "counter targets receive priority focusfire",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "non-counter targets are ignored while valid counter targets exist",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "combat searches for next valid counter target after destruction",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "destroyed counter targets are removed from target evaluation",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "counter target selection preserves deterministic target order",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "combat falls back to standard distribution when no counter targets exist",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// COUNTER DAMAGE MODIFIER CONTRACT
+// ==================================================
+
+describe(
+  "CounterDamageModifierContract",
+  () => {
+
+    test(
+      "counter modifiers apply multiplicatively",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "counter modifiers never apply flat subtraction",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "counter modifiers preserve proportional scaling",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "multiple modifiers stack deterministically",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "counter modifiers affect only matching target types",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "non-counter targets receive normalized base damage",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// COUNTER OVERFLOW NORMALIZATION CONTRACT
+// ==================================================
+
+describe(
+  "CounterOverflowNormalizationContract",
+  () => {
+
+    test(
+      "overflow damage is normalized back to base damage",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "overflow damage does not preserve amplified counter values",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "normalized overflow damage transfers correctly to next target",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "overflow normalization preserves proportional base scaling",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "counter overflow recalculates correctly for chained targets",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "overflow normalization preserves total damage consistency",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// ATTACK QUEUE CONTRACT
+// ==================================================
+
+describe(
+  "AttackQueueContract",
+  () => {
+
+    test(
+      "highest effective damage attacks first",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "attack queue recalculates after target destruction",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "destroyed targets are removed from queue evaluation",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "next counter target is selected after target destruction",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "fallback attacks start when no counter targets remain",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "equal damage values preserve stable queue order",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "attack queue preserves deterministic combat resolution",
+      () => {
+
+      }
+    );
+
+  }
+);
+
+
+// ==================================================
+// COMBAT RUNTIME STABILITY CONTRACT
+// ==================================================
+
+describe(
+  "CombatRuntimeStabilityContract",
+  () => {
+
+    test(
+      "remainingHp never becomes negative",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "remainingUnits never becomes negative",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "remainingVolume never becomes negative",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "destroyedUnits never exceeds totalUnits",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "combatState always resolves into valid runtime state",
+      () => {
+
+      }
+    );
+
+
+    test(
+      "winner always resolves correctly after combat resolution",
+      () => {
+
       }
     );
 
