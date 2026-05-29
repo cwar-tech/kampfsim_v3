@@ -1,0 +1,449 @@
+[
+  {
+    "unitTypeId": "light_fighter",
+    "name": "Leichter Jäger",
+    "type": "ship",
+    "hp": 430,
+    "damage": 85,
+    "speed": 236,
+    "volume": 20,
+    "fuel": 30,
+    "capacity": 300,
+    "armor": 3,
+    "penetration": 0,
+    "repairDuration": 120,
+    "damageMultipliers": [
+      {
+        "targetType": "bomber",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "ion_carrier",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "medium_fighter",
+    "name": "Mittlerer Jäger",
+    "type": "ship",
+    "hp": 760,
+    "damage": 155,
+    "speed": 205,
+    "volume": 35,
+    "fuel": 45,
+    "capacity": 575,
+    "armor": 5,
+    "penetration": 0,
+    "repairDuration": 180,
+    "damageMultipliers": [
+      {
+        "targetType": "star_cruiser",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "light_fighter",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "frigate",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "heavy_fighter",
+    "name": "Schwerer Jäger",
+    "type": "ship",
+    "hp": 1068,
+    "damage": 224,
+    "speed": 159,
+    "volume": 50,
+    "fuel": 60,
+    "capacity": 750,
+    "armor": 8,
+    "penetration": 0,
+    "repairDuration": 240,
+    "damageMultipliers": [
+      {
+        "targetType": "star_cruiser",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "destroyer",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "medium_fighter",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "star_cruiser",
+    "name": "Sternenkreuzer",
+    "type": "ship",
+    "hp": 3200,
+    "damage": 650,
+    "speed": 118,
+    "volume": 160,
+    "fuel": 165,
+    "capacity": 2850,
+    "armor": 10,
+    "penetration": 3,
+    "repairDuration": 480,
+    "damageMultipliers": [
+      {
+        "targetType": "frigate",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "ion_carrier",
+        "multiplier": 2.5
+      },
+      {
+        "targetType": "heavy_transport",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "frigate",
+    "name": "Fregatte",
+    "type": "ship",
+    "hp": 4550,
+    "damage": 910,
+    "speed": 102,
+    "volume": 220,
+    "fuel": 215,
+    "capacity": 4050,
+    "armor": 0,
+    "penetration": 10,
+    "repairDuration": 600,
+    "damageMultipliers": [
+      {
+        "targetType": "heavy_fighter",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "ion_carrier",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "medium_transport",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "ion_carrier",
+    "name": "Ionenträger",
+    "type": "ship",
+    "hp": 6600,
+    "damage": 1320,
+    "speed": 84,
+    "volume": 320,
+    "fuel": 290,
+    "capacity": 6100,
+    "armor": 0,
+    "penetration": 11,
+    "repairDuration": 900,
+    "damageMultipliers": [
+      {
+        "targetType": "frigate",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "destroyer",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "heavy_fighter",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "destroyer",
+    "name": "Zerstörer",
+    "type": "ship",
+    "hp": 9100,
+    "damage": 1820,
+    "speed": 70,
+    "volume": 430,
+    "fuel": 365,
+    "capacity": 8500,
+    "armor": 8,
+    "penetration": 8,
+    "repairDuration": 1200,
+    "damageMultipliers": [
+      {
+        "targetType": "frigate",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "medium_fighter",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "light_fighter",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "bomber",
+    "name": "Bomber",
+    "type": "ship",
+    "hp": 7200,
+    "damage": 1080,
+    "speed": 64,
+    "volume": 380,
+    "fuel": 410,
+    "capacity": 6200,
+    "armor": 0,
+    "penetration": 12,
+    "repairDuration": 900,
+    "damageMultipliers": [
+      {
+        "targetType": "quasar_projector",
+        "multiplier": 6.0
+      },
+      {
+        "targetType": "plasma_cannon",
+        "multiplier": 5.5
+      },
+      {
+        "targetType": "gauss_cannon",
+        "multiplier": 4.5
+      },
+      {
+        "targetType": "ion_cannon",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "laser_cannon",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "rocket_launcher",
+        "multiplier": 3.0
+      }
+    ]
+  },
+  {
+    "unitTypeId": "light_transport",
+    "name": "Leichter Transporter",
+    "type": "ship",
+    "hp": 1800,
+    "damage": 20,
+    "speed": 182,
+    "volume": 60,
+    "fuel": 52,
+    "capacity": 1800,
+    "armor": 4,
+    "penetration": 0,
+    "repairDuration": 180,
+    "damageMultipliers": []
+  },
+  {
+    "unitTypeId": "medium_transport",
+    "name": "Mittlerer Transporter",
+    "type": "ship",
+    "hp": 6200,
+    "damage": 55,
+    "speed": 108,
+    "volume": 240,
+    "fuel": 180,
+    "capacity": 9600,
+    "armor": 7,
+    "penetration": 0,
+    "repairDuration": 360,
+    "damageMultipliers": []
+  },
+  {
+    "unitTypeId": "heavy_transport",
+    "name": "Schwerer Transporter",
+    "type": "ship",
+    "hp": 18500,
+    "damage": 120,
+    "speed": 52,
+    "volume": 720,
+    "fuel": 470,
+    "capacity": 32000,
+    "armor": 10,
+    "penetration": 0,
+    "repairDuration": 720,
+    "damageMultipliers": []
+  },
+  {
+    "unitTypeId": "abyssus",
+    "name": "Abyssus",
+    "type": "ship",
+    "hp": 64000,
+    "damage": 12800,
+    "speed": 26,
+    "volume": 2400,
+    "fuel": 1450,
+    "capacity": 186000,
+    "armor": 12,
+    "penetration": 12,
+    "repairDuration": 3600,
+    "damageMultipliers": [
+      {
+        "targetType": "star_cruiser",
+        "multiplier": 5.0
+      },
+      {
+        "targetType": "frigate",
+        "multiplier": 4.0
+      },
+      {
+        "targetType": "heavy_transport",
+        "multiplier": 3.0
+      }
+    ]
+  },
+  {
+    "unitTypeId": "rocket_launcher",
+    "name": "Raketenwerfer",
+    "type": "defense",
+    "hp": 850,
+    "damage": 120,
+    "volume": 25,
+    "armor": 5,
+    "penetration": 0,
+    "repairDuration": 120,
+    "damageMultipliers": [
+      {
+        "targetType": "light_fighter",
+        "multiplier": 2.5
+      },
+      {
+        "targetType": "medium_fighter",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "laser_cannon",
+    "name": "Laserkanone",
+    "type": "defense",
+    "hp": 2200,
+    "damage": 420,
+    "volume": 60,
+    "armor": 7,
+    "penetration": 0,
+    "repairDuration": 240,
+    "damageMultipliers": [
+      {
+        "targetType": "light_fighter",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "medium_fighter",
+        "multiplier": 3.0
+      },
+      {
+        "targetType": "bomber",
+        "multiplier": 2.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "ion_cannon",
+    "name": "Ionenkanone",
+    "type": "defense",
+    "hp": 6200,
+    "damage": 1180,
+    "volume": 180,
+    "armor": 0,
+    "penetration": 10,
+    "repairDuration": 600,
+    "damageMultipliers": [
+      {
+        "targetType": "heavy_fighter",
+        "multiplier": 3.5
+      },
+      {
+        "targetType": "star_cruiser",
+        "multiplier": 3.0
+      }
+    ]
+  },
+  {
+    "unitTypeId": "gauss_cannon",
+    "name": "Gauskanone",
+    "type": "defense",
+    "hp": 14800,
+    "damage": 3150,
+    "volume": 420,
+    "armor": 0,
+    "penetration": 12,
+    "repairDuration": 1200,
+    "damageMultipliers": [
+      {
+        "targetType": "destroyer",
+        "multiplier": 4.5
+      },
+      {
+        "targetType": "star_cruiser",
+        "multiplier": 4.0
+      },
+      {
+        "targetType": "frigate",
+        "multiplier": 3.5
+      }
+    ]
+  },
+  {
+    "unitTypeId": "plasma_cannon",
+    "name": "Plasmakanone",
+    "type": "defense",
+    "hp": 36500,
+    "damage": 8200,
+    "volume": 980,
+    "armor": 12,
+    "penetration": 0,
+    "repairDuration": 2400,
+    "damageMultipliers": [
+      {
+        "targetType": "destroyer",
+        "multiplier": 5.0
+      },
+      {
+        "targetType": "ion_carrier",
+        "multiplier": 5.0
+      },
+      {
+        "targetType": "frigate",
+        "multiplier": 4.0
+      }
+    ]
+  },
+  {
+    "unitTypeId": "quasar_projector",
+    "name": "Quasarprojektor",
+    "type": "defense",
+    "hp": 98000,
+    "damage": 22500,
+    "volume": 2600,
+    "armor": 13,
+    "penetration": 13,
+    "repairDuration": 4800,
+    "damageMultipliers": [
+      {
+        "targetType": "destroyer",
+        "multiplier": 6.0
+      },
+      {
+        "targetType": "ion_carrier",
+        "multiplier": 6.0
+      },
+      {
+        "targetType": "abyssus",
+        "multiplier": 5.0
+      }
+    ]
+  }
+]
