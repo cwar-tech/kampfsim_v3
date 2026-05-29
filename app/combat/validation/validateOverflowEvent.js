@@ -5,14 +5,15 @@ function validateOverflowEvent(
 
     if (
         !overflowEvent ||
-        typeof overflowEvent !==
-        "object"
+        typeof overflowEvent !== "object"
     ) {
         return {
             valid: false,
             errors: [
                 {
-                    field: "overflowEvent",
+                    field:
+                        "overflowEvent",
+
                     message:
                         "overflowEvent must be an object"
                 }
@@ -28,133 +29,124 @@ function validateOverflowEvent(
         errors.push({
             field:
                 "sourceDamageEventId",
+
             message:
                 "sourceDamageEventId must be a non-empty string"
         });
     }
 
     if (
-        !overflowEvent.previousTargetRuntimeUnitId ||
-        typeof overflowEvent.previousTargetRuntimeUnitId !==
+        !overflowEvent.sourceRuntimeUnitId ||
+        typeof overflowEvent.sourceRuntimeUnitId !==
         "string"
     ) {
         errors.push({
             field:
-                "previousTargetRuntimeUnitId",
+                "sourceRuntimeUnitId",
+
             message:
-                "previousTargetRuntimeUnitId must be a non-empty string"
+                "sourceRuntimeUnitId must be a non-empty string"
         });
     }
 
     if (
-        !overflowEvent.newTargetRuntimeUnitId ||
-        typeof overflowEvent.newTargetRuntimeUnitId !==
+        !overflowEvent.targetRuntimeUnitId ||
+        typeof overflowEvent.targetRuntimeUnitId !==
         "string"
     ) {
         errors.push({
             field:
-                "newTargetRuntimeUnitId",
+                "targetRuntimeUnitId",
+
             message:
-                "newTargetRuntimeUnitId must be a non-empty string"
+                "targetRuntimeUnitId must be a non-empty string"
         });
     }
 
     if (
-        overflowEvent.previousTargetRuntimeUnitId ===
-        overflowEvent.newTargetRuntimeUnitId
+        typeof overflowEvent.overflowDamage !==
+        "number" ||
+        !Number.isInteger(
+            overflowEvent.overflowDamage
+        ) ||
+        overflowEvent.overflowDamage <= 0
     ) {
         errors.push({
             field:
-                "newTargetRuntimeUnitId",
+                "overflowDamage",
+
             message:
-                "overflow target must change"
+                "overflowDamage must be a positive integer"
         });
     }
 
     if (
-        typeof overflowEvent.originalOverflowDamage !==
+        typeof overflowEvent.chainDepth !==
         "number" ||
-        overflowEvent.originalOverflowDamage <
-        0
+        !Number.isInteger(
+            overflowEvent.chainDepth
+        ) ||
+        overflowEvent.chainDepth < 0
     ) {
         errors.push({
             field:
-                "originalOverflowDamage",
+                "chainDepth",
+
             message:
-                "originalOverflowDamage must be a non-negative number"
+                "chainDepth must be a non-negative integer"
         });
     }
 
     if (
-        typeof overflowEvent.overflowLoss !==
+        typeof overflowEvent.maxChainDepth !==
         "number" ||
-        overflowEvent.overflowLoss < 0
-    ) {
-        errors.push({
-            field: "overflowLoss",
-            message:
-                "overflowLoss must be a non-negative number"
-        });
-    }
-
-    if (
-        typeof overflowEvent.normalizedOverflowDamage !==
-        "number" ||
-        overflowEvent.normalizedOverflowDamage <
-        0
+        !Number.isInteger(
+            overflowEvent.maxChainDepth
+        ) ||
+        overflowEvent.maxChainDepth < 0
     ) {
         errors.push({
             field:
-                "normalizedOverflowDamage",
+                "maxChainDepth",
+
             message:
-                "normalizedOverflowDamage must be a non-negative number"
+                "maxChainDepth must be a non-negative integer"
         });
     }
 
     if (
-        typeof overflowEvent.previousMultiplierRemoved !==
-        "number" ||
-        overflowEvent.previousMultiplierRemoved <=
-        0
+        overflowEvent.chainDepth >
+        overflowEvent.maxChainDepth
     ) {
         errors.push({
             field:
-                "previousMultiplierRemoved",
+                "chainDepth",
+
             message:
-                "previousMultiplierRemoved must be greater than 0"
+                "chainDepth cannot exceed maxChainDepth"
         });
     }
 
     if (
-        typeof overflowEvent.newMultiplierApplied !==
-        "number" ||
-        overflowEvent.newMultiplierApplied <=
-        0
+        overflowEvent.sourceRuntimeUnitId ===
+        overflowEvent.targetRuntimeUnitId
     ) {
         errors.push({
             field:
-                "newMultiplierApplied",
-            message:
-                "newMultiplierApplied must be greater than 0"
-        });
-    }
+                "runtimeUnitId",
 
-    if (
-        overflowEvent.overflowLoss >
-        overflowEvent.originalOverflowDamage
-    ) {
-        errors.push({
-            field: "overflowLoss",
             message:
-                "overflowLoss cannot exceed originalOverflowDamage"
+                "source and target runtime ids cannot be identical"
         });
     }
 
     return {
-        valid: errors.length === 0,
+        valid:
+            errors.length === 0,
+
         errors
     };
 }
 
-module.exports =
+export default
     validateOverflowEvent;
