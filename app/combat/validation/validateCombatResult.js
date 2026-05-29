@@ -1,3 +1,9 @@
+const VALID_WINNERS = [
+    "attacker",
+    "defender",
+    "draw"
+];
+
 function validateCombatResult(
     combatResult
 ) {
@@ -11,7 +17,9 @@ function validateCombatResult(
             valid: false,
             errors: [
                 {
-                    field: "combatResult",
+                    field:
+                        "combatResult",
+
                     message:
                         "combatResult must be an object"
                 }
@@ -20,169 +28,132 @@ function validateCombatResult(
     }
 
     if (
-        !combatResult.combatId ||
-        typeof combatResult.combatId !==
-        "string"
-    ) {
-        errors.push({
-            field: "combatId",
-            message:
-                "combatId must be a non-empty string"
-        });
-    }
-
-    const VALID_WINNER_SIDES = [
-        "attacker",
-        "defender",
-        "draw"
-    ];
-
-    if (
-        !VALID_WINNER_SIDES.includes(
-            combatResult.winnerSide
+        !VALID_WINNERS.includes(
+            combatResult.winner
         )
     ) {
         errors.push({
-            field: "winnerSide",
+            field:
+                "winner",
+
             message:
-                "invalid winnerSide"
+                "winner must be attacker, defender or draw"
         });
     }
 
     if (
-        typeof combatResult.totalRounds !==
+        typeof combatResult.roundsPlayed !==
         "number" ||
         !Number.isInteger(
-            combatResult.totalRounds
+            combatResult.roundsPlayed
         ) ||
-        combatResult.totalRounds < 0
+        combatResult.roundsPlayed < 0
     ) {
         errors.push({
-            field: "totalRounds",
+            field:
+                "roundsPlayed",
+
             message:
-                "totalRounds must be a non-negative integer"
+                "roundsPlayed must be a non-negative integer"
         });
     }
 
     if (
-        typeof combatResult.attackerFleetDestroyed !==
+        typeof combatResult.attackerLosses !==
+        "number" ||
+        !Number.isInteger(
+            combatResult.attackerLosses
+        ) ||
+        combatResult.attackerLosses < 0
+    ) {
+        errors.push({
+            field:
+                "attackerLosses",
+
+            message:
+                "attackerLosses must be a non-negative integer"
+        });
+    }
+
+    if (
+        typeof combatResult.defenderLosses !==
+        "number" ||
+        !Number.isInteger(
+            combatResult.defenderLosses
+        ) ||
+        combatResult.defenderLosses < 0
+    ) {
+        errors.push({
+            field:
+                "defenderLosses",
+
+            message:
+                "defenderLosses must be a non-negative integer"
+        });
+    }
+
+    if (
+        typeof combatResult.draw !==
         "boolean"
     ) {
         errors.push({
             field:
-                "attackerFleetDestroyed",
+                "draw",
+
             message:
-                "attackerFleetDestroyed must be a boolean"
+                "draw must be a boolean"
         });
     }
 
     if (
-        typeof combatResult.defenderFleetDestroyed !==
-        "boolean"
-    ) {
-        errors.push({
-            field:
-                "defenderFleetDestroyed",
-            message:
-                "defenderFleetDestroyed must be a boolean"
-        });
-    }
-
-    if (
-        !Array.isArray(
-            combatResult.attackerRemainingUnits
-        )
-    ) {
-        errors.push({
-            field:
-                "attackerRemainingUnits",
-            message:
-                "attackerRemainingUnits must be an array"
-        });
-    }
-
-    if (
-        !Array.isArray(
-            combatResult.defenderRemainingUnits
-        )
-    ) {
-        errors.push({
-            field:
-                "defenderRemainingUnits",
-            message:
-                "defenderRemainingUnits must be an array"
-        });
-    }
-
-    if (
-        !Array.isArray(
-            combatResult.attackerLostUnits
-        )
-    ) {
-        errors.push({
-            field:
-                "attackerLostUnits",
-            message:
-                "attackerLostUnits must be an array"
-        });
-    }
-
-    if (
-        !Array.isArray(
-            combatResult.defenderLostUnits
-        )
-    ) {
-        errors.push({
-            field:
-                "defenderLostUnits",
-            message:
-                "defenderLostUnits must be an array"
-        });
-    }
-
-    if (
-        !Array.isArray(
-            combatResult.rounds
-        )
-    ) {
-        errors.push({
-            field: "rounds",
-            message:
-                "rounds must be an array"
-        });
-    }
-
-    if (
-        combatResult.winnerSide ===
+        combatResult.winner ===
         "attacker" &&
-        !combatResult.defenderFleetDestroyed
+        combatResult.attackerDestroyed
     ) {
         errors.push({
             field:
-                "defenderFleetDestroyed",
+                "winner",
+
             message:
-                "defender fleet must be destroyed when attacker wins"
+                "attacker cannot win while destroyed"
         });
     }
 
     if (
-        combatResult.winnerSide ===
+        combatResult.winner ===
         "defender" &&
-        !combatResult.attackerFleetDestroyed
+        combatResult.defenderDestroyed
     ) {
         errors.push({
             field:
-                "attackerFleetDestroyed",
+                "winner",
+
             message:
-                "attacker fleet must be destroyed when defender wins"
+                "defender cannot win while destroyed"
+        });
+    }
+
+    if (
+        combatResult.winner ===
+        "draw" &&
+        !combatResult.draw
+    ) {
+        errors.push({
+            field:
+                "draw",
+
+            message:
+                "draw winner requires draw=true"
         });
     }
 
     return {
-        valid: errors.length === 0,
+        valid:
+            errors.length === 0,
+
         errors
     };
 }
 
-module.exports =
+export default
     validateCombatResult;
