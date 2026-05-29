@@ -1,88 +1,87 @@
-function aggregateDamage({
-    combatRuntime,
-    roundRuntime
-}) {
-    const allUnits = [
-        ...combatRuntime.attackerFleet.units,
-        ...combatRuntime.defenderFleet.units
-    ];
+function aggregateDamage(
+    damageEvents
+) {
 
-    const sortedDamageEvents =
-        [...roundRuntime.damageEvents].sort(
-            (a, b) => {
-                if (
-                    a.targetRuntimeUnitId !==
-                    b.targetRuntimeUnitId
-                ) {
-                    return a.targetRuntimeUnitId.localeCompare(
-                        b.targetRuntimeUnitId
-                    );
-                }
-
-                return a.sourceRuntimeUnitId.localeCompare(
-                    b.sourceRuntimeUnitId
-                );
-            }
-        );
-
-    for (const unit of allUnits) {
-        unit.receivedDamage = 0;
-        unit.dealtDamage = 0;
+    if (
+        !Array.isArray(
+            damageEvents
+        )
+    ) {
+        return null;
     }
 
-    for (const damageEvent of sortedDamageEvents) {
-        const sourceUnit =
-            allUnits.find(
-                (unit) =>
-                    unit.runtimeUnitId ===
-                    damageEvent.sourceRuntimeUnitId
-            );
+    const aggregation = {};
 
-        const targetUnit =
-            allUnits.find(
-                (unit) =>
-                    unit.runtimeUnitId ===
-                    damageEvent.targetRuntimeUnitId
-            );
+    for (
+        const event
+        of damageEvents
+    ) {
 
-        if (sourceUnit) {
-            sourceUnit.dealtDamage +=
-                damageEvent.appliedDamage;
+        if (
+            !event ||
+            typeof event !== "object"
+        ) {
+            continue;
         }
 
-        if (targetUnit) {
-            targetUnit.receivedDamage +=
-                damageEvent.appliedDamage;
+        const {
+            targetRuntimeUnitId,
+            appliedDamage,
+            overflowDamage
+        } = event;
+
+        if (
+            typeof targetRuntimeUnitId !==
+            "string"
+        ) {
+            continue;
         }
+
+        if (
+            typeof appliedDamage !==
+            "number" ||
+            appliedDamage < 0
+        ) {
+            continue;
+        }
+
+        if (
+            typeof overflowDamage !==
+            "number" ||
+            overflowDamage < 0
+        ) {
+            continue;
+        }
+
+        if (
+            !aggregation[
+            targetRuntimeUnitId
+            ]
+        ) {
+
+            aggregation[
+                targetRuntimeUnitId
+            ] = {
+
+                appliedDamage: 0,
+
+                overflowDamage: 0
+            };
+        }
+
+        aggregation[
+            targetRuntimeUnitId
+        ].appliedDamage +=
+            appliedDamage;
+
+        aggregation[
+            targetRuntimeUnitId
+        ].overflowDamage +=
+            overflowDamage;
     }
 
-    roundRuntime.attackerDamageDealt =
-        combatRuntime.attackerFleet.units.reduce(
-            (sum, unit) =>
-                sum + (unit.dealtDamage || 0),
-            0
-        );
-
-    roundRuntime.defenderDamageDealt =
-        combatRuntime.defenderFleet.units.reduce(
-            (sum, unit) =>
-                sum + (unit.dealtDamage || 0),
-            0
-        );
-
-    roundRuntime.attackerDamageReceived =
-        combatRuntime.attackerFleet.units.reduce(
-            (sum, unit) =>
-                sum + (unit.receivedDamage || 0),
-            0
-        );
-
-    roundRuntime.defenderDamageReceived =
-        combatRuntime.defenderFleet.units.reduce(
-            (sum, unit) =>
-                sum + (unit.receivedDamage || 0),
-            0
-        );
+    return aggregation;
 }
 
-module.exports = aggregateDamage;
+export default
+    aggregateDamage;
