@@ -27,6 +27,7 @@ function validateDamageEvent(
         errors.push({
             field:
                 "sourceRuntimeUnitId",
+
             message:
                 "sourceRuntimeUnitId must be a non-empty string"
         });
@@ -40,101 +41,126 @@ function validateDamageEvent(
         errors.push({
             field:
                 "targetRuntimeUnitId",
+
             message:
                 "targetRuntimeUnitId must be a non-empty string"
         });
     }
 
     if (
-        !damageEvent.sourceUnitTypeId ||
-        typeof damageEvent.sourceUnitTypeId !==
-        "string"
-    ) {
-        errors.push({
-            field:
-                "sourceUnitTypeId",
-            message:
-                "sourceUnitTypeId must be a non-empty string"
-        });
-    }
-
-    if (
-        !damageEvent.targetUnitTypeId ||
-        typeof damageEvent.targetUnitTypeId !==
-        "string"
-    ) {
-        errors.push({
-            field:
-                "targetUnitTypeId",
-            message:
-                "targetUnitTypeId must be a non-empty string"
-        });
-    }
-
-    if (
         typeof damageEvent.baseDamage !==
         "number" ||
+        !Number.isInteger(
+            damageEvent.baseDamage
+        ) ||
         damageEvent.baseDamage < 0
     ) {
         errors.push({
-            field: "baseDamage",
+            field:
+                "baseDamage",
+
             message:
-                "baseDamage must be a non-negative number"
+                "baseDamage must be a non-negative integer"
         });
     }
 
     if (
         typeof damageEvent.multiplier !==
         "number" ||
-        damageEvent.multiplier <= 0
+        damageEvent.multiplier < 0
     ) {
         errors.push({
-            field: "multiplier",
+            field:
+                "multiplier",
+
             message:
-                "multiplier must be greater than 0"
+                "multiplier must be a non-negative number"
         });
     }
 
     if (
         typeof damageEvent.appliedDamage !==
         "number" ||
+        !Number.isInteger(
+            damageEvent.appliedDamage
+        ) ||
         damageEvent.appliedDamage < 0
     ) {
         errors.push({
-            field: "appliedDamage",
+            field:
+                "appliedDamage",
+
             message:
-                "appliedDamage must be a non-negative number"
+                "appliedDamage must be a non-negative integer"
         });
     }
 
     if (
         typeof damageEvent.overflowDamage !==
         "number" ||
+        !Number.isInteger(
+            damageEvent.overflowDamage
+        ) ||
         damageEvent.overflowDamage < 0
     ) {
         errors.push({
-            field: "overflowDamage",
+            field:
+                "overflowDamage",
+
             message:
-                "overflowDamage must be a non-negative number"
+                "overflowDamage must be a non-negative integer"
         });
     }
 
     if (
-        damageEvent.appliedDamage <
-        damageEvent.overflowDamage
+        damageEvent.sourceRuntimeUnitId ===
+        damageEvent.targetRuntimeUnitId
     ) {
         errors.push({
-            field: "overflowDamage",
+            field:
+                "runtimeUnitId",
+
+            message:
+                "source and target runtime ids cannot be identical"
+        });
+    }
+
+    if (
+        damageEvent.appliedDamage >
+        (
+            damageEvent.baseDamage *
+            damageEvent.multiplier
+        )
+    ) {
+        errors.push({
+            field:
+                "appliedDamage",
+
+            message:
+                "appliedDamage cannot exceed multiplied baseDamage"
+        });
+    }
+
+    if (
+        damageEvent.overflowDamage >
+        damageEvent.appliedDamage
+    ) {
+        errors.push({
+            field:
+                "overflowDamage",
+
             message:
                 "overflowDamage cannot exceed appliedDamage"
         });
     }
 
     return {
-        valid: errors.length === 0,
+        valid:
+            errors.length === 0,
+
         errors
     };
 }
 
-module.exports =
+export default
     validateDamageEvent;
