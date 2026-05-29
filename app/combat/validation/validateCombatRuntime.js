@@ -94,6 +94,49 @@ function validateCombatRuntime(
     return defenderValidation;
   }
 
+  const runtimeUnitIds =
+    new Set();
+
+  const allUnits = [
+
+    ...combatRuntime
+      .attackerFleet
+      .units,
+
+    ...combatRuntime
+      .defenderFleet
+      .units
+  ];
+
+  for (
+    const unit
+    of allUnits
+  ) {
+
+    if (
+      runtimeUnitIds.has(
+        unit.runtimeUnitId
+      )
+    ) {
+      return {
+        valid: false,
+        errors: [
+          {
+            field:
+              "runtimeUnitId",
+
+            message:
+              `duplicate global runtimeUnitId '${unit.runtimeUnitId}'`
+          }
+        ]
+      };
+    }
+
+    runtimeUnitIds.add(
+      unit.runtimeUnitId
+    );
+  }
+
   if (
     combatRuntime.attackerDefeated &&
     combatRuntime.defenderDefeated &&
