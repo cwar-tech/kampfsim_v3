@@ -1,61 +1,72 @@
-const MOVEMENT_STATES = [
-    "idle",
-    "moving",
-    "arrived",
-    "returning",
-    "destroyed"
-];
-
-const VISIBILITY_STATES = [
-    "visible",
-    "hidden",
-    "stealthed"
-];
-
-const COMBAT_SIDES = [
-    "attacker",
-    "defender"
-];
-
-const WINNER_SIDES = [
+const WINNERS = Object.freeze([
     "attacker",
     "defender",
     "draw"
-];
+]);
 
-const UNIT_TYPES = [
+const SHIP_TYPES = Object.freeze([
     "ship",
     "defense"
-];
+]);
 
-function validateEnum({
-    value,
-    validValues,
-    fieldName
-}) {
-    if (!validValues.includes(value)) {
-        return {
-            valid: false,
-            error: {
-                field: fieldName,
-                message:
-                    `invalid value '${value}' for ${fieldName}`
-            }
-        };
+const TARGET_TYPES = Object.freeze([
+    "light_fighter",
+    "bomber"
+]);
+
+const COMBAT_STATES = Object.freeze([
+    "running",
+    "finished"
+]);
+
+function validateEnums() {
+
+    const enumGroups = {
+
+        WINNERS,
+
+        SHIP_TYPES,
+
+        TARGET_TYPES,
+
+        COMBAT_STATES
+    };
+
+    for (
+        const values
+        of Object.values(
+            enumGroups
+        )
+    ) {
+
+        const unique =
+            new Set(values);
+
+        if (
+            unique.size !==
+            values.length
+        ) {
+            return {
+                valid: false,
+                errors: [
+                    {
+                        message:
+                            "duplicate enum values detected"
+                    }
+                ]
+            };
+        }
     }
 
     return {
         valid: true,
-        error: null
+
+        errors: [],
+
+        enums:
+            enumGroups
     };
 }
 
-module.exports = {
-    MOVEMENT_STATES,
-    VISIBILITY_STATES,
-    COMBAT_SIDES,
-    WINNER_SIDES,
-    UNIT_TYPES,
-
-    validateEnum
-};
+export default
+    validateEnums;
