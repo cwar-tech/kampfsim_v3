@@ -1,156 +1,282 @@
-const selectTarget = require("./selectTarget");
+import selectTarget
+    from "./selectTarget.js";
 
-const applyDamage = require("./applyDamage");
+import applyDamage
+    from "./applyDamage.js";
 
-const resolveOverflow = require("./resolveOverflow");
+import resolveOverflow
+    from "./resolveOverflow.js";
 
-const aggregateDamage = require("./aggregateDamage");
+import calculateLosses
+    from "./calculateLosses.js";
 
-const calculateLosses = require("./calculateLosses");
+function resolveRound(
+    combatRuntime
+) {
 
-const DamageEvent = require("../runtime/DamageEvent");
+    if (
+        !combatRuntime ||
+        typeof combatRuntime !==
+        "object"
+    ) {
+        return null;
+    }
 
-function resolveRound({
-    combatRuntime,
-    roundRuntime
-}) {
-    const attackerUnits =
-        combatRuntime.attackerFleet.units.filter(
-            (unit) => unit.remainingUnits > 0
+    const runtime =
+        JSON.parse(
+            JSON.stringify(
+                combatRuntime
+            )
         );
+
+    const damageEvents = [];
+
+    const overflowEvents = [];
+
+    const roundRuntime = {
+
+        attackerDestroyedUnits:
+            [],
+
+        defenderDestroyedUnits:
+            []
+    };
+
+    const attackerUnits =
+        runtime
+            .attackerFleet
+            .units || [];
 
     const defenderUnits =
-        combatRuntime.defenderFleet.units.filter(
-            (unit) => unit.remainingUnits > 0
-        );
+        runtime
+            .defenderFleet
+            .units || [];
 
-    for (const attackerUnit of attackerUnits) {
-        const target = selectTarget({
-            sourceUnit: attackerUnit,
-            enemyUnits: defenderUnits
-        });
+    // ==========================================
+    // ATTACKER TURN
+    // ==========================================
 
-        if (!target) {
+    for (
+        const attacker
+        of attackerUnits
+    ) {
+
+        if (
+            attacker.remainingUnits <= 0
+        ) {
             continue;
         }
 
-        const multiplierEntry =
-            attackerUnit.damageMultipliers?.find(
-                (entry) => entry.targetType === target.unitTypeId
+        const target =
+            selectTarget(
+                attacker,
+                defenderUnits
             );
 
-        const multiplier =
-            multiplierEntry?.multiplier || 1;
+        if (
+            !target
+        ) {
+            continue;
+        }
 
-        const baseDamage =
-            attackerUnit.damage *
-            attackerUnit.remainingUnits;
+        const result =
+            applyDamage(
+                target,
+                attacker.damage
+            );
 
-        const appliedDamage =
-            baseDamage * multiplier;
+        if (
+            !result
+        ) {
+            continue;
+        }
 
-        const damageEvent = new DamageEvent({
+        target.remainingUnits =
+            result.target
+                .remainingUnits;
+
+        target.hpLastUnit =
+            result.target
+                .hpLastUnit;
+
+        target.receivedDamage =
+            (
+                target.receivedDamage ||
+                0
+            ) + attacker.damage;
+
+        damageEvents.push({
+
             sourceRuntimeUnitId:
-                attackerUnit.runtimeUnitId,
+                attacker.runtimeUnitId,
 
             targetRuntimeUnitId:
                 target.runtimeUnitId,
 
-            sourceUnitTypeId:
-                attackerUnit.unitTypeId,
+            appliedDamage:
+                attacker.damage,
 
-            targetUnitTypeId:
-                target.unitTypeId,
-
-            baseDamage,
-
-            multiplier,
-
-            appliedDamage,
-
-            overflowDamage: 0
+            overflowDamage:
+                result.overflowDamage
         });
 
-        roundRuntime.damageEvents.push(
-            damageEvent
-        );
+        if (
+            result.overflowDamage > 0
+        ) {
+
+            const overflowResult =
+                resolveOverflow(
+                    defenderUnits,
+                    result.overflowDamage
+                );
+
+            overflowEvents.push({
+
+                sourceRuntimeUnitId:
+                    attacker.runtimeUnitId,
+
+                targetRuntimeUnitId:
+                    target.runtimeUnitId,
+
+                overflowDamage:
+                    result.overflowDamage
+            });
+
+            for (
+                let i = 0;
+                i < defenderUnits.length;
+                i++
+            ) {
+
+                defenderUnits[i] =
+                    overflowResult
+                        .targets[i];
+            }
+        }
     }
 
-    for (const defenderUnit of defenderUnits) {
-        const target = selectTarget({
-            sourceUnit: defenderUnit,
-            enemyUnits: attackerUnits
-        });
+    // ==========================================
+    // DEFENDER TURN
+    // ==========================================
 
-        if (!target) {
+    for (
+        const defender
+        of defenderUnits
+    ) {
+
+        if (
+            defender.remainingUnits <= 0
+        ) {
             continue;
         }
 
-        const multiplierEntry =
-            defenderUnit.damageMultipliers?.find(
-                (entry) => entry.targetType === target.unitTypeId
+        const target =
+            selectTarget(
+                defender,
+                attackerUnits
             );
 
-        const multiplier =
-            multiplierEntry?.multiplier || 1;
+        if (
+            !target
+        ) {
+            continue;
+        }
 
-        const baseDamage =
-            defenderUnit.damage *
-            defenderUnit.remainingUnits;
+        const result =
+            applyDamage(
+                target,
+                defender.damage
+            );
 
-        const appliedDamage =
-            baseDamage * multiplier;
+        if (
+            !result
+        ) {
+            continue;
+        }
 
-        const damageEvent = new DamageEvent({
+        target.remainingUnits =
+            result.target
+                .remainingUnits;
+
+        target.hpLastUnit =
+            result.target
+                .hpLastUnit;
+
+        target.receivedDamage =
+            (
+                target.receivedDamage ||
+                0
+            ) + defender.damage;
+
+        damageEvents.push({
+
             sourceRuntimeUnitId:
-                defenderUnit.runtimeUnitId,
+                defender.runtimeUnitId,
 
             targetRuntimeUnitId:
                 target.runtimeUnitId,
 
-            sourceUnitTypeId:
-                defenderUnit.unitTypeId,
+            appliedDamage:
+                defender.damage,
 
-            targetUnitTypeId:
-                target.unitTypeId,
-
-            baseDamage,
-
-            multiplier,
-
-            appliedDamage,
-
-            overflowDamage: 0
+            overflowDamage:
+                result.overflowDamage
         });
 
-        roundRuntime.damageEvents.push(
-            damageEvent
-        );
+        if (
+            result.overflowDamage > 0
+        ) {
+
+            const overflowResult =
+                resolveOverflow(
+                    attackerUnits,
+                    result.overflowDamage
+                );
+
+            overflowEvents.push({
+
+                sourceRuntimeUnitId:
+                    defender.runtimeUnitId,
+
+                targetRuntimeUnitId:
+                    target.runtimeUnitId,
+
+                overflowDamage:
+                    result.overflowDamage
+            });
+
+            for (
+                let i = 0;
+                i < attackerUnits.length;
+                i++
+            ) {
+
+                attackerUnits[i] =
+                    overflowResult
+                        .targets[i];
+            }
+        }
     }
-
-    for (const damageEvent of roundRuntime.damageEvents) {
-        applyDamage({
-            combatRuntime,
-            roundRuntime,
-            damageEvent
-        });
-
-        resolveOverflow({
-            combatRuntime,
-            roundRuntime,
-            damageEvent
-        });
-    }
-
-    aggregateDamage({
-        combatRuntime,
-        roundRuntime
-    });
 
     calculateLosses({
-        combatRuntime,
+        combatRuntime:
+            runtime,
+
         roundRuntime
     });
+
+    return {
+
+        combatRuntime:
+            runtime,
+
+        roundRuntime,
+
+        damageEvents,
+
+        overflowEvents
+    };
 }
 
-module.exports = resolveRound;
+export default
+    resolveRound;
