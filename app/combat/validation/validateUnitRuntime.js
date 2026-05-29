@@ -1,222 +1,129 @@
-import validateUnitRuntime from "../../app/combat/validation/validateUnitRuntime.js";
+function validateUnitRuntime(
+    unitRuntime
+) {
+    const errors = [];
 
-describe(
-    "validateUnitRuntime",
-    () => {
-        const validRuntime = {
-            runtimeUnitId:
-                "runtime_light_fighter_1",
-
-            unitTypeId:
-                "light_fighter",
-
-            amount: 100,
-
-            remainingUnits: 100,
-
-            hpLastUnit: 430
+    if (
+        !unitRuntime ||
+        typeof unitRuntime !== "object"
+    ) {
+        return {
+            valid: false,
+            errors: [
+                {
+                    field: "unitRuntime",
+                    message:
+                        "unitRuntime must be an object"
+                }
+            ]
         };
-
-        test(
-            "accepts valid unit runtime",
-            () => {
-                const result =
-                    validateUnitRuntime(
-                        validRuntime
-                    );
-
-                expect(result.valid)
-                    .toBe(true);
-
-                expect(result.errors)
-                    .toEqual([]);
-            }
-        );
-
-        test(
-            "rejects missing runtimeUnitId",
-            () => {
-                const invalid = {
-                    ...validRuntime
-                };
-
-                delete invalid.runtimeUnitId;
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects missing unitTypeId",
-            () => {
-                const invalid = {
-                    ...validRuntime
-                };
-
-                delete invalid.unitTypeId;
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects negative amount",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    amount: -1
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects string amount",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    amount: "100"
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects negative remainingUnits",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    remainingUnits: -5
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects remainingUnits exceeding amount",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    remainingUnits: 200
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects negative hpLastUnit",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    hpLastUnit: -10
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects hpLastUnit above zero when no units remain",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    remainingUnits: 0,
-
-                    hpLastUnit: 50
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects hpLastUnit equal zero when units remain",
-            () => {
-                const invalid = {
-                    ...validRuntime,
-
-                    hpLastUnit: 0
-                };
-
-                const result =
-                    validateUnitRuntime(
-                        invalid
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
-
-        test(
-            "rejects non-object input",
-            () => {
-                const result =
-                    validateUnitRuntime(
-                        null
-                    );
-
-                expect(result.valid)
-                    .toBe(false);
-            }
-        );
     }
-);
+
+    if (
+        !unitRuntime.runtimeUnitId ||
+        typeof unitRuntime.runtimeUnitId !==
+        "string"
+    ) {
+        errors.push({
+            field: "runtimeUnitId",
+            message:
+                "runtimeUnitId must be a non-empty string"
+        });
+    }
+
+    if (
+        !unitRuntime.unitTypeId ||
+        typeof unitRuntime.unitTypeId !==
+        "string"
+    ) {
+        errors.push({
+            field: "unitTypeId",
+            message:
+                "unitTypeId must be a non-empty string"
+        });
+    }
+
+    if (
+        typeof unitRuntime.amount !==
+        "number" ||
+        !Number.isInteger(
+            unitRuntime.amount
+        ) ||
+        unitRuntime.amount < 0
+    ) {
+        errors.push({
+            field: "amount",
+            message:
+                "amount must be a non-negative integer"
+        });
+    }
+
+    if (
+        typeof unitRuntime.remainingUnits !==
+        "number" ||
+        !Number.isInteger(
+            unitRuntime.remainingUnits
+        ) ||
+        unitRuntime.remainingUnits < 0
+    ) {
+        errors.push({
+            field: "remainingUnits",
+            message:
+                "remainingUnits must be a non-negative integer"
+        });
+    }
+
+    if (
+        typeof unitRuntime.hpLastUnit !==
+        "number" ||
+        unitRuntime.hpLastUnit < 0
+    ) {
+        errors.push({
+            field: "hpLastUnit",
+            message:
+                "hpLastUnit must be a non-negative number"
+        });
+    }
+
+    if (
+        unitRuntime.remainingUnits >
+        unitRuntime.amount
+    ) {
+        errors.push({
+            field: "remainingUnits",
+            message:
+                "remainingUnits cannot exceed amount"
+        });
+    }
+
+    if (
+        unitRuntime.remainingUnits === 0 &&
+        unitRuntime.hpLastUnit > 0
+    ) {
+        errors.push({
+            field: "hpLastUnit",
+            message:
+                "hpLastUnit must be 0 when no units remain"
+        });
+    }
+
+    if (
+        unitRuntime.remainingUnits > 0 &&
+        unitRuntime.hpLastUnit <= 0
+    ) {
+        errors.push({
+            field: "hpLastUnit",
+            message:
+                "hpLastUnit must be greater than 0 when units remain"
+        });
+    }
+
+    return {
+        valid:
+            errors.length === 0,
+
+        errors
+    };
+}
+
+export default validateUnitRuntime;

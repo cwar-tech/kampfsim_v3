@@ -1,94 +1,81 @@
-const VALID_SIDES = [
-    "attacker",
-    "defender"
-];
+import validateUnitRuntime
+    from "./validateUnitRuntime.js";
 
 function validateCombatFleetRuntime(
-    combatFleetRuntime
+    fleetRuntime
 ) {
     const errors = [];
 
     if (
-        !combatFleetRuntime ||
-        typeof combatFleetRuntime !==
-        "object"
+        !fleetRuntime ||
+        typeof fleetRuntime !== "object"
     ) {
         return {
             valid: false,
             errors: [
                 {
-                    field: "combatFleetRuntime",
+                    field: "fleetRuntime",
                     message:
-                        "combatFleetRuntime must be an object"
+                        "fleetRuntime must be an object"
                 }
             ]
         };
     }
 
     if (
-        !combatFleetRuntime.combatFleetId ||
-        typeof combatFleetRuntime.combatFleetId !==
+        !fleetRuntime.fleetId ||
+        typeof fleetRuntime.fleetId !==
         "string"
     ) {
         errors.push({
-            field: "combatFleetId",
+            field: "fleetId",
             message:
-                "combatFleetId must be a non-empty string"
+                "fleetId must be a non-empty string"
         });
     }
 
     if (
-        !combatFleetRuntime.worldFleetId ||
-        typeof combatFleetRuntime.worldFleetId !==
-        "string"
+        typeof fleetRuntime.totalUnits !==
+        "number" ||
+        !Number.isInteger(
+            fleetRuntime.totalUnits
+        ) ||
+        fleetRuntime.totalUnits < 0
     ) {
         errors.push({
-            field: "worldFleetId",
+            field: "totalUnits",
             message:
-                "worldFleetId must be a non-empty string"
+                "totalUnits must be a non-negative integer"
         });
     }
 
     if (
-        !combatFleetRuntime.ownerPlayerId ||
-        typeof combatFleetRuntime.ownerPlayerId !==
-        "string"
+        typeof fleetRuntime.totalHp !==
+        "number" ||
+        fleetRuntime.totalHp < 0
     ) {
         errors.push({
-            field: "ownerPlayerId",
+            field: "totalHp",
             message:
-                "ownerPlayerId must be a non-empty string"
+                "totalHp must be a non-negative number"
         });
     }
 
     if (
-        combatFleetRuntime.ownerGuildId !==
-        undefined &&
-        typeof combatFleetRuntime.ownerGuildId !==
-        "string"
+        typeof fleetRuntime.totalDamage !==
+        "number" ||
+        fleetRuntime.totalDamage < 0
     ) {
         errors.push({
-            field: "ownerGuildId",
+            field: "totalDamage",
             message:
-                "ownerGuildId must be a string"
-        });
-    }
-
-    if (
-        !VALID_SIDES.includes(
-            combatFleetRuntime.side
-        )
-    ) {
-        errors.push({
-            field: "side",
-            message:
-                "invalid combat side"
+                "totalDamage must be a non-negative number"
         });
     }
 
     if (
         !Array.isArray(
-            combatFleetRuntime.units
+            fleetRuntime.units
         )
     ) {
         errors.push({
@@ -99,69 +86,89 @@ function validateCombatFleetRuntime(
     }
 
     if (
-        typeof combatFleetRuntime.totalDamage !==
-        "number" ||
-        combatFleetRuntime.totalDamage < 0
+        errors.length > 0
     ) {
-        errors.push({
-            field: "totalDamage",
-            message:
-                "totalDamage must be a non-negative number"
-        });
+        return {
+            valid: false,
+            errors
+        };
+    }
+
+    const runtimeUnitIds =
+        new Set();
+
+    let calculatedUnits = 0;
+
+    for (
+        const unit
+        of fleetRuntime.units
+    ) {
+
+        const unitValidation =
+            validateUnitRuntime(
+                unit
+            );
+
+        if (
+            !unitValidation.valid
+        ) {
+            return {
+                valid: false,
+                errors:
+                    unitValidation.errors
+            };
+        }
+
+        if (
+            runtimeUnitIds.has(
+                unit.runtimeUnitId
+            )
+        ) {
+            return {
+                valid: false,
+                errors: [
+                    {
+                        field:
+                            "runtimeUnitId",
+
+                        message:
+                            `duplicate runtimeUnitId '${unit.runtimeUnitId}'`
+                    }
+                ]
+            };
+        }
+
+        runtimeUnitIds.add(
+            unit.runtimeUnitId
+        );
+
+        calculatedUnits +=
+            unit.remainingUnits;
     }
 
     if (
-        typeof combatFleetRuntime.totalVolume !==
-        "number" ||
-        combatFleetRuntime.totalVolume < 0
+        calculatedUnits >
+        fleetRuntime.totalUnits
     ) {
-        errors.push({
-            field: "totalVolume",
-            message:
-                "totalVolume must be a non-negative number"
-        });
-    }
+        return {
+            valid: false,
+            errors: [
+                {
+                    field:
+                        "totalUnits",
 
-    if (
-        typeof combatFleetRuntime.receivedDamage !==
-        "number" ||
-        combatFleetRuntime.receivedDamage < 0
-    ) {
-        errors.push({
-            field: "receivedDamage",
-            message:
-                "receivedDamage must be a non-negative number"
-        });
-    }
-
-    if (
-        typeof combatFleetRuntime.dealtDamage !==
-        "number" ||
-        combatFleetRuntime.dealtDamage < 0
-    ) {
-        errors.push({
-            field: "dealtDamage",
-            message:
-                "dealtDamage must be a non-negative number"
-        });
-    }
-
-    if (
-        typeof combatFleetRuntime.defeated !==
-        "boolean"
-    ) {
-        errors.push({
-            field: "defeated",
-            message:
-                "defeated must be a boolean"
-        });
+                    message:
+                        "totalUnits below actual remaining units"
+                }
+            ]
+        };
     }
 
     return {
-        valid: errors.length === 0,
-        errors
+        valid: true,
+        errors: []
     };
 }
 
-module.exports =
+export default
     validateCombatFleetRuntime;
