@@ -1,40 +1,61 @@
-function selectTarget({
-    sourceUnit,
-    enemyUnits
-}) {
-    const aliveEnemyUnits =
-        enemyUnits.filter(
-            (unit) => unit.remainingUnits > 0
-        );
+function selectTarget(
+    attackerUnit,
+    targets
+) {
 
-    if (aliveEnemyUnits.length === 0) {
+    if (
+        !attackerUnit ||
+        !Array.isArray(targets)
+    ) {
         return null;
     }
 
-    const sortedTargets =
-        [...aliveEnemyUnits].sort((a, b) => {
-            const aMultiplier =
-                sourceUnit.damageMultipliers?.find(
-                    (entry) =>
-                        entry.targetType === a.unitTypeId
-                )?.multiplier || 1;
+    const validTargets =
+        targets.filter(
+            (target) => {
 
-            const bMultiplier =
-                sourceUnit.damageMultipliers?.find(
-                    (entry) =>
-                        entry.targetType === b.unitTypeId
-                )?.multiplier || 1;
+                if (
+                    !target ||
+                    typeof target !== "object"
+                ) {
+                    return false;
+                }
 
-            if (bMultiplier !== aMultiplier) {
-                return bMultiplier - aMultiplier;
+                if (
+                    target.runtimeUnitId ===
+                    attackerUnit.runtimeUnitId
+                ) {
+                    return false;
+                }
+
+                if (
+                    typeof target.remainingUnits !==
+                    "number" ||
+                    target.remainingUnits <= 0
+                ) {
+                    return false;
+                }
+
+                if (
+                    typeof target.hpLastUnit !==
+                    "number" ||
+                    target.hpLastUnit <= 0
+                ) {
+                    return false;
+                }
+
+                return true;
             }
+        );
 
-            return a.runtimeUnitId.localeCompare(
-                b.runtimeUnitId
-            );
-        });
+    if (
+        validTargets.length === 0
+    ) {
+        return null;
+    }
 
-    return sortedTargets[0];
+    return validTargets[0];
 }
 
-module.exports = selectTarget;
+export default
+    selectTarget;
