@@ -22,7 +22,7 @@ import { calculateRound }
   from "../../app/combat/calculateRound.js";
 
 const shipsData = JSON.parse(
-  fs.readFileSync("./app/ships.json")
+  fs.readFileSync(new URL("../../app/ships.json", import.meta.url))
 );
 
 const combatInput = JSON.parse(
