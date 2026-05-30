@@ -105,22 +105,26 @@ function resolveCombat(
         // ==========================================
 
         const attackerAlive =
-            runtime
-                .attackerFleet
-                .units
-                .some(
-                    (unit) =>
-                        unit.remainingUnits > 0
-                );
+            (
+                runtime
+                    ?.attackerFleet
+                    ?.units || []
+            ).some(
+                (unit) =>
+                    unit &&
+                    unit.remainingUnits > 0
+            );
 
         const defenderAlive =
-            runtime
-                .defenderFleet
-                .units
-                .some(
-                    (unit) =>
-                        unit.remainingUnits > 0
-                );
+            (
+                runtime
+                    ?.defenderFleet
+                    ?.units || []
+            ).some(
+                (unit) =>
+                    unit &&
+                    unit.remainingUnits > 0
+            );
 
         if (
             !attackerAlive

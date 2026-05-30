@@ -44,13 +44,13 @@ function resolveRound(
 
     const attackerUnits =
         runtime
-            .attackerFleet
-            .units || [];
+            ?.attackerFleet
+            ?.units || [];
 
     const defenderUnits =
         runtime
-            .defenderFleet
-            .units || [];
+            ?.defenderFleet
+            ?.units || [];
 
     // ==========================================
     // ATTACKER TURN
@@ -60,6 +60,10 @@ function resolveRound(
         const attacker
         of attackerUnits
     ) {
+
+        if (!attacker) {
+            continue;
+        }
 
         if (
             attacker.remainingUnits <= 0
@@ -163,6 +167,10 @@ function resolveRound(
         const defender
         of defenderUnits
     ) {
+
+        if (!defender) {
+            continue;
+        }
 
         if (
             defender.remainingUnits <= 0

@@ -13,7 +13,7 @@ import {
   assertArray,
   assertGreaterThan
 
-} from "../helpers/testRunner.js";
+} from "./testRunner.js";
 
 import { resolveFleet }
   from "../../app/combat/resolveFleet.js";
