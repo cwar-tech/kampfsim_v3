@@ -1,32 +1,45 @@
 import applyDamage
-    from "../../../app/combat/resolver/applyDamage.js";
+    from "../../app/combat/resolver/applyDamage.js";
 
 describe(
     "applyDamage",
     () => {
 
-        const createTarget =
-            () => ({
+        const validTarget = {
 
-                runtimeUnitId:
-                    "target_1",
+            runtimeUnitId:
+                "runtime_bomber_001",
 
-                hp: 500,
+            unitTypeId:
+                "bomber",
 
-                remainingUnits: 10,
+            amount: 10,
 
-                hpLastUnit: 500
-            });
+            remainingUnits: 10,
+
+            hpLastUnit: 500
+        };
 
 
+
+        // ==================================================
+        // BASIC DAMAGE
+        // ==================================================
 
         test(
-            "applies normal damage",
+            "reduces hpLastUnit on damage",
             () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
 
                 const result =
                     applyDamage(
-                        createTarget(),
+                        target,
                         100
                     );
 
@@ -38,50 +51,240 @@ describe(
 
 
         test(
-            "creates overflow",
+            "does not destroy unit on partial damage",
             () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
 
                 const result =
                     applyDamage(
-                        createTarget(),
-                        600
+                        target,
+                        200
+                    );
+
+                expect(
+                    result.target.remainingUnits
+                ).toBe(10);
+            }
+        );
+
+
+
+        // ==================================================
+        // UNIT DESTRUCTION
+        // ==================================================
+
+        test(
+            "destroys one unit on exact lethal damage",
+            () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const result =
+                    applyDamage(
+                        target,
+                        500
+                    );
+
+                expect(
+                    result.target.remainingUnits
+                ).toBe(9);
+
+                expect(
+                    result.target.hpLastUnit
+                ).toBe(500);
+            }
+        );
+
+
+        test(
+            "creates overflow damage on overkill",
+            () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const result =
+                    applyDamage(
+                        target,
+                        700
                     );
 
                 expect(
                     result.overflowDamage
-                ).toBeGreaterThan(0);
+                ).toBe(200);
             }
         );
 
+        // ==================================================
+        // SAFETY
+        // ==================================================
 
         test(
-            "never creates negative hp",
+            "never allows negative hpLastUnit",
             () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
 
                 const result =
                     applyDamage(
-                        createTarget(),
-                        999999999
+                        target,
+                        999999
                     );
 
                 expect(
                     result.target.hpLastUnit
-                ).toBeGreaterThanOrEqual(0);
+                ).toBeGreaterThanOrEqual(
+                    0
+                );
             }
         );
 
 
         test(
-            "handles malformed target safely",
+            "never allows negative remainingUnits",
             () => {
 
-                expect(
-                    () =>
-                        applyDamage(
-                            null,
-                            100
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
                         )
-                ).not.toThrow();
+                    );
+
+                const result =
+                    applyDamage(
+                        target,
+                        999999
+                    );
+
+                expect(
+                    result.target.remainingUnits
+                ).toBeGreaterThanOrEqual(
+                    0
+                );
+            }
+        );
+
+
+        test(
+            "returns null for invalid target",
+            () => {
+
+                const result =
+                    applyDamage(
+                        null,
+                        100
+                    );
+
+                expect(result)
+                    .toBeNull();
+            }
+        );
+
+
+        test(
+            "returns null for negative damage",
+            () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const result =
+                    applyDamage(
+                        target,
+                        -100
+                    );
+
+                expect(result)
+                    .toBeNull();
+            }
+        );
+
+
+
+        // ==================================================
+        // EDGE CASES
+        // ==================================================
+
+        test(
+            "handles zero damage safely",
+            () => {
+
+                const target =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const result =
+                    applyDamage(
+                        target,
+                        0
+                    );
+
+                expect(
+                    result.target.hpLastUnit
+                ).toBe(500);
+            }
+        );
+
+        test(
+            "same input produces same result",
+            () => {
+
+                const targetA =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const targetB =
+                    JSON.parse(
+                        JSON.stringify(
+                            validTarget
+                        )
+                    );
+
+                const resultA =
+                    applyDamage(
+                        targetA,
+                        700
+                    );
+
+                const resultB =
+                    applyDamage(
+                        targetB,
+                        700
+                    );
+
+                expect(resultA)
+                    .toEqual(resultB);
             }
         );
 

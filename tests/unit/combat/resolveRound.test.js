@@ -1,108 +1,289 @@
-import applyDamage
-    from "../../../app/combat/resolver/applyDamage.js";
+import resolveRound
+    from "../../app/combat/resolver/resolveRound.js";
 
 describe(
-    "applyDamage",
+    "resolveRound",
     () => {
 
-        const createTarget =
+        const createCombatRuntime =
             () => ({
 
-                runtimeUnitId:
-                    "target_1",
+                combatId:
+                    "combat_001",
 
-                hp: 500,
+                attackerFleet: {
 
-                remainingUnits: 10,
+                    fleetId:
+                        "fleet_attacker",
 
-                hpLastUnit: 500,
+                    units: [
 
-                receivedDamage: 0
+                        {
+                            runtimeUnitId:
+                                "attacker_1",
+
+                            unitTypeId:
+                                "fighter",
+
+                            hp: 500,
+
+                            remainingUnits: 10,
+
+                            hpLastUnit: 500,
+
+                            damage: 300,
+
+                            receivedDamage: 0
+                        }
+
+                    ]
+                },
+
+                defenderFleet: {
+
+                    fleetId:
+                        "fleet_defender",
+
+                    units: [
+
+                        {
+                            runtimeUnitId:
+                                "defender_1",
+
+                            unitTypeId:
+                                "fighter",
+
+                            hp: 500,
+
+                            remainingUnits: 10,
+
+                            hpLastUnit: 500,
+
+                            damage: 300,
+
+                            receivedDamage: 0
+                        }
+
+                    ]
+                },
+
+                currentRound: 1
             });
 
 
 
+        // ==========================================
+        // BASIC ROUND FLOW
+        // ==========================================
+
         test(
-            "applies normal damage",
+            "resolves a combat round",
             () => {
 
+                const combatRuntime =
+                    createCombatRuntime();
+
                 const result =
-                    applyDamage(
-                        createTarget(),
-                        100
+                    resolveRound(
+                        combatRuntime
                     );
 
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(400);
+                expect(result)
+                    .toBeDefined();
             }
         );
 
 
         test(
-            "tracks received damage",
+            "creates damage events",
             () => {
 
+                const combatRuntime =
+                    createCombatRuntime();
+
                 const result =
-                    applyDamage(
-                        createTarget(),
-                        100
+                    resolveRound(
+                        combatRuntime
                     );
 
                 expect(
-                    result.target.receivedDamage
-                ).toBe(100);
-            }
-        );
-
-
-        test(
-            "creates overflow damage",
-            () => {
-
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        600
-                    );
-
-                expect(
-                    result.overflowDamage
+                    result.damageEvents
+                        .length
                 ).toBeGreaterThan(0);
             }
         );
 
 
         test(
-            "reduces remaining units after lethal damage",
+            "attacker deals damage",
             () => {
 
+                const combatRuntime =
+                    createCombatRuntime();
+
                 const result =
-                    applyDamage(
-                        createTarget(),
-                        600
+                    resolveRound(
+                        combatRuntime
                     );
 
+                const defender =
+                    result
+                        .combatRuntime
+                        .defenderFleet
+                        .units[0];
+
                 expect(
-                    result.target.remainingUnits
-                ).toBeLessThan(10);
+                    defender.hpLastUnit
+                ).toBeLessThan(500);
             }
         );
 
 
         test(
-            "never creates negative hp",
+            "defender deals damage",
             () => {
 
+                const combatRuntime =
+                    createCombatRuntime();
+
                 const result =
-                    applyDamage(
-                        createTarget(),
-                        999999999
+                    resolveRound(
+                        combatRuntime
+                    );
+
+                const attacker =
+                    result
+                        .combatRuntime
+                        .attackerFleet
+                        .units[0];
+
+                expect(
+                    attacker.hpLastUnit
+                ).toBeLessThan(500);
+            }
+        );
+
+
+
+        // ==========================================
+        // OVERFLOW
+        // ==========================================
+
+        test(
+            "creates overflow events when overkill occurs",
+            () => {
+
+                const combatRuntime =
+                    createCombatRuntime();
+
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .damage = 999999;
+
+                const result =
+                    resolveRound(
+                        combatRuntime
                     );
 
                 expect(
-                    result.target.hpLastUnit
-                ).toBeGreaterThanOrEqual(0);
+                    result.overflowEvents
+                        .length
+                ).toBeGreaterThan(0);
+            }
+        );
+
+
+
+        // ==========================================
+        // LOSSES
+        // ==========================================
+
+        test(
+            "tracks destroyed attacker units",
+            () => {
+
+                const combatRuntime =
+                    createCombatRuntime();
+
+                combatRuntime
+                    .defenderFleet
+                    .units[0]
+                    .damage = 999999;
+
+                const result =
+                    resolveRound(
+                        combatRuntime
+                    );
+
+                expect(
+                    result.roundRuntime
+                        .attackerDestroyedUnits
+                        .length
+                ).toBeGreaterThan(0);
+            }
+        );
+
+
+        test(
+            "tracks destroyed defender units",
+            () => {
+
+                const combatRuntime =
+                    createCombatRuntime();
+
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .damage = 999999;
+
+                const result =
+                    resolveRound(
+                        combatRuntime
+                    );
+
+                expect(
+                    result.roundRuntime
+                        .defenderDestroyedUnits
+                        .length
+                ).toBeGreaterThan(0);
+            }
+        );
+
+
+
+        // ==========================================
+        // SAFETY
+        // ==========================================
+
+        test(
+            "never creates negative hp",
+            () => {
+
+                const combatRuntime =
+                    createCombatRuntime();
+
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .damage = 999999999;
+
+                const result =
+                    resolveRound(
+                        combatRuntime
+                    );
+
+                const defender =
+                    result
+                        .combatRuntime
+                        .defenderFleet
+                        .units[0];
+
+                expect(
+                    defender.hpLastUnit
+                ).toBeGreaterThanOrEqual(
+                    0
+                );
             }
         );
 
@@ -111,224 +292,142 @@ describe(
             "never creates negative remaining units",
             () => {
 
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        999999999
-                    );
+                const combatRuntime =
+                    createCombatRuntime();
 
-                expect(
-                    result.target.remainingUnits
-                ).toBeGreaterThanOrEqual(0);
-            }
-        );
-
-
-        test(
-            "handles zero damage safely",
-            () => {
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .damage = 999999999;
 
                 const result =
-                    applyDamage(
-                        createTarget(),
-                        0
+                    resolveRound(
+                        combatRuntime
                     );
 
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(500);
-            }
-        );
-
-
-        test(
-            "handles exact lethal damage",
-            () => {
-
-                const target =
-                    createTarget();
-
-                target.remainingUnits = 1;
-
-                const result =
-                    applyDamage(
-                        target,
-                        500
-                    );
+                const defender =
+                    result
+                        .combatRuntime
+                        .defenderFleet
+                        .units[0];
 
                 expect(
-                    result.target.remainingUnits
-                ).toBe(0);
-            }
-        );
-
-
-        test(
-            "creates no overflow on exact lethal damage",
-            () => {
-
-                const target =
-                    createTarget();
-
-                target.remainingUnits = 1;
-
-                const result =
-                    applyDamage(
-                        target,
-                        500
-                    );
-
-                expect(
-                    result.overflowDamage
-                ).toBe(0);
-            }
-        );
-
-
-        test(
-            "handles partial unit damage correctly",
-            () => {
-
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        250
-                    );
-
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(250);
-            }
-        );
-
-
-        test(
-            "handles multiple unit destruction",
-            () => {
-
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        1500
-                    );
-
-                expect(
-                    result.target.remainingUnits
-                ).toBeLessThan(8);
-            }
-        );
-
-
-        test(
-            "preserves runtimeUnitId",
-            () => {
-
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        100
-                    );
-
-                expect(
-                    result.target.runtimeUnitId
-                ).toBe(
-                    "target_1"
+                    defender.remainingUnits
+                ).toBeGreaterThanOrEqual(
+                    0
                 );
             }
         );
 
 
-        test(
-            "handles malformed target safely",
-            () => {
 
-                expect(
-                    () =>
-                        applyDamage(
-                            null,
-                            100
-                        )
-                ).not.toThrow();
-            }
-        );
-
+        // ==========================================
+        // DETERMINISM
+        // ==========================================
 
         test(
-            "handles undefined damage safely",
+            "same combat runtime produces same round result",
             () => {
 
-                expect(
-                    () =>
-                        applyDamage(
-                            createTarget()
-                        )
-                ).not.toThrow();
-            }
-        );
+                const runtimeA =
+                    createCombatRuntime();
 
-
-        test(
-            "handles negative damage safely",
-            () => {
-
-                expect(
-                    () =>
-                        applyDamage(
-                            createTarget(),
-                            -100
-                        )
-                ).not.toThrow();
-            }
-        );
-
-
-        test(
-            "remains deterministic",
-            () => {
+                const runtimeB =
+                    createCombatRuntime();
 
                 const resultA =
-                    applyDamage(
-                        createTarget(),
-                        250
+                    resolveRound(
+                        runtimeA
                     );
 
                 const resultB =
-                    applyDamage(
-                        createTarget(),
-                        250
+                    resolveRound(
+                        runtimeB
                     );
 
-                expect(
-                    resultA
-                ).toEqual(
-                    resultB
-                );
+                expect(resultA)
+                    .toEqual(resultB);
+            }
+        );
+
+
+
+        // ==========================================
+        // EDGE CASES
+        // ==========================================
+
+        test(
+            "handles empty fleets",
+            () => {
+
+                const combatRuntime =
+                    createCombatRuntime();
+
+                combatRuntime
+                    .attackerFleet
+                    .units = [];
+
+                combatRuntime
+                    .defenderFleet
+                    .units = [];
+
+                const result =
+                    resolveRound(
+                        combatRuntime
+                    );
+
+                expect(result)
+                    .toBeDefined();
             }
         );
 
 
         test(
-            "survives serialization",
+            "destroyed units do not attack",
             () => {
 
-                const result =
-                    applyDamage(
-                        createTarget(),
-                        250
-                    );
+                const combatRuntime =
+                    createCombatRuntime();
 
-                const replay =
-                    JSON.parse(
-                        JSON.stringify(
-                            result
-                        )
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .remainingUnits = 0;
+
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .hpLastUnit = 0;
+
+                const result =
+                    resolveRound(
+                        combatRuntime
                     );
 
                 expect(
-                    replay
-                ).toEqual(
-                    result
-                );
+                    result.damageEvents
+                        .length
+                ).toBe(0);
+            }
+        );
+
+
+
+        // ==========================================
+        // INVALID INPUTS
+        // ==========================================
+
+        test(
+            "returns null for invalid runtime",
+            () => {
+
+                const result =
+                    resolveRound(
+                        null
+                    );
+
+                expect(result)
+                    .toBeNull();
             }
         );
 
