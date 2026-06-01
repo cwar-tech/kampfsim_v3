@@ -1,5 +1,5 @@
 import resolveOverflow
-    from "../../app/combat/resolver/resolveOverflow.js";
+    from "../../../app/combat/resolver/resolveOverflow.js";
 
 describe(
     "resolveOverflow",

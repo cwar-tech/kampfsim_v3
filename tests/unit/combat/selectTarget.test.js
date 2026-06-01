@@ -1,5 +1,5 @@
 import selectTarget
-    from "../../app/combat/resolver/selectTarget.js";
+    from "../../../app/combat/resolver/selectTarget.js";
 
 describe(
     "selectTarget",

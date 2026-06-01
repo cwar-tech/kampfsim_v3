@@ -1,5 +1,5 @@
 import aggregateDamage
-    from "../../app/combat/resolver/aggregateDamage.js";
+    from "../../../app/combat/resolver/aggregateDamage.js";
 
 describe(
     "aggregateDamage",

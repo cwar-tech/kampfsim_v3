@@ -1,5 +1,5 @@
 import calculateLosses
-    from "../../app/combat/resolver/calculateLosses.js";
+    from "../../../app/combat/resolver/calculateLosses.js";
 
 describe(
     "calculateLosses",
@@ -16,13 +16,7 @@ describe(
                             runtimeUnitId:
                                 "attacker_1",
 
-                            hp: 500,
-
-                            remainingUnits: 10,
-
-                            hpLastUnit: 500,
-
-                            receivedDamage: 0
+                            remainingUnits: 0
                         }
 
                     ]
@@ -36,13 +30,7 @@ describe(
                             runtimeUnitId:
                                 "defender_1",
 
-                            hp: 1000,
-
-                            remainingUnits: 5,
-
-                            hpLastUnit: 1000,
-
-                            receivedDamage: 0
+                            remainingUnits: 0
                         }
 
                     ]
@@ -59,160 +47,6 @@ describe(
                     []
             });
 
-
-
-        // ==========================================
-        // BASIC LOSSES
-        // ==========================================
-
-        test(
-            "calculates destroyed attacker units correctly",
-            () => {
-
-                const combatRuntime =
-                    createCombatRuntime();
-
-                const roundRuntime =
-                    createRoundRuntime();
-
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    1500;
-
-                calculateLosses({
-                    combatRuntime,
-                    roundRuntime
-                });
-
-                expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .remainingUnits
-                ).toBe(7);
-            }
-        );
-
-
-        test(
-            "calculates destroyed defender units correctly",
-            () => {
-
-                const combatRuntime =
-                    createCombatRuntime();
-
-                const roundRuntime =
-                    createRoundRuntime();
-
-                combatRuntime
-                    .defenderFleet
-                    .units[0]
-                    .receivedDamage =
-                    3000;
-
-                calculateLosses({
-                    combatRuntime,
-                    roundRuntime
-                });
-
-                expect(
-                    combatRuntime
-                        .defenderFleet
-                        .units[0]
-                        .remainingUnits
-                ).toBe(2);
-            }
-        );
-
-
-
-        // ==========================================
-        // PARTIAL DAMAGE
-        // ==========================================
-
-        test(
-            "handles partial hp damage correctly",
-            () => {
-
-                const combatRuntime =
-                    createCombatRuntime();
-
-                const roundRuntime =
-                    createRoundRuntime();
-
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    200;
-
-                calculateLosses({
-                    combatRuntime,
-                    roundRuntime
-                });
-
-                expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .remainingUnits
-                ).toBe(10);
-
-                expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .hpLastUnit
-                ).toBe(300);
-            }
-        );
-
-
-
-        // ==========================================
-        // COMPLETE DESTRUCTION
-        // ==========================================
-
-        test(
-            "handles full attacker destruction",
-            () => {
-
-                const combatRuntime =
-                    createCombatRuntime();
-
-                const roundRuntime =
-                    createRoundRuntime();
-
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    999999;
-
-                calculateLosses({
-                    combatRuntime,
-                    roundRuntime
-                });
-
-                expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .remainingUnits
-                ).toBe(0);
-
-                expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .hpLastUnit
-                ).toBe(0);
-            }
-        );
-
-
         test(
             "adds destroyed attacker units to roundRuntime",
             () => {
@@ -223,16 +57,10 @@ describe(
                 const roundRuntime =
                     createRoundRuntime();
 
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    999999;
-
-                calculateLosses({
+                calculateLosses(
                     combatRuntime,
                     roundRuntime
-                });
+                );
 
                 expect(
                     roundRuntime
@@ -242,7 +70,6 @@ describe(
                 );
             }
         );
-
 
         test(
             "adds destroyed defender units to roundRuntime",
@@ -254,16 +81,10 @@ describe(
                 const roundRuntime =
                     createRoundRuntime();
 
-                combatRuntime
-                    .defenderFleet
-                    .units[0]
-                    .receivedDamage =
-                    999999;
-
-                calculateLosses({
+                calculateLosses(
                     combatRuntime,
                     roundRuntime
-                });
+                );
 
                 expect(
                     roundRuntime
@@ -274,127 +95,152 @@ describe(
             }
         );
 
-
-
-        // ==========================================
-        // SAFETY
-        // ==========================================
-
         test(
-            "never creates negative remaining units",
+            "ignores living attacker units",
             () => {
 
-                const combatRuntime =
-                    createCombatRuntime();
+                const combatRuntime = {
+
+                    attackerFleet: {
+
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "attacker_1",
+
+                                remainingUnits: 5
+                            }
+                        ]
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
 
                 const roundRuntime =
                     createRoundRuntime();
 
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    999999999;
-
-                calculateLosses({
+                calculateLosses(
                     combatRuntime,
                     roundRuntime
-                });
+                );
 
                 expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .remainingUnits
-                ).toBeGreaterThanOrEqual(
-                    0
-                );
+                    roundRuntime
+                        .attackerDestroyedUnits
+                        .length
+                ).toBe(0);
             }
         );
 
-
         test(
-            "never creates negative hpLastUnit",
+            "ignores living defender units",
             () => {
 
-                const combatRuntime =
-                    createCombatRuntime();
+                const combatRuntime = {
+
+                    attackerFleet: {
+                        units: []
+                    },
+
+                    defenderFleet: {
+
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "defender_1",
+
+                                remainingUnits: 5
+                            }
+                        ]
+                    }
+                };
 
                 const roundRuntime =
                     createRoundRuntime();
 
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    999999999;
-
-                calculateLosses({
+                calculateLosses(
                     combatRuntime,
                     roundRuntime
-                });
+                );
 
                 expect(
-                    combatRuntime
-                        .attackerFleet
-                        .units[0]
-                        .hpLastUnit
-                ).toBeGreaterThanOrEqual(
-                    0
-                );
+                    roundRuntime
+                        .defenderDestroyedUnits
+                        .length
+                ).toBe(0);
             }
         );
 
-
-
-        // ==========================================
-        // INVALID INPUTS
-        // ==========================================
-
         test(
-            "returns null for invalid combatRuntime",
+            "handles malformed units safely",
             () => {
 
-                const result =
-                    calculateLosses({
-                        combatRuntime:
+                const combatRuntime = {
+
+                    attackerFleet: {
+
+                        units: [
                             null,
-
-                        roundRuntime:
+                            undefined,
                             {}
-                    });
+                        ]
+                    },
 
-                expect(result)
-                    .toBeNull();
+                    defenderFleet: {
+                        units: []
+                    }
+                };
+
+                const roundRuntime =
+                    createRoundRuntime();
+
+                expect(
+                    () =>
+                        calculateLosses(
+                            combatRuntime,
+                            roundRuntime
+                        )
+                ).not.toThrow();
             }
         );
 
+        test(
+            "returns undefined for invalid combatRuntime",
+            () => {
+
+                const roundRuntime =
+                    createRoundRuntime();
+
+                const result =
+                    calculateLosses(
+                        null,
+                        roundRuntime
+                    );
+
+                expect(result)
+                    .toBeUndefined();
+            }
+        );
 
         test(
-            "returns null for invalid roundRuntime",
+            "returns undefined for invalid roundRuntime",
             () => {
 
                 const combatRuntime =
                     createCombatRuntime();
 
                 const result =
-                    calculateLosses({
+                    calculateLosses(
                         combatRuntime,
-
-                        roundRuntime:
-                            null
-                    });
+                        null
+                    );
 
                 expect(result)
-                    .toBeNull();
+                    .toBeUndefined();
             }
         );
-
-
-
-        // ==========================================
-        // DETERMINISM
-        // ==========================================
 
         test(
             "same runtime always produces same result",
@@ -412,40 +258,22 @@ describe(
                 const roundRuntimeB =
                     createRoundRuntime();
 
-                combatRuntimeA
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    1500;
+                calculateLosses(
+                    combatRuntimeA,
+                    roundRuntimeA
+                );
 
-                combatRuntimeB
-                    .attackerFleet
-                    .units[0]
-                    .receivedDamage =
-                    1500;
+                calculateLosses(
+                    combatRuntimeB,
+                    roundRuntimeB
+                );
 
-                const resultA =
-                    calculateLosses({
-                        combatRuntime:
-                            combatRuntimeA,
-
-                        roundRuntime:
-                            roundRuntimeA
-                    });
-
-                const resultB =
-                    calculateLosses({
-                        combatRuntime:
-                            combatRuntimeB,
-
-                        roundRuntime:
-                            roundRuntimeB
-                    });
-
-                expect(resultA)
-                    .toEqual(resultB);
+                expect(
+                    roundRuntimeA
+                ).toEqual(
+                    roundRuntimeB
+                );
             }
         );
-
     }
 );

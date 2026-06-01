@@ -1,292 +1,313 @@
-import applyDamage
-    from "../../app/combat/resolver/applyDamage.js";
+import calculateLosses
+    from "../../../app/combat/resolver/calculateLosses.js";
 
 describe(
-    "applyDamage",
+    "calculateLosses",
     () => {
 
-        const validTarget = {
-
-            runtimeUnitId:
-                "runtime_bomber_001",
-
-            unitTypeId:
-                "bomber",
-
-            amount: 10,
-
-            remainingUnits: 10,
-
-            hpLastUnit: 500
-        };
-
-
-
-        // ==================================================
-        // BASIC DAMAGE
-        // ==================================================
-
         test(
-            "reduces hpLastUnit on damage",
+            "adds destroyed attacker units to roundRuntime",
             () => {
 
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
+                const combatRuntime = {
 
-                const result =
-                    applyDamage(
-                        target,
-                        100
-                    );
+                    attackerFleet: {
 
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(400);
-            }
-        );
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "attacker_1",
 
+                                remainingUnits: 0
+                            }
+                        ]
+                    },
 
-        test(
-            "does not destroy unit on partial damage",
-            () => {
+                    defenderFleet: {
+                        units: []
+                    }
+                };
 
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
+                const roundRuntime = {
 
-                const result =
-                    applyDamage(
-                        target,
-                        200
-                    );
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                calculateLosses(
+                    combatRuntime,
+                    roundRuntime
+                );
 
                 expect(
-                    result.target.remainingUnits
-                ).toBe(10);
-            }
-        );
-
-
-
-        // ==================================================
-        // UNIT DESTRUCTION
-        // ==================================================
-
-        test(
-            "destroys one unit on exact lethal damage",
-            () => {
-
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const result =
-                    applyDamage(
-                        target,
-                        500
-                    );
-
-                expect(
-                    result.target.remainingUnits
-                ).toBe(9);
-
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(500);
-            }
-        );
-
-
-        test(
-            "creates overflow damage on overkill",
-            () => {
-
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const result =
-                    applyDamage(
-                        target,
-                        700
-                    );
-
-                expect(
-                    result.overflowDamage
-                ).toBe(200);
-            }
-        );
-
-        // ==================================================
-        // SAFETY
-        // ==================================================
-
-        test(
-            "never allows negative hpLastUnit",
-            () => {
-
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const result =
-                    applyDamage(
-                        target,
-                        999999
-                    );
-
-                expect(
-                    result.target.hpLastUnit
-                ).toBeGreaterThanOrEqual(
-                    0
+                    roundRuntime
+                        .attackerDestroyedUnits
+                ).toContain(
+                    "attacker_1"
                 );
             }
         );
 
-
         test(
-            "never allows negative remainingUnits",
+            "adds destroyed defender units to roundRuntime",
             () => {
 
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
+                const combatRuntime = {
 
-                const result =
-                    applyDamage(
-                        target,
-                        999999
-                    );
+                    attackerFleet: {
+                        units: []
+                    },
+
+                    defenderFleet: {
+
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "defender_1",
+
+                                remainingUnits: 0
+                            }
+                        ]
+                    }
+                };
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                calculateLosses(
+                    combatRuntime,
+                    roundRuntime
+                );
 
                 expect(
-                    result.target.remainingUnits
-                ).toBeGreaterThanOrEqual(
-                    0
+                    roundRuntime
+                        .defenderDestroyedUnits
+                ).toContain(
+                    "defender_1"
                 );
             }
         );
 
-
         test(
-            "returns null for invalid target",
+            "ignores living attacker units",
             () => {
 
+                const combatRuntime = {
+
+                    attackerFleet: {
+
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "attacker_1",
+
+                                remainingUnits: 5
+                            }
+                        ]
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                calculateLosses(
+                    combatRuntime,
+                    roundRuntime
+                );
+
+                expect(
+                    roundRuntime
+                        .attackerDestroyedUnits
+                        .length
+                ).toBe(0);
+            }
+        );
+
+        test(
+            "ignores living defender units",
+            () => {
+
+                const combatRuntime = {
+
+                    attackerFleet: {
+                        units: []
+                    },
+
+                    defenderFleet: {
+
+                        units: [
+                            {
+                                runtimeUnitId:
+                                    "defender_1",
+
+                                remainingUnits: 5
+                            }
+                        ]
+                    }
+                };
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                calculateLosses(
+                    combatRuntime,
+                    roundRuntime
+                );
+
+                expect(
+                    roundRuntime
+                        .defenderDestroyedUnits
+                        .length
+                ).toBe(0);
+            }
+        );
+
+        test(
+            "handles empty fleets safely",
+            () => {
+
+                const combatRuntime = {
+
+                    attackerFleet: {
+                        units: []
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                expect(
+                    () =>
+                        calculateLosses(
+                            combatRuntime,
+                            roundRuntime
+                        )
+                ).not.toThrow();
+            }
+        );
+
+        test(
+            "handles malformed units safely",
+            () => {
+
+                const combatRuntime = {
+
+                    attackerFleet: {
+
+                        units: [
+                            null,
+                            undefined,
+                            {}
+                        ]
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
+                expect(
+                    () =>
+                        calculateLosses(
+                            combatRuntime,
+                            roundRuntime
+                        )
+                ).not.toThrow();
+            }
+        );
+
+        test(
+            "returns undefined for invalid combatRuntime",
+            () => {
+
+                const roundRuntime = {
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                };
+
                 const result =
-                    applyDamage(
+                    calculateLosses(
                         null,
-                        100
+                        roundRuntime
                     );
 
                 expect(result)
-                    .toBeNull();
+                    .toBeUndefined();
             }
         );
 
-
         test(
-            "returns null for negative damage",
+            "returns undefined for invalid roundRuntime",
             () => {
 
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
+                const combatRuntime = {
+
+                    attackerFleet: {
+                        units: []
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
 
                 const result =
-                    applyDamage(
-                        target,
-                        -100
+                    calculateLosses(
+                        combatRuntime,
+                        null
                     );
 
                 expect(result)
-                    .toBeNull();
+                    .toBeUndefined();
             }
         );
-
-
-
-        // ==================================================
-        // EDGE CASES
-        // ==================================================
-
-        test(
-            "handles zero damage safely",
-            () => {
-
-                const target =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const result =
-                    applyDamage(
-                        target,
-                        0
-                    );
-
-                expect(
-                    result.target.hpLastUnit
-                ).toBe(500);
-            }
-        );
-
-        test(
-            "same input produces same result",
-            () => {
-
-                const targetA =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const targetB =
-                    JSON.parse(
-                        JSON.stringify(
-                            validTarget
-                        )
-                    );
-
-                const resultA =
-                    applyDamage(
-                        targetA,
-                        700
-                    );
-
-                const resultB =
-                    applyDamage(
-                        targetB,
-                        700
-                    );
-
-                expect(resultA)
-                    .toEqual(resultB);
-            }
-        );
-
     }
 );

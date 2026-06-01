@@ -26,6 +26,7 @@ function applyDamage(
         damage === 0
     ) {
         return {
+
             target:
                 resultTarget,
 
@@ -33,91 +34,85 @@ function applyDamage(
         };
     }
 
-    // ==================================================
-    // PARTIAL DAMAGE
-    // ==================================================
-
     if (
-        damage <
-        resultTarget.hpLastUnit
+        typeof resultTarget.remainingUnits !==
+        "number"
     ) {
-
-        resultTarget.hpLastUnit -=
-            damage;
-
-        return {
-            target:
-                resultTarget,
-
-            overflowDamage: 0
-        };
+        return null;
     }
 
-    // ==================================================
-    // EXACT KILL
-    // ==================================================
-
     if (
-        damage ===
-        resultTarget.hpLastUnit
+        typeof resultTarget.hpLastUnit !==
+        "number"
     ) {
+        return null;
+    }
+
+    const unitHp =
+        resultTarget.hpLastUnit;
+
+    let remainingDamage =
+        damage;
+
+    // ==========================================
+    // DAMAGE LOOP
+    // ==========================================
+
+    while (
+        remainingDamage > 0 &&
+        resultTarget.remainingUnits > 0
+    ) {
+
+        // ======================================
+        // PARTIAL DAMAGE
+        // ======================================
+
+        if (
+            remainingDamage <
+            resultTarget.hpLastUnit
+        ) {
+
+            resultTarget.hpLastUnit -=
+                remainingDamage;
+
+            remainingDamage = 0;
+
+            break;
+        }
+
+        // ======================================
+        // UNIT DESTROYED
+        // ======================================
+
+        remainingDamage -=
+            resultTarget.hpLastUnit;
 
         resultTarget.remainingUnits -= 1;
+
+        // ======================================
+        // NEXT UNIT
+        // ======================================
 
         if (
             resultTarget.remainingUnits > 0
         ) {
 
             resultTarget.hpLastUnit =
-                target.hpLastUnit;
+                unitHp;
         }
         else {
 
             resultTarget.hpLastUnit = 0;
         }
-
-        return {
-            target:
-                resultTarget,
-
-            overflowDamage: 0
-        };
-    }
-
-    // ==================================================
-    // OVERKILL
-    // ==================================================
-
-    const overflowDamage =
-        damage -
-        resultTarget.hpLastUnit;
-
-    resultTarget.remainingUnits -= 1;
-
-    if (
-        resultTarget.remainingUnits > 0
-    ) {
-
-        resultTarget.hpLastUnit =
-            target.hpLastUnit;
-    }
-    else {
-
-        resultTarget.hpLastUnit = 0;
-    }
-
-    if (
-        resultTarget.remainingUnits < 0
-    ) {
-
-        resultTarget.remainingUnits = 0;
     }
 
     return {
+
         target:
             resultTarget,
 
-        overflowDamage
+        overflowDamage:
+            remainingDamage
     };
 }
 

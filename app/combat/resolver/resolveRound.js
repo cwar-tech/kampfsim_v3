@@ -266,12 +266,10 @@ function resolveRound(
         }
     }
 
-    calculateLosses({
-        combatRuntime:
-            runtime,
-
+    calculateLosses(
+        runtime,
         roundRuntime
-    });
+    );
 
     return {
 

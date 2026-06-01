@@ -41,24 +41,29 @@ function calculateLosses(
                 .units
             : [];
 
-    const allUnits = [
-
-        ...attackerUnits,
-        ...defenderUnits
-    ];
-
-    roundRuntime.destroyedUnits =
+    roundRuntime
+        .attackerDestroyedUnits =
         Array.isArray(
             roundRuntime
-                .destroyedUnits
+                .attackerDestroyedUnits
         )
             ? roundRuntime
-                .destroyedUnits
+                .attackerDestroyedUnits
+            : [];
+
+    roundRuntime
+        .defenderDestroyedUnits =
+        Array.isArray(
+            roundRuntime
+                .defenderDestroyedUnits
+        )
+            ? roundRuntime
+                .defenderDestroyedUnits
             : [];
 
     for (
         const unit
-        of allUnits
+        of attackerUnits
     ) {
 
         if (
@@ -83,14 +88,44 @@ function calculateLosses(
         }
 
         roundRuntime
-            .destroyedUnits
-            .push({
-
-                runtimeUnitId:
-                    unit.runtimeUnitId
-            });
+            .attackerDestroyedUnits
+            .push(
+                unit.runtimeUnitId
+            );
     }
 
+    for (
+        const unit
+        of defenderUnits
+    ) {
+
+        if (
+            !unit ||
+            typeof unit !==
+            "object"
+        ) {
+            continue;
+        }
+
+        if (
+            typeof unit.remainingUnits !==
+            "number"
+        ) {
+            continue;
+        }
+
+        if (
+            unit.remainingUnits > 0
+        ) {
+            continue;
+        }
+
+        roundRuntime
+            .defenderDestroyedUnits
+            .push(
+                unit.runtimeUnitId
+            );
+    }
 }
 
 export default

@@ -1,5 +1,5 @@
 import resolveRound
-    from "../../app/combat/resolver/resolveRound.js";
+    from "../../../app/combat/resolver/resolveRound.js";
 
 describe(
     "resolveRound",

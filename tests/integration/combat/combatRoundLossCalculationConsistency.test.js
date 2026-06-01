@@ -400,5 +400,141 @@ describe(
             }
         );
 
+
+        test(
+            "attacker destroyed units array always exists",
+            () => {
+
+                const runtime =
+                    createCombatRuntime();
+
+                const result =
+                    resolveRound(
+                        runtime
+                    );
+
+                expect(
+                    Array.isArray(
+                        result
+                            .roundRuntime
+                            .attackerDestroyedUnits
+                    )
+                ).toBe(true);
+            }
+        );
+
+
+        test(
+            "defender destroyed units array always exists",
+            () => {
+
+                const runtime =
+                    createCombatRuntime();
+
+                const result =
+                    resolveRound(
+                        runtime
+                    );
+
+                expect(
+                    Array.isArray(
+                        result
+                            .roundRuntime
+                            .defenderDestroyedUnits
+                    )
+                ).toBe(true);
+            }
+        );
+
+
+        test(
+            "destroyed units never contain duplicates",
+            () => {
+
+                const runtime =
+                    createCombatRuntime();
+
+                const result =
+                    resolveRound(
+                        runtime
+                    );
+
+                const destroyed =
+                    result
+                        .roundRuntime
+                        .defenderDestroyedUnits;
+
+                const unique =
+                    new Set(
+                        destroyed
+                    );
+
+                expect(
+                    unique.size
+                ).toBe(
+                    destroyed.length
+                );
+            }
+        );
+
+
+        test(
+            "destroyed units are strings",
+            () => {
+
+                const runtime =
+                    createCombatRuntime();
+
+                const result =
+                    resolveRound(
+                        runtime
+                    );
+
+                const destroyed =
+                    result
+                        .roundRuntime
+                        .defenderDestroyedUnits;
+
+                for (
+                    const id
+                    of destroyed
+                ) {
+
+                    expect(
+                        typeof id
+                    ).toBe(
+                        "string"
+                    );
+                }
+            }
+        );
+
+
+        test(
+            "destroyed units tracking remains deterministic",
+            () => {
+
+                const resultA =
+                    resolveRound(
+                        createCombatRuntime()
+                    );
+
+                const resultB =
+                    resolveRound(
+                        createCombatRuntime()
+                    );
+
+                expect(
+                    resultA
+                        .roundRuntime
+                        .defenderDestroyedUnits
+                ).toEqual(
+                    resultB
+                        .roundRuntime
+                        .defenderDestroyedUnits
+                );
+            }
+        );
+
     }
 );
