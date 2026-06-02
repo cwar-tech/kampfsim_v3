@@ -10,6 +10,12 @@ import resolveOverflow
 import calculateLosses
     from "./calculateLosses.js";
 
+import calculateDamage
+    from "./calculateDamage.js";
+
+import recalculateRuntimeState
+    from "../runtime/recalculateRuntimeState.js";
+
 function resolveRound(
     combatRuntime
 ) {
@@ -52,6 +58,8 @@ function resolveRound(
             ?.defenderFleet
             ?.units || [];
 
+
+
     // ==========================================
     // ATTACKER TURN
     // ==========================================
@@ -61,12 +69,20 @@ function resolveRound(
         of attackerUnits
     ) {
 
-        if (!attacker) {
+        if (
+            !attacker ||
+            typeof attacker !==
+            "object"
+        ) {
             continue;
         }
 
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
+
         if (
-            attacker.remainingUnits <= 0
+            attacker.remainingHp <= 0
         ) {
             continue;
         }
@@ -83,31 +99,73 @@ function resolveRound(
             continue;
         }
 
-        const result =
-            applyDamage(
-                target,
-                attacker.damage
-            );
+
+
+        // ==========================================
+        // DAMAGE CALCULATION
+        // ==========================================
+
+        const damageResult =
+            calculateDamage({
+
+                attacker,
+
+                target
+            });
 
         if (
-            !result
+            !damageResult
         ) {
             continue;
         }
 
-        target.remainingUnits =
-            result.target
-                .remainingUnits;
 
-        target.hpLastUnit =
+
+        // ==========================================
+        // DAMAGE APPLICATION
+        // ==========================================
+
+        const result =
+            applyDamage(
+                target,
+                damageResult
+                    .finalDamage
+            );
+
+        if (
+            !result ||
+            !result.target
+        ) {
+            continue;
+        }
+
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
+
+        target.remainingHp =
             result.target
-                .hpLastUnit;
+                .remainingHp;
+
+        // ==========================================
+        // DERIVED STATE
+        // ==========================================
+
+        recalculateRuntimeState(
+            target
+        );
 
         target.receivedDamage =
             (
                 target.receivedDamage ||
                 0
-            ) + attacker.damage;
+            ) + result.appliedDamage;
+
+
+
+        // ==========================================
+        // DAMAGE EVENTS
+        // ==========================================
 
         damageEvents.push({
 
@@ -118,11 +176,23 @@ function resolveRound(
                 target.runtimeUnitId,
 
             appliedDamage:
-                attacker.damage,
+                result.appliedDamage,
+
+            baseDamage:
+                damageResult.baseDamage,
+
+            totalArmor:
+                damageResult.totalArmor,
 
             overflowDamage:
                 result.overflowDamage
         });
+
+
+
+        // ==========================================
+        // OVERFLOW
+        // ==========================================
 
         if (
             result.overflowDamage > 0
@@ -134,30 +204,37 @@ function resolveRound(
                     result.overflowDamage
                 );
 
-            overflowEvents.push({
-
-                sourceRuntimeUnitId:
-                    attacker.runtimeUnitId,
-
-                targetRuntimeUnitId:
-                    target.runtimeUnitId,
-
-                overflowDamage:
-                    result.overflowDamage
-            });
-
-            for (
-                let i = 0;
-                i < defenderUnits.length;
-                i++
+            if (
+                overflowResult
             ) {
 
-                defenderUnits[i] =
-                    overflowResult
-                        .targets[i];
+                overflowEvents.push({
+
+                    sourceRuntimeUnitId:
+                        attacker.runtimeUnitId,
+
+                    targetRuntimeUnitId:
+                        target.runtimeUnitId,
+
+                    overflowDamage:
+                        result.overflowDamage
+                });
+
+                for (
+                    let i = 0;
+                    i < defenderUnits.length;
+                    i++
+                ) {
+
+                    defenderUnits[i] =
+                        overflowResult
+                            .targets[i];
+                }
             }
         }
     }
+
+
 
     // ==========================================
     // DEFENDER TURN
@@ -168,12 +245,20 @@ function resolveRound(
         of defenderUnits
     ) {
 
-        if (!defender) {
+        if (
+            !defender ||
+            typeof defender !==
+            "object"
+        ) {
             continue;
         }
 
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
+
         if (
-            defender.remainingUnits <= 0
+            defender.remainingHp <= 0
         ) {
             continue;
         }
@@ -190,31 +275,74 @@ function resolveRound(
             continue;
         }
 
-        const result =
-            applyDamage(
-                target,
-                defender.damage
-            );
+
+
+        // ==========================================
+        // DAMAGE CALCULATION
+        // ==========================================
+
+        const damageResult =
+            calculateDamage({
+
+                attacker:
+                    defender,
+
+                target
+            });
 
         if (
-            !result
+            !damageResult
         ) {
             continue;
         }
 
-        target.remainingUnits =
-            result.target
-                .remainingUnits;
 
-        target.hpLastUnit =
+
+        // ==========================================
+        // DAMAGE APPLICATION
+        // ==========================================
+
+        const result =
+            applyDamage(
+                target,
+                damageResult
+                    .finalDamage
+            );
+
+        if (
+            !result ||
+            !result.target
+        ) {
+            continue;
+        }
+
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
+
+        target.remainingHp =
             result.target
-                .hpLastUnit;
+                .remainingHp;
+
+        // ==========================================
+        // DERIVED STATE
+        // ==========================================
+
+        recalculateRuntimeState(
+            target
+        );
 
         target.receivedDamage =
             (
                 target.receivedDamage ||
                 0
-            ) + defender.damage;
+            ) + result.appliedDamage;
+
+
+
+        // ==========================================
+        // DAMAGE EVENTS
+        // ==========================================
 
         damageEvents.push({
 
@@ -225,11 +353,23 @@ function resolveRound(
                 target.runtimeUnitId,
 
             appliedDamage:
-                defender.damage,
+                result.appliedDamage,
+
+            baseDamage:
+                damageResult.baseDamage,
+
+            totalArmor:
+                damageResult.totalArmor,
 
             overflowDamage:
                 result.overflowDamage
         });
+
+
+
+        // ==========================================
+        // OVERFLOW
+        // ==========================================
 
         if (
             result.overflowDamage > 0
@@ -241,35 +381,86 @@ function resolveRound(
                     result.overflowDamage
                 );
 
-            overflowEvents.push({
-
-                sourceRuntimeUnitId:
-                    defender.runtimeUnitId,
-
-                targetRuntimeUnitId:
-                    target.runtimeUnitId,
-
-                overflowDamage:
-                    result.overflowDamage
-            });
-
-            for (
-                let i = 0;
-                i < attackerUnits.length;
-                i++
+            if (
+                overflowResult
             ) {
 
-                attackerUnits[i] =
-                    overflowResult
-                        .targets[i];
+                overflowEvents.push({
+
+                    sourceRuntimeUnitId:
+                        defender.runtimeUnitId,
+
+                    targetRuntimeUnitId:
+                        target.runtimeUnitId,
+
+                    overflowDamage:
+                        result.overflowDamage
+                });
+
+                for (
+                    let i = 0;
+                    i < attackerUnits.length;
+                    i++
+                ) {
+
+                    attackerUnits[i] =
+                        overflowResult
+                            .targets[i];
+                }
             }
         }
     }
+
+
+
+    // ==========================================
+    // LOSS CALCULATION
+    // ==========================================
 
     calculateLosses(
         runtime,
         roundRuntime
     );
+
+
+
+    // ==========================================
+    // FINAL STATE RECALCULATION
+    // ==========================================
+
+    for (
+        const unit
+        of attackerUnits
+    ) {
+
+        if (
+            !unit
+        ) {
+            continue;
+        }
+
+        recalculateRuntimeState(
+            unit
+        );
+    }
+
+    for (
+        const unit
+        of defenderUnits
+    ) {
+
+        if (
+            !unit
+        ) {
+            continue;
+        }
+
+        recalculateRuntimeState(
+            unit
+        );
+    }
+
+
 
     return {
 

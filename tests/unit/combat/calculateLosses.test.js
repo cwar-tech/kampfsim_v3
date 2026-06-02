@@ -5,6 +5,48 @@ describe(
     "calculateLosses",
     () => {
 
+        // ==================================================
+        // FACTORIES
+        // ==================================================
+
+        const createDestroyedUnit =
+            (
+                runtimeUnitId
+            ) => ({
+
+                runtimeUnitId,
+
+                hpPerUnit: 500,
+
+                totalHp: 5000,
+
+                remainingHp: 0,
+
+                remainingUnits: 0,
+
+                destroyed: true
+            });
+
+
+        const createLivingUnit =
+            (
+                runtimeUnitId
+            ) => ({
+
+                runtimeUnitId,
+
+                hpPerUnit: 500,
+
+                totalHp: 5000,
+
+                remainingHp: 3000,
+
+                remainingUnits: 6,
+
+                destroyed: false
+            });
+
+
         const createCombatRuntime =
             () => ({
 
@@ -12,13 +54,9 @@ describe(
 
                     units: [
 
-                        {
-                            runtimeUnitId:
-                                "attacker_1",
-
-                            remainingUnits: 0
-                        }
-
+                        createDestroyedUnit(
+                            "attacker_1"
+                        )
                     ]
                 },
 
@@ -26,16 +64,13 @@ describe(
 
                     units: [
 
-                        {
-                            runtimeUnitId:
-                                "defender_1",
-
-                            remainingUnits: 0
-                        }
-
+                        createDestroyedUnit(
+                            "defender_1"
+                        )
                     ]
                 }
             });
+
 
         const createRoundRuntime =
             () => ({
@@ -46,6 +81,12 @@ describe(
                 defenderDestroyedUnits:
                     []
             });
+
+
+
+        // ==================================================
+        // DESTROYED UNITS
+        // ==================================================
 
         test(
             "adds destroyed attacker units to roundRuntime",
@@ -71,6 +112,7 @@ describe(
             }
         );
 
+
         test(
             "adds destroyed defender units to roundRuntime",
             () => {
@@ -95,6 +137,12 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // LIVING UNITS
+        // ==================================================
+
         test(
             "ignores living attacker units",
             () => {
@@ -104,12 +152,10 @@ describe(
                     attackerFleet: {
 
                         units: [
-                            {
-                                runtimeUnitId:
-                                    "attacker_1",
 
-                                remainingUnits: 5
-                            }
+                            createLivingUnit(
+                                "attacker_1"
+                            )
                         ]
                     },
 
@@ -134,6 +180,7 @@ describe(
             }
         );
 
+
         test(
             "ignores living defender units",
             () => {
@@ -147,12 +194,10 @@ describe(
                     defenderFleet: {
 
                         units: [
-                            {
-                                runtimeUnitId:
-                                    "defender_1",
 
-                                remainingUnits: 5
-                            }
+                            createLivingUnit(
+                                "defender_1"
+                            )
                         ]
                     }
                 };
@@ -172,6 +217,12 @@ describe(
                 ).toBe(0);
             }
         );
+
+
+
+        // ==================================================
+        // SAFETY
+        // ==================================================
 
         test(
             "handles malformed units safely",
@@ -206,8 +257,9 @@ describe(
             }
         );
 
+
         test(
-            "returns undefined for invalid combatRuntime",
+            "returns null for invalid combatRuntime",
             () => {
 
                 const roundRuntime =
@@ -220,12 +272,13 @@ describe(
                     );
 
                 expect(result)
-                    .toBeUndefined();
+                    .toBeNull();
             }
         );
 
+
         test(
-            "returns undefined for invalid roundRuntime",
+            "returns null for invalid roundRuntime",
             () => {
 
                 const combatRuntime =
@@ -238,9 +291,15 @@ describe(
                     );
 
                 expect(result)
-                    .toBeUndefined();
+                    .toBeNull();
             }
         );
+
+
+
+        // ==================================================
+        // DETERMINISM
+        // ==================================================
 
         test(
             "same runtime always produces same result",
@@ -275,5 +334,62 @@ describe(
                 );
             }
         );
+
+
+
+        // ==================================================
+        // HP TRUTH
+        // ==================================================
+
+        test(
+            "remainingHp is the destruction truth",
+            () => {
+
+                const combatRuntime = {
+
+                    attackerFleet: {
+
+                        units: [
+
+                            {
+
+                                runtimeUnitId:
+                                    "attacker_1",
+
+                                hpPerUnit: 500,
+
+                                totalHp: 5000,
+
+                                remainingHp: 0,
+
+                                remainingUnits: 5,
+
+                                destroyed: false
+                            }
+                        ]
+                    },
+
+                    defenderFleet: {
+                        units: []
+                    }
+                };
+
+                const roundRuntime =
+                    createRoundRuntime();
+
+                calculateLosses(
+                    combatRuntime,
+                    roundRuntime
+                );
+
+                expect(
+                    roundRuntime
+                        .attackerDestroyedUnits
+                ).toContain(
+                    "attacker_1"
+                );
+            }
+        );
+
     }
 );

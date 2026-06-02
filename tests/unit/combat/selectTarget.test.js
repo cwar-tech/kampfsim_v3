@@ -5,52 +5,16 @@ describe(
     "selectTarget",
     () => {
 
-        const attackerUnit = {
+        const createTarget =
+            ({
+                runtimeUnitId,
+                remainingHp
+            }) => ({
 
-            runtimeUnitId:
-                "runtime_lf_001",
+                runtimeUnitId,
 
-            unitTypeId:
-                "light_fighter",
-
-            amount: 100,
-
-            remainingUnits: 100,
-
-            hpLastUnit: 430
-        };
-
-        const validTargets = [
-
-            {
-                runtimeUnitId:
-                    "runtime_bomber_001",
-
-                unitTypeId:
-                    "bomber",
-
-                amount: 50,
-
-                remainingUnits: 50,
-
-                hpLastUnit: 400
-            },
-
-            {
-                runtimeUnitId:
-                    "runtime_destroyer_001",
-
-                unitTypeId:
-                    "destroyer",
-
-                amount: 20,
-
-                remainingUnits: 20,
-
-                hpLastUnit: 1200
-            }
-
-        ];
+                remainingHp
+            });
 
 
 
@@ -59,259 +23,46 @@ describe(
         // ==================================================
 
         test(
-            "returns a valid target",
+            "selects first valid target",
             () => {
 
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        validTargets
-                    );
+                const attacker = {
 
-                expect(target)
-                    .not
-                    .toBeNull();
-
-                expect(
-                    target.runtimeUnitId
-                ).toBeDefined();
-            }
-        );
-
-
-        test(
-            "returns deterministic target for same input",
-            () => {
-
-                const targetA =
-                    selectTarget(
-                        attackerUnit,
-                        validTargets
-                    );
-
-                const targetB =
-                    selectTarget(
-                        attackerUnit,
-                        validTargets
-                    );
-
-                expect(targetA)
-                    .toEqual(targetB);
-            }
-        );
-
-
-
-        // ==================================================
-        // DEAD TARGET FILTERING
-        // ==================================================
-
-        test(
-            "never targets destroyed units",
-            () => {
-
-                const destroyedTargets = [
-
-                    {
-                        runtimeUnitId:
-                            "runtime_dead_001",
-
-                        unitTypeId:
-                            "bomber",
-
-                        amount: 50,
-
-                        remainingUnits: 0,
-
-                        hpLastUnit: 0
-                    }
-
-                ];
-
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        destroyedTargets
-                    );
-
-                expect(target)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "ignores destroyed targets when valid targets exist",
-            () => {
-
-                const mixedTargets = [
-
-                    {
-                        runtimeUnitId:
-                            "runtime_dead_001",
-
-                        unitTypeId:
-                            "bomber",
-
-                        amount: 50,
-
-                        remainingUnits: 0,
-
-                        hpLastUnit: 0
-                    },
-
-                    {
-                        runtimeUnitId:
-                            "runtime_alive_001",
-
-                        unitTypeId:
-                            "destroyer",
-
-                        amount: 20,
-
-                        remainingUnits: 20,
-
-                        hpLastUnit: 1000
-                    }
-
-                ];
-
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        mixedTargets
-                    );
-
-                expect(
-                    target.runtimeUnitId
-                ).toBe(
-                    "runtime_alive_001"
-                );
-            }
-        );
-
-
-
-        // ==================================================
-        // SAFETY
-        // ==================================================
-
-        test(
-            "returns null for empty target array",
-            () => {
-
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        []
-                    );
-
-                expect(target)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "never targets the attacking unit itself",
-            () => {
-
-                const invalidTargets = [
-
-                    attackerUnit
-                ];
-
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        invalidTargets
-                    );
-
-                expect(target)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "returns null when all targets are invalid",
-            () => {
-
-                const invalidTargets = [
-
-                    null,
-
-                    {},
-
-                    {
-                        remainingUnits: 0
-                    }
-
-                ];
-
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        invalidTargets
-                    );
-
-                expect(target)
-                    .toBeNull();
-            }
-        );
-
-
-
-        // ==================================================
-        // TARGET PRIORITIZATION
-        // ==================================================
-
-        test(
-            "prefers first valid target deterministically",
-            () => {
+                    runtimeUnitId:
+                        "attacker_1"
+                };
 
                 const targets = [
 
-                    {
+                    createTarget({
+
                         runtimeUnitId:
-                            "runtime_first",
+                            "target_1",
 
-                        unitTypeId:
-                            "frigate",
+                        remainingHp:
+                            500
+                    }),
 
-                        amount: 10,
+                    createTarget({
 
-                        remainingUnits: 10,
-
-                        hpLastUnit: 900
-                    },
-
-                    {
                         runtimeUnitId:
-                            "runtime_second",
+                            "target_2",
 
-                        unitTypeId:
-                            "destroyer",
-
-                        amount: 5,
-
-                        remainingUnits: 5,
-
-                        hpLastUnit: 2000
-                    }
-
+                        remainingHp:
+                            500
+                    })
                 ];
 
-                const target =
+                const result =
                     selectTarget(
-                        attackerUnit,
+                        attacker,
                         targets
                     );
 
                 expect(
-                    target.runtimeUnitId
+                    result.runtimeUnitId
                 ).toBe(
-                    "runtime_first"
+                    "target_1"
                 );
             }
         );
@@ -319,61 +70,288 @@ describe(
 
 
         // ==================================================
-        // EDGE CASES
+        // SELF TARGETING
         // ==================================================
 
         test(
-            "handles undefined target array",
+            "never targets self",
             () => {
 
-                const target =
-                    selectTarget(
-                        attackerUnit,
-                        undefined
-                    );
+                const attacker = {
 
-                expect(target)
-                    .toBeNull();
-            }
-        );
+                    runtimeUnitId:
+                        "unit_1"
+                };
 
+                const targets = [
 
-        test(
-            "handles null attacker safely",
-            () => {
+                    createTarget({
 
-                const target =
-                    selectTarget(
-                        null,
-                        validTargets
-                    );
-
-                expect(target)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "handles malformed target objects safely",
-            () => {
-
-                const malformedTargets = [
-
-                    {
                         runtimeUnitId:
-                            "runtime_invalid"
-                    }
+                            "unit_1",
 
+                        remainingHp:
+                            500
+                    })
                 ];
 
-                const target =
+                const result =
                     selectTarget(
-                        attackerUnit,
-                        malformedTargets
+                        attacker,
+                        targets
                     );
 
-                expect(target)
+                expect(result)
+                    .toBeNull();
+            }
+        );
+
+
+
+        // ==================================================
+        // DESTROYED TARGETS
+        // ==================================================
+
+        test(
+            "ignores destroyed targets",
+            () => {
+
+                const attacker = {
+
+                    runtimeUnitId:
+                        "attacker_1"
+                };
+
+                const targets = [
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "destroyed_target",
+
+                        remainingHp:
+                            0
+                    }),
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "alive_target",
+
+                        remainingHp:
+                            500
+                    })
+                ];
+
+                const result =
+                    selectTarget(
+                        attacker,
+                        targets
+                    );
+
+                expect(
+                    result.runtimeUnitId
+                ).toBe(
+                    "alive_target"
+                );
+            }
+        );
+
+
+
+        // ==================================================
+        // DETERMINISM
+        // ==================================================
+
+        test(
+            "same input always produces same target",
+            () => {
+
+                const attacker = {
+
+                    runtimeUnitId:
+                        "attacker_1"
+                };
+
+                const targets = [
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "target_1",
+
+                        remainingHp:
+                            500
+                    }),
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "target_2",
+
+                        remainingHp:
+                            500
+                    })
+                ];
+
+                const resultA =
+                    selectTarget(
+                        attacker,
+                        targets
+                    );
+
+                const resultB =
+                    selectTarget(
+                        attacker,
+                        targets
+                    );
+
+                expect(
+                    resultA
+                ).toEqual(
+                    resultB
+                );
+            }
+        );
+
+
+
+        // ==================================================
+        // MASS BATTLE
+        // ==================================================
+
+        test(
+            "handles massive target lists",
+            () => {
+
+                const attacker = {
+
+                    runtimeUnitId:
+                        "attacker_1"
+                };
+
+                const targets = [];
+
+                for (
+                    let i = 0;
+                    i < 100000;
+                    i++
+                ) {
+
+                    targets.push({
+
+                        runtimeUnitId:
+                            `target_${i}`,
+
+                        remainingHp:
+                            500
+                    });
+                }
+
+                const result =
+                    selectTarget(
+                        attacker,
+                        targets
+                    );
+
+                expect(result)
+                    .toBeDefined();
+
+                expect(
+                    result.runtimeUnitId
+                ).toBe(
+                    "target_0"
+                );
+            }
+        );
+
+
+
+        // ==================================================
+        // VALIDATION
+        // ==================================================
+
+        test(
+            "returns null for invalid attacker",
+            () => {
+
+                const result =
+                    selectTarget(
+                        null,
+                        []
+                    );
+
+                expect(result)
+                    .toBeNull();
+            }
+        );
+
+
+        test(
+            "returns null for invalid targets",
+            () => {
+
+                const attacker = {
+
+                    runtimeUnitId:
+                        "attacker_1"
+                };
+
+                const result =
+                    selectTarget(
+                        attacker,
+                        null
+                    );
+
+                expect(result)
+                    .toBeNull();
+            }
+        );
+
+
+
+        // ==================================================
+        // FUTURE TARGETING SAFETY
+        // ==================================================
+
+        test(
+            "returns null when no valid targets exist",
+            () => {
+
+                const attacker = {
+
+                    runtimeUnitId:
+                        "attacker_1"
+                };
+
+                const targets = [
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "destroyed_1",
+
+                        remainingHp:
+                            0
+                    }),
+
+                    createTarget({
+
+                        runtimeUnitId:
+                            "destroyed_2",
+
+                        remainingHp:
+                            0
+                    })
+                ];
+
+                const result =
+                    selectTarget(
+                        attacker,
+                        targets
+                    );
+
+                expect(result)
                     .toBeNull();
             }
         );

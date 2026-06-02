@@ -1,6 +1,9 @@
 import applyDamage
     from "./applyDamage.js";
 
+import recalculateRuntimeState
+    from "../runtime/recalculateRuntimeState.js";
+
 function resolveOverflow(
     fleet,
     overflowDamage
@@ -37,6 +40,10 @@ function resolveOverflow(
     let remainingOverflow =
         overflowDamage;
 
+    // ==========================================
+    // OVERFLOW CHAIN
+    // ==========================================
+
     for (
         const target
         of targets
@@ -49,10 +56,26 @@ function resolveOverflow(
         }
 
         if (
-            target.remainingUnits <= 0
+            !target ||
+            typeof target !==
+            "object"
         ) {
             continue;
         }
+
+        // ==========================================
+        // SKIP DESTROYED TARGETS
+        // ==========================================
+
+        if (
+            target.remainingHp <= 0
+        ) {
+            continue;
+        }
+
+        // ==========================================
+        // APPLY DAMAGE
+        // ==========================================
 
         const result =
             applyDamage(
@@ -61,23 +84,44 @@ function resolveOverflow(
             );
 
         if (
-            !result
+            !result ||
+            !result.target
         ) {
             continue;
         }
 
-        target.remainingUnits =
-            result.target.remainingUnits;
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
 
-        target.hpLastUnit =
-            result.target.hpLastUnit;
+        target.remainingHp =
+            result.target
+                .remainingHp;
+
+        // ==========================================
+        // DERIVED STATE
+        // ==========================================
+
+        recalculateRuntimeState(
+            target
+        );
+
+        // ==========================================
+        // NEXT OVERFLOW
+        // ==========================================
 
         remainingOverflow =
             result.overflowDamage;
     }
 
+    // ==========================================
+    // RESULT
+    // ==========================================
+
     return {
+
         targets,
+
         remainingOverflow
     };
 }

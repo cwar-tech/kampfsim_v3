@@ -5,6 +5,13 @@ function selectTarget(
 
     if (
         !attackerUnit ||
+        typeof attackerUnit !==
+        "object"
+    ) {
+        return null;
+    }
+
+    if (
         !Array.isArray(targets)
     ) {
         return null;
@@ -16,10 +23,15 @@ function selectTarget(
 
                 if (
                     !target ||
-                    typeof target !== "object"
+                    typeof target !==
+                    "object"
                 ) {
                     return false;
                 }
+
+                // ==========================================
+                // NEVER TARGET SELF
+                // ==========================================
 
                 if (
                     target.runtimeUnitId ===
@@ -28,18 +40,19 @@ function selectTarget(
                     return false;
                 }
 
+                // ==========================================
+                // SINGLE SOURCE OF TRUTH
+                // ==========================================
+
                 if (
-                    typeof target.remainingUnits !==
-                    "number" ||
-                    target.remainingUnits <= 0
+                    typeof target.remainingHp !==
+                    "number"
                 ) {
                     return false;
                 }
 
                 if (
-                    typeof target.hpLastUnit !==
-                    "number" ||
-                    target.hpLastUnit <= 0
+                    target.remainingHp <= 0
                 ) {
                     return false;
                 }
@@ -53,6 +66,13 @@ function selectTarget(
     ) {
         return null;
     }
+
+    // ==========================================
+    // CURRENT TARGETING RULE
+    // ==========================================
+    // MVP:
+    // first valid target
+    // ==========================================
 
     return validTargets[0];
 }

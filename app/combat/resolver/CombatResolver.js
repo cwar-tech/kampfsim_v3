@@ -1,64 +1,262 @@
-const CombatRoundRuntime = require("../runtime/CombatRoundRuntime");
+import CombatRoundRuntime
+    from "../runtime/CombatRoundRuntime.js";
 
-const resolveRound = require("./resolveRound");
+import resolveRound
+    from "./resolveRound.js";
 
 class CombatResolver {
+
     constructor({
+
         maxRounds = 250
+
     } = {}) {
-        this.maxRounds = maxRounds;
+
+        this.maxRounds =
+            maxRounds;
     }
 
-    resolveCombat(combatRuntime) {
-        while (
-            !combatRuntime.combatFinished &&
-            combatRuntime.currentRound < this.maxRounds
+
+
+    // ==========================================
+    // MAIN COMBAT LOOP
+    // ==========================================
+
+    resolveCombat(
+        combatRuntime
+    ) {
+
+        if (
+            !combatRuntime ||
+            typeof combatRuntime !==
+            "object"
         ) {
-            const roundRuntime = new CombatRoundRuntime({
-                roundNumber: combatRuntime.currentRound + 1,
+            return null;
+        }
 
-                damageEvents: [],
-                overflowEvents: [],
+        combatRuntime.rounds =
+            Array.isArray(
+                combatRuntime.rounds
+            )
+                ? combatRuntime.rounds
+                : [];
 
-                attackerDamageDealt: 0,
-                defenderDamageDealt: 0,
+        combatRuntime.currentRound =
+            typeof combatRuntime.currentRound ===
+                "number"
+                ? combatRuntime.currentRound
+                : 0;
 
-                attackerDamageReceived: 0,
-                defenderDamageReceived: 0,
+        combatRuntime.combatFinished =
+            Boolean(
+                combatRuntime
+                    .combatFinished
+            );
 
-                attackerDestroyedUnits: [],
-                defenderDestroyedUnits: []
-            });
+        combatRuntime.attackerDefeated =
+            Boolean(
+                combatRuntime
+                    .attackerDefeated
+            );
 
-            resolveRound({
-                combatRuntime,
-                roundRuntime
-            });
+        combatRuntime.defenderDefeated =
+            Boolean(
+                combatRuntime
+                    .defenderDefeated
+            );
 
-            combatRuntime.rounds.push(roundRuntime);
 
-            combatRuntime.currentRound += 1;
+
+        // ==========================================
+        // COMBAT LOOP
+        // ==========================================
+
+        while (
+
+            !combatRuntime
+                .combatFinished &&
+
+            combatRuntime.currentRound <
+            this.maxRounds
+        ) {
+
+            // ==========================================
+            // ROUND RUNTIME
+            // ==========================================
+
+            const roundRuntime =
+                new CombatRoundRuntime({
+
+                    roundNumber:
+                        combatRuntime
+                            .currentRound + 1,
+
+                    damageEvents:
+                        [],
+
+                    overflowEvents:
+                        [],
+
+                    attackerDamageDealt:
+                        0,
+
+                    defenderDamageDealt:
+                        0,
+
+                    attackerDamageReceived:
+                        0,
+
+                    defenderDamageReceived:
+                        0,
+
+                    attackerDestroyedUnits:
+                        [],
+
+                    defenderDestroyedUnits:
+                        []
+                });
+
+
+
+            // ==========================================
+            // RESOLVE ROUND
+            // ==========================================
+
+            const result =
+                resolveRound(
+                    combatRuntime
+                );
+
+            if (
+                !result
+            ) {
+                break;
+            }
+
+
+
+            // ==========================================
+            // APPLY ROUND RESULT
+            // ==========================================
+
+            combatRuntime =
+                result
+                    .combatRuntime;
+
+            roundRuntime.damageEvents =
+                result.damageEvents;
+
+            roundRuntime.overflowEvents =
+                result.overflowEvents;
+
+            roundRuntime.attackerDestroyedUnits =
+                result
+                    .roundRuntime
+                    .attackerDestroyedUnits;
+
+            roundRuntime.defenderDestroyedUnits =
+                result
+                    .roundRuntime
+                    .defenderDestroyedUnits;
+
+
+
+            // ==========================================
+            // STORE ROUND
+            // ==========================================
+
+            combatRuntime.rounds
+                .push(
+                    roundRuntime
+                );
+
+
+
+            // ==========================================
+            // SINGLE SOURCE OF TRUTH
+            // ==========================================
 
             const attackerAlive =
-                combatRuntime.attackerFleet.units.some(
-                    (unit) => unit.remainingUnits > 0
+                (
+                    combatRuntime
+                        ?.attackerFleet
+                        ?.units || []
+                ).some(
+
+                    (unit) =>
+
+                        unit &&
+                        unit.remainingHp > 0
                 );
 
             const defenderAlive =
-                combatRuntime.defenderFleet.units.some(
-                    (unit) => unit.remainingUnits > 0
+                (
+                    combatRuntime
+                        ?.defenderFleet
+                        ?.units || []
+                ).some(
+
+                    (unit) =>
+
+                        unit &&
+                        unit.remainingHp > 0
                 );
 
-            combatRuntime.attackerDefeated = !attackerAlive;
-            combatRuntime.defenderDefeated = !defenderAlive;
 
-            if (!attackerAlive || !defenderAlive) {
-                combatRuntime.combatFinished = true;
+
+            // ==========================================
+            // COMBAT STATE
+            // ==========================================
+
+            combatRuntime.attackerDefeated =
+                !attackerAlive;
+
+            combatRuntime.defenderDefeated =
+                !defenderAlive;
+
+
+
+            // ==========================================
+            // END CONDITIONS
+            // ==========================================
+
+            if (
+                !attackerAlive ||
+                !defenderAlive
+            ) {
+
+                combatRuntime
+                    .combatFinished =
+                    true;
             }
+
+
+
+            // ==========================================
+            // NEXT ROUND
+            // ==========================================
+
+            combatRuntime.currentRound += 1;
+        }
+
+
+
+        // ==========================================
+        // MAX ROUND SAFETY
+        // ==========================================
+
+        if (
+            combatRuntime.currentRound >=
+            this.maxRounds
+        ) {
+
+            combatRuntime.combatFinished =
+                true;
         }
 
         return combatRuntime;
     }
 }
 
-module.exports = CombatResolver;
+export default
+    CombatResolver;

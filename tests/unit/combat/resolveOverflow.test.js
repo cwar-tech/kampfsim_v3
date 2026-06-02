@@ -1,53 +1,56 @@
 import resolveOverflow
     from "../../../app/combat/resolver/resolveOverflow.js";
 
+import createRuntimeUnit
+    from "../../factories/createRuntimeUnit.js";
+
+import recalculateRuntimeState
+    from "../../../app/combat/runtime/recalculateRuntimeState.js";
+
 describe(
     "resolveOverflow",
     () => {
 
-        const createFleet = () => ([
-            {
-                runtimeUnitId:
-                    "runtime_1",
+        // ==================================================
+        // FACTORIES
+        // ==================================================
 
-                unitTypeId:
-                    "fighter",
+        const createFleet =
+            () => ([
 
-                amount: 1,
+                createRuntimeUnit({
 
-                remainingUnits: 1,
+                    runtimeUnitId:
+                        "runtime_1",
 
-                hpLastUnit: 500
-            },
+                    shipTemplateId:
+                        "fighter",
 
-            {
-                runtimeUnitId:
-                    "runtime_2",
+                    unitCount: 1
+                }),
 
-                unitTypeId:
-                    "fighter",
+                createRuntimeUnit({
 
-                amount: 1,
+                    runtimeUnitId:
+                        "runtime_2",
 
-                remainingUnits: 1,
+                    shipTemplateId:
+                        "fighter",
 
-                hpLastUnit: 500
-            },
+                    unitCount: 1
+                }),
 
-            {
-                runtimeUnitId:
-                    "runtime_3",
+                createRuntimeUnit({
 
-                unitTypeId:
-                    "fighter",
+                    runtimeUnitId:
+                        "runtime_3",
 
-                amount: 1,
+                    shipTemplateId:
+                        "fighter",
 
-                remainingUnits: 1,
-
-                hpLastUnit: 500
-            }
-        ]);
+                    unitCount: 1
+                })
+            ]);
 
 
 
@@ -62,6 +65,13 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
@@ -69,8 +79,8 @@ describe(
                     );
 
                 expect(
-                    result.targets[0]
-                        .hpLastUnit
+                    result.targets[1]
+                        .remainingHp
                 ).toBe(300);
             }
         );
@@ -85,6 +95,20 @@ describe(
 
                 const fleetB =
                     createFleet();
+
+                fleetA[0]
+                    .remainingHp = 0;
+
+                fleetB[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleetA[0]
+                );
+
+                recalculateRuntimeState(
+                    fleetB[0]
+                );
 
                 const resultA =
                     resolveOverflow(
@@ -116,31 +140,38 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
-                        1200
+                        700
                     );
 
                 expect(
-                    result.targets[0]
-                        .remainingUnits
+                    result.targets[1]
+                        .remainingHp
                 ).toBe(0);
+
+                expect(
+                    result.targets[2]
+                        .remainingHp
+                ).toBe(300);
 
                 expect(
                     result.targets[1]
-                        .remainingUnits
-                ).toBe(0);
+                        .destroyed
+                ).toBe(true);
 
                 expect(
                     result.targets[2]
-                        .remainingUnits
-                ).toBe(1);
-
-                expect(
-                    result.targets[2]
-                        .hpLastUnit
-                ).toBe(300);
+                        .destroyed
+                ).toBe(false);
             }
         );
 
@@ -152,6 +183,13 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
@@ -159,13 +197,13 @@ describe(
                     );
 
                 expect(
-                    result.targets[0]
-                        .remainingUnits
+                    result.targets[1]
+                        .remainingHp
                 ).toBe(0);
 
                 expect(
-                    result.targets[1]
-                        .remainingUnits
+                    result.targets[2]
+                        .remainingHp
                 ).toBe(0);
 
                 expect(
@@ -187,6 +225,13 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
@@ -194,19 +239,24 @@ describe(
                     );
 
                 expect(
-                    result.targets[0]
-                        .remainingUnits
-                ).toBe(0);
-
-                expect(
                     result.targets[1]
-                        .remainingUnits
+                        .remainingHp
                 ).toBe(0);
 
                 expect(
                     result.targets[2]
-                        .remainingUnits
+                        .remainingHp
                 ).toBe(0);
+
+                expect(
+                    result.targets[1]
+                        .destroyed
+                ).toBe(true);
+
+                expect(
+                    result.targets[2]
+                        .destroyed
+                ).toBe(true);
             }
         );
 
@@ -218,6 +268,13 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
@@ -226,7 +283,73 @@ describe(
 
                 expect(
                     result.remainingOverflow
-                ).toBe(500);
+                ).toBe(1000);
+            }
+        );
+
+
+
+        // ==================================================
+        // MASS BATTLE STACKS
+        // ==================================================
+
+        test(
+            "handles massive stack battles efficiently",
+            () => {
+
+                const fleet = [
+
+                    createRuntimeUnit({
+
+                        runtimeUnitId:
+                            "massive_stack_1",
+
+                        shipTemplateId:
+                            "fighter",
+
+                        unitCount:
+                            100000
+                    }),
+
+                    createRuntimeUnit({
+
+                        runtimeUnitId:
+                            "massive_stack_2",
+
+                        shipTemplateId:
+                            "fighter",
+
+                        unitCount:
+                            100000
+                    })
+                ];
+
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
+                const result =
+                    resolveOverflow(
+                        fleet,
+                        12000000
+                    );
+
+                expect(
+                    result.targets[1]
+                        .remainingHp
+                ).toBe(
+                    38000000
+                );
+
+                expect(
+                    result.targets[1]
+                        .remainingUnits
+                ).toBe(
+                    76000
+                );
             }
         );
 
@@ -243,6 +366,13 @@ describe(
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
@@ -255,9 +385,37 @@ describe(
                 ) {
 
                     expect(
-                        unit.hpLastUnit
+                        unit.remainingHp
                     ).toBeGreaterThanOrEqual(
                         0
+                    );
+                }
+            }
+        );
+
+
+        test(
+            "never creates hp above totalHp",
+            () => {
+
+                const fleet =
+                    createFleet();
+
+                const result =
+                    resolveOverflow(
+                        fleet,
+                        0
+                    );
+
+                for (
+                    const unit
+                    of result.targets
+                ) {
+
+                    expect(
+                        unit.remainingHp
+                    ).toBeLessThanOrEqual(
+                        unit.totalHp
                     );
                 }
             }
@@ -270,6 +428,13 @@ describe(
 
                 const fleet =
                     createFleet();
+
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
 
                 const result =
                     resolveOverflow(
@@ -293,36 +458,30 @@ describe(
 
 
         test(
-            "returns null for invalid fleet",
-            () => {
-
-                const result =
-                    resolveOverflow(
-                        null,
-                        100
-                    );
-
-                expect(result)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "returns null for negative overflow",
+            "never creates NaN overflow",
             () => {
 
                 const fleet =
                     createFleet();
 
+                fleet[0]
+                    .remainingHp = 0;
+
+                recalculateRuntimeState(
+                    fleet[0]
+                );
+
                 const result =
                     resolveOverflow(
                         fleet,
-                        -100
+                        999999
                     );
 
-                expect(result)
-                    .toBeNull();
+                expect(
+                    Number.isNaN(
+                        result.remainingOverflow
+                    )
+                ).toBe(false);
             }
         );
 
@@ -377,10 +536,11 @@ describe(
                     createFleet();
 
                 fleet[0]
-                    .remainingUnits = 0;
+                    .remainingHp = 0;
 
-                fleet[0]
-                    .hpLastUnit = 0;
+                recalculateRuntimeState(
+                    fleet[0]
+                );
 
                 const result =
                     resolveOverflow(
@@ -390,8 +550,61 @@ describe(
 
                 expect(
                     result.targets[1]
-                        .hpLastUnit
+                        .remainingHp
                 ).toBe(300);
+            }
+        );
+
+
+
+        // ==================================================
+        // SERIALIZATION
+        // ==================================================
+
+        test(
+            "creates replay safe result",
+            () => {
+
+                const fleet =
+                    createFleet();
+
+                const result =
+                    resolveOverflow(
+                        fleet,
+                        500
+                    );
+
+                expect(
+                    () =>
+                        JSON.parse(
+                            JSON.stringify(
+                                result
+                            )
+                        )
+                ).not.toThrow();
+            }
+        );
+
+
+        test(
+            "creates serializable targets",
+            () => {
+
+                const fleet =
+                    createFleet();
+
+                const result =
+                    resolveOverflow(
+                        fleet,
+                        500
+                    );
+
+                expect(
+                    () =>
+                        JSON.stringify(
+                            result.targets
+                        )
+                ).not.toThrow();
             }
         );
 

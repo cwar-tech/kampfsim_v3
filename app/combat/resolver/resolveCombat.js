@@ -51,12 +51,16 @@ function resolveCombat(
     let latestDamageEvents =
         [];
 
+
+
     // ==========================================
     // MAIN COMBAT LOOP
     // ==========================================
 
     while (
+
         !runtime.combatFinished &&
+
         runtime.currentRound <=
         runtime.maxRounds
     ) {
@@ -100,6 +104,8 @@ function resolveCombat(
         latestDamageEvents =
             roundResult.damageEvents;
 
+
+
         // ==========================================
         // WIN CONDITIONS
         // ==========================================
@@ -111,8 +117,13 @@ function resolveCombat(
                     ?.units || []
             ).some(
                 (unit) =>
+
                     unit &&
-                    unit.remainingUnits > 0
+
+                    typeof unit.remainingHp ===
+                    "number" &&
+
+                    unit.remainingHp > 0
             );
 
         const defenderAlive =
@@ -122,9 +133,20 @@ function resolveCombat(
                     ?.units || []
             ).some(
                 (unit) =>
+
                     unit &&
-                    unit.remainingUnits > 0
+
+                    typeof unit.remainingHp ===
+                    "number" &&
+
+                    unit.remainingHp > 0
             );
+
+
+
+        // ==========================================
+        // DEFEAT STATES
+        // ==========================================
 
         if (
             !attackerAlive
@@ -148,6 +170,12 @@ function resolveCombat(
                 true;
         }
 
+
+
+        // ==========================================
+        // MAX ROUND LIMIT
+        // ==========================================
+
         if (
             runtime.currentRound >=
             runtime.maxRounds
@@ -158,13 +186,17 @@ function resolveCombat(
         }
 
 
+
+        // ==========================================
+        // NEXT ROUND
+        // ==========================================
+
         if (
             !runtime.combatFinished
         ) {
 
             runtime.currentRound += 1;
         }
-
     }
 
     return {

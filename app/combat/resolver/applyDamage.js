@@ -1,3 +1,6 @@
+import recalculateRuntimeState
+    from "../runtime/recalculateRuntimeState.js";
+
 function applyDamage(
     target,
     damage
@@ -17,102 +20,73 @@ function applyDamage(
         return null;
     }
 
+    if (
+        typeof target.remainingHp !==
+        "number"
+    ) {
+        return null;
+    }
+
     const resultTarget =
         JSON.parse(
             JSON.stringify(target)
         );
 
-    if (
-        damage === 0
-    ) {
-        return {
+    const oldRemainingHp =
+        resultTarget.remainingHp;
 
-            target:
-                resultTarget,
+    // ==========================================
+    // APPLY DAMAGE
+    // ==========================================
 
-            overflowDamage: 0
-        };
-    }
-
-    if (
-        typeof resultTarget.remainingUnits !==
-        "number"
-    ) {
-        return null;
-    }
-
-    if (
-        typeof resultTarget.hpLastUnit !==
-        "number"
-    ) {
-        return null;
-    }
-
-    const unitHp =
-        resultTarget.hpLastUnit;
-
-    let remainingDamage =
+    resultTarget.remainingHp -=
         damage;
 
+    resultTarget.remainingHp =
+        Math.max(
+            0,
+            resultTarget.remainingHp
+        );
+
     // ==========================================
-    // DAMAGE LOOP
+    // RUNTIME STATE
     // ==========================================
 
-    while (
-        remainingDamage > 0 &&
-        resultTarget.remainingUnits > 0
-    ) {
+    recalculateRuntimeState(
+        resultTarget
+    );
 
-        // ======================================
-        // PARTIAL DAMAGE
-        // ======================================
+    // ==========================================
+    // REAL APPLIED DAMAGE
+    // ==========================================
 
-        if (
-            remainingDamage <
-            resultTarget.hpLastUnit
-        ) {
+    const appliedDamage =
+        oldRemainingHp -
+        resultTarget.remainingHp;
 
-            resultTarget.hpLastUnit -=
-                remainingDamage;
+    // ==========================================
+    // OVERFLOW
+    // ==========================================
 
-            remainingDamage = 0;
+    const overflowDamage =
+        Math.max(
+            0,
+            damage -
+            oldRemainingHp
+        );
 
-            break;
-        }
-
-        // ======================================
-        // UNIT DESTROYED
-        // ======================================
-
-        remainingDamage -=
-            resultTarget.hpLastUnit;
-
-        resultTarget.remainingUnits -= 1;
-
-        // ======================================
-        // NEXT UNIT
-        // ======================================
-
-        if (
-            resultTarget.remainingUnits > 0
-        ) {
-
-            resultTarget.hpLastUnit =
-                unitHp;
-        }
-        else {
-
-            resultTarget.hpLastUnit = 0;
-        }
-    }
+    // ==========================================
+    // RESULT
+    // ==========================================
 
     return {
 
         target:
             resultTarget,
 
-        overflowDamage:
-            remainingDamage
+        appliedDamage,
+
+        overflowDamage
     };
 }
 

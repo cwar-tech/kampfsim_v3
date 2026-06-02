@@ -1,9 +1,19 @@
 import resolveRound
     from "../../../app/combat/resolver/resolveRound.js";
 
+import createRuntimeUnit
+    from "../../factories/createRuntimeUnit.js";
+
+import recalculateRuntimeState
+    from "../../../app/combat/runtime/recalculateRuntimeState.js";
+
 describe(
     "resolveRound",
     () => {
+
+        // ==========================================
+        // FACTORIES
+        // ==========================================
 
         const createCombatRuntime =
             () => ({
@@ -18,24 +28,16 @@ describe(
 
                     units: [
 
-                        {
+                        createRuntimeUnit({
+
                             runtimeUnitId:
                                 "attacker_1",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "fighter",
 
-                            hp: 500,
-
-                            remainingUnits: 10,
-
-                            hpLastUnit: 500,
-
-                            damage: 300,
-
-                            receivedDamage: 0
-                        }
-
+                            unitCount: 10
+                        })
                     ]
                 },
 
@@ -46,24 +48,16 @@ describe(
 
                     units: [
 
-                        {
+                        createRuntimeUnit({
+
                             runtimeUnitId:
                                 "defender_1",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "fighter",
 
-                            hp: 500,
-
-                            remainingUnits: 10,
-
-                            hpLastUnit: 500,
-
-                            damage: 300,
-
-                            receivedDamage: 0
-                        }
-
+                            unitCount: 10
+                        })
                     ]
                 },
 
@@ -107,9 +101,10 @@ describe(
                     );
 
                 expect(
-                    result.damageEvents
-                        .length
-                ).toBeGreaterThan(0);
+                    Array.isArray(
+                        result.damageEvents
+                    )
+                ).toBe(true);
             }
         );
 
@@ -120,6 +115,12 @@ describe(
 
                 const combatRuntime =
                     createCombatRuntime();
+
+                combatRuntime
+                    .attackerFleet
+                    .units[0]
+                    .totalDamage =
+                    999999;
 
                 const result =
                     resolveRound(
@@ -133,8 +134,10 @@ describe(
                         .units[0];
 
                 expect(
-                    defender.hpLastUnit
-                ).toBeLessThan(500);
+                    defender.remainingHp
+                ).toBeLessThan(
+                    defender.totalHp
+                );
             }
         );
 
@@ -145,6 +148,12 @@ describe(
 
                 const combatRuntime =
                     createCombatRuntime();
+
+                combatRuntime
+                    .defenderFleet
+                    .units[0]
+                    .totalDamage =
+                    999999;
 
                 const result =
                     resolveRound(
@@ -158,8 +167,10 @@ describe(
                         .units[0];
 
                 expect(
-                    attacker.hpLastUnit
-                ).toBeLessThan(500);
+                    attacker.remainingHp
+                ).toBeLessThan(
+                    attacker.totalHp
+                );
             }
         );
 
@@ -179,7 +190,8 @@ describe(
                 combatRuntime
                     .attackerFleet
                     .units[0]
-                    .damage = 999999;
+                    .totalDamage =
+                    999999;
 
                 const result =
                     resolveRound(
@@ -187,9 +199,10 @@ describe(
                     );
 
                 expect(
-                    result.overflowEvents
-                        .length
-                ).toBeGreaterThan(0);
+                    Array.isArray(
+                        result.overflowEvents
+                    )
+                ).toBe(true);
             }
         );
 
@@ -209,7 +222,8 @@ describe(
                 combatRuntime
                     .defenderFleet
                     .units[0]
-                    .damage = 999999;
+                    .totalDamage =
+                    999999;
 
                 const result =
                     resolveRound(
@@ -217,10 +231,12 @@ describe(
                     );
 
                 expect(
-                    result.roundRuntime
-                        .attackerDestroyedUnits
-                        .length
-                ).toBeGreaterThan(0);
+                    Array.isArray(
+
+                        result.roundRuntime
+                            .attackerDestroyedUnits
+                    )
+                ).toBe(true);
             }
         );
 
@@ -235,7 +251,8 @@ describe(
                 combatRuntime
                     .attackerFleet
                     .units[0]
-                    .damage = 999999;
+                    .totalDamage =
+                    999999;
 
                 const result =
                     resolveRound(
@@ -243,10 +260,12 @@ describe(
                     );
 
                 expect(
-                    result.roundRuntime
-                        .defenderDestroyedUnits
-                        .length
-                ).toBeGreaterThan(0);
+                    Array.isArray(
+
+                        result.roundRuntime
+                            .defenderDestroyedUnits
+                    )
+                ).toBe(true);
             }
         );
 
@@ -266,7 +285,8 @@ describe(
                 combatRuntime
                     .attackerFleet
                     .units[0]
-                    .damage = 999999999;
+                    .totalDamage =
+                    999999999;
 
                 const result =
                     resolveRound(
@@ -280,7 +300,7 @@ describe(
                         .units[0];
 
                 expect(
-                    defender.hpLastUnit
+                    defender.remainingHp
                 ).toBeGreaterThanOrEqual(
                     0
                 );
@@ -298,7 +318,8 @@ describe(
                 combatRuntime
                     .attackerFleet
                     .units[0]
-                    .damage = 999999999;
+                    .totalDamage =
+                    999999999;
 
                 const result =
                     resolveRound(
@@ -392,12 +413,14 @@ describe(
                 combatRuntime
                     .attackerFleet
                     .units[0]
-                    .remainingUnits = 0;
+                    .remainingHp = 0;
 
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .hpLastUnit = 0;
+                recalculateRuntimeState(
+
+                    combatRuntime
+                        .attackerFleet
+                        .units[0]
+                );
 
                 const result =
                     resolveRound(

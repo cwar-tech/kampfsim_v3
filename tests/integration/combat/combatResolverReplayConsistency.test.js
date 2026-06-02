@@ -1,6 +1,9 @@
 import resolveCombat
     from "../../../app/combat/resolver/resolveCombat.js";
 
+import createRuntimeUnit
+    from "../../factories/createRuntimeUnit.js";
+
 describe(
     "combat resolver replay consistency",
     () => {
@@ -28,42 +31,27 @@ describe(
 
                     units: [
 
-                        {
+                        createRuntimeUnit({
+
                             runtimeUnitId:
                                 "attacker_1",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "fighter",
 
-                            hp: 500,
+                            unitCount: 15
+                        }),
 
-                            remainingUnits: 15,
+                        createRuntimeUnit({
 
-                            hpLastUnit: 500,
-
-                            damage: 300,
-
-                            receivedDamage: 0
-                        },
-
-                        {
                             runtimeUnitId:
                                 "attacker_2",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "destroyer",
 
-                            hp: 2500,
-
-                            remainingUnits: 3,
-
-                            hpLastUnit: 2500,
-
-                            damage: 1500,
-
-                            receivedDamage: 0
-                        }
-
+                            unitCount: 3
+                        })
                     ]
                 },
 
@@ -74,42 +62,27 @@ describe(
 
                     units: [
 
-                        {
+                        createRuntimeUnit({
+
                             runtimeUnitId:
                                 "defender_1",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "fighter",
 
-                            hp: 500,
+                            unitCount: 15
+                        }),
 
-                            remainingUnits: 15,
+                        createRuntimeUnit({
 
-                            hpLastUnit: 500,
-
-                            damage: 300,
-
-                            receivedDamage: 0
-                        },
-
-                        {
                             runtimeUnitId:
                                 "defender_2",
 
-                            unitTypeId:
+                            shipTemplateId:
                                 "destroyer",
 
-                            hp: 2500,
-
-                            remainingUnits: 3,
-
-                            hpLastUnit: 2500,
-
-                            damage: 1500,
-
-                            receivedDamage: 0
-                        }
-
+                            unitCount: 3
+                        })
                     ]
                 }
             });
@@ -250,7 +223,8 @@ describe(
                 runtime
                     .attackerFleet
                     .units[1]
-                    .damage = 999999999;
+                    .totalDamage =
+                    999999999;
 
                 const result =
                     resolveCombat(
@@ -274,7 +248,7 @@ describe(
                 ) {
 
                     expect(
-                        unit.hpLastUnit
+                        unit.remainingHp
                     ).toBeGreaterThanOrEqual(
                         0
                     );

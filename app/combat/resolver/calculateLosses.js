@@ -8,7 +8,7 @@ function calculateLosses(
         typeof combatRuntime !==
         "object"
     ) {
-        return;
+        return null;
     }
 
     if (
@@ -16,7 +16,7 @@ function calculateLosses(
         typeof roundRuntime !==
         "object"
     ) {
-        return;
+        return null;
     }
 
     const attackerUnits =
@@ -61,6 +61,12 @@ function calculateLosses(
                 .defenderDestroyedUnits
             : [];
 
+
+
+    // ==========================================
+    // ATTACKER LOSSES
+    // ==========================================
+
     for (
         const unit
         of attackerUnits
@@ -75,14 +81,24 @@ function calculateLosses(
         }
 
         if (
-            typeof unit.remainingUnits !==
+            typeof unit.remainingHp !==
             "number"
         ) {
             continue;
         }
 
         if (
-            unit.remainingUnits > 0
+            unit.remainingHp > 0
+        ) {
+            continue;
+        }
+
+        if (
+            roundRuntime
+                .attackerDestroyedUnits
+                .includes(
+                    unit.runtimeUnitId
+                )
         ) {
             continue;
         }
@@ -93,6 +109,12 @@ function calculateLosses(
                 unit.runtimeUnitId
             );
     }
+
+
+
+    // ==========================================
+    // DEFENDER LOSSES
+    // ==========================================
 
     for (
         const unit
@@ -108,14 +130,24 @@ function calculateLosses(
         }
 
         if (
-            typeof unit.remainingUnits !==
+            typeof unit.remainingHp !==
             "number"
         ) {
             continue;
         }
 
         if (
-            unit.remainingUnits > 0
+            unit.remainingHp > 0
+        ) {
+            continue;
+        }
+
+        if (
+            roundRuntime
+                .defenderDestroyedUnits
+                .includes(
+                    unit.runtimeUnitId
+                )
         ) {
             continue;
         }
@@ -126,6 +158,8 @@ function calculateLosses(
                 unit.runtimeUnitId
             );
     }
+
+    return roundRuntime;
 }
 
 export default

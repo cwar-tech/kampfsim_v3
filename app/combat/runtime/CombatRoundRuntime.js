@@ -1,35 +1,105 @@
 class CombatRoundRuntime {
+
     constructor({
-        roundNumber,
 
-        damageEvents,
+        roundNumber = 1,
 
-        overflowEvents,
+        damageEvents = [],
 
-        attackerDamageDealt,
-        defenderDamageDealt,
+        overflowEvents = [],
 
-        attackerDamageReceived,
-        defenderDamageReceived,
+        attackerDamageDealt = 0,
+        defenderDamageDealt = 0,
 
-        attackerDestroyedUnits,
-        defenderDestroyedUnits
-    }) {
-        this.roundNumber = roundNumber;
+        attackerDamageReceived = 0,
+        defenderDamageReceived = 0,
 
-        this.damageEvents = damageEvents;
+        attackerDestroyedUnits = [],
+        defenderDestroyedUnits = []
 
-        this.overflowEvents = overflowEvents;
+    } = {}) {
 
-        this.attackerDamageDealt = attackerDamageDealt;
-        this.defenderDamageDealt = defenderDamageDealt;
+        // ==========================================
+        // ROUND
+        // ==========================================
 
-        this.attackerDamageReceived = attackerDamageReceived;
-        this.defenderDamageReceived = defenderDamageReceived;
+        this.roundNumber =
+            typeof roundNumber ===
+                "number"
+                ? roundNumber
+                : 1;
 
-        this.attackerDestroyedUnits = attackerDestroyedUnits;
-        this.defenderDestroyedUnits = defenderDestroyedUnits;
+
+
+        // ==========================================
+        // EVENTS
+        // ==========================================
+
+        this.damageEvents =
+            Array.isArray(
+                damageEvents
+            )
+                ? damageEvents
+                : [];
+
+        this.overflowEvents =
+            Array.isArray(
+                overflowEvents
+            )
+                ? overflowEvents
+                : [];
+
+
+
+        // ==========================================
+        // DAMAGE STATS
+        // ==========================================
+
+        this.attackerDamageDealt =
+            typeof attackerDamageDealt ===
+                "number"
+                ? attackerDamageDealt
+                : 0;
+
+        this.defenderDamageDealt =
+            typeof defenderDamageDealt ===
+                "number"
+                ? defenderDamageDealt
+                : 0;
+
+        this.attackerDamageReceived =
+            typeof attackerDamageReceived ===
+                "number"
+                ? attackerDamageReceived
+                : 0;
+
+        this.defenderDamageReceived =
+            typeof defenderDamageReceived ===
+                "number"
+                ? defenderDamageReceived
+                : 0;
+
+
+
+        // ==========================================
+        // LOSSES
+        // ==========================================
+
+        this.attackerDestroyedUnits =
+            Array.isArray(
+                attackerDestroyedUnits
+            )
+                ? attackerDestroyedUnits
+                : [];
+
+        this.defenderDestroyedUnits =
+            Array.isArray(
+                defenderDestroyedUnits
+            )
+                ? defenderDestroyedUnits
+                : [];
     }
 }
 
-module.exports = CombatRoundRuntime;
+export default
+    CombatRoundRuntime;

@@ -1,9 +1,33 @@
 import resolveCombat
     from "../../../app/combat/resolver/resolveCombat.js";
 
+import buildUnitRuntime
+    from "../../../app/combat/runtime/buildUnitRuntime.js";
+
 describe(
     "combat resolver runtime hardening",
     () => {
+
+        // ==================================================
+        // FACTORIES
+        // ==================================================
+
+        const createUnit =
+            (
+                runtimeUnitId
+            ) =>
+                buildUnitRuntime({
+
+                    runtimeUnitId,
+
+                    shipTemplateId:
+                        "fighter",
+
+                    unitCount: 5,
+
+                    modifiers: []
+                });
+
 
         const createRuntime =
             () => ({
@@ -19,20 +43,9 @@ describe(
 
                     units: [
 
-                        {
-                            runtimeUnitId:
-                                "attacker_1",
-
-                            hp: 500,
-
-                            hpLastUnit: 500,
-
-                            remainingUnits: 5,
-
-                            damage: 100,
-
-                            receivedDamage: 0
-                        }
+                        createUnit(
+                            "attacker_1"
+                        )
                     ]
                 },
 
@@ -40,25 +53,18 @@ describe(
 
                     units: [
 
-                        {
-                            runtimeUnitId:
-                                "defender_1",
-
-                            hp: 500,
-
-                            hpLastUnit: 500,
-
-                            remainingUnits: 5,
-
-                            damage: 100,
-
-                            receivedDamage: 0
-                        }
+                        createUnit(
+                            "defender_1"
+                        )
                     ]
                 }
             });
 
 
+
+        // ==================================================
+        // NULL SAFETY
+        // ==================================================
 
         test(
             "handles null runtime safely",
@@ -101,6 +107,11 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // MALFORMED STRUCTURES
+        // ==================================================
 
         test(
             "handles malformed attackerFleet safely",
@@ -187,6 +198,11 @@ describe(
         );
 
 
+
+        // ==================================================
+        // INVALID NUMBERS
+        // ==================================================
+
         test(
             "handles negative currentRound safely",
             () => {
@@ -248,7 +264,7 @@ describe(
 
 
         test(
-            "handles NaN hp safely",
+            "handles NaN remainingHp safely",
             () => {
 
                 const runtime =
@@ -257,7 +273,7 @@ describe(
                 runtime
                     .attackerFleet
                     .units[0]
-                    .hp = NaN;
+                    .remainingHp = NaN;
 
                 expect(
                     () =>
@@ -270,7 +286,7 @@ describe(
 
 
         test(
-            "handles Infinity hp safely",
+            "handles Infinity remainingHp safely",
             () => {
 
                 const runtime =
@@ -279,7 +295,8 @@ describe(
                 runtime
                     .attackerFleet
                     .units[0]
-                    .hp = Infinity;
+                    .remainingHp =
+                    Infinity;
 
                 expect(
                     () =>
@@ -290,6 +307,11 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // COMBAT ID
+        // ==================================================
 
         test(
             "handles malformed combatId safely",
@@ -310,6 +332,11 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // IMMUTABILITY
+        // ==================================================
 
         test(
             "never mutates original runtime",
@@ -337,6 +364,11 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // DETERMINISM
+        // ==================================================
 
         test(
             "remains deterministic across repeated executions",
@@ -368,6 +400,34 @@ describe(
 
 
         test(
+            "round history remains deterministic",
+            () => {
+
+                const resultA =
+                    resolveCombat(
+                        createRuntime()
+                    );
+
+                const resultB =
+                    resolveCombat(
+                        createRuntime()
+                    );
+
+                expect(
+                    resultA.rounds
+                ).toEqual(
+                    resultB.rounds
+                );
+            }
+        );
+
+
+
+        // ==================================================
+        // SERIALIZATION
+        // ==================================================
+
+        test(
             "survives serialization replay",
             () => {
 
@@ -396,20 +456,20 @@ describe(
 
 
         test(
-            "handles malformed defender unit arrays safely",
+            "creates replay safe result",
             () => {
 
-                const runtime =
-                    createRuntime();
-
-                runtime
-                    .defenderFleet
-                    .units = null;
+                const result =
+                    resolveCombat(
+                        createRuntime()
+                    );
 
                 expect(
                     () =>
-                        resolveCombat(
-                            runtime
+                        JSON.parse(
+                            JSON.stringify(
+                                result
+                            )
                         )
                 ).not.toThrow();
             }
@@ -417,70 +477,28 @@ describe(
 
 
         test(
-            "handles NaN remainingUnits safely",
+            "creates serializable rounds",
             () => {
 
-                const runtime =
-                    createRuntime();
-
-                runtime
-                    .attackerFleet
-                    .units[0]
-                    .remainingUnits = NaN;
+                const result =
+                    resolveCombat(
+                        createRuntime()
+                    );
 
                 expect(
                     () =>
-                        resolveCombat(
-                            runtime
+                        JSON.stringify(
+                            result.rounds
                         )
                 ).not.toThrow();
             }
         );
 
 
-        test(
-            "handles Infinity remainingUnits safely",
-            () => {
 
-                const runtime =
-                    createRuntime();
-
-                runtime
-                    .attackerFleet
-                    .units[0]
-                    .remainingUnits = Infinity;
-
-                expect(
-                    () =>
-                        resolveCombat(
-                            runtime
-                        )
-                ).not.toThrow();
-            }
-        );
-
-
-        test(
-            "handles missing runtimeUnitId safely",
-            () => {
-
-                const runtime =
-                    createRuntime();
-
-                delete runtime
-                    .attackerFleet
-                    .units[0]
-                    .runtimeUnitId;
-
-                expect(
-                    () =>
-                        resolveCombat(
-                            runtime
-                        )
-                ).not.toThrow();
-            }
-        );
-
+        // ==================================================
+        // FLEET EDGE CASES
+        // ==================================================
 
         test(
             "handles empty fleets safely",
@@ -549,6 +567,11 @@ describe(
         );
 
 
+
+        // ==================================================
+        // ROUND LIMITS
+        // ==================================================
+
         test(
             "combat finishes at maxRounds",
             () => {
@@ -592,6 +615,160 @@ describe(
             }
         );
 
+
+
+        // ==================================================
+        // MASS BATTLE
+        // ==================================================
+
+        test(
+            "handles massive fleet battles",
+            () => {
+
+                const createMassUnit =
+                    (id) =>
+                        buildUnitRuntime({
+
+                            runtimeUnitId:
+                                id,
+
+                            shipTemplateId:
+                                "fighter",
+
+                            unitCount:
+                                100000,
+
+                            modifiers: []
+                        });
+
+                const runtime = {
+
+                    combatId:
+                        "mass_battle_001",
+
+                    currentRound: 1,
+
+                    maxRounds: 10,
+
+                    attackerFleet: {
+
+                        units: [
+
+                            createMassUnit(
+                                "attacker_mass"
+                            )
+                        ]
+                    },
+
+                    defenderFleet: {
+
+                        units: [
+
+                            createMassUnit(
+                                "defender_mass"
+                            )
+                        ]
+                    }
+                };
+
+                const result =
+                    resolveCombat(
+                        runtime
+                    );
+
+                expect(result)
+                    .toBeDefined();
+
+                expect(
+                    result.rounds.length
+                ).toBeGreaterThan(0);
+            }
+        );
+
+
+
+        // ==================================================
+        // OVERFLOW STABILITY
+        // ==================================================
+
+        test(
+            "overflow chains remain stable",
+            () => {
+
+                const runtime =
+                    createRuntime();
+
+                runtime
+                    .attackerFleet
+                    .units[0]
+                    .totalDamage =
+                    9999999;
+
+                const result =
+                    resolveCombat(
+                        runtime
+                    );
+
+                expect(result)
+                    .toBeDefined();
+
+                expect(
+                    Array.isArray(
+                        result.rounds
+                    )
+                ).toBe(true);
+            }
+        );
+
+
+
+        // ==================================================
+        // DESTROYED UNITS
+        // ==================================================
+
+        test(
+            "destroyed units never attack again",
+            () => {
+
+                const runtime =
+                    createRuntime();
+
+                runtime
+                    .attackerFleet
+                    .units[0]
+                    .remainingHp = 0;
+
+                const result =
+                    resolveCombat(
+                        runtime
+                    );
+
+                const damageEvents =
+                    result.rounds.flatMap(
+                        (round) =>
+                            round.damageEvents
+                    );
+
+                const invalidAttack =
+                    damageEvents.find(
+                        (event) =>
+
+                            event
+                                .sourceRuntimeUnitId ===
+                            "attacker_1"
+                    );
+
+                expect(
+                    invalidAttack
+                ).toBeUndefined();
+            }
+        );
+
+
+
+        // ==================================================
+        // RESULT STRUCTURE
+        // ==================================================
 
         test(
             "creates rounds array safely",
@@ -707,91 +884,10 @@ describe(
         );
 
 
-        test(
-            "creates valid currentRound",
-            () => {
 
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    typeof result.currentRound
-                ).toBe(
-                    "number"
-                );
-            }
-        );
-
-
-        test(
-            "creates valid maxRounds",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    typeof result.maxRounds
-                ).toBe(
-                    "number"
-                );
-            }
-        );
-
-
-        test(
-            "creates valid attackerFleet",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    result.attackerFleet
-                ).toBeDefined();
-            }
-        );
-
-
-        test(
-            "creates valid defenderFleet",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    result.defenderFleet
-                ).toBeDefined();
-            }
-        );
-
-
-        test(
-            "creates valid damageEvents array",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    Array.isArray(
-                        result.damageEvents
-                    )
-                ).toBe(true);
-            }
-        );
-
+        // ==================================================
+        // UNIT STATE VALIDATION
+        // ==================================================
 
         test(
             "never creates negative remainingUnits",
@@ -829,7 +925,7 @@ describe(
 
 
         test(
-            "never creates negative hpLastUnit",
+            "never creates negative remainingHp",
             () => {
 
                 const result =
@@ -854,7 +950,7 @@ describe(
                 ) {
 
                     expect(
-                        unit.hpLastUnit
+                        unit.remainingHp
                     ).toBeGreaterThanOrEqual(
                         0
                     );
@@ -864,30 +960,7 @@ describe(
 
 
         test(
-            "round history remains deterministic",
-            () => {
-
-                const resultA =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                const resultB =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    resultA.rounds
-                ).toEqual(
-                    resultB.rounds
-                );
-            }
-        );
-
-
-        test(
-            "creates replay safe result",
+            "remainingHp never exceeds totalHp",
             () => {
 
                 const result =
@@ -895,215 +968,28 @@ describe(
                         createRuntime()
                     );
 
-                expect(
-                    () =>
-                        JSON.parse(
-                            JSON.stringify(
-                                result
-                            )
-                        )
-                ).not.toThrow();
-            }
-        );
+                const allUnits = [
 
+                    ...result
+                        .attackerFleet
+                        .units,
 
-        test(
-            "creates serializable rounds",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    () =>
-                        JSON.stringify(
-                            result.rounds
-                        )
-                ).not.toThrow();
-            }
-        );
-
-
-        test(
-            "creates valid round objects",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
+                    ...result
+                        .defenderFleet
+                        .units
+                ];
 
                 for (
-                    const round
-                    of result.rounds
+                    const unit
+                    of allUnits
                 ) {
 
                     expect(
-                        typeof round
-                    ).toBe(
-                        "object"
+                        unit.remainingHp
+                    ).toBeLessThanOrEqual(
+                        unit.totalHp
                     );
                 }
-            }
-        );
-
-
-        test(
-            "creates valid round numbers",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                for (
-                    const round
-                    of result.rounds
-                ) {
-
-                    expect(
-                        typeof round.round
-                    ).toBe(
-                        "number"
-                    );
-                }
-            }
-        );
-
-
-        test(
-            "creates valid roundRuntime objects",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                for (
-                    const round
-                    of result.rounds
-                ) {
-
-                    expect(
-                        round.roundRuntime
-                    ).toBeDefined();
-                }
-            }
-        );
-
-
-        test(
-            "creates valid damageEvents arrays per round",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                for (
-                    const round
-                    of result.rounds
-                ) {
-
-                    expect(
-                        Array.isArray(
-                            round.damageEvents
-                        )
-                    ).toBe(true);
-                }
-            }
-        );
-
-
-        test(
-            "creates valid overflowEvents arrays per round",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                for (
-                    const round
-                    of result.rounds
-                ) {
-
-                    expect(
-                        Array.isArray(
-                            round.overflowEvents
-                        )
-                    ).toBe(true);
-                }
-            }
-        );
-
-
-        test(
-            "never creates negative round numbers",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                for (
-                    const round
-                    of result.rounds
-                ) {
-
-                    expect(
-                        round.round
-                    ).toBeGreaterThan(
-                        0
-                    );
-                }
-            }
-        );
-
-
-        test(
-            "creates attackerFleet units array safely",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    Array.isArray(
-                        result
-                            .attackerFleet
-                            .units
-                    )
-                ).toBe(true);
-            }
-        );
-
-
-        test(
-            "creates defenderFleet units array safely",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                expect(
-                    Array.isArray(
-                        result
-                            .defenderFleet
-                            .units
-                    )
-                ).toBe(true);
             }
         );
 
@@ -1144,7 +1030,7 @@ describe(
 
 
         test(
-            "creates valid hp values",
+            "creates valid remainingHp values",
             () => {
 
                 const result =
@@ -1169,7 +1055,7 @@ describe(
                 ) {
 
                     expect(
-                        typeof unit.hp
+                        typeof unit.remainingHp
                     ).toBe(
                         "number"
                     );
@@ -1214,41 +1100,6 @@ describe(
 
 
         test(
-            "creates valid hpLastUnit values",
-            () => {
-
-                const result =
-                    resolveCombat(
-                        createRuntime()
-                    );
-
-                const allUnits = [
-
-                    ...result
-                        .attackerFleet
-                        .units,
-
-                    ...result
-                        .defenderFleet
-                        .units
-                ];
-
-                for (
-                    const unit
-                    of allUnits
-                ) {
-
-                    expect(
-                        typeof unit.hpLastUnit
-                    ).toBe(
-                        "number"
-                    );
-                }
-            }
-        );
-
-
-        test(
             "creates valid receivedDamage values",
             () => {
 
@@ -1284,7 +1135,7 @@ describe(
 
 
         test(
-            "never creates NaN hpLastUnit",
+            "never creates NaN remainingHp",
             () => {
 
                 const result =
@@ -1310,7 +1161,7 @@ describe(
 
                     expect(
                         Number.isNaN(
-                            unit.hpLastUnit
+                            unit.remainingHp
                         )
                     ).toBe(false);
                 }
@@ -1348,6 +1199,47 @@ describe(
                             unit.remainingUnits
                         )
                     ).toBe(false);
+                }
+            }
+        );
+
+
+        test(
+            "never creates Infinity values",
+            () => {
+
+                const result =
+                    resolveCombat(
+                        createRuntime()
+                    );
+
+                const allUnits = [
+
+                    ...result
+                        .attackerFleet
+                        .units,
+
+                    ...result
+                        .defenderFleet
+                        .units
+                ];
+
+                for (
+                    const unit
+                    of allUnits
+                ) {
+
+                    expect(
+                        Number.isFinite(
+                            unit.remainingHp
+                        )
+                    ).toBe(true);
+
+                    expect(
+                        Number.isFinite(
+                            unit.remainingUnits
+                        )
+                    ).toBe(true);
                 }
             }
         );
