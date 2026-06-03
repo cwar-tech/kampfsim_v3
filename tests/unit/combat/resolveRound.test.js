@@ -34,9 +34,19 @@ describe(
                                 "attacker_1",
 
                             shipTemplateId:
-                                "fighter",
+                                "fighter_mk1",
 
-                            unitCount: 10
+                            unitCount: 10,
+
+                            hp: 500,
+
+                            damage: 100,
+
+                            armorMultiplier:
+                                1,
+
+                            penetrationMultiplier:
+                                1
                         })
                     ]
                 },
@@ -54,9 +64,19 @@ describe(
                                 "defender_1",
 
                             shipTemplateId:
-                                "fighter",
+                                "fighter_mk1",
 
-                            unitCount: 10
+                            unitCount: 10,
+
+                            hp: 500,
+
+                            damage: 100,
+
+                            armorMultiplier:
+                                1,
+
+                            penetrationMultiplier:
+                                1
                         })
                     ]
                 },
@@ -101,10 +121,9 @@ describe(
                     );
 
                 expect(
-                    Array.isArray(
-                        result.damageEvents
-                    )
-                ).toBe(true);
+                    result.damageEvents
+                        .length
+                ).toBeGreaterThan(0);
             }
         );
 
@@ -116,12 +135,6 @@ describe(
                 const combatRuntime =
                     createCombatRuntime();
 
-                combatRuntime
-                    .attackerFleet
-                    .units[0]
-                    .totalDamage =
-                    999999;
-
                 const result =
                     resolveRound(
                         combatRuntime
@@ -132,6 +145,18 @@ describe(
                         .combatRuntime
                         .defenderFleet
                         .units[0];
+
+                const firstDamageEvent =
+                    result.damageEvents[0];
+
+                expect(
+                    firstDamageEvent
+                        .appliedDamage
+                ).toBeGreaterThan(0);
+
+                expect(
+                    defender.receivedDamage
+                ).toBeGreaterThan(0);
 
                 expect(
                     defender.remainingHp
@@ -199,10 +224,11 @@ describe(
                     );
 
                 expect(
-                    Array.isArray(
-                        result.overflowEvents
-                    )
-                ).toBe(true);
+                    result.overflowEvents
+                        .length
+                ).toBeGreaterThanOrEqual(
+                    0
+                );
             }
         );
 

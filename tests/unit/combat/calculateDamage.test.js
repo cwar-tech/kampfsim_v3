@@ -8,7 +8,11 @@ describe(
         const createAttacker =
             ({
                 totalDamage = 3000,
+
+                penetrationMultiplier = 1,
+
                 remainingHp = 5000,
+
                 remainingUnits = 10
             } = {}) => ({
 
@@ -16,6 +20,8 @@ describe(
                     "attacker_1",
 
                 totalDamage,
+
+                penetrationMultiplier,
 
                 remainingHp,
 
@@ -26,15 +32,17 @@ describe(
 
         const createTarget =
             ({
-                armorPerUnit = 50,
+                armorMultiplier = 0.25,
+
                 remainingUnits = 10,
+
                 remainingHp = 5000
             } = {}) => ({
 
                 runtimeUnitId:
                     "target_1",
 
-                armorPerUnit,
+                armorMultiplier,
 
                 remainingUnits,
 
@@ -70,23 +78,23 @@ describe(
                 ).toBe(3000);
 
                 expect(
-                    result.totalArmor
-                ).toBe(500);
+                    result.damageAfterPenetration
+                ).toBe(3000);
 
                 expect(
                     result.finalDamage
-                ).toBe(2500);
+                ).toBe(750);
             }
         );
 
 
 
         // ==================================================
-        // ARMOR
+        // ARMOR MULTIPLIER
         // ==================================================
 
         test(
-            "reduces damage through armor",
+            "armorMultiplier reduces final damage",
             () => {
 
                 const attacker =
@@ -99,11 +107,8 @@ describe(
                 const target =
                     createTarget({
 
-                        armorPerUnit:
-                            100,
-
-                        remainingUnits:
-                            10
+                        armorMultiplier:
+                            0.10
                     });
 
                 const result =
@@ -115,8 +120,57 @@ describe(
                     });
 
                 expect(
+                    result.baseDamage
+                ).toBe(1000);
+
+                expect(
                     result.finalDamage
-                ).toBe(1);
+                ).toBe(100);
+            }
+        );
+
+
+
+        // ==================================================
+        // PENETRATION
+        // ==================================================
+
+        test(
+            "penetration increases damage",
+            () => {
+
+                const attacker =
+                    createAttacker({
+
+                        totalDamage:
+                            1000,
+
+                        penetrationMultiplier:
+                            2
+                    });
+
+                const target =
+                    createTarget({
+
+                        armorMultiplier:
+                            0.50
+                    });
+
+                const result =
+                    calculateDamage({
+
+                        attacker,
+
+                        target
+                    });
+
+                expect(
+                    result.damageAfterPenetration
+                ).toBe(2000);
+
+                expect(
+                    result.finalDamage
+                ).toBe(1000);
             }
         );
 
@@ -140,8 +194,8 @@ describe(
                 const target =
                     createTarget({
 
-                        armorPerUnit:
-                            999999
+                        armorMultiplier:
+                            0
                     });
 
                 const result =
@@ -242,6 +296,9 @@ describe(
                         totalDamage:
                             30000000,
 
+                        penetrationMultiplier:
+                            1.5,
+
                         remainingUnits:
                             100000,
 
@@ -252,8 +309,8 @@ describe(
                 const target =
                     createTarget({
 
-                        armorPerUnit:
-                            50,
+                        armorMultiplier:
+                            0.25,
 
                         remainingUnits:
                             100000,
@@ -273,7 +330,7 @@ describe(
                 expect(
                     result.finalDamage
                 ).toBe(
-                    25000000
+                    11250000
                 );
             }
         );
@@ -298,8 +355,8 @@ describe(
                 const target =
                     createTarget({
 
-                        armorPerUnit:
-                            999999
+                        armorMultiplier:
+                            0
                     });
 
                 const result =

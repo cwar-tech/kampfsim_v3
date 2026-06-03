@@ -1,112 +1,172 @@
-import validateCombatFleetRuntime
-  from "./validateCombatFleetRuntime.js";
-
 function validateCombatRuntime(
-  combatRuntime
+  runtime
 ) {
+
   const errors = [];
 
+
+
+  // ==================================================
+  // REQUIRED ROOT FIELDS
+  // ==================================================
+
   if (
-    !combatRuntime ||
-    typeof combatRuntime !== "object"
+    typeof runtime !== "object" ||
+    runtime == null
   ) {
+
     return {
+
       valid: false,
+
       errors: [
-        {
-          field: "combatRuntime",
-          message:
-            "combatRuntime must be an object"
-        }
+        "runtime missing"
       ]
     };
   }
 
-  if (
-    !combatRuntime.combatId ||
-    typeof combatRuntime.combatId !==
-    "string"
-  ) {
-    errors.push({
-      field: "combatId",
-      message:
-        "combatId must be a non-empty string"
-    });
-  }
+
 
   if (
-    typeof combatRuntime.currentRound !==
-    "number" ||
+
+    typeof runtime.combatId !==
+    "string" ||
+
+    runtime.combatId.trim() === ""
+  ) {
+
+    errors.push(
+      "invalid combatId"
+    );
+  }
+
+
+
+  if (
     !Number.isInteger(
-      combatRuntime.currentRound
-    ) ||
-    combatRuntime.currentRound < 0
-  ) {
-    errors.push({
-      field: "currentRound",
-      message:
-        "currentRound must be a non-negative integer"
-    });
-  }
-
-  if (
-    typeof combatRuntime.combatFinished !==
-    "boolean"
-  ) {
-    errors.push({
-      field: "combatFinished",
-      message:
-        "combatFinished must be a boolean"
-    });
-  }
-
-  if (
-    !Array.isArray(
-      combatRuntime.rounds
+      runtime.currentRound
     )
   ) {
-    errors.push({
-      field: "rounds",
-      message:
-        "rounds must be an array"
-    });
+
+    errors.push(
+      "invalid currentRound"
+    );
   }
 
-  const attackerValidation =
-    validateCombatFleetRuntime(
-      combatRuntime.attackerFleet
-    );
+
 
   if (
-    !attackerValidation.valid
+
+    Number.isInteger(
+      runtime.currentRound
+    ) &&
+
+    runtime.currentRound < 0
   ) {
-    return attackerValidation;
+
+    errors.push(
+      "negative currentRound"
+    );
   }
 
-  const defenderValidation =
-    validateCombatFleetRuntime(
-      combatRuntime.defenderFleet
-    );
+
 
   if (
-    !defenderValidation.valid
+    runtime.attackerFleet == null
   ) {
-    return defenderValidation;
+
+    errors.push(
+      "missing attackerFleet"
+    );
   }
 
-  const runtimeUnitIds =
-    new Set();
+
+
+  if (
+    runtime.defenderFleet == null
+  ) {
+
+    errors.push(
+      "missing defenderFleet"
+    );
+  }
+
+
+
+  if (
+
+    runtime.attackerFleet != null &&
+
+    !Array.isArray(
+      runtime.attackerFleet.units
+    )
+  ) {
+
+    errors.push(
+      "invalid attackerFleet"
+    );
+  }
+
+
+
+  if (
+
+    runtime.defenderFleet != null &&
+
+    !Array.isArray(
+      runtime.defenderFleet.units
+    )
+  ) {
+
+    errors.push(
+      "invalid defenderFleet"
+    );
+  }
+
+
+
+  if (
+
+    runtime.rounds !== undefined &&
+
+    !Array.isArray(
+      runtime.rounds
+    )
+  ) {
+
+    errors.push(
+      "invalid rounds"
+    );
+  }
+
+
+
+  if (
+    errors.length > 0
+  ) {
+
+    return {
+
+      valid: false,
+
+      errors
+    };
+  }
+
+
+
+  // ==================================================
+  // GLOBAL UNIT VALIDATION
+  // ==================================================
 
   const allUnits = [
 
-    ...combatRuntime
-      .attackerFleet
-      .units,
+    ...runtime.attackerFleet.units,
 
-    ...combatRuntime
-      .defenderFleet
-      .units
+    ...runtime.defenderFleet.units
   ];
+
+
 
   for (
     const unit
@@ -114,57 +174,169 @@ function validateCombatRuntime(
   ) {
 
     if (
-      runtimeUnitIds.has(
+      unit.remainingUnits < 0
+    ) {
+
+      errors.push(
+        "negative remaining units"
+      );
+    }
+
+    if (
+      unit.amount !== undefined &&
+      unit.remainingUnits >
+      unit.amount
+    ) {
+
+      errors.push(
+        "remaining units exceed amount"
+      );
+    }
+
+    if (
+
+      unit.hpLastUnit !== undefined &&
+
+      unit.hpLastUnit < 0
+    ) {
+
+      errors.push(
+        "negative hpLastUnit"
+      );
+    }
+
+    if (
+
+      unit.hpLastUnit !== undefined &&
+
+      unit.remainingUnits > 0 &&
+
+      unit.hpLastUnit <= 0
+    ) {
+
+      errors.push(
+        "living units with zero hp"
+      );
+    }
+  }
+
+
+
+  // ==================================================
+  // GLOBAL FLEET VALIDATION
+  // ==================================================
+
+  const fleets = [
+
+    runtime.attackerFleet,
+
+    runtime.defenderFleet
+  ];
+
+
+
+  for (
+    const fleet
+    of fleets
+  ) {
+
+    if (
+      fleet.totalHp < 0
+    ) {
+
+      errors.push(
+        "negative fleet hp"
+      );
+    }
+
+    if (
+
+      fleet.totalUnits === 0 &&
+
+      fleet.totalHp > 0
+    ) {
+
+      errors.push(
+        "destroyed fleet with hp"
+      );
+    }
+  }
+
+
+
+  // ==================================================
+  // DUPLICATE RUNTIME IDS
+  // ==================================================
+
+  const runtimeIds =
+    new Set();
+
+  for (
+    const unit
+    of allUnits
+  ) {
+
+    if (
+
+      unit.runtimeUnitId != null &&
+
+      runtimeIds.has(
         unit.runtimeUnitId
       )
     ) {
-      return {
-        valid: false,
-        errors: [
-          {
-            field:
-              "runtimeUnitId",
 
-            message:
-              `duplicate global runtimeUnitId '${unit.runtimeUnitId}'`
-          }
-        ]
-      };
+      errors.push(
+        "duplicate runtimeUnitId"
+      );
     }
 
-    runtimeUnitIds.add(
+    runtimeIds.add(
       unit.runtimeUnitId
     );
   }
 
-  if (
-    combatRuntime.attackerDefeated &&
-    combatRuntime.defenderDefeated &&
-    !combatRuntime.combatFinished
-  ) {
-    errors.push({
-      field:
-        "combatFinished",
 
-      message:
-        "combat cannot remain unfinished when both fleets are defeated"
-    });
-  }
+
+  // ==================================================
+  // COMBAT STATE VALIDATION
+  // ==================================================
 
   if (
-    combatRuntime.combatFinished &&
-    !combatRuntime.combatResult
-  ) {
-    errors.push({
-      field:
-        "combatResult",
 
-      message:
-        "combatFinished requires combatResult"
-    });
+    runtime.combatFinished &&
+
+    runtime.combatResult == null
+  ) {
+
+    errors.push(
+      "finished combat without result"
+    );
   }
+
+
+
+  if (
+
+    runtime.attackerDefeated &&
+
+    runtime.defenderDefeated &&
+
+    !runtime.combatFinished
+  ) {
+
+    errors.push(
+      "mutual destruction without combat finish"
+    );
+  }
+
+
+
+  // ==================================================
+  // RESULT
+  // ==================================================
 
   return {
+
     valid:
       errors.length === 0,
 

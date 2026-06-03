@@ -11,6 +11,16 @@ function createRuntimeUnit({
 
     unitCount = 10,
 
+    hp = 500,
+
+    damage = 100,
+
+    armorMultiplier = 0.25,
+
+    penetrationMultiplier = 1.0,
+
+    speed = 100,
+
     modifiers = [],
 
     receivedDamage = 0
@@ -24,6 +34,18 @@ function createRuntimeUnit({
             shipTemplateId,
 
             unitCount,
+
+            hpPerUnit:
+                hp,
+
+            dmgPerUnit:
+                damage,
+
+            armorMultiplier,
+
+            penetrationMultiplier,
+
+            speed,
 
             modifiers
         });

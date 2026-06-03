@@ -145,10 +145,24 @@ function resolveCombat(
 
 
         // ==========================================
-        // DEFEAT STATES
+        // COMBAT RESULT STATES
         // ==========================================
 
         if (
+            !attackerAlive &&
+            !defenderAlive
+        ) {
+
+            runtime.attackerDefeated =
+                true;
+
+            runtime.defenderDefeated =
+                true;
+
+            runtime.combatFinished =
+                true;
+        }
+        else if (
             !attackerAlive
         ) {
 
@@ -158,8 +172,7 @@ function resolveCombat(
             runtime.combatFinished =
                 true;
         }
-
-        if (
+        else if (
             !defenderAlive
         ) {
 

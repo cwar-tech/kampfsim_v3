@@ -46,11 +46,9 @@ function calculateDamage({
 
             baseDamage: 0,
 
-            totalArmor: 0,
+            damageAfterPenetration: 0,
 
-            totalPenetration: 0,
-
-            effectiveArmor: 0,
+            armorMultiplier: 0,
 
             finalDamage: 0
         };
@@ -64,11 +62,9 @@ function calculateDamage({
 
             baseDamage: 0,
 
-            totalArmor: 0,
+            damageAfterPenetration: 0,
 
-            totalPenetration: 0,
-
-            effectiveArmor: 0,
+            armorMultiplier: 0,
 
             finalDamage: 0
         };
@@ -89,63 +85,40 @@ function calculateDamage({
 
 
     // ==========================================
-    // TARGET ARMOR
+    // PENETRATION MULTIPLIER
     // ==========================================
 
-    const armorPerUnit =
-        typeof target.armorPerUnit ===
-            "number"
-            ? target.armorPerUnit
-            : 0;
-
-    const targetRemainingUnits =
-        typeof target.remainingUnits ===
-            "number"
-            ? target.remainingUnits
-            : 0;
-
-    const totalArmor =
-        armorPerUnit *
-        targetRemainingUnits;
-
-
-
-    // ==========================================
-    // ATTACKER PENETRATION
-    // ==========================================
-
-    const penetrationPerUnit =
+    const penetrationMultiplier =
         typeof attacker
-            .penetrationPerUnit ===
+            .penetrationMultiplier ===
             "number"
             ? attacker
-                .penetrationPerUnit
-            : 0;
+                .penetrationMultiplier
+            : 1;
 
-    const attackerRemainingUnits =
-        typeof attacker
-            .remainingUnits ===
+
+
+    // ==========================================
+    // DAMAGE AFTER PENETRATION
+    // ==========================================
+
+    const damageAfterPenetration =
+        baseDamage *
+        penetrationMultiplier;
+
+
+
+    // ==========================================
+    // ARMOR MULTIPLIER
+    // ==========================================
+
+    const armorMultiplier =
+        typeof target
+            .armorMultiplier ===
             "number"
-            ? attacker
-                .remainingUnits
-            : 0;
-
-    const totalPenetration =
-        penetrationPerUnit *
-        attackerRemainingUnits;
-
-
-
-    // ==========================================
-    // EFFECTIVE ARMOR
-    // ==========================================
-
-    const effectiveArmor =
-        Math.max(
-            0,
-            totalArmor -
-            totalPenetration
-        );
+            ? target
+                .armorMultiplier
+            : 1;
 
 
 
@@ -154,11 +127,33 @@ function calculateDamage({
     // ==========================================
 
     let finalDamage =
+        damageAfterPenetration *
+        armorMultiplier;
+
+
+
+    // ==========================================
+    // SAFETY
+    // ==========================================
+
+    finalDamage =
         Math.max(
             0,
-            baseDamage -
-            effectiveArmor
+            finalDamage
         );
+
+
+
+    // ==========================================
+    // ROUNDING
+    // ==========================================
+
+    finalDamage =
+        Math.round(
+            finalDamage
+        );
+
+
 
     // ==========================================
     // MINIMUM CHIP DAMAGE
@@ -166,7 +161,7 @@ function calculateDamage({
 
     if (
         baseDamage > 0 &&
-        finalDamage === 0
+        finalDamage < 1
     ) {
 
         finalDamage = 1;
@@ -174,15 +169,17 @@ function calculateDamage({
 
 
 
+    // ==========================================
+    // RESULT
+    // ==========================================
+
     return {
 
         baseDamage,
 
-        totalArmor,
+        damageAfterPenetration,
 
-        totalPenetration,
-
-        effectiveArmor,
+        armorMultiplier,
 
         finalDamage
     };

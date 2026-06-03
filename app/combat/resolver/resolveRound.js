@@ -61,6 +61,31 @@ function resolveRound(
 
 
     // ==========================================
+    // RESET ROUND DAMAGE
+    // ==========================================
+
+    for (
+        const unit
+        of [
+            ...attackerUnits,
+            ...defenderUnits
+        ]
+    ) {
+
+        if (
+            !unit ||
+            typeof unit !==
+            "object"
+        ) {
+            continue;
+        }
+
+        unit.receivedDamage = 0;
+    }
+
+
+
+    // ==========================================
     // ATTACKER TURN
     // ==========================================
 
@@ -131,7 +156,7 @@ function resolveRound(
                 damageResult
                     .finalDamage
             );
-
+        console.log({ finalDamage: damageResult.finalDamage, appliedDamage: result?.appliedDamage, oldHp: target.remainingHp, newHp: result?.target?.remainingHp, armorMultiplier: target.armorMultiplier, penetrationMultiplier: attacker.penetrationMultiplier });
         if (
             !result ||
             !result.target
@@ -154,6 +179,10 @@ function resolveRound(
         recalculateRuntimeState(
             target
         );
+
+        // ==========================================
+        // RECEIVED DAMAGE
+        // ==========================================
 
         target.receivedDamage =
             (
@@ -181,8 +210,17 @@ function resolveRound(
             baseDamage:
                 damageResult.baseDamage,
 
-            totalArmor:
-                damageResult.totalArmor,
+            damageAfterPenetration:
+                damageResult
+                    .damageAfterPenetration,
+
+            armorMultiplier:
+                damageResult
+                    .armorMultiplier,
+
+            finalDamage:
+                damageResult
+                    .finalDamage,
 
             overflowDamage:
                 result.overflowDamage
@@ -219,17 +257,6 @@ function resolveRound(
                     overflowDamage:
                         result.overflowDamage
                 });
-
-                for (
-                    let i = 0;
-                    i < defenderUnits.length;
-                    i++
-                ) {
-
-                    defenderUnits[i] =
-                        overflowResult
-                            .targets[i];
-                }
             }
         }
     }
@@ -332,6 +359,10 @@ function resolveRound(
             target
         );
 
+        // ==========================================
+        // RECEIVED DAMAGE
+        // ==========================================
+
         target.receivedDamage =
             (
                 target.receivedDamage ||
@@ -358,8 +389,17 @@ function resolveRound(
             baseDamage:
                 damageResult.baseDamage,
 
-            totalArmor:
-                damageResult.totalArmor,
+            damageAfterPenetration:
+                damageResult
+                    .damageAfterPenetration,
+
+            armorMultiplier:
+                damageResult
+                    .armorMultiplier,
+
+            finalDamage:
+                damageResult
+                    .finalDamage,
 
             overflowDamage:
                 result.overflowDamage
@@ -396,17 +436,6 @@ function resolveRound(
                     overflowDamage:
                         result.overflowDamage
                 });
-
-                for (
-                    let i = 0;
-                    i < attackerUnits.length;
-                    i++
-                ) {
-
-                    attackerUnits[i] =
-                        overflowResult
-                            .targets[i];
-                }
             }
         }
     }

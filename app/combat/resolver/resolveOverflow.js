@@ -23,10 +23,7 @@ function resolveOverflow(
         return null;
     }
 
-    const targets =
-        JSON.parse(
-            JSON.stringify(fleet)
-        );
+    const targets = fleet;
 
     if (
         overflowDamage === 0

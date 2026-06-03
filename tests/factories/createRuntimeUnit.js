@@ -1,4 +1,3 @@
-
 import buildUnitRuntime
     from "../../app/combat/runtime/buildUnitRuntime.js";
 
@@ -16,7 +15,9 @@ function createRuntimeUnit({
 
     damage = 100,
 
-    armor = 0,
+    armorMultiplier = 1,
+
+    penetrationMultiplier = 1,
 
     speed = 100,
 
@@ -24,6 +25,10 @@ function createRuntimeUnit({
 
     receivedDamage = 0
 } = {}) {
+
+    // ==========================================
+    // BUILD PURE RUNTIME
+    // ==========================================
 
     const runtime =
         buildUnitRuntime({
@@ -34,19 +39,32 @@ function createRuntimeUnit({
 
             unitCount,
 
-            baseStats: {
-
+            hpPerUnit:
                 hp,
+
+            dmgPerUnit:
                 damage,
-                armor,
-                speed
-            },
+
+            armorMultiplier,
+
+            penetrationMultiplier,
+
+            speed,
 
             modifiers
         });
 
+    if (
+        !runtime
+    ) {
+        return null;
+    }
+
+
+
     // ==========================================
     // LEGACY COMPATIBILITY
+    // TODO REMOVE AFTER FULL MIGRATION
     // ==========================================
 
     runtime.hp =
@@ -55,8 +73,30 @@ function createRuntimeUnit({
     runtime.damage =
         runtime.dmgPerUnit;
 
+
+
+    // ==========================================
+    // RUNTIME STATE
+    // ==========================================
+
     runtime.receivedDamage =
         receivedDamage;
+
+
+
+    // ==========================================
+    // FINAL RUNTIME RECALCULATION
+    // ==========================================
+
+    runtime.totalHp =
+        runtime.hpPerUnit *
+        runtime.unitCount;
+
+    runtime.totalDamage =
+        runtime.dmgPerUnit *
+        runtime.remainingUnits;
+
+
 
     return runtime;
 }

@@ -10,7 +10,7 @@ describe(
         // ==================================================
 
         test(
-            "builds runtime correctly from template",
+            "builds runtime correctly",
             () => {
 
                 const runtime =
@@ -20,9 +20,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
+
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            0.25,
+
+                        penetrationMultiplier:
+                            1.5,
+
+                        speed:
+                            120,
 
                         modifiers: []
                     });
@@ -33,18 +48,10 @@ describe(
 
                 expect(
                     runtime.shipTemplateId
-                ).toBe("fighter");
-
-                expect(
-                    runtime.unitTypeId
-                ).toBe("fighter");
+                ).toBe("fighter_mk1");
 
                 expect(
                     runtime.unitCount
-                ).toBe(10);
-
-                expect(
-                    runtime.remainingUnits
                 ).toBe(10);
 
                 expect(
@@ -53,37 +60,47 @@ describe(
 
                 expect(
                     runtime.dmgPerUnit
-                ).toBe(300);
+                ).toBe(100);
 
                 expect(
-                    runtime.armorPerUnit
-                ).toBe(50);
+                    runtime.armorMultiplier
+                ).toBe(0.25);
 
                 expect(
-                    runtime.speedPerUnit
+                    runtime.penetrationMultiplier
+                ).toBe(1.5);
+
+                expect(
+                    runtime.speed
                 ).toBe(120);
-
-                expect(
-                    runtime.penetrationPerUnit
-                ).toBe(20);
 
                 expect(
                     runtime.totalHp
                 ).toBe(5000);
 
                 expect(
+                    runtime.totalDamage
+                ).toBe(1000);
+
+                expect(
                     runtime.remainingHp
                 ).toBe(5000);
 
                 expect(
-                    runtime.totalDamage
-                ).toBe(3000);
+                    runtime.remainingUnits
+                ).toBe(10);
 
                 expect(
                     runtime.destroyed
                 ).toBe(false);
+
+                expect(
+                    runtime.receivedDamage
+                ).toBe(0);
             }
         );
+
+
 
         // ==================================================
         // MASS BATTLE
@@ -100,10 +117,25 @@ describe(
                             "mass_unit",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount:
                             100000,
+
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100,
 
                         modifiers: []
                     });
@@ -117,7 +149,7 @@ describe(
                 expect(
                     runtime.totalDamage
                 ).toBe(
-                    30000000
+                    10000000
                 );
 
                 expect(
@@ -145,11 +177,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100
                     });
 
                 expect(
@@ -172,11 +217,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100
                     });
 
                 expect(
@@ -199,11 +257,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100
                     });
 
                 expect(
@@ -229,11 +300,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100
                     });
 
                 for (
@@ -270,11 +354,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100
                     });
 
                 for (
@@ -302,63 +399,6 @@ describe(
 
 
         // ==================================================
-        // IMMUTABILITY
-        // ==================================================
-
-        test(
-            "damageMultipliers are deeply cloned",
-            () => {
-
-                const runtimeA =
-                    buildUnitRuntime({
-
-                        runtimeUnitId:
-                            "unit_a",
-
-                        shipTemplateId:
-                            "fighter",
-
-                        unitCount: 10,
-
-                        modifiers: []
-                    });
-
-                const runtimeB =
-                    buildUnitRuntime({
-
-                        runtimeUnitId:
-                            "unit_b",
-
-                        shipTemplateId:
-                            "fighter",
-
-                        unitCount: 10,
-
-                        modifiers: []
-                    });
-
-                runtimeA
-                    .damageMultipliers
-                    .push({
-
-                        type:
-                            "laser",
-
-                        multiplier:
-                            999
-                    });
-
-                expect(
-                    runtimeB
-                        .damageMultipliers
-                        .length
-                ).toBe(0);
-            }
-        );
-
-
-
-        // ==================================================
         // MODIFIER SAFETY
         // ==================================================
 
@@ -373,9 +413,24 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
+
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100,
+
+                        armorMultiplier:
+                            1,
+
+                        penetrationMultiplier:
+                            1,
+
+                        speed:
+                            100,
 
                         modifiers: [
 
@@ -388,99 +443,6 @@ describe(
 
                 expect(runtime)
                     .toBeDefined();
-            }
-        );
-
-        // ==================================================
-        // MODIFIERS
-        // ==================================================
-
-        test(
-            "applies modifiers correctly",
-            () => {
-
-                const runtime =
-                    buildUnitRuntime({
-
-                        runtimeUnitId:
-                            "unit_1",
-
-                        shipTemplateId:
-                            "fighter",
-
-                        unitCount: 10,
-
-                        modifiers: [
-
-                            {
-                                stat: "hp",
-                                multiplier: 1.2
-                            },
-
-                            {
-                                stat: "damage",
-                                multiplier: 1.5
-                            }
-                        ]
-                    });
-
-                expect(
-                    runtime.hpPerUnit
-                ).toBe(600);
-
-                expect(
-                    runtime.dmgPerUnit
-                ).toBe(450);
-
-                expect(
-                    runtime.totalHp
-                ).toBe(6000);
-
-                expect(
-                    runtime.totalDamage
-                ).toBe(4500);
-            }
-        );
-
-
-
-        // ==================================================
-        // TEMPLATE FIELDS
-        // ==================================================
-
-        test(
-            "copies template metadata correctly",
-            () => {
-
-                const runtime =
-                    buildUnitRuntime({
-
-                        runtimeUnitId:
-                            "unit_1",
-
-                        shipTemplateId:
-                            "destroyer",
-
-                        unitCount: 5,
-
-                        modifiers: []
-                    });
-
-                expect(
-                    runtime.type
-                ).toBe("ship");
-
-                expect(
-                    runtime.volumePerUnit
-                ).toBe(25);
-
-                expect(
-                    runtime.repairDuration
-                ).toBe(300);
-
-                expect(
-                    runtime.damageMultipliers
-                ).toEqual([]);
             }
         );
 
@@ -501,11 +463,15 @@ describe(
                             null,
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 10,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100
                     });
 
                 expect(runtime)
@@ -529,31 +495,11 @@ describe(
 
                         unitCount: 10,
 
-                        modifiers: []
-                    });
+                        hpPerUnit:
+                            500,
 
-                expect(runtime)
-                    .toBeNull();
-            }
-        );
-
-
-        test(
-            "returns null for unknown template",
-            () => {
-
-                const runtime =
-                    buildUnitRuntime({
-
-                        runtimeUnitId:
-                            "unit_1",
-
-                        shipTemplateId:
-                            "unknown_template",
-
-                        unitCount: 10,
-
-                        modifiers: []
+                        dmgPerUnit:
+                            100
                     });
 
                 expect(runtime)
@@ -573,11 +519,15 @@ describe(
                             "unit_1",
 
                         shipTemplateId:
-                            "fighter",
+                            "fighter_mk1",
 
                         unitCount: 0,
 
-                        modifiers: []
+                        hpPerUnit:
+                            500,
+
+                        dmgPerUnit:
+                            100
                     });
 
                 expect(runtime)
@@ -601,17 +551,26 @@ describe(
                         "unit_1",
 
                     shipTemplateId:
-                        "fighter",
+                        "fighter_mk1",
 
                     unitCount: 10,
 
-                    modifiers: [
+                    hpPerUnit:
+                        500,
 
-                        {
-                            stat: "hp",
-                            multiplier: 1.2
-                        }
-                    ]
+                    dmgPerUnit:
+                        100,
+
+                    armorMultiplier:
+                        1,
+
+                    penetrationMultiplier:
+                        1,
+
+                    speed:
+                        100,
+
+                    modifiers: []
                 };
 
                 const runtimeA =

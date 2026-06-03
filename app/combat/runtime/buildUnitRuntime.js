@@ -1,18 +1,26 @@
-import buildFinalCombatStats
-    from "../stats/buildFinalCombatStats.js";
-
-import getShipTemplate
-    from "../templates/getShipTemplate.js";
-
 function buildUnitRuntime({
 
     runtimeUnitId,
+
     shipTemplateId,
+
     unitCount,
-    modifiers
+
+    hpPerUnit,
+
+    dmgPerUnit,
+
+    armorMultiplier,
+
+    penetrationMultiplier,
+
+    speed,
+
+    modifiers = []
 }) {
 
     if (
+        !runtimeUnitId ||
         typeof runtimeUnitId !==
         "string"
     ) {
@@ -20,6 +28,7 @@ function buildUnitRuntime({
     }
 
     if (
+        !shipTemplateId ||
         typeof shipTemplateId !==
         "string"
     ) {
@@ -29,111 +38,136 @@ function buildUnitRuntime({
     if (
         typeof unitCount !==
         "number" ||
+
         unitCount <= 0
     ) {
         return null;
     }
 
-    const shipTemplate =
-        getShipTemplate(
-            shipTemplateId
-        );
+    // ==========================================
+    // RUNTIME VALUES
+    // ==========================================
 
-    if (
-        !shipTemplate
-    ) {
-        return null;
-    }
+    hpPerUnit =
+        typeof hpPerUnit ===
+            "number"
+            ? hpPerUnit
+            : 0;
 
-    const finalStats =
-        buildFinalCombatStats({
+    dmgPerUnit =
+        typeof dmgPerUnit ===
+            "number"
+            ? dmgPerUnit
+            : 0;
 
-            baseStats:
-                shipTemplate,
+    armorMultiplier =
+        typeof armorMultiplier ===
+            "number"
+            ? armorMultiplier
+            : 1;
 
-            modifiers
-        });
+    penetrationMultiplier =
+        typeof penetrationMultiplier ===
+            "number"
+            ? penetrationMultiplier
+            : 1;
 
-    if (
-        !finalStats
-    ) {
-        return null;
-    }
+    speed =
+        typeof speed ===
+            "number"
+            ? speed
+            : 0;
+
+
+
+    // ==========================================
+    // TOTAL VALUES
+    // ==========================================
 
     const totalHp =
-        finalStats.hpPerUnit *
+        hpPerUnit *
         unitCount;
 
     const totalDamage =
-        finalStats.dmgPerUnit *
+        dmgPerUnit *
         unitCount;
 
-    return {
+
+
+    // ==========================================
+    // RUNTIME
+    // ==========================================
+
+    const runtime = {
 
         runtimeUnitId,
 
         shipTemplateId,
 
-        unitTypeId:
-            shipTemplate
-                .unitTypeId,
-
-        type:
-            shipTemplate.type,
-
         unitCount,
 
-        remainingUnits:
-            unitCount,
 
-        hpPerUnit:
-            finalStats.hpPerUnit,
 
-        dmgPerUnit:
-            finalStats.dmgPerUnit,
+        // ======================================
+        // FINAL RUNTIME VALUES
+        // ======================================
 
-        armorPerUnit:
-            finalStats.armorPerUnit,
+        hpPerUnit,
 
-        speedPerUnit:
-            finalStats.speedPerUnit,
+        dmgPerUnit,
 
-        penetrationPerUnit:
-            shipTemplate
-                .penetration,
+        armorMultiplier,
 
-        volumePerUnit:
-            shipTemplate
-                .volume,
+        penetrationMultiplier,
 
-        repairDuration:
-            shipTemplate
-                .repairDuration,
+        speed,
 
-        damageMultipliers:
-            Array.isArray(
-                shipTemplate
-                    .damageMultipliers
-            )
-                ? JSON.parse(
-                    JSON.stringify(
-                        shipTemplate
-                            .damageMultipliers
-                    )
-                )
-                : [],
+
+
+        // ======================================
+        // TOTAL VALUES
+        // ======================================
 
         totalHp,
+
+        totalDamage,
+
+
+
+        // ======================================
+        // RUNTIME STATE
+        // ======================================
 
         remainingHp:
             totalHp,
 
-        totalDamage,
+        remainingUnits:
+            unitCount,
 
-        receivedDamage: 0,
+        destroyed:
+            false,
 
-        destroyed: false
+        hpLastUnit:
+            hpPerUnit,
+
+        receivedDamage:
+            0,
+
+
+
+        // ======================================
+        // MODIFIERS
+        // ======================================
+
+        modifiers:
+            Array.isArray(
+                modifiers
+            )
+                ? modifiers
+                : []
     };
+
+    return runtime;
 }
 
 export default
