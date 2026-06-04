@@ -1,29 +1,75 @@
 class OverflowEvent {
+
     constructor({
+
         sourceDamageEventId,
+
         previousTargetRuntimeUnitId,
         newTargetRuntimeUnitId,
+
         originalOverflowDamage,
+
         overflowLoss,
+
         normalizedOverflowDamage,
+
         previousMultiplierRemoved,
-        newMultiplierApplied
+
+        newMultiplierApplied,
+
+        // ==========================================
+        // COMBAT ANALYSIS
+        // ==========================================
+
+        overflowLossReason = null,
+
+        targetChangeTriggered = false,
+
+        fleetChangeTriggered = false
+
     }) {
-        this.sourceDamageEventId = sourceDamageEventId;
 
-        this.previousTargetRuntimeUnitId = previousTargetRuntimeUnitId;
-        this.newTargetRuntimeUnitId = newTargetRuntimeUnitId;
+        this.sourceDamageEventId =
+            sourceDamageEventId;
 
-        this.originalOverflowDamage = originalOverflowDamage;
+        this.previousTargetRuntimeUnitId =
+            previousTargetRuntimeUnitId;
 
-        this.overflowLoss = overflowLoss;
+        this.newTargetRuntimeUnitId =
+            newTargetRuntimeUnitId;
 
-        this.normalizedOverflowDamage = normalizedOverflowDamage;
+        this.originalOverflowDamage =
+            originalOverflowDamage;
 
-        this.previousMultiplierRemoved = previousMultiplierRemoved;
+        this.overflowLoss =
+            overflowLoss;
 
-        this.newMultiplierApplied = newMultiplierApplied;
+        this.normalizedOverflowDamage =
+            normalizedOverflowDamage;
+
+        this.previousMultiplierRemoved =
+            previousMultiplierRemoved;
+
+        this.newMultiplierApplied =
+            newMultiplierApplied;
+
+        // ==========================================
+        // COMBAT ANALYSIS
+        // ==========================================
+
+        this.overflowLossReason =
+            overflowLossReason;
+
+        this.targetChangeTriggered =
+            Boolean(
+                targetChangeTriggered
+            );
+
+        this.fleetChangeTriggered =
+            Boolean(
+                fleetChangeTriggered
+            );
     }
 }
 
-module.exports = OverflowEvent;
+export default OverflowEvent;

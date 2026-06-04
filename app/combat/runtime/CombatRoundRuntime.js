@@ -8,6 +8,8 @@ class CombatRoundRuntime {
 
         overflowEvents = [],
 
+        milestones = [],
+
         attackerDamageDealt = 0,
         defenderDamageDealt = 0,
 
@@ -47,6 +49,13 @@ class CombatRoundRuntime {
                 overflowEvents
             )
                 ? overflowEvents
+                : [];
+
+        this.milestones =
+            Array.isArray(
+                milestones
+            )
+                ? milestones
                 : [];
 
 
