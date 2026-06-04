@@ -23,7 +23,7 @@ const shipsData = JSON.parse(
 );
 
 const combatInput = JSON.parse(
-  fs.readFileSync("./data/combat-input-001.json")
+  fs.readFileSync("./scenario/test_001.json")
 );
 
 
