@@ -6,7 +6,22 @@
     "damage": 85,
     "armor": 3,
     "penetration": 0,
-    "volume": 20
+    "volume": 20,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_bomber"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_frigate"
+      }
+    ],
+    "id": "ship_light_fighter"
   },
   {
     "name": "Mittlerer Jäger",
@@ -15,7 +30,22 @@
     "damage": 155,
     "armor": 5,
     "penetration": 0,
-    "volume": 35
+    "volume": 35,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_light_fighter"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_bomber"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_stellar_cruiser"
+      }
+    ],
+    "id": "ship_medium_fighter"
   },
   {
     "name": "Schwerer Jäger",
@@ -24,7 +54,22 @@
     "damage": 224,
     "armor": 8,
     "penetration": 0,
-    "volume": 50
+    "volume": 50,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_light_fighter"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_medium_fighter"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_bomber"
+      }
+    ],
+    "id": "ship_heavy_fighter"
   },
   {
     "name": "Sternenkreuzer",
@@ -33,7 +78,18 @@
     "damage": 650,
     "armor": 10,
     "penetration": 3,
-    "volume": 160
+    "volume": 160,
+    "damageMultipliers": [
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_light_fighter"
+      },
+      {
+        "multiplier": 5.0,
+        "targetId": "ship_medium_fighter"
+      }
+    ],
+    "id": "ship_stellar_cruiser"
   },
   {
     "name": "Fregatte",
@@ -42,7 +98,22 @@
     "damage": 910,
     "armor": 0,
     "penetration": 10,
-    "volume": 220
+    "volume": 220,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_heavy_fighter"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_stellar_cruiser"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_destroyer"
+      }
+    ],
+    "id": "ship_frigate"
   },
   {
     "name": "Ionenträger",
@@ -51,7 +122,18 @@
     "damage": 1320,
     "armor": 0,
     "penetration": 11,
-    "volume": 320
+    "volume": 320,
+    "damageMultipliers": [
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_frigate"
+      },
+      {
+        "multiplier": 5.0,
+        "targetId": "ship_stellar_cruiser"
+      }
+    ],
+    "id": "ship_ion_carrier"
   },
   {
     "name": "Zerstörer",
@@ -60,7 +142,22 @@
     "damage": 1820,
     "armor": 8,
     "penetration": 8,
-    "volume": 430
+    "volume": 430,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_frigate"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_abyssus"
+      }
+    ],
+    "id": "ship_destroyer"
   },
   {
     "name": "Bomber",
@@ -69,7 +166,34 @@
     "damage": 1080,
     "armor": 0,
     "penetration": 12,
-    "volume": 380
+    "volume": 380,
+    "damageMultipliers": [
+      {
+        "multiplier": 1.5,
+        "targetId": "def_missile_launcher"
+      },
+      {
+        "multiplier": 2.0,
+        "targetId": "def_laser_cannon"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "def_ion_cannon"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "def_gauss_cannon"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "def_plasma_cannon"
+      },
+      {
+        "multiplier": 4.5,
+        "targetId": "def_quasar_projector"
+      }
+    ],
+    "id": "ship_bomber"
   },
   {
     "name": "Leichter Transporter",
@@ -78,7 +202,9 @@
     "damage": 20,
     "armor": 4,
     "penetration": 0,
-    "volume": 60
+    "volume": 60,
+    "damageMultipliers": [],
+    "id": "ship_light_transporter"
   },
   {
     "name": "Mittlerer Transporter",
@@ -87,7 +213,9 @@
     "damage": 55,
     "armor": 7,
     "penetration": 0,
-    "volume": 240
+    "volume": 240,
+    "damageMultipliers": [],
+    "id": "ship_medium_transporter"
   },
   {
     "name": "Schwerer Transporter",
@@ -96,7 +224,9 @@
     "damage": 120,
     "armor": 10,
     "penetration": 0,
-    "volume": 720
+    "volume": 720,
+    "damageMultipliers": [],
+    "id": "ship_heavy_transporter"
   },
   {
     "name": "Abyssus",
@@ -105,7 +235,22 @@
     "damage": 12800,
     "armor": 12,
     "penetration": 12,
-    "volume": 2400
+    "volume": 2400,
+    "damageMultipliers": [
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_destroyer"
+      },
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 2.5,
+        "targetId": "ship_frigate"
+      }
+    ],
+    "id": "ship_abyssus"
   },
   {
     "name": "Raketenwerfer",
@@ -114,7 +259,18 @@
     "damage": 120,
     "armor": 5,
     "penetration": 0,
-    "volume": 25
+    "volume": 25,
+    "damageMultipliers": [
+      {
+        "multiplier": 5.0,
+        "targetId": "ship_light_fighter"
+      },
+      {
+        "multiplier": 5.5,
+        "targetId": "ship_medium_fighter"
+      }
+    ],
+    "id": "def_missile_launcher"
   },
   {
     "name": "Laserkanone",
@@ -123,7 +279,22 @@
     "damage": 420,
     "armor": 7,
     "penetration": 0,
-    "volume": 60
+    "volume": 60,
+    "damageMultipliers": [
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_light_fighter"
+      },
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_medium_fighter"
+      },
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_heavy_fighter"
+      }
+    ],
+    "id": "def_laser_cannon"
   },
   {
     "name": "Ionenkanone",
@@ -132,7 +303,22 @@
     "damage": 1180,
     "armor": 0,
     "penetration": 10,
-    "volume": 180
+    "volume": 180,
+    "damageMultipliers": [
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_heavy_fighter"
+      },
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_stellar_cruiser"
+      },
+      {
+        "multiplier": 4.5,
+        "targetId": "ship_frigate"
+      }
+    ],
+    "id": "def_ion_cannon"
   },
   {
     "name": "Gauskanone",
@@ -141,7 +327,26 @@
     "damage": 3150,
     "armor": 0,
     "penetration": 12,
-    "volume": 420
+    "volume": 420,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_stellar_cruiser"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_frigate"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_destroyer"
+      }
+    ],
+    "id": "def_gauss_cannon"
   },
   {
     "name": "Plasmakanone",
@@ -150,7 +355,26 @@
     "damage": 8200,
     "armor": 12,
     "penetration": 0,
-    "volume": 980
+    "volume": 980,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_frigate"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_destroyer"
+      },
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_abyssus"
+      }
+    ],
+    "id": "def_plasma_cannon"
   },
   {
     "name": "Quasarprojektor",
@@ -159,6 +383,25 @@
     "damage": 22500,
     "armor": 13,
     "penetration": 13,
-    "volume": 2600
+    "volume": 2600,
+    "damageMultipliers": [
+      {
+        "multiplier": 3.0,
+        "targetId": "ship_ion_carrier"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_destroyer"
+      },
+      {
+        "multiplier": 4.0,
+        "targetId": "ship_abyssus"
+      },
+      {
+        "multiplier": 3.5,
+        "targetId": "ship_bomber"
+      }
+    ],
+    "id": "def_quasar_projector"
   }
 ]

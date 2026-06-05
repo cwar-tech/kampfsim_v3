@@ -1,17 +1,17 @@
 // ==================================================
-// tests/combatResultSchema.test.js
+// tests/schema/combatResultSchema.test.js
 // ==================================================
 
 import fs from "fs";
 
 import { resolveFleet }
-  from "../app/combat/resolveFleet.js";
+  from "../../app/combat/resolveFleet.js";
 
 import { calculateRound }
-  from "../app/combat/calculateRound.js";
+  from "../../app/combat/calculateRound.js";
 
 import { validateCombatResult }
-  from "../app/schema/validateCombatResult.js";
+  from "../../app/schema/validateCombatResult.js";
 
 
 // ==================================================

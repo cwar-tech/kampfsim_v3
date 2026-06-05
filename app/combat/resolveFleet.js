@@ -12,12 +12,15 @@ export function resolveFleet(
   // ==================================================
 
   if (
-    !fleetInput ||
-    !Array.isArray(fleetInput.units)
+    !Array.isArray(
+      fleetInput
+    )
   ) {
 
     throw new Error(
-      "Invalid fleet input"
+
+      "[FLEET-001] Expected fleet array"
+
     );
   }
 
@@ -40,37 +43,39 @@ export function resolveFleet(
 
   for (
     const entry
-    of fleetInput.units
+    of fleetInput
   ) {
 
-    // ==================================================
-    // INPUT VALUES
-    // ==================================================
+    const unitTypeId =
+      entry.unitTypeId;
 
-    const unitType =
-      entry.unitType;
-
-    const amount =
-      entry.amount;
+    const count =
+      entry.count;
 
 
     // ==================================================
     // VALIDATE ENTRY
     // ==================================================
 
-    if (!unitType) {
+    if (
+      !unitTypeId
+    ) {
 
       throw new Error(
-        "unitType missing"
+
+        "[FLEET-002] unitTypeId missing"
+
       );
     }
 
     if (
-      amount === undefined
+      count === undefined
     ) {
 
       throw new Error(
-        `amount missing for ${unitType}`
+
+        `[FLEET-003] count missing for ${unitTypeId}`
+
       );
     }
 
@@ -83,7 +88,7 @@ export function resolveFleet(
       shipsData.find(
 
         s =>
-          s.name === unitType
+          s.id === unitTypeId
       );
 
 
@@ -95,7 +100,8 @@ export function resolveFleet(
 
       throw new Error(
 
-        `Ship not found: ${unitType}`
+        `[FLEET-004] Ship not found: ${unitTypeId}`
+
       );
     }
 
@@ -115,42 +121,41 @@ export function resolveFleet(
 
 
     // ==================================================
-    // TOTAL CALCULATION
+    // TOTALS
     // ==================================================
 
     totalDamage +=
-      dmgPerUnit * amount;
+      dmgPerUnit * count;
 
     totalHp +=
-      hpPerUnit * amount;
+      hpPerUnit * count;
 
     totalUnits +=
-      amount;
+      count;
 
     totalVolume +=
-      volumePerUnit * amount;
+      volumePerUnit * count;
 
 
     // ==================================================
-    // STORE UNIT GROUP
+    // STORE UNIT
     // ==================================================
 
     units.push({
 
-      unitType,
+      unitTypeId,
 
-      amount,
+      count,
 
       dmgPerUnit,
       hpPerUnit,
       volumePerUnit
-
     });
   }
 
 
   // ==================================================
-  // RETURN RESOLVED FLEET
+  // RESULT
   // ==================================================
 
   return {

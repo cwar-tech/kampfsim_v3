@@ -35,17 +35,14 @@ describe(
             "creates valid unit group attributes from ship data",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    }
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -79,17 +76,14 @@ describe(
             "calculates totalDamage from all ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    }
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -111,17 +105,14 @@ describe(
             "calculates totalHp from all ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    }
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -143,17 +134,14 @@ describe(
             "calculates totalUnits from all ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    }
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -173,17 +161,14 @@ describe(
             "calculates totalVolume from all ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    }
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -205,22 +190,19 @@ describe(
             "supports multiple ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    },
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        },
+                    {
+                        unitTypeId: secondShip.id,
+                        count: 5
+                    }
 
-                        {
-                            unitType: secondShip.name,
-                            amount: 5
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -240,22 +222,19 @@ describe(
             "aggregates totalDamage across multiple ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    },
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        },
+                    {
+                        unitTypeId: secondShip.id,
+                        count: 5
+                    }
 
-                        {
-                            unitType: secondShip.name,
-                            amount: 5
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -283,22 +262,19 @@ describe(
             "aggregates totalHp across multiple ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    },
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        },
+                    {
+                        unitTypeId: secondShip.id,
+                        count: 5
+                    }
 
-                        {
-                            unitType: secondShip.name,
-                            amount: 5
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -326,22 +302,19 @@ describe(
             "aggregates totalVolume across multiple ship groups",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    },
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        },
+                    {
+                        unitTypeId: secondShip.id,
+                        count: 5
+                    }
 
-                        {
-                            unitType: secondShip.name,
-                            amount: 5
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -369,22 +342,19 @@ describe(
             "creates one unit group per fleet entry",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId: firstShip.id,
+                        count: 10
+                    },
 
-                        {
-                            unitType: firstShip.name,
-                            amount: 10
-                        },
+                    {
+                        unitTypeId: secondShip.id,
+                        count: 5
+                    }
 
-                        {
-                            unitType: secondShip.name,
-                            amount: 5
-                        }
-
-                    ]
-                };
+                ];
 
                 const fleet =
                     resolveFleet(
@@ -393,15 +363,15 @@ describe(
                     );
 
                 expect(
-                    fleet.units[0].unitType
+                    fleet.units[0].unitTypeId
                 ).toBe(
-                    firstShip.name
+                    firstShip.id
                 );
 
                 expect(
-                    fleet.units[1].unitType
+                    fleet.units[1].unitTypeId
                 ).toBe(
-                    secondShip.name
+                    secondShip.id
                 );
 
             }
@@ -409,19 +379,16 @@ describe(
 
 
         test(
-            "throws when unitType is missing",
+            "throws when unitTypeId is missing",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        count: 10
+                    }
 
-                        {
-                            amount: 10
-                        }
-
-                    ]
-                };
+                ];
 
                 expect(() => {
 
@@ -431,7 +398,7 @@ describe(
                     );
 
                 }).toThrow(
-                    "unitType missing"
+                    "[FLEET-002]"
                 );
 
             }
@@ -439,20 +406,17 @@ describe(
 
 
         test(
-            "throws when amount is missing",
+            "throws when count is missing",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId:
+                            firstShip.id
+                    }
 
-                        {
-                            unitType:
-                                firstShip.name
-                        }
-
-                    ]
-                };
+                ];
 
                 expect(() => {
 
@@ -462,7 +426,7 @@ describe(
                     );
 
                 }).toThrow(
-                    `amount missing for ${firstShip.name}`
+                    "[FLEET-003]"
                 );
 
             }
@@ -473,19 +437,16 @@ describe(
             "throws when ship does not exist",
             () => {
 
-                const fleetInput = {
+                const fleetInput = [
 
-                    units: [
+                    {
+                        unitTypeId:
+                            "INVALID_SHIP",
 
-                        {
-                            unitType:
-                                "INVALID_SHIP",
+                        count: 1
+                    }
 
-                            amount: 1
-                        }
-
-                    ]
-                };
+                ];
 
                 expect(() => {
 
@@ -495,7 +456,7 @@ describe(
                     );
 
                 }).toThrow(
-                    "Ship not found: INVALID_SHIP"
+                    "[FLEET-004]"
                 );
 
             }
@@ -514,7 +475,7 @@ describe(
                     );
 
                 }).toThrow(
-                    "Invalid fleet input"
+                    "[FLEET-001]"
                 );
 
             }
