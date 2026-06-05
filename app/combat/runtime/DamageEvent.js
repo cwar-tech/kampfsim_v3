@@ -1,5 +1,15 @@
+// ==================================================
+// app/combat/runtime/DamageEvent.js
+// ==================================================
+
 class DamageEvent {
+
     constructor({
+
+        eventId,
+
+        roundNumber,
+
         sourceRuntimeUnitId,
         targetRuntimeUnitId,
 
@@ -7,27 +17,30 @@ class DamageEvent {
         targetUnitTypeId,
 
         baseDamage,
-        multiplier,
+
+        counterPercent = 100,
+
+        finalDamage,
 
         appliedDamage,
-        overflowDamage,
-
-        // ==========================================
-        // COMBAT ANALYSIS
-        // ==========================================
-
-        focusReason = null,
-
-        counterBonus = 0,
-
-        armorPercent = 0,
-
-        penetrationPercent = 0,
 
         targetDestroyed = false,
 
-        overflowTriggered = false
+        attackChainStep = 0
+
     }) {
+
+        // ==========================================
+        // EVENT
+        // ==========================================
+
+        this.eventId =
+            eventId;
+
+        this.roundNumber =
+            roundNumber;
+
+
 
         // ==========================================
         // SOURCE
@@ -54,43 +67,30 @@ class DamageEvent {
         this.baseDamage =
             baseDamage;
 
-        this.multiplier =
-            multiplier;
+        this.counterPercent =
+            counterPercent;
+
+        this.finalDamage =
+            finalDamage;
 
         this.appliedDamage =
             appliedDamage;
 
-        this.overflowDamage =
-            overflowDamage;
-
 
 
         // ==========================================
-        // COMBAT ANALYSIS
+        // ATTACK CHAIN
         // ==========================================
 
-        this.focusReason =
-            focusReason;
-
-        this.counterBonus =
-            counterBonus;
-
-        this.armorPercent =
-            armorPercent;
-
-        this.penetrationPercent =
-            penetrationPercent;
+        this.attackChainStep =
+            attackChainStep;
 
         this.targetDestroyed =
             Boolean(
                 targetDestroyed
             );
-
-        this.overflowTriggered =
-            Boolean(
-                overflowTriggered
-            );
     }
 }
 
-export default DamageEvent;
+export default
+    DamageEvent;

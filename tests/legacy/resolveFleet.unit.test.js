@@ -1,11 +1,11 @@
 // ==================================================
-// tests/unit/resolveFleet.unit.test.js
+// tests/unit/buildFleetRuntime.unit.test.js
 // ==================================================
 
 import fs from "fs";
 
-import { resolveFleet }
-    from "../../app/combat/resolveFleet.js";
+import { buildFleetRuntime }
+    from "../../app/combat/buildFleetRuntime.js";
 
 
 // ==================================================
@@ -45,7 +45,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -86,7 +86,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -115,7 +115,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -144,7 +144,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -171,7 +171,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -205,7 +205,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -237,7 +237,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -277,7 +277,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -317,7 +317,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -357,7 +357,7 @@ describe(
                 ];
 
                 const fleet =
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -392,7 +392,7 @@ describe(
 
                 expect(() => {
 
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -420,7 +420,7 @@ describe(
 
                 expect(() => {
 
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -450,7 +450,7 @@ describe(
 
                 expect(() => {
 
-                    resolveFleet(
+                    buildFleetRuntime(
                         fleetInput,
                         shipsData
                     );
@@ -469,7 +469,7 @@ describe(
 
                 expect(() => {
 
-                    resolveFleet(
+                    buildFleetRuntime(
                         {},
                         shipsData
                     );

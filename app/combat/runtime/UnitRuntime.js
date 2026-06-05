@@ -1,6 +1,14 @@
+// ==================================================
+// app/combat/runtime/UnitRuntime.js
+// ==================================================
+
 class UnitRuntime {
 
     constructor({
+
+        // ==========================================
+        // IDENTIFIERS
+        // ==========================================
 
         runtimeUnitId,
 
@@ -8,9 +16,31 @@ class UnitRuntime {
 
         unitTypeId,
 
+        unitCategory,
+
+
+
+        // ==========================================
+        // COUNTERS
+        // ==========================================
+
+        counters = {},
+
+
+
+        // ==========================================
+        // STACK
+        // ==========================================
+
         unitCount,
 
         remainingUnits,
+
+
+
+        // ==========================================
+        // BASE STATS
+        // ==========================================
 
         hpPerUnit,
 
@@ -26,19 +56,49 @@ class UnitRuntime {
 
         repairDuration,
 
+
+
+        // ==========================================
+        // SINGLE SOURCE OF TRUTH
+        // ==========================================
+
         totalHp,
 
         remainingHp,
 
+
+
+        // ==========================================
+        // DERIVED STATE
+        // ==========================================
+
         totalDamage,
+
+        totalVolume,
+
+        remainingVolume,
+
+
+
+        // ==========================================
+        // COMBAT STATE
+        // ==========================================
 
         receivedDamage = 0,
 
         destroyed = false,
 
+
+
+        // ==========================================
+        // MODIFIERS
+        // ==========================================
+
         damageMultipliers = []
 
     } = {}) {
+
+
 
         // ==========================================
         // IDENTIFIERS
@@ -61,6 +121,25 @@ class UnitRuntime {
                 "string"
                 ? unitTypeId
                 : null;
+
+        this.unitCategory =
+            typeof unitCategory ===
+                "string"
+                ? unitCategory
+                : "ship";
+
+
+
+        // ==========================================
+        // COUNTERS
+        // ==========================================
+
+        this.counters =
+            typeof counters ===
+                "object"
+                && counters !== null
+                ? counters
+                : {};
 
 
 
@@ -149,14 +228,41 @@ class UnitRuntime {
 
 
         // ==========================================
-        // DAMAGE
+        // DERIVED STATE
         // ==========================================
 
         this.totalDamage =
             typeof totalDamage ===
                 "number"
                 ? totalDamage
-                : 0;
+                : (
+                    this.unitCount *
+                    this.dmgPerUnit
+                );
+
+        this.totalVolume =
+            typeof totalVolume ===
+                "number"
+                ? totalVolume
+                : (
+                    this.unitCount *
+                    this.volumePerUnit
+                );
+
+        this.remainingVolume =
+            typeof remainingVolume ===
+                "number"
+                ? remainingVolume
+                : (
+                    this.remainingUnits *
+                    this.volumePerUnit
+                );
+
+
+
+        // ==========================================
+        // DAMAGE
+        // ==========================================
 
         this.receivedDamage =
             typeof receivedDamage ===

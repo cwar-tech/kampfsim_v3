@@ -15,8 +15,8 @@ import {
 
 } from "./testRunner.js";
 
-import { resolveFleet }
-  from "../../app/combat/resolveFleet.js";
+import { buildFleetRuntime }
+  from "../../app/combat/buildFleetRuntime.js";
 
 import { calculateRound }
   from "../../app/combat/calculateRound.js";
@@ -99,13 +99,13 @@ describe(
             // ==================================================
 
             const attackerFleet =
-              resolveFleet(
+              buildFleetRuntime(
                 combatInput.attacker,
                 shipsData
               );
 
             const defenderFleet =
-              resolveFleet(
+              buildFleetRuntime(
                 combatInput.defender,
                 shipsData
               );

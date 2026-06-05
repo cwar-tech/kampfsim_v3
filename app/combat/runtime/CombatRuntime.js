@@ -1,37 +1,57 @@
+// ==================================================
+// app/combat/runtime/CombatRuntime.js
+// ==================================================
+
 class CombatRuntime {
+
     constructor({
+
         combatId,
 
         attackerFleet,
         defenderFleet,
 
-        currentRound,
+        currentRound = 0,
 
-        rounds,
+        rounds = [],
 
-        attackerDefeated,
-        defenderDefeated,
+        attackerDefeated = false,
+        defenderDefeated = false,
 
-        combatFinished,
+        combatFinished = false,
 
-        combatResult
-    }) {
-        this.combatId = combatId;
+        combatResult = null
 
-        this.attackerFleet = attackerFleet;
-        this.defenderFleet = defenderFleet;
+    } = {}) {
 
-        this.currentRound = currentRound;
+        this.combatId =
+            combatId;
 
-        this.rounds = rounds;
+        this.attackerFleet =
+            attackerFleet;
 
-        this.attackerDefeated = attackerDefeated;
-        this.defenderDefeated = defenderDefeated;
+        this.defenderFleet =
+            defenderFleet;
 
-        this.combatFinished = combatFinished;
+        this.currentRound =
+            currentRound;
 
-        this.combatResult = combatResult;
+        this.rounds =
+            rounds;
+
+        this.attackerDefeated =
+            attackerDefeated;
+
+        this.defenderDefeated =
+            defenderDefeated;
+
+        this.combatFinished =
+            combatFinished;
+
+        this.combatResult =
+            combatResult;
     }
 }
 
-module.exports = CombatRuntime;
+export default
+    CombatRuntime;

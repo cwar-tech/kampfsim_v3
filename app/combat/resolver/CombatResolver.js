@@ -8,7 +8,7 @@ class CombatResolver {
 
     constructor({
 
-        maxRounds = 250
+        maxRounds = 5
 
     } = {}) {
 
@@ -162,6 +162,146 @@ class CombatResolver {
 
 
             // ==========================================
+            // DAMAGE STATS
+            // ==========================================
+
+            const attackerRuntimeIds =
+                (
+                    combatRuntime
+                        ?.attackerFleet
+                        ?.units || []
+                ).map(
+
+                    unit =>
+                        unit.runtimeUnitId
+                );
+
+            for (
+                const event
+                of result.damageEvents
+            ) {
+
+                if (
+                    !event ||
+                    typeof event !==
+                    "object"
+                ) {
+
+                    throw new Error(
+
+                        "[COMBAT-001] Invalid damage event"
+
+                    );
+                }
+
+                if (
+                    !event.sourceRuntimeUnitId
+                ) {
+
+                    throw new Error(
+
+                        "[COMBAT-002] sourceRuntimeUnitId missing"
+
+                    );
+                }
+
+                if (
+                    typeof event.appliedDamage !==
+                    "number"
+                ) {
+
+                    throw new Error(
+
+                        `[COMBAT-003] appliedDamage invalid for ${event.sourceRuntimeUnitId}`
+
+                    );
+                }
+
+                if (
+                    event.appliedDamage < 0
+                ) {
+
+                    throw new Error(
+
+                        `[COMBAT-004] appliedDamage below zero for ${event.sourceRuntimeUnitId}`
+
+                    );
+                }
+
+                const isAttackerSource =
+                    attackerRuntimeIds.includes(
+
+                        event.sourceRuntimeUnitId
+                    );
+
+                if (
+                    isAttackerSource
+                ) {
+
+                    roundRuntime.attackerDamageDealt +=
+                        event.appliedDamage;
+
+                    roundRuntime.defenderDamageReceived +=
+                        event.appliedDamage;
+                }
+                else {
+
+                    roundRuntime.defenderDamageDealt +=
+                        event.appliedDamage;
+
+                    roundRuntime.attackerDamageReceived +=
+                        event.appliedDamage;
+                }
+            }
+
+
+
+            // ==========================================
+            // VALIDATE STATS
+            // ==========================================
+
+            const stats = [
+
+                roundRuntime.attackerDamageDealt,
+                roundRuntime.defenderDamageDealt,
+                roundRuntime.attackerDamageReceived,
+                roundRuntime.defenderDamageReceived
+
+            ];
+
+            for (
+                const value
+                of stats
+            ) {
+
+                if (
+                    !Number.isFinite(
+                        value
+                    )
+                ) {
+
+                    throw new Error(
+
+                        "[COMBAT-005] Invalid combat statistic"
+
+                    );
+                }
+
+                if (
+                    value < 0
+                ) {
+
+                    throw new Error(
+
+                        "[COMBAT-006] Negative combat statistic"
+
+                    );
+                }
+            }
+
+
+
+            // ==========================================
             // STORE ROUND
             // ==========================================
 
@@ -183,7 +323,7 @@ class CombatResolver {
                         ?.units || []
                 ).some(
 
-                    (unit) =>
+                    unit =>
 
                         unit &&
                         unit.remainingHp > 0
@@ -196,7 +336,7 @@ class CombatResolver {
                         ?.units || []
                 ).some(
 
-                    (unit) =>
+                    unit =>
 
                         unit &&
                         unit.remainingHp > 0
@@ -252,6 +392,40 @@ class CombatResolver {
 
             combatRuntime.combatFinished =
                 true;
+        }
+
+
+
+        // ==========================================
+        // COMBAT RESULT
+        // ==========================================
+
+        if (
+            combatRuntime.attackerDefeated &&
+            combatRuntime.defenderDefeated
+        ) {
+
+            combatRuntime.combatResult =
+                "draw";
+        }
+        else if (
+            combatRuntime.defenderDefeated
+        ) {
+
+            combatRuntime.combatResult =
+                "attackerVictory";
+        }
+        else if (
+            combatRuntime.attackerDefeated
+        ) {
+
+            combatRuntime.combatResult =
+                "defenderVictory";
+        }
+        else {
+
+            combatRuntime.combatResult =
+                "timeout";
         }
 
         return combatRuntime;

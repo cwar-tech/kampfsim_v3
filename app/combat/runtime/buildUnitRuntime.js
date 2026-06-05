@@ -14,8 +14,6 @@ function buildUnitRuntime({
 
     penetrationMultiplier,
 
-    speed,
-
     modifiers = []
 }) {
 
@@ -71,12 +69,6 @@ function buildUnitRuntime({
             "number"
             ? penetrationMultiplier
             : 1;
-
-    speed =
-        typeof speed ===
-            "number"
-            ? speed
-            : 0;
 
 
 

@@ -1,5 +1,5 @@
 import OverflowEvent
-    from "../../app/combat/runtime/OverflowEvent.js";
+    from "../../app/combat/runtime/TargetChangeEvent.js";
 
 describe(
     "OverflowEvent",

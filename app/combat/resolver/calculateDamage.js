@@ -1,7 +1,15 @@
+// ==================================================
+// app/combat/resolver/calculateDamage.js
+// ==================================================
+
 function calculateDamage({
 
     attacker,
-    target
+
+    target,
+
+    overrideBaseDamage = null
+
 }) {
 
     if (
@@ -21,7 +29,7 @@ function calculateDamage({
     }
 
     // ==========================================
-    // DESTROYED CHECK
+    // VALIDATION
     // ==========================================
 
     if (
@@ -38,21 +46,9 @@ function calculateDamage({
         return null;
     }
 
-    if (
-        attacker.remainingHp <= 0
-    ) {
-
-        return {
-
-            baseDamage: 0,
-
-            damageAfterPenetration: 0,
-
-            armorMultiplier: 0,
-
-            finalDamage: 0
-        };
-    }
+    // ==========================================
+    // TARGET ALREADY DESTROYED
+    // ==========================================
 
     if (
         target.remainingHp <= 0
@@ -70,19 +66,41 @@ function calculateDamage({
         };
     }
 
-
-
     // ==========================================
     // BASE DAMAGE
     // ==========================================
 
     const baseDamage =
-        typeof attacker.totalDamage ===
+
+        typeof overrideBaseDamage ===
             "number"
-            ? attacker.totalDamage
-            : 0;
 
+            ? overrideBaseDamage
 
+            : attacker.totalDamage;
+
+    if (
+        typeof baseDamage !==
+        "number"
+    ) {
+
+        throw new Error(
+
+            `[DMG-001] Invalid baseDamage for ${attacker.unitTypeId}`
+
+        );
+    }
+
+    if (
+        baseDamage < 0
+    ) {
+
+        throw new Error(
+
+            `[DMG-002] Negative baseDamage for ${attacker.unitTypeId}`
+
+        );
+    }
 
     // ==========================================
     // PENETRATION MULTIPLIER
@@ -96,8 +114,6 @@ function calculateDamage({
                 .penetrationMultiplier
             : 1;
 
-
-
     // ==========================================
     // DAMAGE AFTER PENETRATION
     // ==========================================
@@ -105,8 +121,6 @@ function calculateDamage({
     const damageAfterPenetration =
         baseDamage *
         penetrationMultiplier;
-
-
 
     // ==========================================
     // ARMOR MULTIPLIER
@@ -120,8 +134,6 @@ function calculateDamage({
                 .armorMultiplier
             : 1;
 
-
-
     // ==========================================
     // FINAL DAMAGE
     // ==========================================
@@ -129,8 +141,6 @@ function calculateDamage({
     let finalDamage =
         damageAfterPenetration *
         armorMultiplier;
-
-
 
     // ==========================================
     // SAFETY
@@ -142,8 +152,6 @@ function calculateDamage({
             finalDamage
         );
 
-
-
     // ==========================================
     // ROUNDING
     // ==========================================
@@ -152,8 +160,6 @@ function calculateDamage({
         Math.round(
             finalDamage
         );
-
-
 
     // ==========================================
     // MINIMUM CHIP DAMAGE
@@ -166,8 +172,6 @@ function calculateDamage({
 
         finalDamage = 1;
     }
-
-
 
     // ==========================================
     // RESULT

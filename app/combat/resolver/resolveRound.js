@@ -1,17 +1,15 @@
-import selectTarget
-    from "./selectTarget.js";
+// ==================================================
+// app/combat/resolver/resolveRound.js
+// ==================================================
 
-import applyDamage
-    from "./applyDamage.js";
+import buildAttackQueue
+    from "./buildAttackQueue.js";
 
-import resolveOverflow
-    from "./resolveOverflow.js";
+import resolveAttackChain
+    from "./resolveAttackChain.js";
 
 import calculateLosses
     from "./calculateLosses.js";
-
-import calculateDamage
-    from "./calculateDamage.js";
 
 import recalculateRuntimeState
     from "../runtime/recalculateRuntimeState.js";
@@ -86,359 +84,147 @@ function resolveRound(
 
 
     // ==========================================
-    // ATTACKER TURN
+    // BUILD ATTACK QUEUES
     // ==========================================
 
-    for (
-        const attacker
-        of attackerUnits
-    ) {
+    const attackerQueue =
+        buildAttackQueue(
 
-        if (
-            !attacker ||
-            typeof attacker !==
-            "object"
-        ) {
-            continue;
-        }
+            runtime.attackerFleet,
 
-        // ==========================================
-        // SINGLE SOURCE OF TRUTH
-        // ==========================================
-
-        if (
-            attacker.remainingHp <= 0
-        ) {
-            continue;
-        }
-
-        const target =
-            selectTarget(
-                attacker,
-                defenderUnits
-            );
-
-        if (
-            !target
-        ) {
-            continue;
-        }
-
-
-
-        // ==========================================
-        // DAMAGE CALCULATION
-        // ==========================================
-
-        const damageResult =
-            calculateDamage({
-
-                attacker,
-
-                target
-            });
-
-        if (
-            !damageResult
-        ) {
-            continue;
-        }
-
-
-
-        // ==========================================
-        // DAMAGE APPLICATION
-        // ==========================================
-
-        const result =
-            applyDamage(
-                target,
-                damageResult
-                    .finalDamage
-            );
-        console.log({ finalDamage: damageResult.finalDamage, appliedDamage: result?.appliedDamage, oldHp: target.remainingHp, newHp: result?.target?.remainingHp, armorMultiplier: target.armorMultiplier, penetrationMultiplier: attacker.penetrationMultiplier });
-        if (
-            !result ||
-            !result.target
-        ) {
-            continue;
-        }
-
-        // ==========================================
-        // SINGLE SOURCE OF TRUTH
-        // ==========================================
-
-        target.remainingHp =
-            result.target
-                .remainingHp;
-
-        // ==========================================
-        // DERIVED STATE
-        // ==========================================
-
-        recalculateRuntimeState(
-            target
+            runtime.defenderFleet
         );
 
-        // ==========================================
-        // RECEIVED DAMAGE
-        // ==========================================
+    const defenderQueue =
+        buildAttackQueue(
 
-        target.receivedDamage =
-            (
-                target.receivedDamage ||
-                0
-            ) + result.appliedDamage;
+            runtime.defenderFleet,
 
+            runtime.attackerFleet
+        );
 
+    console.log(
+        "ATTACKER QUEUE:",
+        attackerQueue.length
+    );
 
-        // ==========================================
-        // DAMAGE EVENTS
-        // ==========================================
-
-        damageEvents.push({
-
-            sourceRuntimeUnitId:
-                attacker.runtimeUnitId,
-
-            targetRuntimeUnitId:
-                target.runtimeUnitId,
-
-            appliedDamage:
-                result.appliedDamage,
-
-            baseDamage:
-                damageResult.baseDamage,
-
-            damageAfterPenetration:
-                damageResult
-                    .damageAfterPenetration,
-
-            armorMultiplier:
-                damageResult
-                    .armorMultiplier,
-
-            finalDamage:
-                damageResult
-                    .finalDamage,
-
-            overflowDamage:
-                result.overflowDamage
-        });
+    console.log(
+        "DEFENDER QUEUE:",
+        defenderQueue.length
+    );
 
 
 
-        // ==========================================
-        // OVERFLOW
-        // ==========================================
+    // ==========================================
+    // GLOBAL ATTACK QUEUE
+    // ==========================================
 
-        if (
-            result.overflowDamage > 0
-        ) {
+    const attackQueue = [
 
-            const overflowResult =
-                resolveOverflow(
-                    defenderUnits,
-                    result.overflowDamage
-                );
+        ...attackerQueue,
 
-            if (
-                overflowResult
-            ) {
+        ...defenderQueue
+    ];
 
-                overflowEvents.push({
+    console.log(
+        "TOTAL ATTACK QUEUE:",
+        attackQueue.length
+    );
 
-                    sourceRuntimeUnitId:
-                        attacker.runtimeUnitId,
+    if (
+        attackQueue.length === 0
+    ) {
 
-                    targetRuntimeUnitId:
-                        target.runtimeUnitId,
+        throw new Error(
 
-                    overflowDamage:
-                        result.overflowDamage
-                });
-            }
-        }
+            "[ROUND-001] Attack queue is empty"
+
+        );
     }
 
 
 
     // ==========================================
-    // DEFENDER TURN
+    // EXECUTE ATTACKS
     // ==========================================
 
     for (
-        const defender
-        of defenderUnits
+        const attack
+        of attackQueue
     ) {
 
         if (
-            !defender ||
-            typeof defender !==
-            "object"
+            !attack
         ) {
-            continue;
-        }
 
-        // ==========================================
-        // SINGLE SOURCE OF TRUTH
-        // ==========================================
+            throw new Error(
 
-        if (
-            defender.remainingHp <= 0
-        ) {
-            continue;
-        }
+                "[ROUND-002] Attack entry missing"
 
-        const target =
-            selectTarget(
-                defender,
-                attackerUnits
             );
-
-        if (
-            !target
-        ) {
-            continue;
         }
 
+        console.log(
 
+            "ATTACK:",
 
-        // ==========================================
-        // DAMAGE CALCULATION
-        // ==========================================
+            attack.attacker
+                ?.unitTypeId,
 
-        const damageResult =
-            calculateDamage({
+            "->",
 
-                attacker:
-                    defender,
-
-                target
-            });
-
-        if (
-            !damageResult
-        ) {
-            continue;
-        }
-
-
-
-        // ==========================================
-        // DAMAGE APPLICATION
-        // ==========================================
-
-        const result =
-            applyDamage(
-                target,
-                damageResult
-                    .finalDamage
-            );
-
-        if (
-            !result ||
-            !result.target
-        ) {
-            continue;
-        }
-
-        // ==========================================
-        // SINGLE SOURCE OF TRUTH
-        // ==========================================
-
-        target.remainingHp =
-            result.target
-                .remainingHp;
-
-        // ==========================================
-        // DERIVED STATE
-        // ==========================================
-
-        recalculateRuntimeState(
-            target
+            attack.target
+                ?.unitTypeId
         );
 
-        // ==========================================
-        // RECEIVED DAMAGE
-        // ==========================================
-
-        target.receivedDamage =
-            (
-                target.receivedDamage ||
-                0
-            ) + result.appliedDamage;
-
-
-
-        // ==========================================
-        // DAMAGE EVENTS
-        // ==========================================
-
-        damageEvents.push({
-
-            sourceRuntimeUnitId:
-                defender.runtimeUnitId,
-
-            targetRuntimeUnitId:
-                target.runtimeUnitId,
-
-            appliedDamage:
-                result.appliedDamage,
-
-            baseDamage:
-                damageResult.baseDamage,
-
-            damageAfterPenetration:
-                damageResult
-                    .damageAfterPenetration,
-
-            armorMultiplier:
-                damageResult
-                    .armorMultiplier,
-
-            finalDamage:
-                damageResult
-                    .finalDamage,
-
-            overflowDamage:
-                result.overflowDamage
-        });
-
-
-
-        // ==========================================
-        // OVERFLOW
-        // ==========================================
-
         if (
-            result.overflowDamage > 0
+            !attack.attacker
         ) {
 
-            const overflowResult =
-                resolveOverflow(
-                    attackerUnits,
-                    result.overflowDamage
-                );
+            throw new Error(
 
-            if (
-                overflowResult
-            ) {
+                "[ROUND-003] Attacker missing"
 
-                overflowEvents.push({
-
-                    sourceRuntimeUnitId:
-                        defender.runtimeUnitId,
-
-                    targetRuntimeUnitId:
-                        target.runtimeUnitId,
-
-                    overflowDamage:
-                        result.overflowDamage
-                });
-            }
+            );
         }
+
+        if (
+            !attack.target
+        ) {
+
+            throw new Error(
+
+                "[ROUND-004] Target missing"
+
+            );
+        }
+
+        resolveAttackChain({
+
+            attacker:
+                attack.attacker,
+
+            initialTarget:
+                attack.target,
+
+            availableTargets:
+                attack.availableTargets,
+
+            damageEvents,
+
+            overflowEvents
+        });
     }
+
+    console.log(
+        "DAMAGE EVENTS:",
+        damageEvents.length
+    );
+
+    console.log(
+        "OVERFLOW EVENTS:",
+        overflowEvents.length
+    );
 
 
 
@@ -447,8 +233,24 @@ function resolveRound(
     // ==========================================
 
     calculateLosses(
+
         runtime,
+
         roundRuntime
+    );
+
+    console.log(
+        "ATTACKER DESTROYED:",
+        roundRuntime
+            .attackerDestroyedUnits
+            .length
+    );
+
+    console.log(
+        "DEFENDER DESTROYED:",
+        roundRuntime
+            .defenderDestroyedUnits
+            .length
     );
 
 
@@ -490,6 +292,40 @@ function resolveRound(
     }
 
 
+
+    // ==========================================
+    // ROUND SUMMARY
+    // ==========================================
+
+    console.log(
+        "ROUND RESULT",
+        {
+            attackQueue:
+                attackQueue.length,
+
+            damageEvents:
+                damageEvents.length,
+
+            overflowEvents:
+                overflowEvents.length,
+
+            attackerDestroyed:
+                roundRuntime
+                    .attackerDestroyedUnits
+                    .length,
+
+            defenderDestroyed:
+                roundRuntime
+                    .defenderDestroyedUnits
+                    .length
+        }
+    );
+
+
+
+    // ==========================================
+    // RETURN
+    // ==========================================
 
     return {
 

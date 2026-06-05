@@ -8,20 +8,21 @@
 // ==================================================
 
 const BUILD_VERSION =
-  "2026-05-26 #001";
-
+  "2026-06-05 Runtime Migration #001";
 
 
 // ==================================================
 // IMPORTS
 // ==================================================
 
-import { resolveFleet }
-  from "./app/combat/resolveFleet.js";
+import { buildFleetRuntime }
+  from "./app/combat/buildFleetRuntime.js";
 
-import { calculateRound }
-  from "./app/combat/calculateRound.js";
+import buildCombatRuntime
+  from "./app/combat/buildCombatRuntime.js";
 
+import CombatResolver
+  from "./app/combat/resolver/CombatResolver.js";
 
 
 // ==================================================
@@ -48,7 +49,6 @@ ${JSON.stringify(data, null, 2)}
 }
 
 
-
 // ==================================================
 // START COMBAT ENGINE
 // ==================================================
@@ -67,7 +67,8 @@ async function startCombat() {
   addDebugOutput(
     "BUILD VERSION",
     {
-      version: BUILD_VERSION
+      version:
+        BUILD_VERSION
     }
   );
 
@@ -83,7 +84,8 @@ async function startCombat() {
   addDebugOutput(
     "COMBAT INITIALIZATION",
     {
-      status: "started"
+      status:
+        "started"
     }
   );
 
@@ -93,18 +95,21 @@ async function startCombat() {
   // ==================================================
 
   const shipsResponse =
-    await fetch("./app/ships.json");
+    await fetch(
+      "./app/ships.json"
+    );
 
   const shipsData =
     await shipsResponse.json();
 
-  console.log("Ships data loaded");
+  console.log(
+    "Ships data loaded"
+  );
 
   addDebugOutput(
     "SHIPS DATA",
     shipsData
   );
-
 
 
   // ==================================================
@@ -113,13 +118,15 @@ async function startCombat() {
 
   const inputResponse =
     await fetch(
-      "./data/combat-input-001.json"
+      ".\scenario\test_001.json"
     );
 
   const combatInput =
     await inputResponse.json();
 
-  console.log("Combat input loaded");
+  console.log(
+    "Combat input loaded"
+  );
 
   addDebugOutput(
     "COMBAT INPUT",
@@ -127,79 +134,40 @@ async function startCombat() {
   );
 
 
-
   // ==================================================
-  // LOAD ATTACKER INPUT
+  // LOAD FLEET INPUT
   // ==================================================
 
   const attackerInput =
     combatInput.attacker;
 
-  console.log("Attacker input loaded");
-
-
-
-  // ==================================================
-  // LOAD DEFENDER INPUT
-  // ==================================================
-
   const defenderInput =
     combatInput.defender;
 
-  console.log("Defender input loaded");
-
-
 
   // ==================================================
-  // RESOLVE RUNTIME FLEETS
+  // BUILD FLEET RUNTIMES
   // ==================================================
 
   console.log("================================");
-  console.log("RESOLVE RUNTIME FLEETS");
+  console.log("BUILD FLEET RUNTIMES");
   console.log("================================");
 
+  const attackerFleet =
+    buildFleetRuntime(
+      attackerInput,
+      shipsData
+    );
 
-  const attackerFleet = resolveFleet(
-    attackerInput,
-    shipsData
-  );
-
-  const defenderFleet = resolveFleet(
-    defenderInput,
-    shipsData
-  );
-
-
-
-  // ==================================================
-  // ATTACKER FLEET OUTPUT
-  // ==================================================
-
-  console.log("================================");
-  console.log("ATTACKER FLEET");
-  console.log("================================");
-
-  console.log(
-    JSON.stringify(attackerFleet, null, 2)
-  );
+  const defenderFleet =
+    buildFleetRuntime(
+      defenderInput,
+      shipsData
+    );
 
   addDebugOutput(
     "ATTACKER FLEET",
     attackerFleet
-  );
-
-
-
-  // ==================================================
-  // DEFENDER FLEET OUTPUT
-  // ==================================================
-
-  console.log("================================");
-  console.log("DEFENDER FLEET");
-  console.log("================================");
-
-  console.log(
-    JSON.stringify(defenderFleet, null, 2)
   );
 
   addDebugOutput(
@@ -208,45 +176,65 @@ async function startCombat() {
   );
 
 
-
   // ==================================================
-  // ROUND 1
+  // BUILD COMBAT RUNTIME
   // ==================================================
 
   console.log("================================");
-  console.log("ROUND 1");
+  console.log("BUILD COMBAT RUNTIME");
   console.log("================================");
 
+  const combatRuntime =
+    buildCombatRuntime({
 
+      attackerFleet,
 
-  // ==================================================
-  // CALCULATE ROUND
-  // ==================================================
+      defenderFleet
+    });
 
-  const roundResult = calculateRound(
-    attackerFleet,
-    defenderFleet
+  addDebugOutput(
+    "COMBAT RUNTIME",
+    combatRuntime
   );
 
 
-
   // ==================================================
-  // ROUND RESULT OUTPUT
+  // RUN COMBAT RESOLVER
   // ==================================================
 
   console.log("================================");
-  console.log("ROUND RESULT");
+  console.log("RUN COMBAT RESOLVER");
+  console.log("================================");
+
+  const resolver =
+    new CombatResolver();
+
+  const combatResult =
+    resolver.resolveCombat(
+      combatRuntime
+    );
+
+
+  // ==================================================
+  // COMBAT RESULT
+  // ==================================================
+
+  console.log("================================");
+  console.log("COMBAT RESULT");
   console.log("================================");
 
   console.log(
-    JSON.stringify(roundResult, null, 2)
+    JSON.stringify(
+      combatResult,
+      null,
+      2
+    )
   );
 
   addDebugOutput(
-    "ROUND RESULT",
-    roundResult
+    "COMBAT RESULT",
+    combatResult
   );
-
 
 
   // ==================================================
@@ -260,11 +248,11 @@ async function startCombat() {
   addDebugOutput(
     "COMBAT END",
     {
-      status: "finished"
+      status:
+        "finished"
     }
   );
 }
-
 
 
 // ==================================================
