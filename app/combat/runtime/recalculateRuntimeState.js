@@ -7,28 +7,54 @@ function recalculateRuntimeState(
         typeof runtime !==
         "object"
     ) {
-        return null;
+        throw new Error(
+            "[STATE-001] Runtime missing"
+        );
     }
 
     if (
         typeof runtime.remainingHp !==
         "number"
     ) {
-        return null;
+        throw new Error(
+            `[STATE-002] remainingHp invalid (${runtime.unitTypeId})`
+        );
     }
 
     if (
         typeof runtime.hpPerUnit !==
         "number"
     ) {
-        return null;
+        throw new Error(
+            `[STATE-003] hpPerUnit invalid (${runtime.unitTypeId})`
+        );
     }
 
     if (
         typeof runtime.unitCount !==
         "number"
     ) {
-        return null;
+        throw new Error(
+            `[STATE-004] unitCount invalid (${runtime.unitTypeId})`
+        );
+    }
+
+    if (
+        typeof runtime.dmgPerUnit !==
+        "number"
+    ) {
+        throw new Error(
+            `[STATE-005] dmgPerUnit invalid (${runtime.unitTypeId})`
+        );
+    }
+
+    if (
+        typeof runtime.volumePerUnit !==
+        "number"
+    ) {
+        throw new Error(
+            `[STATE-006] volumePerUnit invalid (${runtime.unitTypeId})`
+        );
     }
 
     // ==========================================
@@ -85,8 +111,7 @@ function recalculateRuntimeState(
     }
 
     // ==========================================
-    // TEMPORARY COMPATIBILITY FIELD
-    // TODO REMOVE hpLastUnit
+    // HP LAST UNIT
     // ==========================================
 
     if (
@@ -105,6 +130,86 @@ function recalculateRuntimeState(
             remainder === 0
                 ? runtime.hpPerUnit
                 : remainder;
+    }
+
+    // ==========================================
+    // DERIVED VALUES
+    // ==========================================
+
+    runtime.totalDamage =
+
+        runtime.remainingUnits *
+        runtime.dmgPerUnit;
+
+    runtime.remainingVolume =
+
+        runtime.remainingUnits *
+        runtime.volumePerUnit;
+
+    // ==========================================
+    // RUNTIME INTEGRITY
+    // ==========================================
+
+    if (
+        runtime.remainingUnits < 0
+    ) {
+        throw new Error(
+
+            `[STATE-021] Negative unit count (${runtime.unitTypeId})`
+
+        );
+    }
+
+    if (
+        runtime.remainingHp < 0
+    ) {
+        throw new Error(
+
+            `[STATE-022] Negative HP (${runtime.unitTypeId})`
+
+        );
+    }
+
+    if (
+        runtime.totalDamage < 0
+    ) {
+        throw new Error(
+
+            `[STATE-023] Negative damage (${runtime.unitTypeId})`
+
+        );
+    }
+
+    if (
+        runtime.remainingVolume < 0
+    ) {
+        throw new Error(
+
+            `[STATE-024] Negative volume (${runtime.unitTypeId})`
+
+        );
+    }
+
+    if (
+        runtime.remainingUnits === 0 &&
+        runtime.totalDamage > 0
+    ) {
+        throw new Error(
+
+            `[STATE-025] Destroyed unit still has damage (${runtime.unitTypeId})`
+
+        );
+    }
+
+    if (
+        runtime.remainingUnits === 0 &&
+        runtime.remainingVolume > 0
+    ) {
+        throw new Error(
+
+            `[STATE-026] Destroyed unit still has volume (${runtime.unitTypeId})`
+
+        );
     }
 
     return runtime;

@@ -75,16 +75,7 @@ function resolveAttackChain({
         );
     }
 
-    if (
-        attacker.totalDamage <= 0
-    ) {
 
-        throw new Error(
-
-            `[CHAIN-004] totalDamage must be > 0 for ${attacker.unitTypeId}`
-
-        );
-    }
 
 
 

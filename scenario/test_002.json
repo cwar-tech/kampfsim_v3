@@ -1,0 +1,14 @@
+{
+  "attacker": [
+    {
+      "unitTypeId": "ship_frigate",
+      "count": 1000
+    }
+  ],
+  "defender": [
+    {
+      "unitTypeId": "ship_destroyer",
+      "count": 300
+    }
+  ]
+}
