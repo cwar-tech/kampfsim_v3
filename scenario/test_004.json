@@ -1,0 +1,21 @@
+{
+  "attacker": [
+    {
+      "unitTypeId": "ship_frigate",
+      "count": 1000
+    },
+    {
+      "unitTypeId": "ship_light_fighter",
+      "count": 10000
+    },
+    {
+      "unitTypeId": "ship_destroyer",
+      "count": 390
+    },
+    {
+      "unitTypeId": "ship_medium_fighter",
+      "count": 5000
+    }
+  ],
+  "defender": []
+}

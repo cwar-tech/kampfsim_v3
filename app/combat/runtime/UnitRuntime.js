@@ -48,8 +48,6 @@ class UnitRuntime {
 
         armorPerUnit,
 
-        speedPerUnit,
-
         penetrationPerUnit,
 
         volumePerUnit,
@@ -181,12 +179,6 @@ class UnitRuntime {
             typeof armorPerUnit ===
                 "number"
                 ? armorPerUnit
-                : 0;
-
-        this.speedPerUnit =
-            typeof speedPerUnit ===
-                "number"
-                ? speedPerUnit
                 : 0;
 
         this.penetrationPerUnit =

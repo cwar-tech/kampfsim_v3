@@ -8,7 +8,7 @@ class CombatResolver {
 
     constructor({
 
-        maxRounds = 5
+        maxRounds = 250
 
     } = {}) {
 
@@ -64,6 +64,90 @@ class CombatResolver {
                 combatRuntime
                     .defenderDefeated
             );
+
+
+
+        // ==========================================
+        // PRE COMBAT VALIDATION
+        // ==========================================
+
+        const attackerAlive =
+            (
+                combatRuntime
+                    ?.attackerFleet
+                    ?.units || []
+            ).some(
+
+                unit =>
+
+                    unit &&
+                    unit.remainingHp > 0
+            );
+
+        const defenderAlive =
+            (
+                combatRuntime
+                    ?.defenderFleet
+                    ?.units || []
+            ).some(
+
+                unit =>
+
+                    unit &&
+                    unit.remainingHp > 0
+            );
+
+        if (
+            !attackerAlive &&
+            !defenderAlive
+        ) {
+
+            combatRuntime.attackerDefeated =
+                true;
+
+            combatRuntime.defenderDefeated =
+                true;
+
+            combatRuntime.combatFinished =
+                true;
+
+            combatRuntime.combatResult =
+                "draw";
+
+            return combatRuntime;
+        }
+
+        if (
+            !attackerAlive
+        ) {
+
+            combatRuntime.attackerDefeated =
+                true;
+
+            combatRuntime.combatFinished =
+                true;
+
+            combatRuntime.combatResult =
+                "defenderVictory";
+
+            return combatRuntime;
+        }
+
+        if (
+            !defenderAlive
+        ) {
+
+            combatRuntime.defenderDefeated =
+                true;
+
+            combatRuntime.combatFinished =
+                true;
+
+            combatRuntime.combatResult =
+                "attackerVictory";
+
+            return combatRuntime;
+        }
 
 
 
@@ -316,7 +400,7 @@ class CombatResolver {
             // SINGLE SOURCE OF TRUTH
             // ==========================================
 
-            const attackerAlive =
+            const attackerAliveAfterRound =
                 (
                     combatRuntime
                         ?.attackerFleet
@@ -329,7 +413,7 @@ class CombatResolver {
                         unit.remainingHp > 0
                 );
 
-            const defenderAlive =
+            const defenderAliveAfterRound =
                 (
                     combatRuntime
                         ?.defenderFleet
@@ -349,10 +433,10 @@ class CombatResolver {
             // ==========================================
 
             combatRuntime.attackerDefeated =
-                !attackerAlive;
+                !attackerAliveAfterRound;
 
             combatRuntime.defenderDefeated =
-                !defenderAlive;
+                !defenderAliveAfterRound;
 
 
 
@@ -361,8 +445,8 @@ class CombatResolver {
             // ==========================================
 
             if (
-                !attackerAlive ||
-                !defenderAlive
+                !attackerAliveAfterRound ||
+                !defenderAliveAfterRound
             ) {
 
                 combatRuntime

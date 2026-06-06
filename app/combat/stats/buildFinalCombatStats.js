@@ -36,10 +36,6 @@ function buildFinalCombatStats({
                 baseStats.armor
             ) || 0,
 
-        speedPerUnit:
-            Number(
-                baseStats.speed
-            ) || 0
     };
 
     for (
@@ -101,13 +97,6 @@ function buildFinalCombatStats({
 
                 break;
 
-            case "speed":
-
-                finalStats
-                    .speedPerUnit *=
-                    multiplier;
-
-                break;
         }
     }
 
@@ -124,11 +113,6 @@ function buildFinalCombatStats({
     finalStats.armorPerUnit =
         Math.round(
             finalStats.armorPerUnit
-        );
-
-    finalStats.speedPerUnit =
-        Math.round(
-            finalStats.speedPerUnit
         );
 
     return finalStats;
