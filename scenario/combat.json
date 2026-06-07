@@ -3,131 +3,82 @@
   "tests": [
     {
       "id": "cb_001",
-
       "description": "Basiskampf Light Fighter gegen Medium Fighter",
-
       "expectedBehavior": [
         "Combat startet",
         "Combat endet",
         "CombatResult ist konsistent"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 100
-        }
+        { "unitTypeId": "ship_light_fighter", "count": 100 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 50
-        }
+        { "unitTypeId": "ship_medium_fighter", "count": 50 }
       ]
     },
-
     {
       "id": "cb_002",
-
       "description": "Frigate gegen Destroyer",
-
       "expectedBehavior": [
         "Counter werden angewendet",
         "Combat endet"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 300
-        }
+        { "unitTypeId": "ship_destroyer", "count": 300 }
       ]
     },
-
     {
       "id": "cb_003",
-
       "description": "Gemischte Flotten",
-
       "expectedBehavior": [
         "Mehrere Einheitentypen funktionieren",
         "CombatResult bleibt konsistent"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_light_fighter", "count": 10000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 390
-        },
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_destroyer", "count": 390 },
+        { "unitTypeId": "ship_medium_fighter", "count": 5000 }
       ]
     },
-
     {
       "id": "cb_004",
-
       "description": "Flotte gegen Planetenverteidigung",
-
       "expectedBehavior": [
         "Defense-Einheiten werden korrekt verarbeitet",
         "Combat endet",
         "CombatResult bleibt konsistent"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10000
-        },
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 390
-        },
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_light_fighter", "count": 10000 },
+        { "unitTypeId": "ship_destroyer", "count": 390 },
+        { "unitTypeId": "ship_medium_fighter", "count": 5000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "def_quasar_projector",
-          "count": 390
-        },
-        {
-          "unitTypeId": "def_plasma_cannon",
-          "count": 500
-        },
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10000
-        }
+        { "unitTypeId": "def_quasar_projector", "count": 390 },
+        { "unitTypeId": "def_plasma_cannon", "count": 500 },
+        { "unitTypeId": "ship_light_fighter", "count": 10000 }
+      ]
+    },
+    {
+      "id": "cb_005",
+      "description": "Endloskampf Transporter",
+      "expectedBehavior": [
+        "MaxRounds greift",
+        "Kein Endloskampf",
+        "CombatResult bleibt konsistent"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_heavy_transporter", "count": 1000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_heavy_transporter", "count": 1000 }
       ]
     }
   ]
