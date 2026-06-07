@@ -4,92 +4,48 @@
     {
       "id": "vd_001",
       "description": "Leerer Verteidiger",
-
       "expectedBehavior": [
         "Combat startet nicht oder endet sofort",
         "Keine Exceptions"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10000
-        },
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 390
-        },
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_light_fighter", "count": 10000 },
+        { "unitTypeId": "ship_destroyer", "count": 390 },
+        { "unitTypeId": "ship_medium_fighter", "count": 5000 }
       ],
-
       "defender": []
     },
-
     {
       "id": "vd_002",
       "description": "Extrem unterlegene Flotte",
-
       "expectedBehavior": [
         "Combat endet",
         "Keine Endlosschleife",
         "CombatResult bleibt konsistent"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 1
-        }
+        { "unitTypeId": "ship_light_fighter", "count": 1 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10000
-        },
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 390
-        },
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_light_fighter", "count": 10000 },
+        { "unitTypeId": "ship_destroyer", "count": 390 },
+        { "unitTypeId": "ship_medium_fighter", "count": 5000 }
       ]
     },
-
     {
       "id": "vd_003",
       "description": "Defense darf nicht offensiv eingesetzt werden",
-
       "expectedBehavior": [
         "Validation schlägt fehl",
         "Defense darf nicht Teil einer Angreiferflotte sein"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "def_missile_launcher",
-          "count": 100
-        }
+        { "unitTypeId": "def_missile_launcher", "count": 100 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 50
-        }
+        { "unitTypeId": "ship_medium_fighter", "count": 50 }
       ]
     }
   ]
