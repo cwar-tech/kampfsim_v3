@@ -1,0 +1,90 @@
+{
+  "domain": "targeting",
+  "tests": [
+    {
+      "id": "tg_001",
+
+      "description": "Medium Fighter entscheidet zwischen zwei Counterzielen",
+
+      "expectedBehavior": [
+        "3.5x Counter wird vor 3.0x Counter bevorzugt",
+        "Stellar Cruiser wird zuerst angegriffen"
+      ],
+
+      "attacker": [
+        {
+          "unitTypeId": "ship_medium_fighter",
+          "count": 1000
+        }
+      ],
+
+      "defender": [
+        {
+          "unitTypeId": "ship_light_fighter",
+          "count": 1000
+        },
+        {
+          "unitTypeId": "ship_stellar_cruiser",
+          "count": 1000
+        }
+      ]
+    },
+
+    {
+      "id": "tg_002",
+
+      "description": "Destroyer entscheidet zwischen gleichwertigen Countern",
+
+      "expectedBehavior": [
+        "Beide Ziele besitzen 3.0x Counter",
+        "Tie-Breaker wird sichtbar"
+      ],
+
+      "attacker": [
+        {
+          "unitTypeId": "ship_destroyer",
+          "count": 1000
+        }
+      ],
+
+      "defender": [
+        {
+          "unitTypeId": "ship_frigate",
+          "count": 1000
+        },
+        {
+          "unitTypeId": "ship_ion_carrier",
+          "count": 1000
+        }
+      ]
+    },
+
+    {
+      "id": "tg_003",
+
+      "description": "Bomber gegen Defense und Schiff",
+
+      "expectedBehavior": [
+        "Defense-Priorität oder Counter-Priorität wird sichtbar"
+      ],
+
+      "attacker": [
+        {
+          "unitTypeId": "ship_bomber",
+          "count": 1000
+        }
+      ],
+
+      "defender": [
+        {
+          "unitTypeId": "def_quasar_projector",
+          "count": 100
+        },
+        {
+          "unitTypeId": "ship_destroyer",
+          "count": 1000
+        }
+      ]
+    }
+  ]
+}
