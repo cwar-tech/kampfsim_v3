@@ -3,87 +3,120 @@
   "tests": [
     {
       "id": "tg_001",
-
       "description": "Medium Fighter entscheidet zwischen zwei Counterzielen",
-
       "expectedBehavior": [
-        "3.5x Counter wird vor 3.0x Counter bevorzugt",
-        "Stellar Cruiser wird zuerst angegriffen"
+        "3.5x Counter wird vor 3.0x Counter bevorzugt"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_medium_fighter", "count": 1000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_stellar_cruiser",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_light_fighter", "count": 1000 },
+        { "unitTypeId": "ship_stellar_cruiser", "count": 1000 }
       ]
     },
-
     {
       "id": "tg_002",
-
-      "description": "Destroyer entscheidet zwischen gleichwertigen Countern",
-
+      "description": "Destroyer entscheidet zwischen zwei gleichwertigen Counterzielen",
       "expectedBehavior": [
-        "Beide Ziele besitzen 3.0x Counter",
         "Tie-Breaker wird sichtbar"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_destroyer", "count": 1000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_frigate",
-          "count": 1000
-        },
-        {
-          "unitTypeId": "ship_ion_carrier",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_ion_carrier", "count": 1000 }
       ]
     },
-
     {
       "id": "tg_003",
-
-      "description": "Bomber gegen Defense und Schiff",
-
+      "description": "Bomber gegen mehrere Defense-Typen",
+      "expectedBehavior": [
+        "Höchster Counter wird bevorzugt"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_bomber", "count": 1000 }
+      ],
+      "defender": [
+        { "unitTypeId": "def_missile_launcher", "count": 1000 },
+        { "unitTypeId": "def_quasar_projector", "count": 100 }
+      ]
+    },
+    {
+      "id": "tg_004",
+      "description": "Bomber gegen alle Defense-Typen",
+      "expectedBehavior": [
+        "Targeting-Ranking wird sichtbar"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_bomber", "count": 2000 }
+      ],
+      "defender": [
+        { "unitTypeId": "def_missile_launcher", "count": 100 },
+        { "unitTypeId": "def_laser_cannon", "count": 100 },
+        { "unitTypeId": "def_ion_cannon", "count": 100 },
+        { "unitTypeId": "def_gauss_cannon", "count": 100 },
+        { "unitTypeId": "def_plasma_cannon", "count": 100 },
+        { "unitTypeId": "def_quasar_projector", "count": 100 }
+      ]
+    },
+    {
+      "id": "tg_005",
+      "description": "Abyssus Priorisierung",
+      "expectedBehavior": [
+        "Destroyer wird vor Ion Carrier gewählt",
+        "Ion Carrier wird vor Frigate gewählt"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_abyssus", "count": 100 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_destroyer", "count": 1000 },
+        { "unitTypeId": "ship_ion_carrier", "count": 1000 },
+        { "unitTypeId": "ship_frigate", "count": 1000 }
+      ]
+    },
+    {
+      "id": "tg_006",
+      "description": "Defense gegen Ship Priorität",
       "expectedBehavior": [
         "Defense-Priorität oder Counter-Priorität wird sichtbar"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_bomber",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_bomber", "count": 1000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "def_quasar_projector",
-          "count": 100
-        },
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 1000
-        }
+        { "unitTypeId": "def_quasar_projector", "count": 100 },
+        { "unitTypeId": "ship_destroyer", "count": 1000 }
+      ]
+    },
+    {
+      "id": "tg_007",
+      "description": "Kein Counter vorhanden",
+      "expectedBehavior": [
+        "Fallback-Targeting wird sichtbar"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_heavy_fighter", "count": 1000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_destroyer", "count": 1000 },
+        { "unitTypeId": "ship_ion_carrier", "count": 1000 }
+      ]
+    },
+    {
+      "id": "tg_008",
+      "description": "Gleicher Counter unterschiedlicher Damage",
+      "expectedBehavior": [
+        "Tie-Breaker wird sichtbar"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_destroyer", "count": 1000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_frigate", "count": 1000 },
+        { "unitTypeId": "ship_ion_carrier", "count": 1000 }
       ]
     }
   ]
