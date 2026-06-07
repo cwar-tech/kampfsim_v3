@@ -3,57 +3,94 @@
   "tests": [
     {
       "id": "of_001",
-
       "description": "Overflow ohne weiteres Ziel",
-
       "expectedBehavior": [
         "Ziel wird zerstört",
-        "Kein weiteres Ziel vorhanden",
-        "Overflow endet korrekt"
+        "Kein weiteres Ziel vorhanden"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10
-        }
+        { "unitTypeId": "ship_light_fighter", "count": 10 }
       ]
     },
-
     {
       "id": "of_002",
-
       "description": "Overflow mit Zielwechsel",
-
       "expectedBehavior": [
-        "Ziel A wird zerstört",
-        "Neues Ziel wird gewählt",
+        "Ziel wird zerstört",
         "Overflow wird übertragen"
       ],
-
       "attacker": [
-        {
-          "unitTypeId": "ship_destroyer",
-          "count": 5000
-        }
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
       ],
-
       "defender": [
-        {
-          "unitTypeId": "ship_light_fighter",
-          "count": 10
-        },
-        {
-          "unitTypeId": "ship_medium_fighter",
-          "count": 1000
-        }
+        { "unitTypeId": "ship_light_fighter", "count": 10 },
+        { "unitTypeId": "ship_medium_fighter", "count": 1000 }
+      ]
+    },
+    {
+      "id": "of_003",
+      "description": "Overflow mit mehreren möglichen Folgezielen",
+      "expectedBehavior": [
+        "Neue Zielwahl wird ausgelöst"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_light_fighter", "count": 10 },
+        { "unitTypeId": "ship_medium_fighter", "count": 1000 },
+        { "unitTypeId": "ship_heavy_fighter", "count": 1000 }
+      ]
+    },
+    {
+      "id": "of_004",
+      "description": "Mehrere Overflow Quellen auf dasselbe Folgeziel",
+      "expectedBehavior": [
+        "Beide Primärziele werden zerstört",
+        "Für beide Angreifer wird Overflow erzeugt",
+        "Beide Overflow Schäden werden verarbeitet",
+        "Kein Overflow geht verloren"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_destroyer", "count": 5000 },
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_light_fighter", "count": 10 },
+        { "unitTypeId": "ship_light_fighter", "count": 10 },
+        { "unitTypeId": "ship_heavy_fighter", "count": 5000 }
+      ]
+    },
+    {
+      "id": "of_005",
+      "description": "Overflow auf weiteres Counterziel",
+      "expectedBehavior": [
+        "Counter wird für Folgeziel neu berechnet"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_frigate", "count": 10 },
+        { "unitTypeId": "ship_ion_carrier", "count": 5000 }
+      ]
+    },
+    {
+      "id": "of_006",
+      "description": "Overflow auf Ziel ohne Counter",
+      "expectedBehavior": [
+        "Kein Counter mehr vorhanden",
+        "Overflow Damage bleibt korrekt"
+      ],
+      "attacker": [
+        { "unitTypeId": "ship_medium_fighter", "count": 5000 }
+      ],
+      "defender": [
+        { "unitTypeId": "ship_light_fighter", "count": 10 },
+        { "unitTypeId": "ship_destroyer", "count": 5000 }
       ]
     }
   ]
