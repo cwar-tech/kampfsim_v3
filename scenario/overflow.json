@@ -1,0 +1,60 @@
+{
+  "domain": "overflow",
+  "tests": [
+    {
+      "id": "of_001",
+
+      "description": "Overflow ohne weiteres Ziel",
+
+      "expectedBehavior": [
+        "Ziel wird zerstört",
+        "Kein weiteres Ziel vorhanden",
+        "Overflow endet korrekt"
+      ],
+
+      "attacker": [
+        {
+          "unitTypeId": "ship_destroyer",
+          "count": 5000
+        }
+      ],
+
+      "defender": [
+        {
+          "unitTypeId": "ship_light_fighter",
+          "count": 10
+        }
+      ]
+    },
+
+    {
+      "id": "of_002",
+
+      "description": "Overflow mit Zielwechsel",
+
+      "expectedBehavior": [
+        "Ziel A wird zerstört",
+        "Neues Ziel wird gewählt",
+        "Overflow wird übertragen"
+      ],
+
+      "attacker": [
+        {
+          "unitTypeId": "ship_destroyer",
+          "count": 5000
+        }
+      ],
+
+      "defender": [
+        {
+          "unitTypeId": "ship_light_fighter",
+          "count": 10
+        },
+        {
+          "unitTypeId": "ship_medium_fighter",
+          "count": 1000
+        }
+      ]
+    }
+  ]
+}
