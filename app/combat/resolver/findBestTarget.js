@@ -2,8 +2,67 @@
 // app/combat/resolver/findBestTarget.js
 // ==================================================
 
-import getCounterPercent
-    from "./getCounterPercent.js";
+import getDamageMultiplier
+    from "./getDamageMultiplier.js";
+
+// ==================================================
+// TARGET PRIORITY RULES
+// ==================================================
+//
+// findBestTarget() bestimmt ausschließlich,
+// welches Ziel als nächstes angegriffen wird.
+//
+// Die Funktion berechnet KEINEN Schaden.
+//
+// Verantwortlichkeiten:
+//
+// - keine Armorberechnung
+// - keine Penetrationsberechnung
+// - keine Forschungsboni
+// - keine VIP-Boni
+// - keine Energon-Boni
+// - keine Gildenboni
+// - keine Eventboni
+// - keine Overflowberechnung
+//
+// Diese Funktion bewertet lediglich die
+// Zielpriorität anhand der Kampfregeln.
+//
+// Priorisierung:
+//
+// 1.
+// Existieren Counterziele
+// (damageMultiplier > 1)?
+//
+// → Nur Counterziele betrachten
+//
+// 2.
+// Höchster Counter zuerst
+//
+// Beispiel:
+//
+// 3.5x > 3.0x > 2.0x > 1.5x
+//
+// 3.
+// Bei gleichem Counter
+// größtes Zielvolumen zuerst
+//
+// 4.
+// Falls keine Counterziele existieren
+// größtes Zielvolumen zuerst
+//
+// Ziel:
+//
+// Die Funktion beantwortet ausschließlich:
+//
+// "Welches Ziel würde ein Angreifer
+// gemäß der aktuellen Zielpriorität
+// als nächstes auswählen?"
+//
+// Die eigentliche Schadensberechnung erfolgt
+// ausschließlich in calculateDamage().
+//
+// ==================================================
 
 function findBestTarget(
     attacker,
@@ -17,12 +76,12 @@ function findBestTarget(
     }
 
     if (
-        !Array.isArray(targets)
+        !Array.isArray(
+            targets
+        )
     ) {
         return null;
     }
-
-
 
     // ==========================================
     // ALIVE TARGETS ONLY
@@ -34,6 +93,10 @@ function findBestTarget(
             target =>
 
                 target &&
+
+                typeof target.remainingHp ===
+                "number" &&
+
                 target.remainingHp > 0
         );
 
@@ -42,8 +105,6 @@ function findBestTarget(
     ) {
         return null;
     }
-
-
 
     // ==========================================
     // DEFENSE PRIORITY
@@ -58,135 +119,104 @@ function findBestTarget(
                 "defense"
         );
 
-    const ships =
-        aliveTargets.filter(
-
-            target =>
-
-                target.unitCategory ===
-                "ship"
-        );
-
     const candidateTargets =
 
         defenses.length > 0
 
             ? defenses
 
-            : ships;
-
-
+            : aliveTargets;
 
     // ==========================================
-    // TARGET SCORING
+    // COUNTER TARGETS
     // ==========================================
 
-    const rankedTargets =
+    const counterTargets =
+        candidateTargets.filter(
 
-        candidateTargets.map(
+            target =>
 
-            target => {
-
-                const counterPercent =
-
-                    getCounterPercent(
-
-                        attacker,
-
-                        target
-                    );
-
-                const baseDamage =
-
-                    attacker.totalDamage || 0;
-
-                const targetVolume =
-
-                    target.remainingVolume ||
-
-                    target.volume ||
-
-                    0;
-
-                return {
-
-                    target,
-
-                    counterPercent,
-
-                    baseDamage,
-
-                    targetVolume
-                };
-            }
+                getDamageMultiplier(
+                    attacker,
+                    target
+                ) > 1
         );
 
+    const finalTargets =
 
+        counterTargets.length > 0
+
+            ? counterTargets
+
+            : candidateTargets;
 
     // ==========================================
     // SORT TARGETS
     // ==========================================
 
-    rankedTargets.sort(
+    finalTargets.sort(
 
         (a, b) => {
 
+            const aCounter =
+                getDamageMultiplier(
+                    attacker,
+                    a
+                );
+
+            const bCounter =
+                getDamageMultiplier(
+                    attacker,
+                    b
+                );
+
             // ==========================
-            // COUNTER %
+            // HIGHER COUNTER FIRST
             // ==========================
 
             if (
-                b.counterPercent !==
-                a.counterPercent
+                bCounter !==
+                aCounter
             ) {
 
                 return (
-                    b.counterPercent -
-                    a.counterPercent
+                    bCounter -
+                    aCounter
                 );
             }
 
-
-
             // ==========================
-            // BASE DAMAGE
+            // HIGHER VOLUME FIRST
             // ==========================
 
-            if (
-                b.baseDamage !==
-                a.baseDamage
-            ) {
+            const aVolume =
 
-                return (
-                    b.baseDamage -
-                    a.baseDamage
-                );
-            }
+                a.remainingVolume ||
 
+                a.totalVolume ||
 
+                0;
 
-            // ==========================
-            // TARGET VOLUME
-            // ==========================
+            const bVolume =
 
-            if (
-                b.targetVolume !==
-                a.targetVolume
-            ) {
+                b.remainingVolume ||
 
-                return (
-                    b.targetVolume -
-                    a.targetVolume
-                );
-            }
+                b.totalVolume ||
 
-            return 0;
+                0;
+
+            return (
+                bVolume -
+                aVolume
+            );
         }
     );
 
+    return {
 
-
-    return rankedTargets[0];
+        target:
+            finalTargets[0]
+    };
 }
 
 export default

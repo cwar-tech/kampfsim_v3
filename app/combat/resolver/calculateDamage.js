@@ -2,8 +2,8 @@
 // app/combat/resolver/calculateDamage.js
 // ==================================================
 
-import getCounterPercent
-    from "./getCounterPercent.js";
+import getDamageMultiplier
+    from "./getDamageMultiplier.js";
 
 function calculateDamage({
 
@@ -107,7 +107,7 @@ function calculateDamage({
 
     const damageMultiplier =
 
-        getCounterPercent(
+        getDamageMultiplier(
 
             attacker,
 

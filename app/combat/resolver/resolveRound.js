@@ -313,67 +313,37 @@ function resolveRound(
         }
 
         // ==========================================
-        // APPLIED DAMAGE
+        // EVENT VALIDATION
         // ==========================================
 
-        const appliedDamage =
+        if (
+            typeof event.appliedDamage !==
+            "number"
+        ) {
 
-            Math.min(
+            throw new Error(
 
-                target.remainingHp,
-
-                event.finalDamage
+                `[ROUND-009] Missing appliedDamage for ${event.targetRuntimeUnitId}`
             );
+        }
 
-        const overflowDamage =
+        if (
+            typeof event.targetRemainingHp !==
+            "number"
+        ) {
 
-            event.finalDamage -
+            throw new Error(
 
-            appliedDamage;
-
-        const targetHpBeforeHit =
-            target.remainingHp;
-
-        // ==========================================
-        // UPDATE EVENT
-        // ==========================================
-
-        event.appliedDamage =
-            appliedDamage;
-
-        event.overflowDamage =
-            overflowDamage;
-
-        event.targetDestroyed =
-
-            appliedDamage > 0 &&
-
-            targetHpBeforeHit <=
-            appliedDamage;
+                `[ROUND-010] Missing targetRemainingHp for ${event.targetRuntimeUnitId}`
+            );
+        }
 
         // ==========================================
-        // APPLY DAMAGE
+        // APPLY EVENT RESULT
         // ==========================================
-
-        target.remainingHp -=
-            appliedDamage;
 
         target.remainingHp =
-            Math.max(
-                0,
-                target.remainingHp
-            );
-
-        // ==========================================
-        // EVENT STATE SNAPSHOT
-        // ==========================================
-
-        event.targetRemainingHp =
-            target.remainingHp;
-
-        // ==========================================
-        // RECEIVED DAMAGE
-        // ==========================================
+            event.targetRemainingHp;
 
         target.receivedDamage =
 
@@ -383,27 +353,8 @@ function resolveRound(
 
             +
 
-            appliedDamage;
+            event.appliedDamage;
 
-        // ==========================================
-        // OVERFLOW EVENT
-        // ==========================================
-
-        if (
-            overflowDamage > 0
-        ) {
-
-            overflowEvents.push({
-
-                sourceRuntimeUnitId:
-                    event.sourceRuntimeUnitId,
-
-                targetRuntimeUnitId:
-                    event.targetRuntimeUnitId,
-
-                overflowDamage
-            });
-        }
     }
 
 
