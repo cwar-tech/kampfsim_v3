@@ -1,124 +1,253 @@
+// ==================================================
+// app/combat/validation/validateUnitRuntime.js
+// ==================================================
+
 function validateUnitRuntime(
-    unitRuntime
+    unit
 ) {
+
     const errors = [];
 
     if (
-        !unitRuntime ||
-        typeof unitRuntime !== "object"
+        !unit ||
+        typeof unit !== "object"
     ) {
+
         return {
+
             valid: false,
+
             errors: [
-                {
-                    field: "unitRuntime",
-                    message:
-                        "unitRuntime must be an object"
-                }
+                "[UNIT-001] unit missing"
             ]
         };
     }
 
+    // ==========================================
+    // IDS
+    // ==========================================
+
     if (
-        !unitRuntime.runtimeUnitId ||
-        typeof unitRuntime.runtimeUnitId !==
-        "string"
+        typeof unit.runtimeUnitId !==
+        "string" ||
+        unit.runtimeUnitId.length === 0
     ) {
-        errors.push({
-            field: "runtimeUnitId",
-            message:
-                "runtimeUnitId must be a non-empty string"
-        });
+
+        errors.push(
+            "[UNIT-002] invalid runtimeUnitId"
+        );
     }
 
     if (
-        !unitRuntime.unitTypeId ||
-        typeof unitRuntime.unitTypeId !==
-        "string"
+        typeof unit.shipTemplateId !==
+        "string" ||
+        unit.shipTemplateId.length === 0
     ) {
-        errors.push({
-            field: "unitTypeId",
-            message:
-                "unitTypeId must be a non-empty string"
-        });
+
+        errors.push(
+            "[UNIT-003] invalid shipTemplateId"
+        );
     }
 
     if (
-        typeof unitRuntime.amount !==
-        "number" ||
+        typeof unit.unitTypeId !==
+        "string" ||
+        unit.unitTypeId.length === 0
+    ) {
+
+        errors.push(
+            "[UNIT-004] invalid unitTypeId"
+        );
+    }
+
+    // ==========================================
+    // COUNTS
+    // ==========================================
+
+    if (
         !Number.isInteger(
-            unitRuntime.amount
+            unit.unitCount
         ) ||
-        unitRuntime.amount < 0
+        unit.unitCount < 0
     ) {
-        errors.push({
-            field: "amount",
-            message:
-                "amount must be a non-negative integer"
-        });
+
+        errors.push(
+            "[UNIT-005] invalid unitCount"
+        );
     }
 
     if (
-        typeof unitRuntime.remainingUnits !==
-        "number" ||
         !Number.isInteger(
-            unitRuntime.remainingUnits
+            unit.remainingUnits
         ) ||
-        unitRuntime.remainingUnits < 0
+        unit.remainingUnits < 0
     ) {
-        errors.push({
-            field: "remainingUnits",
-            message:
-                "remainingUnits must be a non-negative integer"
-        });
+
+        errors.push(
+            "[UNIT-006] invalid remainingUnits"
+        );
     }
 
     if (
-        typeof unitRuntime.hpLastUnit !==
+        unit.remainingUnits >
+        unit.unitCount
+    ) {
+
+        errors.push(
+            "[UNIT-007] remainingUnits exceeds unitCount"
+        );
+    }
+
+    // ==========================================
+    // HP
+    // ==========================================
+
+    if (
+        typeof unit.hpPerUnit !==
         "number" ||
-        unitRuntime.hpLastUnit < 0
+        unit.hpPerUnit <= 0
     ) {
-        errors.push({
-            field: "hpLastUnit",
-            message:
-                "hpLastUnit must be a non-negative number"
-        });
+
+        errors.push(
+            "[UNIT-008] invalid hpPerUnit"
+        );
     }
 
     if (
-        unitRuntime.remainingUnits >
-        unitRuntime.amount
+        typeof unit.totalHp !==
+        "number" ||
+        unit.totalHp < 0
     ) {
-        errors.push({
-            field: "remainingUnits",
-            message:
-                "remainingUnits cannot exceed amount"
-        });
+
+        errors.push(
+            "[UNIT-009] invalid totalHp"
+        );
     }
 
     if (
-        unitRuntime.remainingUnits === 0 &&
-        unitRuntime.hpLastUnit > 0
+        typeof unit.remainingHp !==
+        "number" ||
+        unit.remainingHp < 0
     ) {
-        errors.push({
-            field: "hpLastUnit",
-            message:
-                "hpLastUnit must be 0 when no units remain"
-        });
+
+        errors.push(
+            "[UNIT-010] invalid remainingHp"
+        );
     }
 
     if (
-        unitRuntime.remainingUnits > 0 &&
-        unitRuntime.hpLastUnit <= 0
+        unit.remainingHp >
+        unit.totalHp
     ) {
-        errors.push({
-            field: "hpLastUnit",
-            message:
-                "hpLastUnit must be greater than 0 when units remain"
-        });
+
+        errors.push(
+            "[UNIT-011] remainingHp exceeds totalHp"
+        );
+    }
+
+    // ==========================================
+    // DAMAGE
+    // ==========================================
+
+    if (
+        typeof unit.dmgPerUnit !==
+        "number" ||
+        unit.dmgPerUnit < 0
+    ) {
+
+        errors.push(
+            "[UNIT-012] invalid dmgPerUnit"
+        );
+    }
+
+    if (
+        typeof unit.totalDamage !==
+        "number" ||
+        unit.totalDamage < 0
+    ) {
+
+        errors.push(
+            "[UNIT-013] invalid totalDamage"
+        );
+    }
+
+    // ==========================================
+    // VOLUME
+    // ==========================================
+
+    if (
+        typeof unit.volumePerUnit !==
+        "number" ||
+        unit.volumePerUnit < 0
+    ) {
+
+        errors.push(
+            "[UNIT-014] invalid volumePerUnit"
+        );
+    }
+
+    if (
+        typeof unit.remainingVolume !==
+        "number" ||
+        unit.remainingVolume < 0
+    ) {
+
+        errors.push(
+            "[UNIT-015] invalid remainingVolume"
+        );
+    }
+
+    // ==========================================
+    // DAMAGE TRACKING
+    // ==========================================
+
+    if (
+        typeof unit.receivedDamage !==
+        "number" ||
+        unit.receivedDamage < 0
+    ) {
+
+        errors.push(
+            "[UNIT-016] invalid receivedDamage"
+        );
+    }
+
+    // ==========================================
+    // DESTROYED STATE
+    // ==========================================
+
+    if (
+        typeof unit.destroyed !==
+        "boolean"
+    ) {
+
+        errors.push(
+            "[UNIT-017] invalid destroyed flag"
+        );
+    }
+
+    if (
+        unit.destroyed &&
+        unit.remainingHp > 0
+    ) {
+
+        errors.push(
+            "[UNIT-018] destroyed unit still has hp"
+        );
+    }
+
+    if (
+        unit.destroyed &&
+        unit.remainingUnits > 0
+    ) {
+
+        errors.push(
+            "[UNIT-019] destroyed unit still has units"
+        );
     }
 
     return {
+
         valid:
             errors.length === 0,
 
@@ -126,4 +255,5 @@ function validateUnitRuntime(
     };
 }
 
-export default validateUnitRuntime;
+export default
+    validateUnitRuntime;
