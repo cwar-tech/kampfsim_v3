@@ -1,32 +1,257 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-  <meta charset="UTF-8" />
-
-  <title>
-    Combat Simulator MVP
-  </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Simulator</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+body{
+    background:#0f172a;
+    color:white;
+    padding:20px;
+}
+h1{
+    margin-bottom:20px;
+}
+.page{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+.panel{
+    background:#1e293b;
+    border-radius:12px;
+    padding:20px;
+}
+.panel h2{
+    margin-bottom:20px;
+}
+.unit-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.unit-row:last-child{
+    border-bottom:none;
+}
+.unit-name{
+    flex:1;
+}
+.unit-input{
+    width:120px;
+}
+.unit-input input{
+    width:100%;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    background:#334155;
+    color:white;
+}
+.actions{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+}
+button{
+    padding:16px 40px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+    transition:.2s;
+}
+button:hover{
+    opacity:.9;
+}
+.output{
+    margin-top:30px;
+    background:#1e293b;
+    border-radius:12px;
+    padding:20px;
+}
+pre{
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+</style>
 </head>
-
 <body>
-
-  <h1>
-    Combat Simulator MVP
-  </h1>
-
-  <p>
-    Öffne die Browser Console
-    für Runtime Output.
-  </p>
-
-<div id="debug"></div>
-
-  <script
-    type="module"
-    src="./engine.js">
-  </script>
-
+<h1>Combat Simulator</h1>
+<div class="page">
+    <div class="panel">
+        <h2>Angreifer</h2>
+        <div id="attackerFleet"></div>
+    </div>
+    <div class="panel">
+        <h2>Verteidiger</h2>
+        <div id="defenderFleet"></div>
+    </div>
+</div>
+<div class="actions">
+    <button id="calculateBtn">
+        Kampf berechnen
+    </button>
+</div>
+<div class="output">
+    <h2>Combat Request</h2>
+    <pre id="result"></pre>
+</div>
+<script>
+/*
+    Beispiel.
+    Später direkt aus ships.json laden.
+*/
+const shipRegistry = [
+    {
+        unitTypeId:"ship_light_fighter",
+        name:"Leichter Jäger",
+        type:"ship"
+    },
+    {
+        unitTypeId:"ship_medium_fighter",
+        name:"Mittlerer Jäger",
+        type:"ship"
+    },
+    {
+        unitTypeId:"ship_bomber",
+        name:"Bomber",
+        type:"ship"
+    },
+    {
+        unitTypeId:"ship_cruiser",
+        name:"Kreuzer",
+        type:"ship"
+    },
+    {
+        unitTypeId:"defense_rocket",
+        name:"Raketenwerfer",
+        type:"defense"
+    },
+    {
+        unitTypeId:"defense_plasma",
+        name:"Plasma Verteidigung",
+        type:"defense"
+    }
+];
+const attackerContainer =
+    document.getElementById(
+        "attackerFleet"
+    );
+const defenderContainer =
+    document.getElementById(
+        "defenderFleet"
+    );
+function createUnitInput(
+    unit,
+    parent,
+    prefix
+){
+    const row =
+        document.createElement("div");
+    row.className =
+        "unit-row";
+    row.innerHTML = `
+        <div class="unit-name">
+            ${unit.name}
+        </div>
+        <div class="unit-input">
+            <input
+                type="number"
+                min="0"
+                value="0"
+                id="${prefix}_${unit.unitTypeId}"
+            >
+        </div>
+    `;
+    parent.appendChild(row);
+}
+shipRegistry.forEach(
+    unit => {
+        createUnitInput(
+            unit,
+            attackerContainer,
+            "attacker"
+        );
+        createUnitInput(
+            unit,
+            defenderContainer,
+            "defender"
+        );
+    }
+);
+function buildFleet(
+    prefix
+){
+    return shipRegistry
+        .map(
+            unit => {
+                const count =
+                    parseInt(
+                        document.getElementById(
+                            `${prefix}_${unit.unitTypeId}`
+                        ).value || 0
+                    );
+                return {
+                    unitTypeId:
+                        unit.unitTypeId,
+                    count
+                };
+            }
+        )
+        .filter(
+            unit =>
+                unit.count > 0
+        );
+}
+document
+    .getElementById(
+        "calculateBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+            const combatRequest = {
+                attacker:
+                    buildFleet(
+                        "attacker"
+                    ),
+                defender:
+                    buildFleet(
+                        "defender"
+                    )
+            };
+            document
+                .getElementById(
+                    "result"
+                )
+                .textContent =
+                    JSON.stringify(
+                        combatRequest,
+                        null,
+                        2
+                    );
+            /*
+                Später:
+                fetch("/api/combat")
+                ↓
+                CombatResult
+                ↓
+                BattleReport
+            */
+        }
+    );
+</script>
 </body>
-
 </html>
