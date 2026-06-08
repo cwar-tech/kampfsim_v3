@@ -19,7 +19,6 @@ function createRuntimeUnit({
 
     penetrationMultiplier = 1.0,
 
-    speed = 100,
 
     modifiers = [],
 
@@ -44,8 +43,6 @@ function createRuntimeUnit({
             armorMultiplier,
 
             penetrationMultiplier,
-
-            speed,
 
             modifiers
         });

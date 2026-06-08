@@ -36,9 +36,6 @@ describe(
                         penetrationMultiplier:
                             1.5,
 
-                        speed:
-                            120,
-
                         modifiers: []
                     });
 
@@ -69,10 +66,6 @@ describe(
                 expect(
                     runtime.penetrationMultiplier
                 ).toBe(1.5);
-
-                expect(
-                    runtime.speed
-                ).toBe(120);
 
                 expect(
                     runtime.totalHp
@@ -134,9 +127,6 @@ describe(
                         penetrationMultiplier:
                             1,
 
-                        speed:
-                            100,
-
                         modifiers: []
                     });
 
@@ -193,8 +183,6 @@ describe(
                         penetrationMultiplier:
                             1,
 
-                        speed:
-                            100
                     });
 
                 expect(
@@ -233,8 +221,6 @@ describe(
                         penetrationMultiplier:
                             1,
 
-                        speed:
-                            100
                     });
 
                 expect(
@@ -271,10 +257,8 @@ describe(
                             1,
 
                         penetrationMultiplier:
-                            1,
+                            1
 
-                        speed:
-                            100
                     });
 
                 expect(
@@ -314,10 +298,7 @@ describe(
                             1,
 
                         penetrationMultiplier:
-                            1,
-
-                        speed:
-                            100
+                            1
                     });
 
                 for (
@@ -368,10 +349,7 @@ describe(
                             1,
 
                         penetrationMultiplier:
-                            1,
-
-                        speed:
-                            100
+                            1
                     });
 
                 for (
@@ -429,8 +407,6 @@ describe(
                         penetrationMultiplier:
                             1,
 
-                        speed:
-                            100,
 
                         modifiers: [
 
@@ -567,8 +543,6 @@ describe(
                     penetrationMultiplier:
                         1,
 
-                    speed:
-                        100,
 
                     modifiers: []
                 };

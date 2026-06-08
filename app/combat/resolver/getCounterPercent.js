@@ -14,31 +14,28 @@ function getCounterPercent(
         return 100;
     }
 
-    const counters =
-        attacker.counters || {};
+    const damageMultipliers =
+        attacker.damageMultipliers || [];
 
-    const targetTypeId =
-        target.unitTypeId;
+    const match =
+        damageMultipliers.find(
+
+            entry =>
+
+                entry.targetId ===
+                target.unitTypeId
+        );
 
     if (
-        !targetTypeId
+        !match
     ) {
         return 100;
     }
 
-    const counterPercent =
-        counters[
-        targetTypeId
-        ];
-
-    if (
-        typeof counterPercent ===
-        "number"
-    ) {
-        return counterPercent;
-    }
-
-    return 100;
+    return (
+        match.multiplier *
+        100
+    );
 }
 
 export default

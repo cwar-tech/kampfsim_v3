@@ -112,8 +112,6 @@ function buildUnitRuntime({
 
         penetrationMultiplier,
 
-        speed,
-
 
 
         // ======================================

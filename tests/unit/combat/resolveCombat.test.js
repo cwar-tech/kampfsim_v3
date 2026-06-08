@@ -35,9 +35,7 @@ describe(
                             0.25,
 
                         penetrationMultiplier:
-                            1.0,
-
-                        speed: 100
+                            1.0
                     },
 
                     modifiers: []
@@ -663,9 +661,7 @@ describe(
                                     0.25,
 
                                 penetrationMultiplier:
-                                    1.0,
-
-                                speed: 100
+                                    1.0
                             },
 
                             modifiers: []

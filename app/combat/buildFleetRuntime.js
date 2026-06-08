@@ -286,11 +286,11 @@ export function buildFleetRuntime(
         ship.id,
 
       unitCategory:
-        ship.category ||
+        ship.type ||
         "ship",
 
-      counters:
-        ship.counters ||
+      damageMultipliers:
+        ship.damageMultipliers ||
         {},
 
       unitCount:

@@ -20,8 +20,7 @@ describe(
 
                             hp: 500,
                             damage: 100,
-                            armor: 50,
-                            speed: 120
+                            armor: 50
                         },
 
                         modifiers: []
@@ -33,8 +32,7 @@ describe(
 
                     hpPerUnit: 500,
                     dmgPerUnit: 100,
-                    armorPerUnit: 50,
-                    speedPerUnit: 120
+                    armorPerUnit: 50
                 });
             }
         );
@@ -150,39 +148,6 @@ describe(
                 expect(
                     result.armorPerUnit
                 ).toBe(150);
-            }
-        );
-
-
-
-        // ==================================================
-        // SPEED MODIFIERS
-        // ==================================================
-
-        test(
-            "applies speed modifiers correctly",
-            () => {
-
-                const result =
-                    buildFinalCombatStats({
-
-                        baseStats: {
-
-                            speed: 100
-                        },
-
-                        modifiers: [
-
-                            {
-                                stat: "speed",
-                                multiplier: 1.25
-                            }
-                        ]
-                    });
-
-                expect(
-                    result.speedPerUnit
-                ).toBe(125);
             }
         );
 

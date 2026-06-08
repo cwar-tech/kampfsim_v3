@@ -21,14 +21,6 @@ class UnitRuntime {
 
 
         // ==========================================
-        // COUNTERS
-        // ==========================================
-
-        counters = {},
-
-
-
-        // ==========================================
         // STACK
         // ==========================================
 
@@ -89,7 +81,7 @@ class UnitRuntime {
 
 
         // ==========================================
-        // MODIFIERS
+        // DAMAGE MULTIPLIERS
         // ==========================================
 
         damageMultipliers = []
@@ -125,19 +117,6 @@ class UnitRuntime {
                 "string"
                 ? unitCategory
                 : "ship";
-
-
-
-        // ==========================================
-        // COUNTERS
-        // ==========================================
-
-        this.counters =
-            typeof counters ===
-                "object"
-                && counters !== null
-                ? counters
-                : {};
 
 
 
@@ -276,7 +255,7 @@ class UnitRuntime {
 
 
         // ==========================================
-        // MODIFIERS
+        // DAMAGE MULTIPLIERS
         // ==========================================
 
         this.damageMultipliers =
