@@ -14,6 +14,9 @@ import calculateLosses
 import recalculateRuntimeState
     from "../runtime/recalculateRuntimeState.js";
 
+import CombatRoundRuntime
+    from "../runtime/CombatRoundRuntime.js";
+
 function resolveRound(
     combatRuntime
 ) {
@@ -37,14 +40,30 @@ function resolveRound(
 
     const overflowEvents = [];
 
-    const roundRuntime = {
+    const roundRuntime =
+        new CombatRoundRuntime({
 
-        attackerDestroyedUnits:
-            [],
+            roundNumber:
+                combatRuntime.currentRound + 1,
 
-        defenderDestroyedUnits:
-            []
-    };
+            damageEvents: [],
+
+            overflowEvents: [],
+
+            attackerDamageDealt: 0,
+
+            defenderDamageDealt: 0,
+
+            attackerDamageReceived: 0,
+
+            defenderDamageReceived: 0,
+
+            attackerDestroyedUnits: [],
+
+            defenderDestroyedUnits: [],
+
+            milestones: []
+        });
 
     const attackerUnits =
         runtime
@@ -138,7 +157,6 @@ function resolveRound(
         throw new Error(
 
             "[ROUND-001] Attack queue is empty"
-
         );
     }
 
@@ -160,7 +178,6 @@ function resolveRound(
             throw new Error(
 
                 "[ROUND-002] Attack entry missing"
-
             );
         }
 
@@ -184,7 +201,6 @@ function resolveRound(
             throw new Error(
 
                 "[ROUND-003] Attacker missing"
-
             );
         }
 
@@ -195,7 +211,6 @@ function resolveRound(
             throw new Error(
 
                 "[ROUND-004] Target missing"
-
             );
         }
 
@@ -229,29 +244,167 @@ function resolveRound(
 
 
     // ==========================================
-    // LOSS CALCULATION
+    // APPLY ROUND DAMAGE EVENTS
     // ==========================================
 
-    calculateLosses(
+    const allUnits = [
 
-        runtime,
+        ...attackerUnits,
+        ...defenderUnits
+    ];
 
-        roundRuntime
-    );
+    for (
+        const event
+        of damageEvents
+    ) {
 
-    console.log(
-        "ATTACKER DESTROYED:",
-        roundRuntime
-            .attackerDestroyedUnits
-            .length
-    );
+        if (
+            !event ||
+            typeof event !==
+            "object"
+        ) {
 
-    console.log(
-        "DEFENDER DESTROYED:",
-        roundRuntime
-            .defenderDestroyedUnits
-            .length
-    );
+            throw new Error(
+
+                "[ROUND-005] Invalid damage event"
+            );
+        }
+
+        const target =
+
+            allUnits.find(
+
+                unit =>
+
+                    unit.runtimeUnitId ===
+                    event.targetRuntimeUnitId
+            );
+
+        if (
+            !target
+        ) {
+
+            throw new Error(
+
+                `[ROUND-006] Target not found: ${event.targetRuntimeUnitId}`
+            );
+        }
+
+        if (
+            typeof event.finalDamage !==
+            "number"
+        ) {
+
+            throw new Error(
+
+                `[ROUND-007] Invalid finalDamage for target ${target.unitTypeId}`
+            );
+        }
+
+        if (
+            typeof target.remainingHp !==
+            "number"
+        ) {
+
+            throw new Error(
+
+                `[ROUND-008] Invalid remainingHp for ${target.unitTypeId}`
+            );
+        }
+
+        // ==========================================
+        // APPLIED DAMAGE
+        // ==========================================
+
+        const appliedDamage =
+
+            Math.min(
+
+                target.remainingHp,
+
+                event.finalDamage
+            );
+
+        const overflowDamage =
+
+            event.finalDamage -
+
+            appliedDamage;
+
+        const targetHpBeforeHit =
+            target.remainingHp;
+
+        // ==========================================
+        // UPDATE EVENT
+        // ==========================================
+
+        event.appliedDamage =
+            appliedDamage;
+
+        event.overflowDamage =
+            overflowDamage;
+
+        event.targetDestroyed =
+
+            appliedDamage > 0 &&
+
+            targetHpBeforeHit <=
+            appliedDamage;
+
+        // ==========================================
+        // APPLY DAMAGE
+        // ==========================================
+
+        target.remainingHp -=
+            appliedDamage;
+
+        target.remainingHp =
+            Math.max(
+                0,
+                target.remainingHp
+            );
+
+        // ==========================================
+        // EVENT STATE SNAPSHOT
+        // ==========================================
+
+        event.targetRemainingHp =
+            target.remainingHp;
+
+        // ==========================================
+        // RECEIVED DAMAGE
+        // ==========================================
+
+        target.receivedDamage =
+
+            (
+                target.receivedDamage || 0
+            )
+
+            +
+
+            appliedDamage;
+
+        // ==========================================
+        // OVERFLOW EVENT
+        // ==========================================
+
+        if (
+            overflowDamage > 0
+        ) {
+
+            overflowEvents.push({
+
+                sourceRuntimeUnitId:
+                    event.sourceRuntimeUnitId,
+
+                targetRuntimeUnitId:
+                    event.targetRuntimeUnitId,
+
+                overflowDamage
+            });
+        }
+    }
 
 
 
@@ -290,6 +443,33 @@ function resolveRound(
             unit
         );
     }
+
+
+
+    // ==========================================
+    // LOSS CALCULATION
+    // ==========================================
+
+    calculateLosses(
+
+        runtime,
+
+        roundRuntime
+    );
+
+    console.log(
+        "ATTACKER DESTROYED:",
+        roundRuntime
+            .attackerDestroyedUnits
+            .length
+    );
+
+    console.log(
+        "DEFENDER DESTROYED:",
+        roundRuntime
+            .defenderDestroyedUnits
+            .length
+    );
 
 
 

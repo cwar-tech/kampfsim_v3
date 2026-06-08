@@ -2,6 +2,9 @@
 // app/combat/resolver/calculateDamage.js
 // ==================================================
 
+import getCounterPercent
+    from "./getCounterPercent.js";
+
 function calculateDamage({
 
     attacker,
@@ -28,10 +31,6 @@ function calculateDamage({
         return null;
     }
 
-    // ==========================================
-    // VALIDATION
-    // ==========================================
-
     if (
         typeof attacker.remainingHp !==
         "number"
@@ -46,10 +45,6 @@ function calculateDamage({
         return null;
     }
 
-    // ==========================================
-    // TARGET ALREADY DESTROYED
-    // ==========================================
-
     if (
         target.remainingHp <= 0
     ) {
@@ -57,6 +52,10 @@ function calculateDamage({
         return {
 
             baseDamage: 0,
+
+            damageMultiplier: 1,
+
+            damageAfterMultiplier: 0,
 
             damageAfterPenetration: 0,
 
@@ -103,48 +102,92 @@ function calculateDamage({
     }
 
     // ==========================================
-    // PENETRATION MULTIPLIER
+    // DAMAGE MULTIPLIER
     // ==========================================
+
+    const damageMultiplier =
+
+        getCounterPercent(
+
+            attacker,
+
+            target
+        );
+
+    const damageAfterMultiplier =
+
+        baseDamage *
+
+        damageMultiplier;
+
+    // ==========================================
+    // PENETRATION
+    // ==========================================
+
+    const penetrationPerUnit =
+
+        typeof attacker
+            .penetrationPerUnit ===
+            "number"
+
+            ? attacker
+                .penetrationPerUnit
+
+            : 0;
 
     const penetrationMultiplier =
-        typeof attacker
-            .penetrationMultiplier ===
-            "number"
-            ? attacker
-                .penetrationMultiplier
-            : 1;
 
-    // ==========================================
-    // DAMAGE AFTER PENETRATION
-    // ==========================================
+        1 +
+
+        (
+            penetrationPerUnit /
+            100
+        );
 
     const damageAfterPenetration =
-        baseDamage *
+
+        damageAfterMultiplier *
+
         penetrationMultiplier;
 
     // ==========================================
-    // ARMOR MULTIPLIER
+    // ARMOR
     // ==========================================
 
-    const armorMultiplier =
+    const armorPerUnit =
+
         typeof target
-            .armorMultiplier ===
+            .armorPerUnit ===
             "number"
+
             ? target
-                .armorMultiplier
-            : 1;
+                .armorPerUnit
+
+            : 0;
+
+    const armorMultiplier =
+
+        Math.max(
+
+            0,
+
+            1 -
+
+            (
+                armorPerUnit /
+                100
+            )
+        );
 
     // ==========================================
     // FINAL DAMAGE
     // ==========================================
 
     let finalDamage =
-        damageAfterPenetration *
-        armorMultiplier;
 
-    // ==========================================
-    // SAFETY
-    // ==========================================
+        damageAfterPenetration *
+
+        armorMultiplier;
 
     finalDamage =
         Math.max(
@@ -152,18 +195,10 @@ function calculateDamage({
             finalDamage
         );
 
-    // ==========================================
-    // ROUNDING
-    // ==========================================
-
     finalDamage =
         Math.round(
             finalDamage
         );
-
-    // ==========================================
-    // MINIMUM CHIP DAMAGE
-    // ==========================================
 
     if (
         baseDamage > 0 &&
@@ -173,15 +208,21 @@ function calculateDamage({
         finalDamage = 1;
     }
 
-    // ==========================================
-    // RESULT
-    // ==========================================
-
     return {
 
         baseDamage,
 
+        damageMultiplier,
+
+        damageAfterMultiplier,
+
+        penetrationPerUnit,
+
+        penetrationMultiplier,
+
         damageAfterPenetration,
+
+        armorPerUnit,
 
         armorMultiplier,
 

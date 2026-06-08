@@ -1,8 +1,8 @@
 // ==================================================
-// app/combat/resolver/getCounterPercent.js
+// app/combat/resolver/getDamageMultiplier.js
 // ==================================================
 
-function getCounterPercent(
+function getDamageMultiplier(
     attacker,
     target
 ) {
@@ -11,7 +11,7 @@ function getCounterPercent(
         !attacker ||
         !target
     ) {
-        return 100;
+        return 1;
     }
 
     const damageMultipliers =
@@ -29,14 +29,11 @@ function getCounterPercent(
     if (
         !match
     ) {
-        return 100;
+        return 1;
     }
 
-    return (
-        match.multiplier *
-        100
-    );
+    return match.multiplier;
 }
 
 export default
-    getCounterPercent;
+    getDamageMultiplier;

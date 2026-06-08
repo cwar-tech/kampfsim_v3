@@ -4,6 +4,9 @@ import CombatRoundRuntime
 import resolveRound
     from "./resolveRound.js";
 
+import hasAliveUnits
+    from "../runtime/hasAliveUnits.js";
+
 class CombatResolver {
 
     constructor({
@@ -72,29 +75,13 @@ class CombatResolver {
         // ==========================================
 
         const attackerAlive =
-            (
-                combatRuntime
-                    ?.attackerFleet
-                    ?.units || []
-            ).some(
-
-                unit =>
-
-                    unit &&
-                    unit.remainingHp > 0
+            hasAliveUnits(
+                combatRuntime.attackerFleet
             );
 
         const defenderAlive =
-            (
-                combatRuntime
-                    ?.defenderFleet
-                    ?.units || []
-            ).some(
-
-                unit =>
-
-                    unit &&
-                    unit.remainingHp > 0
+            hasAliveUnits(
+                combatRuntime.defenderFleet
             );
 
         if (
@@ -168,56 +155,13 @@ class CombatResolver {
             // ROUND RUNTIME
             // ==========================================
 
-            const roundRuntime =
-                new CombatRoundRuntime({
-
-                    roundNumber:
-                        combatRuntime
-                            .currentRound + 1,
-
-                    damageEvents:
-                        [],
-
-                    overflowEvents:
-                        [],
-
-                    attackerDamageDealt:
-                        0,
-
-                    defenderDamageDealt:
-                        0,
-
-                    attackerDamageReceived:
-                        0,
-
-                    defenderDamageReceived:
-                        0,
-
-                    attackerDestroyedUnits:
-                        [],
-
-                    defenderDestroyedUnits:
-                        []
-                });
-
-
-
-            // ==========================================
-            // RESOLVE ROUND
-            // ==========================================
-
             const result =
                 resolveRound(
                     combatRuntime
                 );
 
-            if (
-                !result
-            ) {
-                break;
-            }
-
-
+            const roundRuntime =
+                result.roundRuntime;
 
             // ==========================================
             // APPLY ROUND RESULT
@@ -250,14 +194,17 @@ class CombatResolver {
             // ==========================================
 
             const attackerRuntimeIds =
-                (
-                    combatRuntime
-                        ?.attackerFleet
-                        ?.units || []
-                ).map(
+                new Set(
 
-                    unit =>
-                        unit.runtimeUnitId
+                    (
+                        combatRuntime
+                            ?.attackerFleet
+                            ?.units || []
+                    ).map(
+
+                        unit =>
+                            unit.runtimeUnitId
+                    )
                 );
 
             for (
@@ -313,7 +260,7 @@ class CombatResolver {
                 }
 
                 const isAttackerSource =
-                    attackerRuntimeIds.includes(
+                    attackerRuntimeIds.has(
 
                         event.sourceRuntimeUnitId
                     );
@@ -401,29 +348,13 @@ class CombatResolver {
             // ==========================================
 
             const attackerAliveAfterRound =
-                (
-                    combatRuntime
-                        ?.attackerFleet
-                        ?.units || []
-                ).some(
-
-                    unit =>
-
-                        unit &&
-                        unit.remainingHp > 0
+                hasAliveUnits(
+                    combatRuntime.attackerFleet
                 );
 
             const defenderAliveAfterRound =
-                (
-                    combatRuntime
-                        ?.defenderFleet
-                        ?.units || []
-                ).some(
-
-                    unit =>
-
-                        unit &&
-                        unit.remainingHp > 0
+                hasAliveUnits(
+                    combatRuntime.defenderFleet
                 );
 
 

@@ -2,6 +2,9 @@
 // app/combat/resolver/buildAttackQueue.js
 // ==================================================
 
+import findBestTarget
+    from "./findBestTarget.js";
+
 function buildAttackQueue(
     attackerFleet,
     defenderFleet
@@ -18,78 +21,13 @@ function buildAttackQueue(
         );
     }
 
+    const queue = [];
+
     const attackerUnits =
         attackerFleet.units || [];
 
     const defenderUnits =
         defenderFleet.units || [];
-
-    const queue = [];
-
-
-
-    // ==========================================
-    // VALIDATE DEFENDER UNITS
-    // ==========================================
-
-    for (
-        const unit
-        of defenderUnits
-    ) {
-
-        if (
-            !unit
-        ) {
-            continue;
-        }
-
-        if (
-            typeof unit.unitCategory !==
-            "string"
-        ) {
-
-            throw new Error(
-
-                `[QUEUE-001] unitCategory missing for ${unit.unitTypeId}`
-            );
-        }
-    }
-
-
-
-    // ==========================================
-    // DEFENSE PRIORITY
-    // ==========================================
-
-    const aliveDefenses =
-        defenderUnits.filter(
-
-            unit =>
-
-                unit &&
-                unit.remainingHp > 0 &&
-                unit.unitCategory ===
-                "defense"
-        );
-
-    const aliveShips =
-        defenderUnits.filter(
-
-            unit =>
-
-                unit &&
-                unit.remainingHp > 0 &&
-                unit.unitCategory ===
-                "ship"
-        );
-
-    const candidateTargets =
-
-        aliveDefenses.length > 0
-
-            ? aliveDefenses
-
-            : aliveShips;
 
 
 
@@ -114,12 +52,6 @@ function buildAttackQueue(
             continue;
         }
 
-
-
-        // ==========================================
-        // VALIDATE ATTACKER
-        // ==========================================
-
         if (
             typeof attacker.totalDamage !==
             "number"
@@ -127,24 +59,12 @@ function buildAttackQueue(
 
             throw new Error(
 
-                `[QUEUE-002] totalDamage missing for ${attacker.unitTypeId}`
+                `[QUEUE-001] totalDamage missing for ${attacker.unitTypeId}`
             );
         }
 
         if (
             attacker.totalDamage <= 0
-        ) {
-
-            throw new Error(
-
-                `[QUEUE-003] totalDamage must be > 0 for ${attacker.unitTypeId}`
-            );
-        }
-
-
-
-        if (
-            candidateTargets.length === 0
         ) {
             continue;
         }
@@ -152,141 +72,49 @@ function buildAttackQueue(
 
 
         // ==========================================
-        // BIGGEST TARGET
+        // TARGET SELECTION
         // ==========================================
 
-        const sortedTargets =
+        const targetData =
+            findBestTarget(
 
-            [...candidateTargets]
+                attacker,
 
-                .sort(
-
-                    (a, b) => {
-
-                        const volumeA =
-                            a.remainingVolume || 0;
-
-                        const volumeB =
-                            b.remainingVolume || 0;
-
-                        return (
-                            volumeB -
-                            volumeA
-                        );
-                    }
-                );
-
-        const target =
-            sortedTargets[0];
-
-
-
-        // ==========================================
-        // BASE DAMAGE
-        // ==========================================
-
-        const counterPercent =
-            100;
-
-        const baseDamage =
-            attacker.totalDamage;
-
-        const projectedDamage =
-
-            baseDamage *
-
-            (
-                counterPercent /
-                100
+                defenderUnits
             );
 
+        if (
+            !targetData
+        ) {
+            continue;
+        }
 
+
+
+        // ==========================================
+        // QUEUE ENTRY
+        // ==========================================
 
         queue.push({
 
-            attackerRuntimeUnitId:
-                attacker.runtimeUnitId,
-
-            targetRuntimeUnitId:
-                target.runtimeUnitId,
-
             attacker,
 
-            target,
+            target:
+                targetData.target,
 
             availableTargets:
-                candidateTargets,
+                defenderUnits,
 
-            counterPercent,
+            counterPercent:
+                targetData.counterPercent,
 
-            baseDamage,
-
-            projectedDamage,
+            projectedDamage:
+                targetData.projectedDamage,
 
             targetVolume:
-                target.remainingVolume || 0
+                targetData.targetVolume
         });
     }
-
-
-
-    // ==========================================
-    // GLOBAL PRIORITY
-    // ==========================================
-
-    queue.sort(
-
-        (a, b) => {
-
-            if (
-                b.counterPercent !==
-                a.counterPercent
-            ) {
-
-                return (
-
-                    b.counterPercent -
-
-                    a.counterPercent
-                );
-            }
-
-            if (
-                b.baseDamage !==
-                a.baseDamage
-            ) {
-
-                return (
-
-                    b.baseDamage -
-
-                    a.baseDamage
-                );
-            }
-
-            if (
-                b.targetVolume !==
-                a.targetVolume
-            ) {
-
-                return (
-
-                    b.targetVolume -
-
-                    a.targetVolume
-                );
-            }
-
-            return String(
-                a.attackerRuntimeUnitId
-            ).localeCompare(
-
-                String(
-                    b.attackerRuntimeUnitId
-                )
-            );
-        }
-    );
 
 
 
@@ -302,11 +130,9 @@ function buildAttackQueue(
 
         throw new Error(
 
-            "[QUEUE-004] Queue generation failed"
+            "[QUEUE-002] Queue generation failed"
         );
     }
-
-
 
     return queue;
 }

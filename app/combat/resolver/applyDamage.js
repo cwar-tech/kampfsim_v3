@@ -1,3 +1,7 @@
+// ==================================================
+// app/combat/resolver/applyDamage.js
+// ==================================================
+
 import recalculateRuntimeState
     from "../runtime/recalculateRuntimeState.js";
 

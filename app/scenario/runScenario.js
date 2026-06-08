@@ -3,30 +3,56 @@ import fs from "fs";
 import executeScenario
     from "./executeScenario.js";
 
-const scenarioName =
+const domain =
     process.argv[2];
 
+const scenarioId =
+    process.argv[3];
+
 if (
-    !scenarioName
+    !domain ||
+    !scenarioId
 ) {
 
     console.error(
-        "Scenario name missing"
+
+        "Usage: npm run scenario -- <domain> <scenarioId>"
     );
 
     process.exit(1);
 }
 
-const scenario =
+const fileData =
     JSON.parse(
 
         fs.readFileSync(
 
-            `./scenario/${scenarioName}.json`,
+            `./scenario/${domain}.json`,
 
             "utf8"
         )
     );
+
+const scenario =
+    fileData.tests.find(
+
+        test =>
+
+            test.id ===
+            scenarioId
+    );
+
+if (
+    !scenario
+) {
+
+    console.error(
+
+        `Scenario not found: ${scenarioId}`
+    );
+
+    process.exit(1);
+}
 
 const result =
     executeScenario(
@@ -34,9 +60,13 @@ const result =
     );
 
 console.log(
+
     JSON.stringify(
+
         result,
+
         null,
+
         2
     )
 );

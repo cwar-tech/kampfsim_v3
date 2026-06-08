@@ -1,3 +1,7 @@
+// ==================================================
+// app/combat/resolver/calculateLosses.js
+// ==================================================
+
 function calculateLosses(
     combatRuntime,
     roundRuntime

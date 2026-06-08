@@ -5,63 +5,43 @@
 import calculateDamage
     from "./calculateDamage.js";
 
-import applyDamage
-    from "./applyDamage.js";
-
-import findBestTarget
-    from "./findBestTarget.js";
-
-import recalculateRuntimeState
-    from "../runtime/recalculateRuntimeState.js";
-
 function resolveAttackChain({
 
     attacker,
 
     initialTarget,
 
-    availableTargets,
-
-    damageEvents = [],
-
-    overflowEvents = []
+    damageEvents = []
 
 }) {
 
-    console.log(
-        "ATTACK:",
-        attacker?.unitTypeId,
-        "->",
-        initialTarget?.unitTypeId
-    );
+    // ==========================================
+    // VALIDATION
+    // ==========================================
 
     if (
-        !attacker
+        !attacker ||
+        typeof attacker !==
+        "object"
     ) {
 
         throw new Error(
 
             "[CHAIN-001] attacker missing"
-
         );
     }
 
     if (
-        !initialTarget
+        !initialTarget ||
+        typeof initialTarget !==
+        "object"
     ) {
 
         throw new Error(
 
             "[CHAIN-002] initialTarget missing"
-
         );
     }
-
-
-
-    // ==========================================
-    // DAMAGE VALIDATION
-    // ==========================================
 
     if (
         typeof attacker.totalDamage !==
@@ -71,272 +51,114 @@ function resolveAttackChain({
         throw new Error(
 
             `[CHAIN-003] totalDamage missing for ${attacker.unitTypeId}`
-
         );
     }
 
+    if (
+        typeof initialTarget.remainingHp !==
+        "number"
+    ) {
 
+        throw new Error(
 
+            `[CHAIN-004] remainingHp missing for ${initialTarget.unitTypeId}`
+        );
+    }
 
+    if (
+        !Array.isArray(
+            damageEvents
+        )
+    ) {
+
+        throw new Error(
+
+            "[CHAIN-005] damageEvents must be an array"
+        );
+    }
 
     // ==========================================
-    // ORIGINAL DAMAGE
+    // DAMAGE CALCULATION
     // ==========================================
 
-    const originalBaseDamage =
+    const baseDamage =
         attacker.totalDamage;
 
-    let currentBaseDamage =
-        originalBaseDamage;
+    const damageResult =
+        calculateDamage({
 
-    let currentTarget =
-        initialTarget;
+            attacker,
 
-    let targetChanges =
-        0;
+            target:
+                initialTarget,
+
+            overrideBaseDamage:
+                baseDamage
+        });
+
+    if (
+        !damageResult
+    ) {
+
+        throw new Error(
+
+            `[CHAIN-006] calculateDamage returned null for ${attacker.unitTypeId}`
+        );
+    }
+
+    if (
+        typeof damageResult.finalDamage !==
+        "number"
+    ) {
+
+        throw new Error(
+
+            `[CHAIN-007] invalid finalDamage for ${attacker.unitTypeId}`
+        );
+    }
 
     console.log(
         "BASE DAMAGE:",
-        currentBaseDamage
+        baseDamage
     );
 
+    console.log(
+        "TARGET:",
+        initialTarget.unitTypeId,
+        "HP:",
+        initialTarget.remainingHp
+    );
 
+    console.log(
+        "FINAL DAMAGE:",
+        damageResult.finalDamage
+    );
 
     // ==========================================
-    // ATTACK CHAIN
+    // DAMAGE EVENT
     // ==========================================
 
-    while (
+    damageEvents.push({
 
-        currentTarget &&
-        currentBaseDamage > 0
-    ) {
+        damageEventId:
+            crypto.randomUUID(),
 
-        console.log(
-            "CHAIN TARGET:",
-            currentTarget.unitTypeId,
-            "HP:",
-            currentTarget.remainingHp
-        );
+        sourceRuntimeUnitId:
+            attacker.runtimeUnitId,
 
+        targetRuntimeUnitId:
+            initialTarget.runtimeUnitId,
 
+        baseDamage:
+            baseDamage,
 
-        // ==========================================
-        // DAMAGE
-        // ==========================================
-
-        const damageResult =
-            calculateDamage({
-
-                attacker,
-
-                target:
-                    currentTarget,
-
-                overrideBaseDamage:
-                    currentBaseDamage
-            });
-
-        if (
-            !damageResult
-        ) {
-
-            throw new Error(
-
-                `[CHAIN-005] calculateDamage returned null for ${attacker.unitTypeId}`
-
-            );
-        }
-
-        console.log(
-            "FINAL DAMAGE:",
+        finalDamage:
             damageResult.finalDamage
-        );
-
-
-
-        // ==========================================
-        // APPLY DAMAGE
-        // ==========================================
-
-        const result =
-            applyDamage(
-
-                currentTarget,
-
-                damageResult
-                    .finalDamage
-            );
-
-        if (
-            !result
-        ) {
-
-            throw new Error(
-
-                `[CHAIN-006] applyDamage returned null for ${attacker.unitTypeId}`
-
-            );
-        }
-
-        if (
-            !result.target
-        ) {
-
-            throw new Error(
-
-                `[CHAIN-007] applyDamage target missing for ${attacker.unitTypeId}`
-
-            );
-        }
-
-
-
-        // ==========================================
-        // UPDATE TARGET
-        // ==========================================
-
-        currentTarget.remainingHp =
-            result.target
-                .remainingHp;
-
-        recalculateRuntimeState(
-            currentTarget
-        );
-
-
-
-        // ==========================================
-        // DAMAGE EVENT
-        // ==========================================
-
-        damageEvents.push({
-
-            sourceRuntimeUnitId:
-                attacker.runtimeUnitId,
-
-            targetRuntimeUnitId:
-                currentTarget.runtimeUnitId,
-
-            counterPercent:
-                damageResult.counterPercent,
-
-            baseDamage:
-                currentBaseDamage,
-
-            appliedDamage:
-                result.appliedDamage,
-
-            finalDamage:
-                damageResult.finalDamage,
-
-            targetDestroyed:
-                currentTarget.remainingHp <= 0
-        });
-
-        console.log(
-            "DAMAGE EVENT CREATED"
-        );
-
-
-
-        // ==========================================
-        // TARGET SURVIVED
-        // ==========================================
-
-        if (
-            currentTarget.remainingHp > 0
-        ) {
-
-            console.log(
-                "TARGET SURVIVED:",
-                currentTarget.remainingHp
-            );
-
-            break;
-        }
-
-
-
-        // ==========================================
-        // TARGET DESTROYED
-        // ==========================================
-
-        targetChanges += 1;
-
-        console.log(
-            "TARGET DESTROYED:",
-            currentTarget.unitTypeId
-        );
-
-
-
-        overflowEvents.push({
-
-            sourceRuntimeUnitId:
-                attacker.runtimeUnitId,
-
-            previousTargetRuntimeUnitId:
-                currentTarget.runtimeUnitId,
-
-            targetChanges,
-
-            destroyedTarget:
-                true
-        });
-
-
-
-        // ==========================================
-        // 5% DAMAGE LOSS
-        // ==========================================
-
-        currentBaseDamage =
-
-            Math.floor(
-
-                originalBaseDamage *
-
-                Math.pow(
-                    0.95,
-                    targetChanges
-                )
-            );
-
-        console.log(
-            "OVERFLOW DAMAGE:",
-            currentBaseDamage
-        );
-
-
-
-        // ==========================================
-        // FIND NEXT TARGET
-        // ==========================================
-
-        const nextTargetData =
-
-            findBestTarget(
-
-                attacker,
-
-                availableTargets
-            );
-
-        if (
-            !nextTargetData
-        ) {
-
-            console.log(
-                "NO NEXT TARGET FOUND"
-            );
-
-            break;
-        }
-
-        currentTarget =
-            nextTargetData.target;
-    }
+    });
+
+    console.log(
+        "DAMAGE EVENT CREATED"
+    );
 }
 
 export default

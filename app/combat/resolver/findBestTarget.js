@@ -54,7 +54,7 @@ function findBestTarget(
 
             target =>
 
-                target.type ===
+                target.unitCategory ===
                 "defense"
         );
 
@@ -63,7 +63,7 @@ function findBestTarget(
 
             target =>
 
-                target.type ===
+                target.unitCategory ===
                 "ship"
         );
 
@@ -98,16 +98,7 @@ function findBestTarget(
 
                 const baseDamage =
 
-                    attacker.damage || 0;
-
-                const projectedDamage =
-
-                    baseDamage *
-
-                    (
-                        counterPercent /
-                        100
-                    );
+                    attacker.totalDamage || 0;
 
                 const targetVolume =
 
@@ -124,8 +115,6 @@ function findBestTarget(
                     counterPercent,
 
                     baseDamage,
-
-                    projectedDamage,
 
                     targetVolume
                 };
