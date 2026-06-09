@@ -333,8 +333,6 @@ export function buildFleetRuntime(
       destroyed:
         false,
 
-      damageMultipliers:
-        []
     });
 
 
