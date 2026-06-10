@@ -1,0 +1,29 @@
+{
+    "id": "of_007",
+    "description": "Overflow mehrere Ziele in einer Runde",
+    "expectedBehavior": [
+        "Alle werden besiegt in einer Runde",
+        "Overflow Damage bleibt korrekt",
+        "5% abzug nur beim ersten zerstörten Unit"
+    ],
+    "attacker": [
+        {
+            "unitTypeId": "ship_light_fighter",
+            "count": 5000000
+        }
+    ],
+    "defender": [
+        {
+            "unitTypeId": "ship_ion_carrier",
+            "count": 10
+        },
+        {
+            "unitTypeId": "ship_frigate",
+            "count": 10
+        },
+        {
+            "unitTypeId": "ship_bomber",
+            "count": 10
+        }
+    ]
+}

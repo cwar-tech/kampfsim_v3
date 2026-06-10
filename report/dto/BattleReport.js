@@ -6,6 +6,12 @@ class BattleReport {
 
     constructor({
 
+        reportVersion,
+
+        combatId,
+
+        createdAt,
+
         overview,
 
         fleetState,
@@ -19,6 +25,15 @@ class BattleReport {
         technical
 
     } = {}) {
+
+        this.reportVersion =
+            reportVersion;
+
+        this.combatId =
+            combatId;
+
+        this.createdAt =
+            createdAt;
 
         this.overview =
             overview;

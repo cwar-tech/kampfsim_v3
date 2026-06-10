@@ -10,11 +10,17 @@ class OverviewData {
 
         winner,
 
-        attacker,
+        attackerStartVolume,
 
-        defender,
+        attackerActiveVolume,
 
-        highlights = []
+        attackerLossVolume,
+
+        defenderStartVolume,
+
+        defenderActiveVolume,
+
+        defenderLossVolume
 
     } = {}) {
 
@@ -24,14 +30,23 @@ class OverviewData {
         this.winner =
             winner;
 
-        this.attacker =
-            attacker;
+        this.attackerStartVolume =
+            attackerStartVolume;
 
-        this.defender =
-            defender;
+        this.attackerActiveVolume =
+            attackerActiveVolume;
 
-        this.highlights =
-            highlights;
+        this.attackerLossVolume =
+            attackerLossVolume;
+
+        this.defenderStartVolume =
+            defenderStartVolume;
+
+        this.defenderActiveVolume =
+            defenderActiveVolume;
+
+        this.defenderLossVolume =
+            defenderLossVolume;
     }
 }
 

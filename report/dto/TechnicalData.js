@@ -1,73 +1,34 @@
 // ==================================================
-// report/validation/validateTechnicalData.js
+// report/dto/TechnicalData.js
 // ==================================================
 
-function validateTechnicalData(
-    data
-) {
+class TechnicalData {
 
-    if (
-        !data ||
-        typeof data !==
-        "object"
-    ) {
+    constructor({
 
-        throw new Error(
+        damageEvents = [],
 
-            "[TECH-001] TechnicalData missing"
-        );
+        overflowEvents = [],
+
+        resolverData = [],
+
+        exports = []
+
+    } = {}) {
+
+        this.damageEvents =
+            damageEvents;
+
+        this.overflowEvents =
+            overflowEvents;
+
+        this.resolverData =
+            resolverData;
+
+        this.exports =
+            exports;
     }
-
-    if (
-        !Array.isArray(
-            data.damageEvents
-        )
-    ) {
-
-        throw new Error(
-
-            "[TECH-002] damageEvents must be array"
-        );
-    }
-
-    if (
-        !Array.isArray(
-            data.overflowEvents
-        )
-    ) {
-
-        throw new Error(
-
-            "[TECH-003] overflowEvents must be array"
-        );
-    }
-
-    if (
-        !Array.isArray(
-            data.resolverData
-        )
-    ) {
-
-        throw new Error(
-
-            "[TECH-004] resolverData must be array"
-        );
-    }
-
-    if (
-        !Array.isArray(
-            data.exports
-        )
-    ) {
-
-        throw new Error(
-
-            "[TECH-005] exports must be array"
-        );
-    }
-
-    return true;
 }
 
 export default
-    validateTechnicalData;
+    TechnicalData;

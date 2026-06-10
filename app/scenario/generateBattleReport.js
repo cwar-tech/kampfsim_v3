@@ -1,3 +1,6 @@
+// ==================================================
+// app\app\scenario\generateBattleReport.js
+// ==================================================
 function generateBattleReport({
     scenario,
     result
