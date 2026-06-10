@@ -3,179 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Combat Simulator</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#0f172a;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:16px;
-}
-
-h1{
-    margin-bottom:20px;
-    text-align:center;
-}
-
-h2{
-    margin-bottom:15px;
-}
-
-.page{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-}
-
-@media(min-width:1000px){
-
-    .page{
-        grid-template-columns:1fr 1fr;
-    }
-
-}
-
-.panel{
-    background:#1e293b;
-    border-radius:12px;
-    padding:16px;
-}
-
-.unit-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:10px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.unit-row:last-child{
-    border-bottom:none;
-}
-
-.unit-name{
-    flex:1;
-}
-
-.unit-input{
-    width:120px;
-}
-
-.unit-input input{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    background:#334155;
-    color:white;
-}
-
-@media(max-width:768px){
-
-    .unit-row{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .unit-input{
-        width:100%;
-    }
-
-}
-
-.actions{
-    margin-top:20px;
-    display:flex;
-    justify-content:center;
-}
-
-button{
-    border:none;
-    border-radius:10px;
-    padding:14px 40px;
-    background:#2563eb;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:.9;
-}
-
-.output{
-    margin-top:25px;
-    background:#1e293b;
-    border-radius:12px;
-    padding:16px;
-}
-
-pre{
-    white-space:pre-wrap;
-    word-break:break-word;
-}
-
-.hidden{
-    display:none;
-}
-
-.report-section{
-    margin-top:30px;
-}
-
-.report-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-}
-
-@media(min-width:1000px){
-
-    .report-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-}
-
-.card{
-    background:#1e293b;
-    border-radius:12px;
-    padding:18px;
-}
-
-.card h3{
-    margin-bottom:12px;
-}
-
-.card-row{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-}
-
-.result-victory{
-    color:#4ade80;
-    font-weight:bold;
-    font-size:18px;
-}
-
-.milestone{
-    padding:10px;
-    margin-bottom:10px;
-    background:#334155;
-    border-radius:8px;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0f172a;color:white;font-family:Arial,sans-serif;padding:16px;}
+h1{text-align:center;margin-bottom:20px;}
+h2{margin-bottom:15px;}
+.page{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:1000px){.page{grid-template-columns:1fr 1fr;}}
+.panel,.output,.card{background:#1e293b;border-radius:12px;padding:16px;}
+.unit-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.unit-input input{width:120px;padding:10px;border:none;border-radius:8px;background:#334155;color:white;}
+.actions{margin-top:20px;display:flex;justify-content:center;}
+button{border:none;border-radius:10px;padding:14px 40px;background:#2563eb;color:white;font-size:18px;cursor:pointer;}
+pre{white-space:pre-wrap;word-break:break-word;}
+.hidden{display:none;}
+.report-section{margin-top:30px;}
+.report-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:1000px){.report-grid{grid-template-columns:1fr 1fr;}}
+.card h3{margin-bottom:12px;}
+.card-row{display:flex;justify-content:space-between;margin-bottom:8px;}
+.result-victory{color:#4ade80;font-weight:bold;font-size:18px;}
+.milestone,.fleet-state-row{padding:10px;margin-bottom:10px;background:#334155;border-radius:8px;}
+.fleet-state-title{font-weight:bold;margin-bottom:8px;}
+.fleet-state-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:14px;}
 </style>
 </head>
 <body>
@@ -183,438 +35,201 @@ pre{
 <h1>Combat Simulator</h1>
 
 <div class="page">
+<div class="panel">
+<h2>Angreifer</h2>
+<div id="attackerFleet"></div>
+</div>
 
-    <div class="panel">
-
-        <h2>Angreifer</h2>
-
-        <div id="attackerFleet"></div>
-
-    </div>
-
-    <div class="panel">
-
-        <h2>Verteidiger</h2>
-
-        <div id="defenderFleet"></div>
-
-    </div>
-
+<div class="panel">
+<h2>Verteidiger</h2>
+<div id="defenderFleet"></div>
+</div>
 </div>
 
 <div class="actions">
-
-    <button id="calculateBtn">
-        Kampf berechnen
-    </button>
-
+<button id="calculateBtn">Kampf berechnen</button>
 </div>
 
 <div class="output">
-
-    <h2>Combat Request</h2>
-
-    <pre id="combatRequest"></pre>
-
+<h2>Combat Request</h2>
+<pre id="combatRequest"></pre>
 </div>
-
-<!-- ================================================= -->
-<!-- BATTLE REPORT EBENE 1 -->
-<!-- ================================================= -->
 
 <div id="battleReport" class="report-section hidden">
 
-    <h2>Kampfübersicht</h2>
+<h2>Kampfübersicht</h2>
 
-    <div class="report-grid">
+<div class="report-grid">
 
-        <!-- Header -->
+<div class="card">
+<h3>Kampfergebnis</h3>
+<div id="winner" class="result-victory"></div>
+<br>
+<div class="card-row"><span>Combat ID</span><span id="combatId"></span></div>
+</div>
 
-        <div class="card">
+<div class="card">
+<h3>Angreifer Volumen</h3>
+<div class="card-row"><span>Start</span><span id="attackerStartVolume"></span></div>
+<div class="card-row"><span>Aktiv</span><span id="attackerActiveVolume"></span></div>
+<div class="card-row"><span>Werkstatt</span><span id="attackerRecoveryVolume"></span></div>
+<div class="card-row"><span>Permanent</span><span id="attackerPermanentVolume"></span></div>
+</div>
 
-            <h3>Kampfergebnis</h3>
+<div class="card">
+<h3>Verteidiger Volumen</h3>
+<div class="card-row"><span>Start</span><span id="defenderStartVolume"></span></div>
+<div class="card-row"><span>Aktiv</span><span id="defenderActiveVolume"></span></div>
+<div class="card-row"><span>Werkstatt</span><span id="defenderRecoveryVolume"></span></div>
+<div class="card-row"><span>Permanent</span><span id="defenderPermanentVolume"></span></div>
+</div>
 
-            <div class="result-victory">
-                Sieg Angreifer
-            </div>
+</div>
 
-            <br>
+<div class="card" style="margin-top:20px;">
+<h3>Milestones</h3>
+<div id="milestones"></div>
+</div>
 
-            <div class="card-row">
-                <span>Battle ID</span>
-                <span>combat_001</span>
-            </div>
+<h2>Flottenzustand</h2>
 
-            <div class="card-row">
-                <span>Angreifer</span>
-                <span>Spieler A</span>
-            </div>
+<div class="report-grid">
 
-            <div class="card-row">
-                <span>Verteidiger</span>
-                <span>Spieler B</span>
-            </div>
+<div class="card">
+<h3>Angreifer</h3>
+<div id="attackerFleetState"></div>
+</div>
 
-            <div class="card-row">
-                <span>Zeit</span>
-                <span>08.06.2026 19:45</span>
-            </div>
+<div class="card">
+<h3>Verteidiger</h3>
+<div id="defenderFleetState"></div>
+</div>
 
-        </div>
-
-        <!-- Context -->
-
-        <div class="card">
-
-            <h3>Kampfkontext</h3>
-
-            <div class="card-row">
-                <span>Typ</span>
-                <span>PvP Angriff</span>
-            </div>
-
-            <div class="card-row">
-                <span>Sektor</span>
-                <span>Alpha</span>
-            </div>
-
-            <div class="card-row">
-                <span>X</span>
-                <span>123</span>
-            </div>
-
-            <div class="card-row">
-                <span>Y</span>
-                <span>456</span>
-            </div>
-
-        </div>
-
-        <!-- Loot -->
-
-        <div class="card">
-
-            <h3>Loot</h3>
-
-            <div class="card-row">
-                <span>Credits</span>
-                <span>250.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Energon</span>
-                <span>15.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Ressourcen</span>
-                <span>75.000</span>
-            </div>
-
-        </div>
-
-        <!-- Booster -->
-
-        <div class="card">
-
-            <h3>Booster</h3>
-
-            <div class="card-row">
-                <span>Schaden</span>
-                <span>+20%</span>
-            </div>
-
-            <div class="card-row">
-                <span>HP</span>
-                <span>+15%</span>
-            </div>
-
-            <div class="card-row">
-                <span>Restlaufzeit</span>
-                <span>11h 22m</span>
-            </div>
-
-        </div>
-
-        <!-- Attacker Volume -->
-
-        <div class="card">
-
-            <h3>Angreifer Volumen</h3>
-
-            <div class="card-row">
-                <span>Start</span>
-                <span>125.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Aktiv</span>
-                <span>98.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Warp</span>
-                <span>20.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Permanent</span>
-                <span>7.000</span>
-            </div>
-
-        </div>
-
-        <!-- Defender Volume -->
-
-        <div class="card">
-
-            <h3>Verteidiger Volumen</h3>
-
-            <div class="card-row">
-                <span>Start</span>
-                <span>140.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Aktiv</span>
-                <span>30.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Werkstatt</span>
-                <span>80.000</span>
-            </div>
-
-            <div class="card-row">
-                <span>Permanent</span>
-                <span>30.000</span>
-            </div>
-
-        </div>
-
-    </div>
-
-    <br>
-
-    <!-- Milestones -->
-
-    <div class="card">
-
-        <h3>Milestones</h3>
-
-        <div class="milestone">
-            Runde 2<br>
-            Erste Einheit zerstört
-        </div>
-
-        <div class="milestone">
-            Runde 4<br>
-            25% Flottenverlust
-        </div>
-
-        <div class="milestone">
-            Runde 7<br>
-            50% Flottenverlust
-        </div>
-
-        <div class="milestone">
-            Runde 10<br>
-            Erster Kreuzer zerstört
-        </div>
-
-        <div class="milestone">
-            Runde 13<br>
-            Kampf beendet
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 <script>
-
-/*
-Später:
-fetch ships.json
-*/
-
-const shipRegistry = [
-
-    {
-        unitTypeId:"ship_light_fighter",
-        name:"Leichter Jäger"
-    },
-
-    {
-        unitTypeId:"ship_medium_fighter",
-        name:"Mittlerer Jäger"
-    },
-
-    {
-        unitTypeId:"ship_bomber",
-        name:"Bomber"
-    },
-
-    {
-        unitTypeId:"ship_cruiser",
-        name:"Kreuzer"
-    },
-
-    {
-        unitTypeId:"ship_battleship",
-        name:"Schlachtschiff"
-    },
-
-    {
-        unitTypeId:"defense_rocket",
-        name:"Raketenwerfer"
-    },
-
-    {
-        unitTypeId:"defense_plasma",
-        name:"Plasma Verteidigung"
-    }
-
+const shipRegistry=[
+{unitTypeId:"ship_light_fighter",name:"Leichter Jäger"},
+{unitTypeId:"ship_medium_fighter",name:"Mittlerer Jäger"},
+{unitTypeId:"ship_bomber",name:"Bomber"},
+{unitTypeId:"ship_cruiser",name:"Kreuzer"},
+{unitTypeId:"ship_battleship",name:"Schlachtschiff"},
+{unitTypeId:"defense_rocket",name:"Raketenwerfer"},
+{unitTypeId:"defense_plasma",name:"Plasma Verteidigung"}
 ];
 
-const attackerFleet =
-    document.getElementById(
-        "attackerFleet"
-    );
+const attackerFleet=document.getElementById("attackerFleet");
+const defenderFleet=document.getElementById("defenderFleet");
 
-const defenderFleet =
-    document.getElementById(
-        "defenderFleet"
-    );
-
-function createUnitInput(
-    unit,
-    container,
-    prefix
-){
-
-    const row =
-        document.createElement(
-            "div"
-        );
-
-    row.className =
-        "unit-row";
-
-    row.innerHTML = `
-        <div class="unit-name">
-            ${unit.name}
-        </div>
-
-        <div class="unit-input">
-            <input
-                type="number"
-                min="0"
-                value="0"
-                id="${prefix}_${unit.unitTypeId}"
-            >
-        </div>
-    `;
-
-    container.appendChild(
-        row
-    );
-
+function createUnitInput(unit,container,prefix){
+ const row=document.createElement("div");
+ row.className="unit-row";
+ row.innerHTML=`<div>${unit.name}</div><div class="unit-input"><input type="number" min="0" value="0" id="${prefix}_${unit.unitTypeId}"></div>`;
+ container.appendChild(row);
 }
 
-shipRegistry.forEach(
-    unit => {
+shipRegistry.forEach(unit=>{
+ createUnitInput(unit,attackerFleet,"attacker");
+ createUnitInput(unit,defenderFleet,"defender");
+});
 
-        createUnitInput(
-            unit,
-            attackerFleet,
-            "attacker"
-        );
-
-        createUnitInput(
-            unit,
-            defenderFleet,
-            "defender"
-        );
-
-    }
-);
-
-function buildFleet(
-    prefix
-){
-
-    return shipRegistry
-        .map(
-            unit => {
-
-                const count =
-                    parseInt(
-                        document.getElementById(
-                            `${prefix}_${unit.unitTypeId}`
-                        ).value || 0
-                    );
-
-                return {
-                    unitTypeId:
-                        unit.unitTypeId,
-                    count
-                };
-
-            }
-        )
-        .filter(
-            unit =>
-                unit.count > 0
-        );
-
+function buildFleet(prefix){
+ return shipRegistry.map(unit=>({
+   unitTypeId:unit.unitTypeId,
+   count:parseInt(document.getElementById(`${prefix}_${unit.unitTypeId}`).value||0)
+ })).filter(unit=>unit.count>0);
 }
 
-document
-    .getElementById(
-        "calculateBtn"
-    )
-    .addEventListener(
-        "click",
-        () => {
+const battleReport={
+ overview:{combatId:"combat_001",winner:"Sieg Angreifer"},
+ fleetState:{
+  attacker:{
+   startVolume:125000,activeVolume:98000,recoveryVolume:20000,permanentLossVolume:7000,
+   units:[{name:"Leichter Jäger",startCount:1000,activeCount:700,recoveryCount:200,permanentLossCount:100}]
+  },
+  defender:{
+   startVolume:140000,activeVolume:30000,recoveryVolume:80000,permanentLossVolume:30000,
+   units:[{name:"Mittlerer Jäger",startCount:1000,activeCount:200,recoveryCount:500,permanentLossCount:300}]
+  }
+ },
+ analysis:{
+  milestones:[
+   {round:2,description:"Erste Einheit zerstört"},
+   {round:4,description:"25% Flottenverlust"}
+  ]
+ }
+};
 
-            const combatRequest = {
+function renderBattleReport(report){
 
-                attacker:
-                    buildFleet(
-                        "attacker"
-                    ),
+ document.getElementById("winner").textContent=report.overview.winner;
+ document.getElementById("combatId").textContent=report.overview.combatId;
 
-                defender:
-                    buildFleet(
-                        "defender"
-                    )
+ const a=report.fleetState.attacker;
+ const d=report.fleetState.defender;
 
-            };
+ attackerStartVolume.textContent=a.startVolume;
+ attackerActiveVolume.textContent=a.activeVolume;
+ attackerRecoveryVolume.textContent=a.recoveryVolume;
+ attackerPermanentVolume.textContent=a.permanentLossVolume;
 
-            document
-                .getElementById(
-                    "combatRequest"
-                )
-                .textContent =
-                    JSON.stringify(
-                        combatRequest,
-                        null,
-                        2
-                    );
+ defenderStartVolume.textContent=d.startVolume;
+ defenderActiveVolume.textContent=d.activeVolume;
+ defenderRecoveryVolume.textContent=d.recoveryVolume;
+ defenderPermanentVolume.textContent=d.permanentLossVolume;
 
-            document
-                .getElementById(
-                    "battleReport"
-                )
-                .classList
-                .remove(
-                    "hidden"
-                );
+ milestones.innerHTML="";
 
-        }
-    );
+ report.analysis.milestones.forEach(m=>{
+  const div=document.createElement("div");
+  div.className="milestone";
+  div.innerHTML=`Runde ${m.round}<br>${m.description}`;
+  milestones.appendChild(div);
+ });
 
+ renderFleet("attackerFleetState",a.units);
+ renderFleet("defenderFleetState",d.units);
+}
+
+function renderFleet(containerId,units){
+
+ const container=document.getElementById(containerId);
+ container.innerHTML="";
+
+ units.forEach(unit=>{
+
+  const row=document.createElement("div");
+  row.className="fleet-state-row";
+
+  row.innerHTML=`
+   <div class="fleet-state-title">${unit.name}</div>
+   <div class="fleet-state-grid">
+    <div>Start<br>${unit.startCount}</div>
+    <div>Aktiv<br>${unit.activeCount}</div>
+    <div>Werkstatt<br>${unit.recoveryCount}</div>
+    <div>Permanent<br>${unit.permanentLossCount}</div>
+   </div>
+  `;
+
+  container.appendChild(row);
+ });
+}
+
+document.getElementById("calculateBtn").addEventListener("click",()=>{
+
+ const combatRequest={
+  attacker:buildFleet("attacker"),
+  defender:buildFleet("defender")
+ };
+
+ document.getElementById("combatRequest").textContent=JSON.stringify(combatRequest,null,2);
+
+ document.getElementById("battleReport").classList.remove("hidden");
+
+ renderBattleReport(battleReport);
+});
 </script>
 
 </body>
