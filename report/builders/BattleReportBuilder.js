@@ -2,8 +2,14 @@
 // report/builders/BattleReportBuilder.js
 // ==================================================
 
+import buildCombatLogData
+    from "../services/buildCombatLogData.js";
+
 import BattleReport
     from "../dto/BattleReport.js";
+
+import buildAdvantagesData
+    from "../services/buildAdvantagesData.js";
 
 import AdvantageData
     from "../dto/AdvantageData.js";
@@ -51,7 +57,14 @@ function buildBattleReport(
         buildCombatAnalysisData(
             combatResult
         );
-
+    const advantages =
+        buildAdvantagesData(
+            combatResult
+        );
+    const combatLog =
+        buildCombatLogData(
+            combatResult
+        );
     return new BattleReport({
 
         reportVersion:
@@ -67,21 +80,11 @@ function buildBattleReport(
 
         fleetState,
 
-        advantages:
-            new AdvantageData({
-
-                attacker: [],
-
-                defender: []
-            }),
+        advantages,
 
         analysis,
 
-        combatLog:
-            new CombatLogData({
-
-                rounds: []
-            }),
+        combatLog,
 
         technical:
             new TechnicalData({

@@ -8,6 +8,8 @@ import CombatAnalysisData
 import buildMilestones
     from "./buildMilestones.js";
 
+import buildCounterStats
+    from "./buildCounterStats.js";
 function buildCombatAnalysisData(
     combatResult
 ) {
@@ -24,14 +26,14 @@ function buildCombatAnalysisData(
 
     return new CombatAnalysisData({
 
-        milestones:
-            buildMilestones(
-                combatResult
-            ),
+        milestones: [],
 
         outcomeFactors: [],
 
-        counterStats: [],
+        counterStats:
+            buildCounterStats(
+                combatResult
+            ),
 
         highlights: []
     });
