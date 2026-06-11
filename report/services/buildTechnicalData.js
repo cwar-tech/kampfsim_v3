@@ -30,13 +30,16 @@ function buildTechnicalData(
     const overflowEvents =
         [];
 
+    let attackQueueSize =
+        0;
+
+    let executedAttacks =
+        0;
+
     let attackerDestroyed =
         0;
 
     let defenderDestroyed =
-        0;
-
-    let attackQueueSize =
         0;
 
     for (
@@ -44,14 +47,42 @@ function buildTechnicalData(
         of combatResult.rounds
     ) {
 
-        attackerDestroyed +=
-            round.attackerDestroyedUnits?.length ?? 0;
+        // ==========================================
+        // RESOLVER METRICS
+        // ==========================================
 
-        defenderDestroyed +=
-            round.defenderDestroyedUnits?.length ?? 0;
+        if (
+            round.resolverMetrics
+        ) {
 
-        attackQueueSize +=
-            round.attackQueueSize ?? 0;
+            attackQueueSize +=
+
+                round
+                    .resolverMetrics
+                    .attackQueueSize || 0;
+
+            executedAttacks +=
+
+                round
+                    .resolverMetrics
+                    .executedAttacks || 0;
+
+            attackerDestroyed +=
+
+                round
+                    .resolverMetrics
+                    .attackerDestroyed || 0;
+
+            defenderDestroyed +=
+
+                round
+                    .resolverMetrics
+                    .defenderDestroyed || 0;
+        }
+
+        // ==========================================
+        // DAMAGE EVENTS
+        // ==========================================
 
         for (
             const event
@@ -104,6 +135,10 @@ function buildTechnicalData(
                 })
             );
         }
+
+        // ==========================================
+        // OVERFLOW EVENTS
+        // ==========================================
 
         for (
             const event
@@ -197,17 +232,16 @@ function buildTechnicalData(
                 expectedAttacks:
                     attackQueueSize,
 
-                executedAttacks:
-                    damageEvents.length,
+                executedAttacks,
 
                 allUnitsAttacked:
 
                     attackQueueSize ===
-                    damageEvents.length,
+                    executedAttacks,
 
                 duplicateAttacks:
 
-                    damageEvents.length >
+                    executedAttacks >
                     attackQueueSize
             }),
 
