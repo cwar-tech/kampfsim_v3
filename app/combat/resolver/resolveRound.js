@@ -1,6 +1,8 @@
 // ==================================================
 // app/combat/resolver/resolveRound.js
 // ==================================================
+import ResolverMetrics
+    from "./dto/ResolverMetrics.js";
 
 import buildAttackQueue
     from "./buildAttackQueue.js";
@@ -407,7 +409,32 @@ function resolveRound(
 
         roundRuntime
     );
+const resolverMetrics =
 
+    new ResolverMetrics({
+
+        attackerQueueSize:
+            attackerQueue.length,
+
+        defenderQueueSize:
+            defenderQueue.length,
+
+        attackQueueSize:
+            attackQueue.length,
+
+        executedAttacks:
+            damageEvents.length,
+
+        attackerDestroyed:
+            roundRuntime
+                .attackerDestroyedUnits
+                .length,
+
+        defenderDestroyed:
+            roundRuntime
+                .defenderDestroyedUnits
+                .length
+    });
     console.log(
         "ATTACKER DESTROYED:",
         roundRuntime
@@ -458,17 +485,17 @@ function resolveRound(
     // RETURN
     // ==========================================
 
-    return {
+return {
 
-        combatRuntime:
-            runtime,
+    combatRuntime:
+        runtime,
 
-        roundRuntime,
+    roundRuntime,
 
-        damageEvents,
+    damageEvents,
 
-        overflowEvents
-    };
+    overflowEvents
+};
 }
 
 export default
