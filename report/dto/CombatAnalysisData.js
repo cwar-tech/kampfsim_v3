@@ -6,27 +6,13 @@ class CombatAnalysisData {
 
     constructor({
 
-        outcomeFactors = [],
-
-        counterStats = [],
-
-        milestones = [],
-
-        highlights = []
+        counterStats = []
 
     } = {}) {
-
-        this.outcomeFactors =
-            outcomeFactors;
 
         this.counterStats =
             counterStats;
 
-        this.milestones =
-            milestones;
-
-        this.highlights =
-            highlights;
     }
 }
 
