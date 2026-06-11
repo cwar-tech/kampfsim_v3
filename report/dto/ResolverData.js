@@ -1,5 +1,7 @@
 class ResolverData {
 
+class ResolverData {
+
     constructor({
 
         combatRounds,
@@ -14,7 +16,9 @@ class ResolverData {
 
         combatFinished,
 
-        combatResult
+        combatResult,
+
+        attackQueueSize
 
     } = {}) {
 
@@ -38,6 +42,9 @@ class ResolverData {
 
         this.combatResult =
             combatResult;
+
+        this.attackQueueSize =
+            attackQueueSize;
     }
 }
 
