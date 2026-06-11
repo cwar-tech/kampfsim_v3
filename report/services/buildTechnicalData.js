@@ -14,6 +14,9 @@ import OverflowEventData
 import ResolverData
     from "../dto/ResolverData.js";
 
+import getReportShipData
+    from "./getReportShipData.js";
+
 function buildTechnicalData(
     combatResult
 ) {
@@ -34,11 +37,50 @@ function buildTechnicalData(
             of round.damageEvents
         ) {
 
+            const sourceUnit =
+                findUnitByRuntimeId(
+
+                    combatResult,
+
+                    event.sourceRuntimeUnitId
+                );
+
+            const targetUnit =
+                findUnitByRuntimeId(
+
+                    combatResult,
+
+                    event.targetRuntimeUnitId
+                );
+
+            const sourceShip =
+                getReportShipData(
+                    sourceUnit.unitTypeId
+                );
+
+            const targetShip =
+                getReportShipData(
+                    targetUnit.unitTypeId
+                );
+
             damageEvents.push(
 
-                new DamageEventData(
-                    event
-                )
+                new DamageEventData({
+
+                    ...event,
+
+                    sourceUnitTypeId:
+                        sourceUnit.unitTypeId,
+
+                    sourceUnitName:
+                        sourceShip.name,
+
+                    targetUnitTypeId:
+                        targetUnit.unitTypeId,
+
+                    targetUnitName:
+                        targetShip.name
+                })
             );
         }
 
@@ -47,11 +89,50 @@ function buildTechnicalData(
             of round.overflowEvents
         ) {
 
+            const sourceUnit =
+                findUnitByRuntimeId(
+
+                    combatResult,
+
+                    event.sourceRuntimeUnitId
+                );
+
+            const targetUnit =
+                findUnitByRuntimeId(
+
+                    combatResult,
+
+                    event.targetRuntimeUnitId
+                );
+
+            const sourceShip =
+                getReportShipData(
+                    sourceUnit.unitTypeId
+                );
+
+            const targetShip =
+                getReportShipData(
+                    targetUnit.unitTypeId
+                );
+
             overflowEvents.push(
 
-                new OverflowEventData(
-                    event
-                )
+                new OverflowEventData({
+
+                    ...event,
+
+                    sourceUnitTypeId:
+                        sourceUnit.unitTypeId,
+
+                    sourceUnitName:
+                        sourceShip.name,
+
+                    targetUnitTypeId:
+                        targetUnit.unitTypeId,
+
+                    targetUnitName:
+                        targetShip.name
+                })
             );
         }
     }
@@ -78,6 +159,27 @@ function buildTechnicalData(
 
         exports: []
     });
+}
+
+function findUnitByRuntimeId(
+    combatResult,
+    runtimeUnitId
+) {
+
+    const units = [
+
+        ...combatResult.attackerFleet.units,
+
+        ...combatResult.defenderFleet.units
+    ];
+
+    return units.find(
+
+        unit =>
+
+            unit.runtimeUnitId ===
+            runtimeUnitId
+    );
 }
 
 export default
