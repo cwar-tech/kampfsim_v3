@@ -175,7 +175,28 @@ Noch nicht implementiert
 
 </div>
 
-<script>
+<script type="module">
+
+import {
+    buildFleetRuntime
+}
+from "./app/combat/buildFleetRuntime.js";
+
+import buildCombatRuntime
+from "./app/combat/buildCombatRuntime.js";
+
+import CombatResolver
+from "./app/combat/resolver/CombatResolver.js";
+
+import buildBattleReport
+from "./report/builders/BattleReportBuilder.js";
+
+const shipsResponse =
+    await fetch("./app/ships.json");
+
+const shipsData =
+    await shipsResponse.json();
+
 const shipRegistry=[
 {unitTypeId:"ship_light_fighter",name:"Leichter Jäger"},
 {unitTypeId:"ship_medium_fighter",name:"Mittlerer Jäger"},
@@ -208,29 +229,8 @@ function buildFleet(prefix){
  })).filter(unit=>unit.count>0);
 }
 
-const battleReport={
- overview:{combatId:"combat_001",winner:"Sieg Angreifer"},
- fleetState:{
-  attacker:{
-   startVolume:125000,activeVolume:98000,recoveryVolume:20000,permanentLossVolume:7000,
-   units:[{name:"Leichter Jäger",startCount:1000,activeCount:700,recoveryCount:200,permanentLossCount:100}]
-  },
-  defender:{
-   startVolume:140000,activeVolume:30000,recoveryVolume:80000,permanentLossVolume:30000,
-   units:[{name:"Mittlerer Jäger",startCount:1000,activeCount:200,recoveryCount:500,permanentLossCount:300}]
-  }
- },
- combatLog:{
-  rounds:[
-   {
-    roundNumber:1,
-    damageEvents:[
-      {text:"Leichter Jäger → Mittlerer Jäger"}
-    ]
-   }
-  ]
- }
-};
+
+// battleReport mock removed
 
 function renderBattleReport(report){
 
