@@ -14,9 +14,6 @@ import OverflowEventData
 import ResolverData
     from "../dto/ResolverData.js";
 
-import buildTechnicalData
-    from "../services/buildTechnicalData.js";
-    
 function buildTechnicalData(
     combatResult
 ) {
@@ -58,10 +55,7 @@ function buildTechnicalData(
             );
         }
     }
-const technical =
-    buildTechnicalData(
-        combatResult
-    );
+
     return new TechnicalData({
 
         damageEvents,
@@ -73,7 +67,13 @@ const technical =
             new ResolverData({
 
                 combatRounds:
-                    combatResult.currentRound
+                    combatResult.rounds.length,
+
+                damageEvents:
+                    damageEvents.length,
+
+                overflowEvents:
+                    overflowEvents.length
             }),
 
         exports: []
