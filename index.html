@@ -87,8 +87,8 @@ pre{white-space:pre-wrap;word-break:break-word;}
 </div>
 
 <div class="card" style="margin-top:20px;">
-<h3>Milestones</h3>
-<div id="milestones"></div>
+<h3>Runden</h3>
+<div id="roundCount">0</div>
 </div>
 
 <h2>Flottenzustand</h2>
@@ -105,7 +105,73 @@ pre{white-space:pre-wrap;word-break:break-word;}
 <div id="defenderFleetState"></div>
 </div>
 
+
+<h2>Vorteile</h2>
+
+<div class="report-grid">
+
+<div class="card">
+<h3>Angreifer</h3>
+<div id="attackerAdvantages">
+Forschung HP x1.00 Schaden x1.00<br>
+VIP HP x1.00 Schaden x1.00<br>
+Energon HP x1.00 Schaden x1.00<br>
+Booster HP x1.00 Schaden x1.00<br>
+Gilde HP x1.00 Schaden x1.00
 </div>
+</div>
+
+<div class="card">
+<h3>Verteidiger</h3>
+<div id="defenderAdvantages">
+Forschung HP x1.00 Schaden x1.00<br>
+VIP HP x1.00 Schaden x1.00<br>
+Energon HP x1.00 Schaden x1.00<br>
+Booster HP x1.00 Schaden x1.00<br>
+Gilde HP x1.00 Schaden x1.00
+</div>
+</div>
+
+</div>
+
+<h2>Kampfanalyse</h2>
+
+<div class="card">
+Noch nicht implementiert
+</div>
+
+<h2>Combat Log</h2>
+
+<div class="report-grid">
+
+<div class="card">
+<h3>Runden</h3>
+<div id="roundList"></div>
+</div>
+
+<div class="card">
+<h3>Kampfaktionen</h3>
+<div id="combatLogEvents"></div>
+</div>
+
+</div>
+
+<h2>Technical</h2>
+
+<div class="report-grid">
+
+<div class="card">
+<h3>Resolver</h3>
+<div id="technicalResolver"></div>
+</div>
+
+<div class="card">
+<h3>Validation</h3>
+<div id="technicalValidation"></div>
+</div>
+
+</div>
+
 
 </div>
 
@@ -154,10 +220,14 @@ const battleReport={
    units:[{name:"Mittlerer Jäger",startCount:1000,activeCount:200,recoveryCount:500,permanentLossCount:300}]
   }
  },
- analysis:{
-  milestones:[
-   {round:2,description:"Erste Einheit zerstört"},
-   {round:4,description:"25% Flottenverlust"}
+ combatLog:{
+  rounds:[
+   {
+    roundNumber:1,
+    damageEvents:[
+      {text:"Leichter Jäger → Mittlerer Jäger"}
+    ]
+   }
   ]
  }
 };
@@ -180,14 +250,10 @@ function renderBattleReport(report){
  defenderRecoveryVolume.textContent=d.recoveryVolume;
  defenderPermanentVolume.textContent=d.permanentLossVolume;
 
- milestones.innerHTML="";
+ document.getElementById("roundCount").textContent=
+  report.combatLog?.rounds?.length || 0;
 
- report.analysis.milestones.forEach(m=>{
-  const div=document.createElement("div");
-  div.className="milestone";
-  div.innerHTML=`Runde ${m.round}<br>${m.description}`;
-  milestones.appendChild(div);
- });
+ renderCombatLog(report);
 
  renderFleet("attackerFleetState",a.units);
  renderFleet("defenderFleetState",d.units);
@@ -216,6 +282,37 @@ function renderFleet(containerId,units){
   container.appendChild(row);
  });
 }
+
+
+function renderCombatLog(report){
+
+ const roundList=document.getElementById("roundList");
+ const combatLogEvents=document.getElementById("combatLogEvents");
+
+ roundList.innerHTML="";
+ combatLogEvents.innerHTML="";
+
+ const rounds=report.combatLog?.rounds || [];
+
+ rounds.forEach(round=>{
+
+   const div=document.createElement("div");
+   div.className="milestone";
+   div.textContent=`Runde ${round.roundNumber}`;
+
+   roundList.appendChild(div);
+
+   round.damageEvents.forEach(event=>{
+
+      const row=document.createElement("div");
+      row.className="fleet-state-row";
+      row.textContent=event.text;
+
+      combatLogEvents.appendChild(row);
+   });
+ });
+}
+
 
 document.getElementById("calculateBtn").addEventListener("click",()=>{
 
