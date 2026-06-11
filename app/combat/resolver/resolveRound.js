@@ -409,6 +409,7 @@ function resolveRound(
 
         roundRuntime
     );
+    
 const resolverMetrics =
 
     new ResolverMetrics({
@@ -494,7 +495,9 @@ return {
 
     damageEvents,
 
-    overflowEvents
+    overflowEvents,
+
+    resolverMetrics
 };
 }
 
