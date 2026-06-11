@@ -9,8 +9,12 @@ class DamageEventData {
         damageEventId,
 
         sourceRuntimeUnitId,
+        sourceUnitTypeId,
+        sourceUnitName,
 
         targetRuntimeUnitId,
+        targetUnitTypeId,
+        targetUnitName,
 
         baseDamage,
 
@@ -34,8 +38,20 @@ class DamageEventData {
         this.sourceRuntimeUnitId =
             sourceRuntimeUnitId;
 
+        this.sourceUnitTypeId =
+            sourceUnitTypeId;
+
+        this.sourceUnitName =
+            sourceUnitName;
+
         this.targetRuntimeUnitId =
             targetRuntimeUnitId;
+
+        this.targetUnitTypeId =
+            targetUnitTypeId;
+
+        this.targetUnitName =
+            targetUnitName;
 
         this.baseDamage =
             baseDamage;
