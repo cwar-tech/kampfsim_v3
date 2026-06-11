@@ -27,10 +27,22 @@ function buildTechnicalData(
     const overflowEvents =
         [];
 
+    let attackerDestroyed =
+        0;
+
+    let defenderDestroyed =
+        0;
+
     for (
         const round
         of combatResult.rounds
     ) {
+
+        attackerDestroyed +=
+            round.attackerDestroyedUnits?.length ?? 0;
+
+        defenderDestroyed +=
+            round.defenderDestroyedUnits?.length ?? 0;
 
         for (
             const event
@@ -154,7 +166,17 @@ function buildTechnicalData(
                     damageEvents.length,
 
                 overflowEvents:
-                    overflowEvents.length
+                    overflowEvents.length,
+
+                attackerDestroyed,
+
+                defenderDestroyed,
+
+                combatFinished:
+                    combatResult.combatFinished,
+
+                combatResult:
+                    combatResult.combatResult
             }),
 
         exports: []
