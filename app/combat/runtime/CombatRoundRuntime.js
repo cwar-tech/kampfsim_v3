@@ -1,6 +1,7 @@
 // ==================================================
 // app/combat/runtime/CombatRoundRuntime.js
 // ==================================================
+
 class CombatRoundRuntime {
 
     constructor({
@@ -20,7 +21,9 @@ class CombatRoundRuntime {
         defenderDamageReceived = 0,
 
         attackerDestroyedUnits = [],
-        defenderDestroyedUnits = []
+        defenderDestroyedUnits = [],
+
+        resolverMetrics = null
 
     } = {}) {
 
@@ -110,6 +113,15 @@ class CombatRoundRuntime {
             )
                 ? defenderDestroyedUnits
                 : [];
+
+
+
+        // ==========================================
+        // RESOLVER METRICS
+        // ==========================================
+
+        this.resolverMetrics =
+            resolverMetrics;
     }
 }
 
