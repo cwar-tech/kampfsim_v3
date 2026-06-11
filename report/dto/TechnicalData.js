@@ -6,13 +6,15 @@ class TechnicalData {
 
     constructor({
 
-        damageEvents = [],
+        damageEvents,
 
-        overflowEvents = [],
+        overflowEvents,
 
-        resolverData = [],
+        resolverData,
 
-        exports = []
+        validation,
+
+        exports
 
     } = {}) {
 
@@ -24,6 +26,9 @@ class TechnicalData {
 
         this.resolverData =
             resolverData;
+
+        this.validation =
+            validation;
 
         this.exports =
             exports;
