@@ -7,8 +7,12 @@ class OverflowEventData {
     constructor({
 
         sourceRuntimeUnitId,
+        sourceUnitTypeId,
+        sourceUnitName,
 
         targetRuntimeUnitId,
+        targetUnitTypeId,
+        targetUnitName,
 
         overflowDamage,
 
@@ -21,8 +25,20 @@ class OverflowEventData {
         this.sourceRuntimeUnitId =
             sourceRuntimeUnitId;
 
+        this.sourceUnitTypeId =
+            sourceUnitTypeId;
+
+        this.sourceUnitName =
+            sourceUnitName;
+
         this.targetRuntimeUnitId =
             targetRuntimeUnitId;
+
+        this.targetUnitTypeId =
+            targetUnitTypeId;
+
+        this.targetUnitName =
+            targetUnitName;
 
         this.overflowDamage =
             overflowDamage;
