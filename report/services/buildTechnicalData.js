@@ -14,6 +14,9 @@ import OverflowEventData
 import ResolverData
     from "../dto/ResolverData.js";
 
+import ValidationData
+    from "../dto/ValidationData.js";
+
 import getReportShipData
     from "./getReportShipData.js";
 
@@ -33,6 +36,9 @@ function buildTechnicalData(
     let defenderDestroyed =
         0;
 
+    let attackQueueSize =
+        0;
+
     for (
         const round
         of combatResult.rounds
@@ -43,6 +49,9 @@ function buildTechnicalData(
 
         defenderDestroyed +=
             round.defenderDestroyedUnits?.length ?? 0;
+
+        attackQueueSize +=
+            round.attackQueueSize ?? 0;
 
         for (
             const event
@@ -168,6 +177,8 @@ function buildTechnicalData(
                 overflowEvents:
                     overflowEvents.length,
 
+                attackQueueSize,
+
                 attackerDestroyed,
 
                 defenderDestroyed,
@@ -177,6 +188,27 @@ function buildTechnicalData(
 
                 combatResult:
                     combatResult.combatResult
+            }),
+
+        validation:
+
+            new ValidationData({
+
+                expectedAttacks:
+                    attackQueueSize,
+
+                executedAttacks:
+                    damageEvents.length,
+
+                allUnitsAttacked:
+
+                    attackQueueSize ===
+                    damageEvents.length,
+
+                duplicateAttacks:
+
+                    damageEvents.length >
+                    attackQueueSize
             }),
 
         exports: []
