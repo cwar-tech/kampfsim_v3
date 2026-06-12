@@ -61,7 +61,9 @@ function calculateDamage({
 
             armorMultiplier: 0,
 
-            finalDamage: 0
+            finalDamage: 0,
+
+            damageExplain: []
         };
     }
 
@@ -208,6 +210,58 @@ function calculateDamage({
         finalDamage = 1;
     }
 
+    // ==========================================
+    // DAMAGE EXPLAIN
+    // ==========================================
+
+    const damageExplain = [
+
+        {
+            step:
+                "base_damage",
+
+            value:
+                baseDamage
+        },
+
+        {
+            step:
+                "counter",
+
+            multiplier:
+                damageMultiplier,
+
+            result:
+                Math.round(
+                    damageAfterMultiplier
+                )
+        },
+
+        {
+            step:
+                "penetration",
+
+            multiplier:
+                penetrationMultiplier,
+
+            result:
+                Math.round(
+                    damageAfterPenetration
+                )
+        },
+
+        {
+            step:
+                "armor",
+
+            multiplier:
+                armorMultiplier,
+
+            result:
+                finalDamage
+        }
+    ];
+
     return {
 
         baseDamage,
@@ -226,7 +280,9 @@ function calculateDamage({
 
         armorMultiplier,
 
-        finalDamage
+        finalDamage,
+
+        damageExplain
     };
 }
 

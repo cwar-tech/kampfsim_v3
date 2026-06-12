@@ -26,7 +26,11 @@ class DamageEvent {
 
         targetDestroyed = false,
 
-        attackChainStep = 0
+        attackChainStep = 0,
+
+        targetPriority = null,
+
+        damageExplain = []
 
     }) {
 
@@ -75,6 +79,22 @@ class DamageEvent {
 
         this.appliedDamage =
             appliedDamage;
+
+
+
+        // ==========================================
+        // EXPLAIN
+        // ==========================================
+
+        this.targetPriority =
+            targetPriority;
+
+        this.damageExplain =
+            Array.isArray(
+                damageExplain
+            )
+                ? damageExplain
+                : [];
 
 
 

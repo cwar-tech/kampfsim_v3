@@ -106,6 +106,9 @@ function resolveAttackChain({
     let currentBaseDamage =
         attacker.totalDamage;
 
+    let attackChainStep =
+        1;
+
     while (
 
         currentTarget &&
@@ -156,6 +159,8 @@ function resolveAttackChain({
                 `[CHAIN-009] invalid damageMultiplier for ${attacker.unitTypeId}`
             );
         }
+        const targetHpBefore =
+            currentTarget.remainingHp;
 
         const appliedDamage =
 
@@ -204,7 +209,10 @@ function resolveAttackChain({
             "FINAL DAMAGE:",
             damageResult.finalDamage
         );
-
+        console.log(
+            "CHAIN STEP:",
+            attackChainStep
+        );
         damageEvents.push({
 
             damageEventId:
@@ -215,6 +223,12 @@ function resolveAttackChain({
 
             targetRuntimeUnitId:
                 currentTarget.runtimeUnitId,
+
+            sourceUnitTypeId:
+                attacker.unitTypeId,
+
+            targetUnitTypeId:
+                currentTarget.unitTypeId,
 
             baseDamage:
                 currentBaseDamage,
@@ -232,7 +246,23 @@ function resolveAttackChain({
             targetDestroyed:
                 targetRemainingHp <= 0,
 
-            targetRemainingHp
+            targetRemainingHp,
+
+            targetHpBefore,
+
+            attackChainStep,
+
+            targetPriority: {
+
+                level:
+                    attackChainStep,
+
+                reason:
+                    "counter_target"
+            },
+
+            damageExplain:
+                damageResult.damageExplain
         });
 
         currentTarget.remainingHp =
@@ -335,6 +365,7 @@ function resolveAttackChain({
 
         currentBaseDamage =
             overflowAfterLoss;
+        attackChainStep++;
     }
 }
 
