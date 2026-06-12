@@ -314,15 +314,18 @@
       const shipsData =
         await shipsResponse.json();
 
-      const shipRegistry = [
-        { unitTypeId: "ship_light_fighter", name: "Leichter Jäger" },
-        { unitTypeId: "ship_medium_fighter", name: "Mittlerer Jäger" },
-        { unitTypeId: "ship_bomber", name: "Bomber" },
-        { unitTypeId: "ship_cruiser", name: "Kreuzer" },
-        { unitTypeId: "ship_battleship", name: "Schlachtschiff" },
-        { unitTypeId: "defense_rocket", name: "Raketenwerfer" },
-        { unitTypeId: "defense_plasma", name: "Plasma Verteidigung" }
-      ];
+      const shipRegistry =
+        shipsData.map(ship => ({
+
+          unitTypeId:
+            ship.id,
+
+          name:
+            ship.name,
+
+          type:
+            ship.type
+        }));
 
       const attackerFleet = document.getElementById("attackerFleet");
       const defenderFleet = document.getElementById("defenderFleet");
