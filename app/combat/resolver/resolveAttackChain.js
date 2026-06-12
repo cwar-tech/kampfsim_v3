@@ -188,31 +188,6 @@ function resolveAttackChain({
                 appliedDamage
             );
 
-        console.log(
-            "BASE DAMAGE:",
-            currentBaseDamage
-        );
-
-        console.log(
-            "TARGET:",
-            currentTarget.unitTypeId,
-            "HP:",
-            currentTarget.remainingHp
-        );
-
-        console.log(
-            "MULTIPLIER:",
-            damageResult.damageMultiplier
-        );
-
-        console.log(
-            "FINAL DAMAGE:",
-            damageResult.finalDamage
-        );
-        console.log(
-            "CHAIN STEP:",
-            attackChainStep
-        );
         damageEvents.push({
 
             damageEventId:
@@ -267,10 +242,6 @@ function resolveAttackChain({
 
         currentTarget.remainingHp =
             targetRemainingHp;
-
-        console.log(
-            "DAMAGE EVENT CREATED"
-        );
 
         // ======================================
         // NO OVERFLOW

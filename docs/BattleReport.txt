@@ -1,0 +1,492 @@
+# BATTLE REPORT SYSTEM
+# AKTUELLER STAND
+
+Ziel des Systems:
+
+Die Kampfsimulation erzeugt nach jedem Kampf einen vollständigen
+BattleReport.
+
+Dieser BattleReport ist die einzige Datenquelle für:
+
+- GUI
+- Kampfbericht
+- Export
+- Replay
+- Analyse
+- API
+- Mobile App
+
+Die GUI greift nicht mehr direkt auf CombatRuntime oder Resolverdaten zu.
+
+Sie arbeitet ausschließlich mit dem BattleReport.
+
+
+==================================================
+ARCHITEKTUR
+==================================================
+
+Scenario
+    ↓
+
+Combat Engine
+    ↓
+
+CombatResult
+    ↓
+
+BattleReportBuilder
+    ↓
+
+BattleReport
+    ↓
+
+GUI
+
+
+==================================================
+COMBAT RESULT
+==================================================
+
+CombatResult bleibt die technische Kampfausgabe.
+
+Enthält:
+
+- CombatRuntime
+- Runden
+- DamageEvents
+- OverflowEvents
+- ResolverMetrics
+
+CombatResult wird nur intern verwendet.
+
+Die GUI verwendet CombatResult niemals direkt.
+
+
+==================================================
+BATTLEREPORT
+==================================================
+
+Der BattleReport ist das öffentliche Datenmodell.
+
+Struktur:
+
+{
+    reportVersion,
+    combatId,
+    createdAt,
+
+    overview,
+    fleetState,
+    advantages,
+    analysis,
+    combatLog,
+    technical
+}
+
+
+==================================================
+OVERVIEW
+==================================================
+
+Kurzzusammenfassung des Kampfes.
+
+Enthält:
+
+- Gewinner
+- Startvolumen
+- Aktives Volumen
+- Verlustvolumen
+
+Beispiel:
+
+overview:
+
+Attacker
+100.000.000
+
+Aktiv
+99.998.360
+
+Verlust
+1.640
+
+Defender
+9.200
+
+Aktiv
+0
+
+Verlust
+9.200
+
+
+Verwendung:
+
+- Header
+- Kampfübersicht
+- Schnellansicht
+
+
+==================================================
+FLEET STATE
+==================================================
+
+Endzustand beider Flotten.
+
+Struktur:
+
+fleetState.attacker
+fleetState.defender
+
+Jede Einheit enthält:
+
+- Name
+- Bild
+- HP
+- Schaden
+- Volumen
+- Startanzahl
+- Aktive Anzahl
+- Verlustanzahl
+
+Beispiel:
+
+Leichter Jäger
+
+Start:
+5.000.000
+
+Aktiv:
+4.999.918
+
+Verlust:
+82
+
+
+Verwendung:
+
+- Flottenvergleich
+- Verlustdarstellung
+- Nachkampfbericht
+
+
+==================================================
+ADVANTAGES
+==================================================
+
+Alle Kampfvorteile.
+
+Kategorien:
+
+- Forschung
+- VIP
+- Energon
+- Booster
+- Gilde
+
+Zusätzlich:
+
+Counters
+
+Beispiel:
+
+Leichter Jäger
+→ Fregatte
+
+Multiplikator:
+3.5
+
+
+Verwendung:
+
+- Analyse
+- Tooltips
+- Kampfvorbereitung
+
+
+==================================================
+ANALYSIS
+==================================================
+
+Zusätzliche Kampfauswertung.
+
+Aktuell:
+
+counterStats
+
+Beispiel:
+
+Leichter Jäger
+→ Bomber
+
+Multiplikator:
+3
+
+Leichter Jäger
+→ Fregatte
+
+Multiplikator:
+3.5
+
+
+Später möglich:
+
+- Effizienz
+- Schadensanteile
+- MVP Einheiten
+- Verlustanalysen
+
+
+==================================================
+COMBAT LOG
+==================================================
+
+Detaillierter Kampfverlauf.
+
+Struktur:
+
+combatLog
+ └─ rounds
+      └─ attackers
+           └─ attacks
+
+
+==================================================
+ROUND
+==================================================
+
+Beispiel:
+
+Round 1
+
+Summary:
+
+- Damage Dealt
+- Destroyed Units
+- Verluste
+
+
+==================================================
+ATTACKER
+==================================================
+
+Jeder Angreifer wird einmal aufgeführt.
+
+Beispiel:
+
+Leichter Jäger
+
+attacks:
+[
+    ...
+]
+
+
+Dadurch erscheint ein Schiff nicht 100x.
+
+Es erscheint einmal und enthält seine Angriffe.
+
+
+==================================================
+ATTACKS
+==================================================
+
+Jeder Angriff enthält:
+
+- Quelle
+- Ziel
+- Priorität
+- Chain Step
+- Schaden
+- Overflow
+- Zerstörung
+- Damage Explain
+
+Beispiel:
+
+Leichter Jäger
+→ Fregatte
+
+HP Schaden:
+45.500
+
+Multiplikator:
+3.5
+
+Ziel zerstört:
+Ja
+
+
+==================================================
+DAMAGE EXPLAIN
+==================================================
+
+Vollständige Schadensherleitung.
+
+Beispiel:
+
+Base Damage
+425.000.000
+
+Counter
+×3.5
+
+Penetration
+×1.0
+
+Armor
+×1.0
+
+Final Damage
+1.487.500.000
+
+
+Verwendung:
+
+- Tooltip
+- Analyse
+- Debug
+
+
+==================================================
+OVERFLOW EVENTS
+==================================================
+
+Dokumentieren die Schadenweitergabe.
+
+Beispiel:
+
+Fregatte zerstört
+
+Overflow:
+1.487.454.500
+
+Weitergegeben:
+403.737.650
+
+Nächstes Ziel:
+Bomber
+
+
+Verwendung:
+
+- Chain Visualisierung
+- Replay
+- Analyse
+
+
+==================================================
+TECHNICAL
+==================================================
+
+Technischer Bereich.
+
+Aktuell:
+
+damageEvents
+overflowEvents
+resolverData
+exports
+
+Momentan leer.
+
+Reserviert für:
+
+- Debug
+- API
+- Entwickleransicht
+
+
+==================================================
+LOG SYSTEM
+==================================================
+
+runScenario erzeugt nun:
+
+CombatResult
++
+BattleReport
+
+Der BattleReport wird lokal gespeichert.
+
+Beispiel:
+
+/log/overflow/
+
+of_007_20260612_102233.json
+
+
+Vorteile:
+
+- kein Terminalspam
+- reproduzierbare Kämpfe
+- GUI kann Dateien direkt laden
+- historische Reports bleiben erhalten
+
+
+==================================================
+GUI DATENQUELLEN
+==================================================
+
+Header
+
+report.overview
+
+
+Flotten
+
+report.fleetState
+
+
+Vorteile
+
+report.advantages
+
+
+Analyse
+
+report.analysis
+
+
+Kampflog
+
+report.combatLog.rounds
+
+
+Attacken
+
+round.attackers[].attacks
+
+
+Overflow
+
+round.overflowEvents
+
+
+==================================================
+STATUS
+==================================================
+
+Combat Engine:
+Funktioniert
+
+BattleReport:
+Funktioniert
+
+DTO Struktur:
+Funktioniert
+
+Log Export:
+Funktioniert
+
+GUI Anbindung:
+Nächster Schritt
+
+Timeline:
+Noch offen
+
+Replay:
+Noch offen
+
+API:
+Noch offen

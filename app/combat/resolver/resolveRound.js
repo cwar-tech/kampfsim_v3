@@ -1,6 +1,7 @@
 // ==================================================
 // app/combat/resolver/resolveRound.js
 // ==================================================
+
 import ResolverMetrics
     from "./dto/ResolverMetrics.js";
 
@@ -124,16 +125,6 @@ function resolveRound(
             runtime.attackerFleet
         );
 
-    console.log(
-        "ATTACKER QUEUE:",
-        attackerQueue.length
-    );
-
-    console.log(
-        "DEFENDER QUEUE:",
-        defenderQueue.length
-    );
-
 
 
     // ==========================================
@@ -146,11 +137,6 @@ function resolveRound(
 
         ...defenderQueue
     ];
-
-    console.log(
-        "TOTAL ATTACK QUEUE:",
-        attackQueue.length
-    );
 
     if (
         attackQueue.length === 0
@@ -182,19 +168,6 @@ function resolveRound(
                 "[ROUND-002] Attack entry missing"
             );
         }
-
-        console.log(
-
-            "ATTACK:",
-
-            attack.attacker
-                ?.unitTypeId,
-
-            "->",
-
-            attack.target
-                ?.unitTypeId
-        );
 
         if (
             !attack.attacker
@@ -232,16 +205,6 @@ function resolveRound(
             overflowEvents
         });
     }
-
-    console.log(
-        "DAMAGE EVENTS:",
-        damageEvents.length
-    );
-
-    console.log(
-        "OVERFLOW EVENTS:",
-        overflowEvents.length
-    );
 
 
 
@@ -356,7 +319,6 @@ function resolveRound(
             +
 
             event.appliedDamage;
-
     }
 
 
@@ -409,64 +371,22 @@ function resolveRound(
 
         roundRuntime
     );
-    
-const resolverMetrics =
 
-    new ResolverMetrics({
+    const resolverMetrics =
 
-        attackerQueueSize:
-            attackerQueue.length,
+        new ResolverMetrics({
 
-        defenderQueueSize:
-            defenderQueue.length,
+            attackerQueueSize:
+                attackerQueue.length,
 
-        attackQueueSize:
-            attackQueue.length,
+            defenderQueueSize:
+                defenderQueue.length,
 
-        executedAttacks:
-            damageEvents.length,
-
-        attackerDestroyed:
-            roundRuntime
-                .attackerDestroyedUnits
-                .length,
-
-        defenderDestroyed:
-            roundRuntime
-                .defenderDestroyedUnits
-                .length
-    });
-    console.log(
-        "ATTACKER DESTROYED:",
-        roundRuntime
-            .attackerDestroyedUnits
-            .length
-    );
-
-    console.log(
-        "DEFENDER DESTROYED:",
-        roundRuntime
-            .defenderDestroyedUnits
-            .length
-    );
-
-
-
-    // ==========================================
-    // ROUND SUMMARY
-    // ==========================================
-
-    console.log(
-        "ROUND RESULT",
-        {
-            attackQueue:
+            attackQueueSize:
                 attackQueue.length,
 
-            damageEvents:
+            executedAttacks:
                 damageEvents.length,
-
-            overflowEvents:
-                overflowEvents.length,
 
             attackerDestroyed:
                 roundRuntime
@@ -477,8 +397,7 @@ const resolverMetrics =
                 roundRuntime
                     .defenderDestroyedUnits
                     .length
-        }
-    );
+        });
 
 
 
@@ -486,19 +405,19 @@ const resolverMetrics =
     // RETURN
     // ==========================================
 
-return {
+    return {
 
-    combatRuntime:
-        runtime,
+        combatRuntime:
+            runtime,
 
-    roundRuntime,
+        roundRuntime,
 
-    damageEvents,
+        damageEvents,
 
-    overflowEvents,
+        overflowEvents,
 
-    resolverMetrics
-};
+        resolverMetrics
+    };
 }
 
 export default

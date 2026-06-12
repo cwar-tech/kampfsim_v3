@@ -1,6 +1,7 @@
 // ==================================================
-// app\app\scenario\runScenario.js
+// app/scenario/runScenario.js
 // ==================================================
+
 import fs from "fs";
 
 import executeScenario
@@ -8,7 +9,6 @@ import executeScenario
 
 import buildBattleReport
     from "../../report/builders/BattleReportBuilder.js";
-
 
 const domain =
     process.argv[2];
@@ -71,7 +71,43 @@ const battleReport =
         result
     );
 
-console.log(
+// ==========================================
+// LOG DIRECTORY
+// ==========================================
+
+const outputDirectory =
+    `./log/${domain}`;
+
+fs.mkdirSync(
+
+    outputDirectory,
+
+    {
+        recursive: true
+    }
+);
+
+// ==========================================
+// TIMESTAMP
+// ==========================================
+
+const timestamp =
+    new Date()
+        .toISOString()
+        .replace(/:/g, "-")
+        .replace(/\./g, "-");
+
+// ==========================================
+// SAVE REPORT
+// ==========================================
+
+const reportFile =
+
+    `${outputDirectory}/${scenarioId}_${timestamp}.json`;
+
+fs.writeFileSync(
+
+    reportFile,
 
     JSON.stringify(
 
@@ -83,14 +119,18 @@ console.log(
     )
 );
 
+// ==========================================
+// FINISHED
+// ==========================================
+
+console.log();
+
 console.log(
-
-    JSON.stringify(
-
-        result,
-
-        null,
-
-        2
-    )
+    "BattleReport gespeichert:"
 );
+
+console.log(
+    reportFile
+);
+
+console.log();

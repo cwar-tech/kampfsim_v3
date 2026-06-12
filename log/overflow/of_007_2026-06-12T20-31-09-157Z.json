@@ -1,0 +1,526 @@
+{
+  "reportVersion": "1.0.0",
+  "combatId": "b66230c5-2c27-42fe-9351-9a61b5f64d5b",
+  "createdAt": 1781296269157,
+  "overview": {
+    "combatId": "b66230c5-2c27-42fe-9351-9a61b5f64d5b",
+    "winner": "attackerVictory",
+    "attackerStartVolume": 100000000,
+    "attackerActiveVolume": 99998360,
+    "attackerLossVolume": 1640,
+    "defenderStartVolume": 9200,
+    "defenderActiveVolume": 0,
+    "defenderLossVolume": 9200
+  },
+  "fleetState": {
+    "attacker": {
+      "startVolume": 100000000,
+      "activeVolume": 99998360,
+      "recoveryVolume": 0,
+      "permanentLossVolume": 1640,
+      "units": [
+        {
+          "unitTypeId": "ship_light_fighter",
+          "name": "Leichter Jäger",
+          "image": "light_fighter.webp",
+          "volumePerUnit": 20,
+          "hpPerUnit": 430,
+          "dmgPerUnit": 85,
+          "startCount": 5000000,
+          "activeCount": 4999918,
+          "recoveryCount": 0,
+          "permanentLossCount": 82
+        }
+      ]
+    },
+    "defender": {
+      "startVolume": 9200,
+      "activeVolume": 0,
+      "recoveryVolume": 0,
+      "permanentLossVolume": 9200,
+      "units": [
+        {
+          "unitTypeId": "ship_ion_carrier",
+          "name": "Ion Carrier",
+          "image": "ion_carrier.webp",
+          "volumePerUnit": 320,
+          "hpPerUnit": 6600,
+          "dmgPerUnit": 1320,
+          "startCount": 10,
+          "activeCount": 0,
+          "recoveryCount": 0,
+          "permanentLossCount": 10
+        },
+        {
+          "unitTypeId": "ship_frigate",
+          "name": "Fregatte",
+          "image": "frigate.webp",
+          "volumePerUnit": 220,
+          "hpPerUnit": 4550,
+          "dmgPerUnit": 910,
+          "startCount": 10,
+          "activeCount": 0,
+          "recoveryCount": 0,
+          "permanentLossCount": 10
+        },
+        {
+          "unitTypeId": "ship_bomber",
+          "name": "Bomber",
+          "image": "bomber.webp",
+          "volumePerUnit": 380,
+          "hpPerUnit": 7200,
+          "dmgPerUnit": 1080,
+          "startCount": 10,
+          "activeCount": 0,
+          "recoveryCount": 0,
+          "permanentLossCount": 10
+        }
+      ]
+    }
+  },
+  "advantages": {
+    "attacker": {
+      "research": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "vip": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "energon": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "booster": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "guild": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "counters": [
+        {
+          "sourceUnitTypeId": "ship_light_fighter",
+          "sourceUnitName": "Leichter Jäger",
+          "targetUnitTypeId": "ship_frigate",
+          "targetUnitName": "Fregatte",
+          "multiplier": 3.5
+        },
+        {
+          "sourceUnitTypeId": "ship_light_fighter",
+          "sourceUnitName": "Leichter Jäger",
+          "targetUnitTypeId": "ship_bomber",
+          "targetUnitName": "Bomber",
+          "multiplier": 3
+        },
+        {
+          "sourceUnitTypeId": "ship_light_fighter",
+          "sourceUnitName": "Leichter Jäger",
+          "targetUnitTypeId": "ship_ion_carrier",
+          "targetUnitName": "Ion Carrier",
+          "multiplier": 3
+        }
+      ]
+    },
+    "defender": {
+      "research": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "vip": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "energon": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "booster": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "guild": {
+        "damage": 1,
+        "armor": 1,
+        "penetration": 1,
+        "hp": 1
+      },
+      "counters": []
+    }
+  },
+  "analysis": {
+    "counterStats": [
+      {
+        "sourceUnitTypeId": "ship_light_fighter",
+        "sourceUnitName": "Leichter Jäger",
+        "targetUnitTypeId": "ship_frigate",
+        "targetUnitName": "Fregatte",
+        "multiplier": 3.5
+      },
+      {
+        "sourceUnitTypeId": "ship_light_fighter",
+        "sourceUnitName": "Leichter Jäger",
+        "targetUnitTypeId": "ship_bomber",
+        "targetUnitName": "Bomber",
+        "multiplier": 3
+      },
+      {
+        "sourceUnitTypeId": "ship_light_fighter",
+        "sourceUnitName": "Leichter Jäger",
+        "targetUnitTypeId": "ship_ion_carrier",
+        "targetUnitName": "Ion Carrier",
+        "multiplier": 3
+      }
+    ]
+  },
+  "combatLog": {
+    "rounds": [
+      {
+        "roundNumber": 1,
+        "summary": {
+          "attackerDamageDealt": 183500,
+          "defenderDamageDealt": 35655,
+          "attackerDestroyedUnits": 0,
+          "defenderDestroyedUnits": 3
+        },
+        "attackers": [
+          {
+            "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+            "sourceUnitTypeId": "ship_light_fighter",
+            "sourceUnitName": "Leichter Jäger",
+            "attacks": [
+              {
+                "hpDamage": 45500,
+                "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "sourceUnitTypeId": "ship_light_fighter",
+                "sourceUnitName": "Leichter Jäger",
+                "targetRuntimeUnitId": "ship_frigate_36189514-5647-4990-8213-fa1a5f5ec364",
+                "targetUnitTypeId": "ship_frigate",
+                "targetUnitName": "Fregatte",
+                "attackChainStep": 1,
+                "targetPriority": {
+                  "level": 1,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 45500,
+                "targetRemainingHp": 0,
+                "baseDamage": 425000000,
+                "damageMultiplier": 3.5,
+                "finalDamage": 1487500000,
+                "appliedDamage": 45500,
+                "overflowDamage": 1487454500,
+                "targetDestroyed": true,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 425000000
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 3.5,
+                    "result": 1487500000
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1,
+                    "result": 1487500000
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 1,
+                    "result": 1487500000
+                  }
+                ]
+              },
+              {
+                "hpDamage": 72000,
+                "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "sourceUnitTypeId": "ship_light_fighter",
+                "sourceUnitName": "Leichter Jäger",
+                "targetRuntimeUnitId": "ship_bomber_2a2ca157-e9a1-4a75-b598-dbea10fa06bf",
+                "targetUnitTypeId": "ship_bomber",
+                "targetUnitName": "Bomber",
+                "attackChainStep": 2,
+                "targetPriority": {
+                  "level": 2,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 72000,
+                "targetRemainingHp": 0,
+                "baseDamage": 403737650,
+                "damageMultiplier": 3,
+                "finalDamage": 1211212950,
+                "appliedDamage": 72000,
+                "overflowDamage": 1211140950,
+                "targetDestroyed": true,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 403737650
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 3,
+                    "result": 1211212950
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1,
+                    "result": 1211212950
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 1,
+                    "result": 1211212950
+                  }
+                ]
+              },
+              {
+                "hpDamage": 66000,
+                "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "sourceUnitTypeId": "ship_light_fighter",
+                "sourceUnitName": "Leichter Jäger",
+                "targetRuntimeUnitId": "ship_ion_carrier_6a92119f-6eab-4efa-9578-aae81bd5dc5a",
+                "targetUnitTypeId": "ship_ion_carrier",
+                "targetUnitName": "Ion Carrier",
+                "attackChainStep": 3,
+                "targetPriority": {
+                  "level": 3,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 66000,
+                "targetRemainingHp": 0,
+                "baseDamage": 383527967,
+                "damageMultiplier": 3,
+                "finalDamage": 1150583901,
+                "appliedDamage": 66000,
+                "overflowDamage": 1150517901,
+                "targetDestroyed": true,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 383527967
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 3,
+                    "result": 1150583901
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1,
+                    "result": 1150583901
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 1,
+                    "result": 1150583901
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sourceRuntimeUnitId": "ship_ion_carrier_6a92119f-6eab-4efa-9578-aae81bd5dc5a",
+            "sourceUnitTypeId": "ship_ion_carrier",
+            "sourceUnitName": "Ion Carrier",
+            "attacks": [
+              {
+                "hpDamage": 14212,
+                "sourceRuntimeUnitId": "ship_ion_carrier_6a92119f-6eab-4efa-9578-aae81bd5dc5a",
+                "sourceUnitTypeId": "ship_ion_carrier",
+                "sourceUnitName": "Ion Carrier",
+                "targetRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "targetUnitTypeId": "ship_light_fighter",
+                "targetUnitName": "Leichter Jäger",
+                "attackChainStep": 1,
+                "targetPriority": {
+                  "level": 1,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 2150000000,
+                "targetRemainingHp": 2149985788,
+                "baseDamage": 13200,
+                "damageMultiplier": 1,
+                "finalDamage": 14212,
+                "appliedDamage": 14212,
+                "overflowDamage": 0,
+                "targetDestroyed": false,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 13200
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 1,
+                    "result": 13200
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1.11,
+                    "result": 14652
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 0.97,
+                    "result": 14212
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sourceRuntimeUnitId": "ship_frigate_36189514-5647-4990-8213-fa1a5f5ec364",
+            "sourceUnitTypeId": "ship_frigate",
+            "sourceUnitName": "Fregatte",
+            "attacks": [
+              {
+                "hpDamage": 9710,
+                "sourceRuntimeUnitId": "ship_frigate_36189514-5647-4990-8213-fa1a5f5ec364",
+                "sourceUnitTypeId": "ship_frigate",
+                "sourceUnitName": "Fregatte",
+                "targetRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "targetUnitTypeId": "ship_light_fighter",
+                "targetUnitName": "Leichter Jäger",
+                "attackChainStep": 1,
+                "targetPriority": {
+                  "level": 1,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 2149985788,
+                "targetRemainingHp": 2149976078,
+                "baseDamage": 9100,
+                "damageMultiplier": 1,
+                "finalDamage": 9710,
+                "appliedDamage": 9710,
+                "overflowDamage": 0,
+                "targetDestroyed": false,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 9100
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 1,
+                    "result": 9100
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1.1,
+                    "result": 10010
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 0.97,
+                    "result": 9710
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sourceRuntimeUnitId": "ship_bomber_2a2ca157-e9a1-4a75-b598-dbea10fa06bf",
+            "sourceUnitTypeId": "ship_bomber",
+            "sourceUnitName": "Bomber",
+            "attacks": [
+              {
+                "hpDamage": 11733,
+                "sourceRuntimeUnitId": "ship_bomber_2a2ca157-e9a1-4a75-b598-dbea10fa06bf",
+                "sourceUnitTypeId": "ship_bomber",
+                "sourceUnitName": "Bomber",
+                "targetRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+                "targetUnitTypeId": "ship_light_fighter",
+                "targetUnitName": "Leichter Jäger",
+                "attackChainStep": 1,
+                "targetPriority": {
+                  "level": 1,
+                  "reason": "counter_target"
+                },
+                "targetHpBefore": 2149976078,
+                "targetRemainingHp": 2149964345,
+                "baseDamage": 10800,
+                "damageMultiplier": 1,
+                "finalDamage": 11733,
+                "appliedDamage": 11733,
+                "overflowDamage": 0,
+                "targetDestroyed": false,
+                "damageExplain": [
+                  {
+                    "step": "base_damage",
+                    "value": 10800
+                  },
+                  {
+                    "step": "counter",
+                    "multiplier": 1,
+                    "result": 10800
+                  },
+                  {
+                    "step": "penetration",
+                    "multiplier": 1.12,
+                    "result": 12096
+                  },
+                  {
+                    "step": "armor",
+                    "multiplier": 0.97,
+                    "result": 11733
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "overflowEvents": [
+          {
+            "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+            "targetRuntimeUnitId": "ship_frigate_36189514-5647-4990-8213-fa1a5f5ec364",
+            "overflowDamage": 1487454500,
+            "basisOverflowDamage": 424987000,
+            "overflowAfterLoss": 403737650
+          },
+          {
+            "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+            "targetRuntimeUnitId": "ship_bomber_2a2ca157-e9a1-4a75-b598-dbea10fa06bf",
+            "overflowDamage": 1211140950,
+            "basisOverflowDamage": 403713650,
+            "overflowAfterLoss": 383527967
+          },
+          {
+            "sourceRuntimeUnitId": "ship_light_fighter_45d86a41-79b0-4bc0-8dbb-cfe47fb0d3d6",
+            "targetRuntimeUnitId": "ship_ion_carrier_6a92119f-6eab-4efa-9578-aae81bd5dc5a",
+            "overflowDamage": 1150517901,
+            "basisOverflowDamage": 383505967,
+            "overflowAfterLoss": 364330668
+          }
+        ]
+      }
+    ]
+  },
+  "technical": {
+    "damageEvents": [],
+    "overflowEvents": [],
+    "resolverData": [],
+    "exports": []
+  }
+}
