@@ -252,10 +252,7 @@
 
       <h2>Kampfanalyse</h2>
 
-      <div class="card">
-        id="combatAnalysis"
-        class="card">
-      </div>
+      <div id="combatAnalysis" class="card"></div>
 
       <h2>Combat Log</h2>
 
@@ -307,7 +304,7 @@
 
       import buildBattleReport
         from "./report/builders/BattleReportBuilder.js";
-
+      console.log("SCRIPT LOADED");
       const shipsResponse =
         await fetch("./app/ships.json");
 
@@ -329,7 +326,41 @@
 
       const attackerFleet = document.getElementById("attackerFleet");
       const defenderFleet = document.getElementById("defenderFleet");
+      const factionRules = {
 
+        attacker: {
+
+          allowedTypes: [
+            "ship"
+          ]
+        },
+
+        defender: {
+
+          allowedTypes: [
+            "ship",
+            "defense"
+          ]
+        }
+      };
+
+      function getAvailableUnits(
+        prefix
+      ) {
+
+        return shipRegistry.filter(
+
+          unit =>
+
+            factionRules[
+              prefix
+            ]
+              .allowedTypes
+              .includes(
+                unit.type
+              )
+        );
+      }
       function createUnitInput(unit, container, prefix) {
         const row = document.createElement("div");
         row.className = "unit-row";
@@ -337,16 +368,64 @@
         container.appendChild(row);
       }
 
-      shipRegistry.forEach(unit => {
-        createUnitInput(unit, attackerFleet, "attacker");
-        createUnitInput(unit, defenderFleet, "defender");
-      });
+      for (
+        const unit
+        of getAvailableUnits(
+          "attacker"
+        )
+      ) {
 
-      function buildFleet(prefix) {
-        return shipRegistry.map(unit => ({
-          unitTypeId: unit.unitTypeId,
-          count: parseInt(document.getElementById(`${prefix}_${unit.unitTypeId}`).value || 0)
-        })).filter(unit => unit.count > 0);
+        createUnitInput(
+          unit,
+          attackerFleet,
+          "attacker"
+        );
+      }
+
+      for (
+        const unit
+        of getAvailableUnits(
+          "defender"
+        )
+      ) {
+
+        createUnitInput(
+          unit,
+          defenderFleet,
+          "defender"
+        );
+      }
+
+      function buildFleet(
+        prefix
+      ) {
+
+        return getAvailableUnits(
+          prefix
+        )
+          .map(unit => ({
+
+            unitTypeId:
+              unit.unitTypeId,
+
+            count:
+              parseInt(
+
+                document
+                  .getElementById(
+
+                    `${prefix}_${unit.unitTypeId}`
+
+                  )
+                  .value || 0
+              )
+          }))
+          .filter(
+
+            unit =>
+
+              unit.count > 0
+          );
       }
 
       function renderAnalysis(report) {
@@ -518,8 +597,9 @@
           });
         });
       }
-      document.getElementById("calculateBtn").addEventListener("click", () => {
 
+      document.getElementById("calculateBtn").addEventListener("click", () => {
+        console.log("BUTTON CLICK");
         const combatRequest = {
 
           attacker:
