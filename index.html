@@ -345,11 +345,50 @@
         })).filter(unit => unit.count > 0);
       }
 
+      function renderAnalysis(report) {
 
-      // battleReport mock removed
+        const container =
+          document.getElementById(
+            "combatAnalysis"
+          );
+
+        container.innerHTML = "";
+
+        const stats =
+          report.analysis?.counterStats || [];
+
+        if (stats.length === 0) {
+
+          container.innerHTML =
+            "Keine Analyse verfügbar";
+
+          return;
+        }
+
+        stats.forEach(stat => {
+
+          const row =
+            document.createElement("div");
+
+          row.className =
+            "fleet-state-row";
+
+          row.innerHTML = `
+            <strong>${stat.sourceUnitName}</strong>
+            →
+            ${stat.targetUnitName}
+            <br>
+            Counter x${stat.multiplier}
+        `;
+
+          container.appendChild(
+            row
+          );
+        });
+      }
 
       function renderBattleReport(report) {
-        console.log(report);
+
         document.getElementById("winner").textContent = report.overview.winner;
         document.getElementById("combatId").textContent = report.overview.combatId;
 
@@ -370,6 +409,7 @@
           report.combatLog?.rounds?.length || 0;
 
         renderCombatLog(report);
+        renderAnalysis(report);
 
         renderFleet("attackerFleetState", a.units);
         renderFleet("defenderFleetState", d.units);
