@@ -253,7 +253,8 @@
       <h2>Kampfanalyse</h2>
 
       <div class="card">
-        Noch nicht implementiert
+        id="combatAnalysis"
+        class="card">
       </div>
 
       <h2>Combat Log</h2>
@@ -558,7 +559,47 @@
 
             defenderFleet
           });
+        function renderAnalysis(report) {
 
+          const container =
+            document.getElementById(
+              "combatAnalysis"
+            );
+
+          container.innerHTML = "";
+
+          const stats =
+            report.analysis?.counterStats || [];
+
+          if (stats.length === 0) {
+
+            container.innerHTML =
+              "Keine Analyse verfügbar";
+
+            return;
+          }
+
+          stats.forEach(stat => {
+
+            const row =
+              document.createElement("div");
+
+            row.className =
+              "fleet-state-row";
+
+            row.innerHTML = `
+            <strong>${stat.sourceUnitName}</strong>
+            →
+            ${stat.targetUnitName}
+            <br>
+            Counter x${stat.multiplier}
+        `;
+
+            container.appendChild(
+              row
+            );
+          });
+        }
         const resolver =
           new CombatResolver();
 
