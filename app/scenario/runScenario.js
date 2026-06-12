@@ -6,6 +6,10 @@ import fs from "fs";
 import executeScenario
     from "./executeScenario.js";
 
+import buildBattleReport
+    from "../../report/builders/BattleReportBuilder.js";
+
+
 const domain =
     process.argv[2];
 
@@ -61,6 +65,23 @@ const result =
     executeScenario(
         scenario
     );
+
+const battleReport =
+    buildBattleReport(
+        result
+    );
+
+console.log(
+
+    JSON.stringify(
+
+        battleReport,
+
+        null,
+
+        2
+    )
+);
 
 console.log(
 

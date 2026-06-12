@@ -8,7 +8,7 @@ class CombatLogData {
 
         rounds = []
 
-    } = {}) {
+    }) {
 
         this.rounds =
             rounds;

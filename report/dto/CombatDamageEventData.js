@@ -6,21 +6,56 @@ class CombatDamageEventData {
 
     constructor({
 
+        hpDamage,
+
+        sourceRuntimeUnitId,
+
+        sourceFleet,
+
         sourceUnitTypeId,
 
         sourceUnitName,
+
+        targetRuntimeUnitId,
+
+        targetFleet,
 
         targetUnitTypeId,
 
         targetUnitName,
 
-        multiplier,
+        attackChainStep,
+
+        targetPriority,
+
+        targetHpBefore,
+
+        targetRemainingHp,
+
+        baseDamage,
+
+        damageMultiplier,
+
+        finalDamage,
 
         appliedDamage,
 
-        targetDestroyed
+        overflowDamage,
+
+        targetDestroyed,
+
+        damageExplain
 
     } = {}) {
+
+        this.hpDamage =
+            hpDamage;
+
+        this.sourceRuntimeUnitId =
+            sourceRuntimeUnitId;
+
+        this.sourceFleet =
+            sourceFleet;
 
         this.sourceUnitTypeId =
             sourceUnitTypeId;
@@ -28,20 +63,50 @@ class CombatDamageEventData {
         this.sourceUnitName =
             sourceUnitName;
 
+        this.targetRuntimeUnitId =
+            targetRuntimeUnitId;
+
+        this.targetFleet =
+            targetFleet;
+
         this.targetUnitTypeId =
             targetUnitTypeId;
 
         this.targetUnitName =
             targetUnitName;
 
-        this.multiplier =
-            multiplier;
+        this.attackChainStep =
+            attackChainStep;
+
+        this.targetPriority =
+            targetPriority;
+
+        this.targetHpBefore =
+            targetHpBefore;
+
+        this.targetRemainingHp =
+            targetRemainingHp;
+
+        this.baseDamage =
+            baseDamage;
+
+        this.damageMultiplier =
+            damageMultiplier;
+
+        this.finalDamage =
+            finalDamage;
 
         this.appliedDamage =
             appliedDamage;
 
+        this.overflowDamage =
+            overflowDamage;
+
         this.targetDestroyed =
             targetDestroyed;
+
+        this.damageExplain =
+            damageExplain;
     }
 }
 

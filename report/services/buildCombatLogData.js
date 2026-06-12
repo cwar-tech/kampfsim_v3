@@ -2,127 +2,194 @@
 // report/services/buildCombatLogData.js
 // ==================================================
 
+import getReportShipData
+    from "./getReportShipData.js";
+
 import CombatLogData
     from "../dto/CombatLogData.js";
 
 import CombatRoundData
     from "../dto/CombatRoundData.js";
 
+import CombatAttackerData
+    from "../dto/CombatAttackerData.js";
+
 import CombatDamageEventData
     from "../dto/CombatDamageEventData.js";
-
-import getReportShipData
-    from "./getReportShipData.js";
 
 function buildCombatLogData(
     combatResult
 ) {
 
-    const rounds =
-        combatResult.rounds.map(
+    const rounds = [];
 
-            round =>
+    for (
+        const round
+        of combatResult.rounds
+    ) {
 
-                new CombatRoundData({
+        const attackerMap =
+            new Map();
 
-                    roundNumber:
-                        round.roundNumber,
+        for (
+            const event
+            of round.damageEvents
+        ) {
 
-                    damageEvents:
-                        buildDamageEvents(
-                            combatResult,
-                            round
-                        )
-                })
+            const key =
+                event.sourceRuntimeUnitId;
+
+            const sourceShip =
+                getReportShipData(
+                    event.sourceUnitTypeId
+                );
+
+            const targetShip =
+                getReportShipData(
+                    event.targetUnitTypeId
+                );
+
+            if (
+                !attackerMap.has(key)
+            ) {
+
+                attackerMap.set(
+
+                    key,
+
+                    new CombatAttackerData({
+
+                        sourceRuntimeUnitId:
+                            event.sourceRuntimeUnitId,
+
+                        sourceUnitTypeId:
+                            event.sourceUnitTypeId,
+
+                        sourceUnitName:
+                            sourceShip.name,
+
+                        attacks: []
+                    })
+                );
+            }
+
+            attackerMap
+                .get(key)
+                .attacks
+                .push(
+
+                    new CombatDamageEventData({
+
+                        sourceRuntimeUnitId:
+                            event.sourceRuntimeUnitId,
+
+                        sourceFleet:
+                            event.sourceFleet,
+
+                        sourceUnitTypeId:
+                            event.sourceUnitTypeId,
+
+                        sourceUnitName:
+                            sourceShip.name,
+
+                        targetRuntimeUnitId:
+                            event.targetRuntimeUnitId,
+
+                        targetFleet:
+                            event.targetFleet,
+
+                        targetUnitTypeId:
+                            event.targetUnitTypeId,
+
+                        targetUnitName:
+                            targetShip.name,
+
+                        attackChainStep:
+                            event.attackChainStep,
+
+                        targetPriority:
+                            event.targetPriority,
+
+                        targetHpBefore:
+                            event.targetHpBefore,
+
+                        targetRemainingHp:
+                            event.targetRemainingHp,
+
+                        hpDamage:
+
+                            (event.targetHpBefore ?? 0) -
+
+                            (event.targetRemainingHp ?? 0),
+
+                        baseDamage:
+                            event.baseDamage,
+
+                        damageMultiplier:
+                            event.damageMultiplier,
+
+                        finalDamage:
+                            event.finalDamage,
+
+                        appliedDamage:
+                            event.appliedDamage,
+
+                        overflowDamage:
+                            event.overflowDamage,
+
+                        targetDestroyed:
+                            event.targetDestroyed,
+
+                        damageExplain:
+                            event.damageExplain
+                    })
+                );
+        }
+
+        rounds.push(
+
+            new CombatRoundData({
+
+                roundNumber:
+                    round.roundNumber,
+
+                summary: {
+
+                    attackerDamageDealt:
+                        round.attackerDamageDealt,
+
+                    defenderDamageDealt:
+                        round.defenderDamageDealt,
+
+                    attackerDestroyedUnits:
+
+                        round
+                            .attackerDestroyedUnits
+                            ?.length || 0,
+
+                    defenderDestroyedUnits:
+
+                        round
+                            .defenderDestroyedUnits
+                            ?.length || 0
+                },
+
+                attackers:
+
+                    Array.from(
+                        attackerMap.values()
+                    ),
+
+                overflowEvents:
+                    round.overflowEvents
+            })
         );
+    }
 
     return new CombatLogData({
 
         rounds
     });
-}
-
-function buildDamageEvents(
-    combatResult,
-    round
-) {
-
-    return round.damageEvents.map(
-
-        event => {
-
-            const sourceUnit =
-                findUnitByRuntimeId(
-
-                    combatResult,
-
-                    event.sourceRuntimeUnitId
-                );
-
-            const targetUnit =
-                findUnitByRuntimeId(
-
-                    combatResult,
-
-                    event.targetRuntimeUnitId
-                );
-
-            const sourceShip =
-                getReportShipData(
-                    sourceUnit.unitTypeId
-                );
-
-            const targetShip =
-                getReportShipData(
-                    targetUnit.unitTypeId
-                );
-
-            return new CombatDamageEventData({
-
-                sourceUnitTypeId:
-                    sourceUnit.unitTypeId,
-
-                sourceUnitName:
-                    sourceShip.name,
-
-                targetUnitTypeId:
-                    targetUnit.unitTypeId,
-
-                targetUnitName:
-                    targetShip.name,
-
-                multiplier:
-                    event.damageMultiplier,
-
-                appliedDamage:
-                    event.appliedDamage,
-
-                targetDestroyed:
-                    event.targetDestroyed
-            });
-        }
-    );
-}
-
-function findUnitByRuntimeId(
-    combatResult,
-    runtimeUnitId
-) {
-
-    const units = [
-
-        ...combatResult.attackerFleet.units,
-
-        ...combatResult.defenderFleet.units
-    ];
-
-    return units.find(
-
-        unit =>
-
-            unit.runtimeUnitId ===
-            runtimeUnitId
-    );
 }
 
 export default

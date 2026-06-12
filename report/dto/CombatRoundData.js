@@ -8,15 +8,25 @@ class CombatRoundData {
 
         roundNumber,
 
-        damageEvents
+        summary,
 
-    } = {}) {
+        attackers = [],
+
+        overflowEvents = []
+
+    }) {
 
         this.roundNumber =
             roundNumber;
 
-        this.damageEvents =
-            damageEvents;
+        this.summary =
+            summary;
+
+        this.attackers =
+            attackers;
+
+        this.overflowEvents =
+            overflowEvents;
     }
 }
 
