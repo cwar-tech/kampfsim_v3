@@ -605,7 +605,9 @@ renderResolver(
           container.appendChild(row);
         });
       }
-
+let selectedRound =
+    1;
+    
       function renderCombatLog(report) {
 
         const roundList =
@@ -638,47 +640,68 @@ renderResolver(
           roundList.appendChild(
             roundItem
           );
+roundItem.addEventListener(
+    "click",
+    () => {
 
-          round.attackers.forEach(attacker => {
+        selectedRound =
+            round.roundNumber;
 
-            const attackerRow =
-              document.createElement("div");
+        renderCombatLog(
+            report
+        );
+    }
+);
+if (
+    round.roundNumber !==
+    selectedRound
+) {
 
-            attackerRow.className =
-              "fleet-state-row";
+    return;
+}
 
-            attackerRow.innerHTML =
-              `<strong>${attacker.sourceUnitName}</strong>`;
+round.attackers.forEach(attacker => {
 
-            combatLogEvents.appendChild(
-              attackerRow
+    const attackerRow =
+        document.createElement(
+            "div"
+        );
+
+    attackerRow.className =
+        "fleet-state-row";
+
+    attackerRow.innerHTML =
+        `<strong>${attacker.sourceUnitName}</strong>`;
+
+    combatLogEvents.appendChild(
+        attackerRow
+    );
+
+    attacker.attacks.forEach(attack => {
+
+        const row =
+            document.createElement(
+                "div"
             );
 
-            attacker.attacks.forEach(attack => {
+        row.className =
+            "fleet-state-row";
 
-              const row =
-                document.createElement("div");
+        row.style.paddingLeft =
+            "20px";
 
-              row.className =
-                "fleet-state-row";
+        row.innerHTML = `
+            → ${attack.targetUnitName}
+            | Schaden ${attack.hpDamage.toLocaleString()}
+            | x${attack.damageMultiplier}
+            | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
+        `;
 
-              row.style.paddingLeft =
-                "20px";
-
-              row.innerHTML =
-
-                `
-                    → ${attack.targetUnitName}
-                    | Schaden ${attack.hpDamage.toLocaleString()}
-                    | x${attack.damageMultiplier}
-                    | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
-                    `;
-
-              combatLogEvents.appendChild(
-                row
-              );
-            });
-          });
+        combatLogEvents.appendChild(
+            row
+        );
+    });
+});
         });
       }
 
