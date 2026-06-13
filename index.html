@@ -20,6 +20,18 @@
       padding: 16px;
     }
 
+    .attack-expanded {
+
+      border-left:
+        4px solid #4caf50;
+
+      background:
+        rgba(76,
+          175,
+          80,
+          0.12);
+    }
+
     h1 {
       text-align: center;
       margin-bottom: 20px;
@@ -33,6 +45,21 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 20px;
+    }
+
+    .active-round {
+
+      border-left:
+        5px solid #4caf50;
+
+      background:
+        rgba(76,
+          175,
+          80,
+          0.15);
+
+      font-weight:
+        bold;
     }
 
     @media(min-width:1000px) {
@@ -427,62 +454,62 @@
               unit.count > 0
           );
       }
-function renderResolver(
-    report
-) {
+      function renderResolver(
+        report
+      ) {
 
-    const container =
-        document.getElementById(
+        const container =
+          document.getElementById(
             "technicalResolver"
-        );
+          );
 
-    container.innerHTML = "";
+        container.innerHTML = "";
 
-    const rounds =
-        report.combatLog?.rounds || [];
+        const rounds =
+          report.combatLog?.rounds || [];
 
-    let damageEvents = 0;
-    let overflowEvents = 0;
-    let attackerDestroyed = 0;
-    let defenderDestroyed = 0;
+        let damageEvents = 0;
+        let overflowEvents = 0;
+        let attackerDestroyed = 0;
+        let defenderDestroyed = 0;
 
-    for (
-        const round
-        of rounds
-    ) {
+        for (
+          const round
+          of rounds
+        ) {
 
-        damageEvents +=
+          damageEvents +=
             round.attackers
-                ?.reduce(
+              ?.reduce(
 
-                    (
-                        total,
-                        attacker
-                    ) =>
+                (
+                  total,
+                  attacker
+                ) =>
 
-                        total +
-                        (
-                            attacker.attacks
-                                ?.length || 0
-                        ),
+                  total +
+                  (
+                    attacker.attacks
+                      ?.length || 0
+                  ),
 
-                    0
-                ) || 0;
+                0
+              ) || 0;
 
-        overflowEvents +=
+          overflowEvents +=
             round.overflowEvents
-                ?.length || 0;
+              ?.length || 0;
 
-        attackerDestroyed +=
+          attackerDestroyed +=
             round.summary
-                ?.attackerDestroyedUnits || 0;
+              ?.attackerDestroyedUnits || 0;
 
-        defenderDestroyed +=
+          defenderDestroyed +=
             round.summary
-                ?.defenderDestroyedUnits || 0;
-    }
+              ?.defenderDestroyedUnits || 0;
+        }
 
-    container.innerHTML = `
+        container.innerHTML = `
 
         <div class="fleet-state-row">
             Damage Events
@@ -508,7 +535,7 @@ function renderResolver(
             ${defenderDestroyed}
         </div>
     `;
-}
+      }
       function renderAnalysis(report) {
 
         const container =
@@ -574,9 +601,9 @@ function renderResolver(
 
         renderCombatLog(report);
         renderAnalysis(report);
-renderResolver(
-    report
-);
+        renderResolver(
+          report
+        );
 
         renderFleet("attackerFleetState", a.units);
         renderFleet("defenderFleetState", d.units);
@@ -605,9 +632,9 @@ renderResolver(
           container.appendChild(row);
         });
       }
-let selectedRound =
-    1;
-    
+      let selectedRound =
+        1;
+
       function renderCombatLog(report) {
 
         const roundList =
@@ -633,132 +660,155 @@ let selectedRound =
 
           roundItem.className =
             "milestone";
+          if (
+            round.roundNumber ===
+            selectedRound
+          ) {
 
+            roundItem.classList.add(
+              "active-round"
+            );
+          }
           roundItem.textContent =
             `Runde ${round.roundNumber}`;
 
           roundList.appendChild(
             roundItem
           );
-roundItem.addEventListener(
-    "click",
-    () => {
+          roundItem.addEventListener(
+            "click",
+            () => {
 
-        selectedRound =
-            round.roundNumber;
+              selectedRound =
+                round.roundNumber;
 
-        renderCombatLog(
-            report
-        );
-    }
-);
-if (
-    round.roundNumber !==
-    selectedRound
-) {
+              renderCombatLog(
+                report
+              );
+            }
+          );
+          if (
+            round.roundNumber !==
+            selectedRound
+          ) {
 
-    return;
-}
+            return;
+          }
 
-round.attackers.forEach(attacker => {
+          round.attackers.forEach(attacker => {
 
-    const attackerRow =
-        document.createElement(
-            "div"
-        );
+            const attackerRow =
+              document.createElement(
+                "div"
+              );
 
-    attackerRow.className =
-        "fleet-state-row";
+            attackerRow.className =
+              "fleet-state-row";
 
-    attackerRow.innerHTML =
-        `<strong>${attacker.sourceUnitName}</strong>`;
+            attackerRow.innerHTML =
+              `<strong>${attacker.sourceUnitName}</strong>`;
 
-    combatLogEvents.appendChild(
-    row
-);
+            attacker.attacks.forEach(attack => {
 
-combatLogEvents.appendChild(
-    details
-);
+              const row =
+                document.createElement(
+                  "div"
+                );
 
-    attacker.attacks.forEach(attack => {
+              row.className =
+                "fleet-state-row";
 
-        const row =
-    document.createElement(
-        "div"
-    );
+              row.style.paddingLeft =
+                "20px";
 
-row.className =
-    "fleet-state-row";
+              row.style.cursor =
+                "pointer";
 
-row.style.paddingLeft =
-    "20px";
-
-row.style.cursor =
-    "pointer";
-
-row.innerHTML = `
+              row.innerHTML = `
     → ${attack.targetUnitName}
     | Schaden ${attack.hpDamage.toLocaleString()}
     | x${attack.damageMultiplier}
     | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
 `;
 
-const details =
-    document.createElement(
-        "div"
-    );
+              const details =
+                document.createElement(
+                  "div"
+                );
 
-details.className =
-    "fleet-state-row";
+              details.className =
+                "fleet-state-row";
 
-details.style.display =
-    "none";
+              details.style.display =
+                "none";
 
-details.style.marginLeft =
-    "40px";
+              details.style.marginLeft =
+                "40px";
 
-details.style.fontSize =
-    "12px";
-    
-    details.innerHTML =
-    attack.damageExplain
-        .map(step => {
+              details.style.fontSize =
+                "12px";
 
-            if (
-                step.multiplier
-            ) {
+              details.innerHTML =
+                attack.damageExplain
+                  .map(step => {
 
-                return `
+                    if (
+                      step.multiplier
+                    ) {
+
+                      return `
                     ${step.step}
                     :
                     x${step.multiplier}
                     →
                     ${step.result?.toLocaleString?.() || ""}
                 `;
-            }
+                    }
 
-            return `
+                    return `
                 ${step.step}
                 :
                 ${step.value?.toLocaleString?.() || ""}
             `;
-        })
-        .join("<br>");
-        
-        
-        row.addEventListener(
-    "click",
-    () => {
+                  })
+                  .join("<br>");
 
-        details.style.display =
-            details.style.display === "none"
-                ? "block"
-                : "none";
-    }
-);
-    });
-});
+
+              row.addEventListener(
+                "click",
+                () => {
+
+                  const expanded =
+                    details.style.display === "none";
+
+                  details.style.display =
+                    expanded
+                      ? "block"
+                      : "none";
+
+                  row.classList.toggle(
+                    "attack-expanded",
+                    expanded
+                  );
+
+                  row.innerHTML = `
+    ▶
+    ${attack.targetUnitName}
+    | Schaden ${attack.hpDamage.toLocaleString()}
+    | x${attack.damageMultiplier}
+    | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
+`;
+                }
+              );
+              combatLogEvents.appendChild(
+                row
+              );
+
+              combatLogEvents.appendChild(
+                details
+              );
+            });
+          });
         });
       }
 
