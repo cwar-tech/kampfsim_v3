@@ -427,7 +427,88 @@
               unit.count > 0
           );
       }
+function renderResolver(
+    report
+) {
 
+    const container =
+        document.getElementById(
+            "technicalResolver"
+        );
+
+    container.innerHTML = "";
+
+    const rounds =
+        report.combatLog?.rounds || [];
+
+    let damageEvents = 0;
+    let overflowEvents = 0;
+    let attackerDestroyed = 0;
+    let defenderDestroyed = 0;
+
+    for (
+        const round
+        of rounds
+    ) {
+
+        damageEvents +=
+            round.attackers
+                ?.reduce(
+
+                    (
+                        total,
+                        attacker
+                    ) =>
+
+                        total +
+                        (
+                            attacker.attacks
+                                ?.length || 0
+                        ),
+
+                    0
+                ) || 0;
+
+        overflowEvents +=
+            round.overflowEvents
+                ?.length || 0;
+
+        attackerDestroyed +=
+            round.summary
+                ?.attackerDestroyedUnits || 0;
+
+        defenderDestroyed +=
+            round.summary
+                ?.defenderDestroyedUnits || 0;
+    }
+
+    container.innerHTML = `
+
+        <div class="fleet-state-row">
+            Damage Events
+            <br>
+            ${damageEvents}
+        </div>
+
+        <div class="fleet-state-row">
+            Overflow Events
+            <br>
+            ${overflowEvents}
+        </div>
+
+        <div class="fleet-state-row">
+            Attacker Destroyed
+            <br>
+            ${attackerDestroyed}
+        </div>
+
+        <div class="fleet-state-row">
+            Defender Destroyed
+            <br>
+            ${defenderDestroyed}
+        </div>
+    `;
+}
       function renderAnalysis(report) {
 
         const container =
@@ -493,6 +574,9 @@
 
         renderCombatLog(report);
         renderAnalysis(report);
+renderResolver(
+    report
+);
 
         renderFleet("attackerFleetState", a.units);
         renderFleet("defenderFleetState", d.units);
