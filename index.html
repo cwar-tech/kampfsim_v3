@@ -674,32 +674,89 @@ round.attackers.forEach(attacker => {
         `<strong>${attacker.sourceUnitName}</strong>`;
 
     combatLogEvents.appendChild(
-        attackerRow
-    );
+    row
+);
+
+combatLogEvents.appendChild(
+    details
+);
 
     attacker.attacks.forEach(attack => {
 
         const row =
-            document.createElement(
-                "div"
-            );
+    document.createElement(
+        "div"
+    );
 
-        row.className =
-            "fleet-state-row";
+row.className =
+    "fleet-state-row";
 
-        row.style.paddingLeft =
-            "20px";
+row.style.paddingLeft =
+    "20px";
 
-        row.innerHTML = `
-            → ${attack.targetUnitName}
-            | Schaden ${attack.hpDamage.toLocaleString()}
-            | x${attack.damageMultiplier}
-            | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
-        `;
+row.style.cursor =
+    "pointer";
 
-        combatLogEvents.appendChild(
-            row
-        );
+row.innerHTML = `
+    → ${attack.targetUnitName}
+    | Schaden ${attack.hpDamage.toLocaleString()}
+    | x${attack.damageMultiplier}
+    | ${attack.targetDestroyed ? "ZERSTÖRT" : "GETROFFEN"}
+`;
+
+const details =
+    document.createElement(
+        "div"
+    );
+
+details.className =
+    "fleet-state-row";
+
+details.style.display =
+    "none";
+
+details.style.marginLeft =
+    "40px";
+
+details.style.fontSize =
+    "12px";
+    
+    details.innerHTML =
+    attack.damageExplain
+        .map(step => {
+
+            if (
+                step.multiplier
+            ) {
+
+                return `
+                    ${step.step}
+                    :
+                    x${step.multiplier}
+                    →
+                    ${step.result?.toLocaleString?.() || ""}
+                `;
+            }
+
+            return `
+                ${step.step}
+                :
+                ${step.value?.toLocaleString?.() || ""}
+            `;
+        })
+        .join("<br>");
+        
+        
+        row.addEventListener(
+    "click",
+    () => {
+
+        details.style.display =
+            details.style.display === "none"
+                ? "block"
+                : "none";
+    }
+);
     });
 });
         });
